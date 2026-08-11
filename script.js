@@ -203,6 +203,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Hire / Recruitment Modal Logic
+  const hireModal = document.getElementById('hire-modal');
+  const closeHireModal = document.getElementById('close-hire-modal');
+  const hireNavBtn = document.getElementById('hire-btn-nav');
+  const hireHeroBtn = document.getElementById('open-hire-hero');
+  const hireFooterBtn = document.getElementById('open-hire-footer');
+
+  function openHireModal() {
+    if (hireModal) {
+      playSciFiSound(800, 'sine');
+      hireModal.classList.add('active');
+    }
+  }
+
+  function closeHireModalFunc() {
+    if (hireModal) hireModal.classList.remove('active');
+  }
+
+  if (hireNavBtn) hireNavBtn.addEventListener('click', openHireModal);
+  if (hireHeroBtn) hireHeroBtn.addEventListener('click', openHireModal);
+  if (hireFooterBtn) hireFooterBtn.addEventListener('click', openHireModal);
+  if (closeHireModal) closeHireModal.addEventListener('click', closeHireModalFunc);
+  if (hireModal) {
+    hireModal.addEventListener('click', (e) => {
+      if (e.target === hireModal) closeHireModalFunc();
+    });
+  }
+
   // 4. Live Tehran Clock Ticker
   function updateTehranClock() {
     const clockEl = document.getElementById('live-tehran-clock');
@@ -458,7 +486,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const action = item.getAttribute('data-action');
       const target = item.getAttribute('data-target');
 
-      if (action === 'ai') {
+      if (action === 'hire') {
+        closeCmdPalette();
+        openHireModal();
+      } else if (action === 'ai') {
         closeCmdPalette();
         openAiModal();
       } else if (action === 'goto') {

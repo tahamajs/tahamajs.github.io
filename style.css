@@ -146,6 +146,23 @@ body {
 .nav-links a:hover { color: var(--cyan); }
 .nav-resume-btn { background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan) !important; padding: 0.4rem 1rem; border-radius: 99px; font-weight: 600; }
 .nav-resume-btn:hover { background: var(--cyan); color: var(--bg-dark) !important; }
+.nav-hire-btn { background: linear-gradient(135deg, var(--cyan), var(--purple)); border: none; color: var(--bg-dark); padding: 0.4rem 1.1rem; border-radius: 99px; font-weight: 700; font-family: inherit; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.nav-hire-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+
+/* Recruitment Matrix Grid */
+.recruitment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.recruit-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; backdrop-filter: blur(20px); transition: border-color 0.3s, transform 0.2s; }
+.recruit-card:hover { border-color: var(--cyan); transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15); }
+.recruit-icon { width: 50px; height: 50px; border-radius: 14px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; }
+.recruit-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.6rem; }
+.recruit-card p { color: var(--text-gray); font-size: 0.92rem; line-height: 1.6; }
+
+/* Email Templates in Modal */
+.template-box { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1rem; }
+.template-item { background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; cursor: pointer; transition: all 0.2s; }
+.template-item:hover { border-color: var(--cyan); background: rgba(0, 240, 255, 0.05); }
+.template-item b { color: var(--cyan); font-size: 0.95rem; }
+.template-item p { font-size: 0.85rem; color: var(--text-gray); margin-top: 4px; }
 .nav-btn { background: rgba(255, 255, 255, 0.1); padding: 0.5rem 1.2rem; border-radius: 99px; border: 1px solid var(--border-color); transition: all 0.3s; }
 .nav-btn:hover { background: var(--text-light); color: var(--bg-dark) !important; }
 
