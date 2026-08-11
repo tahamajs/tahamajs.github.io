@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react21 = __toESM(require_react_shim());
+  var import_react22 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react20 = __toESM(require_react_shim());
+  var import_react21 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -312,6 +312,36 @@
     }, title: "1-Click Copy Email" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope" }), " ", /* @__PURE__ */ React.createElement("span", null, "Copy Email")), /* @__PURE__ */ React.createElement("a", { href: "https://t.me/tahamajlesii", target: "_blank", className: "floating-contact-btn", onClick: () => beep?.(), title: "Instant Telegram Chat" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-telegram-plane" }), " ", /* @__PURE__ */ React.createElement("span", null, "Telegram")), /* @__PURE__ */ React.createElement("a", { href: "https://instagram.com/hooshaaii", target: "_blank", className: "floating-contact-btn", onClick: () => beep?.(), title: "Instagram @hooshaaii" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-instagram" }), " ", /* @__PURE__ */ React.createElement("span", null, "Instagram"))));
   }
 
+  // src/components/ui/GameHUDHeader.jsx
+  var import_react3 = __toESM(require_react_shim());
+  function GameHUDHeader({ onOpenQuest, beep }) {
+    const [xp, setXp] = (0, import_react3.useState)(4850);
+    const [level, setLevel] = (0, import_react3.useState)(12);
+    const [questOpen, setQuestOpen] = (0, import_react3.useState)(false);
+    const [quests, setQuests] = (0, import_react3.useState)([
+      { id: "cli", text: "Launch Terminal Shell (\u2318J)", done: true, xp: 200 },
+      { id: "nn", text: "Train 2D Neural Network Classifier", done: true, xp: 300 },
+      { id: "paper", text: "Read Math Formulation in Paper Reader", done: false, xp: 250 },
+      { id: "arcade", text: "Score 1,000+ FLOPS in Cyberpunk Arcade", done: false, xp: 500 },
+      { id: "contact", text: "Send Collaboration Proposal or Copy Email", done: false, xp: 400 }
+    ]);
+    const toggleQuest = (id) => {
+      setQuests((prev) => prev.map((q) => {
+        if (q.id === id && !q.done) {
+          beep?.(880, "sine");
+          setXp((x) => x + q.xp);
+          return { ...q, done: true };
+        }
+        return q;
+      }));
+    };
+    const completedCount = quests.filter((q) => q.done).length;
+    return /* @__PURE__ */ React.createElement("div", { className: "game-hud-bar" }, /* @__PURE__ */ React.createElement("div", { className: "hud-pill", onClick: () => {
+      setQuestOpen(!questOpen);
+      beep?.(700);
+    } }, /* @__PURE__ */ React.createElement("span", { className: "hud-avatar" }, "\u{1F916}"), /* @__PURE__ */ React.createElement("div", { className: "hud-info" }, /* @__PURE__ */ React.createElement("div", { className: "hud-title" }, "LVL ", level, " TAHA-ARCHITECT"), /* @__PURE__ */ React.createElement("div", { className: "hud-xp-bar" }, /* @__PURE__ */ React.createElement("div", { className: "hud-xp-fill", style: { width: `${Math.min(100, xp / 5e3 * 100)}%` } }))), /* @__PURE__ */ React.createElement("span", { className: "hud-quest-badge" }, "\u{1F4DC} Quests: ", completedCount, "/", quests.length)), questOpen && /* @__PURE__ */ React.createElement("div", { className: "quest-log-dropdown" }, /* @__PURE__ */ React.createElement("div", { className: "quest-log-header" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-scroll", style: { color: "var(--accent)" } }), " Quest Log & Achievements"), /* @__PURE__ */ React.createElement("div", { className: "quest-list" }, quests.map((q) => /* @__PURE__ */ React.createElement("div", { key: q.id, className: `quest-item ${q.done ? "done" : ""}`, onClick: () => toggleQuest(q.id) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${q.done ? "fa-check-circle" : "fa-circle"}`, style: { color: q.done ? "var(--emerald)" : "var(--muted)" } }), /* @__PURE__ */ React.createElement("span", null, q.text), /* @__PURE__ */ React.createElement("span", { className: "quest-xp" }, "+", q.xp, " XP"))))));
+  }
+
   // src/data/constants.js
   var TAGS = [
     "Flow Matching ODEs",
@@ -444,7 +474,7 @@
   }
 
   // src/components/sections/AchievementsSection.jsx
-  var import_react3 = __toESM(require_react_shim());
+  var import_react4 = __toESM(require_react_shim());
 
   // src/components/ui/SectionHead.jsx
   function SectionHead({ tag, title, sub }) {
@@ -453,11 +483,11 @@
 
   // src/components/sections/AchievementsSection.jsx
   function CountUp({ target, running }) {
-    const [val, setVal] = (0, import_react3.useState)(0);
+    const [val, setVal] = (0, import_react4.useState)(0);
     const isNum = !isNaN(parseInt(target));
     const numeric = parseInt(target);
     const suffix = isNum ? target.replace(numeric, "") : "";
-    (0, import_react3.useEffect)(() => {
+    (0, import_react4.useEffect)(() => {
       if (!running || !isNum) return;
       let start = 0;
       const step = Math.ceil(numeric / 60);
@@ -474,9 +504,9 @@
     return /* @__PURE__ */ React.createElement("span", null, val.toLocaleString(), suffix);
   }
   function AchievementsSection() {
-    const ref = (0, import_react3.useRef)(null);
-    const [visible, setVisible] = (0, import_react3.useState)(false);
-    (0, import_react3.useEffect)(() => {
+    const ref = (0, import_react4.useRef)(null);
+    const [visible, setVisible] = (0, import_react4.useState)(false);
+    (0, import_react4.useEffect)(() => {
       const observer = new IntersectionObserver(([e]) => {
         if (e.isIntersecting) setVisible(true);
       }, { threshold: 0.2 });
@@ -494,7 +524,7 @@
   }
 
   // src/components/sections/ConstellationSection.jsx
-  var import_react4 = __toESM(require_react_shim());
+  var import_react5 = __toESM(require_react_shim());
   var EDGES = [
     ["core", "hoosha"],
     ["core", "ut"],
@@ -517,10 +547,10 @@
     research: "#f43f5e"
   };
   function ConstellationSection({ beep }) {
-    const [active, setActive] = (0, import_react4.useState)(null);
-    const [dims, setDims] = (0, import_react4.useState)({ w: 700, h: 400 });
-    const ref = (0, import_react4.useRef)(null);
-    (0, import_react4.useEffect)(() => {
+    const [active, setActive] = (0, import_react5.useState)(null);
+    const [dims, setDims] = (0, import_react5.useState)({ w: 700, h: 400 });
+    const ref = (0, import_react5.useRef)(null);
+    (0, import_react5.useEffect)(() => {
       const update = () => {
         if (ref.current) setDims({ w: ref.current.offsetWidth, h: ref.current.offsetHeight });
       };
@@ -619,11 +649,11 @@
   }
 
   // src/components/sections/ContributionGraph.jsx
-  var import_react5 = __toESM(require_react_shim());
+  var import_react6 = __toESM(require_react_shim());
   function ContributionGraph() {
     const weeks = 52;
     const daysPerWeek = 7;
-    const grid = (0, import_react5.useMemo)(() => {
+    const grid = (0, import_react6.useMemo)(() => {
       const data = [];
       for (let w = 0; w < weeks; w++) {
         const week = [];
@@ -651,7 +681,7 @@
   }
 
   // src/components/sections/SkillsSection.jsx
-  var import_react6 = __toESM(require_react_shim());
+  var import_react7 = __toESM(require_react_shim());
   var PROFICIENCY = {
     "Python": 97,
     "C++ 20": 88,
@@ -692,18 +722,18 @@
     "Verilog RTL": 65
   };
   function AnimatedBar({ pct, running, color }) {
-    const [w, setW] = (0, import_react6.useState)(0);
-    (0, import_react6.useEffect)(() => {
+    const [w, setW] = (0, import_react7.useState)(0);
+    (0, import_react7.useEffect)(() => {
       if (running) setTimeout(() => setW(pct), 100);
     }, [running, pct]);
     return /* @__PURE__ */ React.createElement("div", { className: "skill-bar-bg" }, /* @__PURE__ */ React.createElement("div", { className: "skill-bar-fill", style: { width: `${w}%`, background: color, transition: "width 0.8s cubic-bezier(.4,0,.2,1)" } }));
   }
   var CAT_COLORS = ["#00f0ff", "#8a2be2", "#10b981", "#f59e0b", "#f43f5e", "#60a5fa"];
   function SkillsSection() {
-    const ref = (0, import_react6.useRef)(null);
-    const [visible, setVisible] = (0, import_react6.useState)(false);
-    const [activeTab, setActiveTab] = (0, import_react6.useState)(0);
-    (0, import_react6.useEffect)(() => {
+    const ref = (0, import_react7.useRef)(null);
+    const [visible, setVisible] = (0, import_react7.useState)(false);
+    const [activeTab, setActiveTab] = (0, import_react7.useState)(0);
+    (0, import_react7.useEffect)(() => {
       const observer = new IntersectionObserver(([e]) => {
         if (e.isIntersecting) setVisible(true);
       }, { threshold: 0.1 });
@@ -724,7 +754,7 @@
   }
 
   // src/components/sections/CodeSandboxSection.jsx
-  var import_react7 = __toESM(require_react_shim());
+  var import_react8 = __toESM(require_react_shim());
 
   // src/data/codeSnippets.js
   var CODE_TABS = {
@@ -964,8 +994,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
 
   // src/components/sections/CodeSandboxSection.jsx
   function FlowMatchingVis({ playing, steps, solver, targetShape, noiseScale }) {
-    const canvasRef = (0, import_react7.useRef)(null);
-    (0, import_react7.useEffect)(() => {
+    const canvasRef = (0, import_react8.useRef)(null);
+    (0, import_react8.useEffect)(() => {
       const ctx = canvasRef.current?.getContext("2d");
       if (!ctx) return;
       let W = 380, H = 220;
@@ -1026,8 +1056,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     return /* @__PURE__ */ React.createElement("div", { className: "vis-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "Flow Field (", solver, " ODE \xB7 ", steps, " steps)"), /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { width: "100%", height: "220px" } }));
   }
   function GRPOVis({ playing, groupSize, klCoeff }) {
-    const [step, setStep] = (0, import_react7.useState)(0);
-    (0, import_react7.useEffect)(() => {
+    const [step, setStep] = (0, import_react8.useState)(0);
+    (0, import_react8.useEffect)(() => {
       if (!playing) {
         setStep(0);
         return;
@@ -1059,8 +1089,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     } })), step >= 3 && /* @__PURE__ */ React.createElement("span", { style: { fontSize: "10px", fontWeight: "bold", color: r.isPos ? "var(--emerald)" : "var(--rose)", width: "45px", fontFamily: "monospace" } }, r.isPos ? "+Adv" : "-Adv")))));
   }
   function CUDAReductionVis({ playing, blockSize, precision }) {
-    const [step, setStep] = (0, import_react7.useState)(0);
-    (0, import_react7.useEffect)(() => {
+    const [step, setStep] = (0, import_react8.useState)(0);
+    (0, import_react8.useEffect)(() => {
       if (!playing) {
         setStep(0);
         return;
@@ -1088,21 +1118,21 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
     const tabs = Object.keys(CODE_TABS);
     const data = CODE_TABS[activeTab];
-    const [playing, setPlaying] = (0, import_react7.useState)(false);
-    const [fullScreen, setFullScreen] = (0, import_react7.useState)(false);
-    const [steps, setSteps] = (0, import_react7.useState)(20);
-    const [solver, setSolver] = (0, import_react7.useState)("Euler");
-    const [targetShape, setTargetShape] = (0, import_react7.useState)("circle");
-    const [noiseScale, setNoiseScale] = (0, import_react7.useState)(0.01);
-    const [groupSize, setGroupSize] = (0, import_react7.useState)(8);
-    const [klCoeff, setKlCoeff] = (0, import_react7.useState)(0.04);
-    const [blockSize, setBlockSize] = (0, import_react7.useState)(256);
-    const [precision, setPrecision] = (0, import_react7.useState)("FP16");
-    const [rank, setRank] = (0, import_react7.useState)(64);
-    const [seqLen, setSeqLen] = (0, import_react7.useState)(4096);
-    const [threshold, setThreshold] = (0, import_react7.useState)(12);
-    const [numNodes, setNumNodes] = (0, import_react7.useState)(16);
-    (0, import_react7.useEffect)(() => {
+    const [playing, setPlaying] = (0, import_react8.useState)(false);
+    const [fullScreen, setFullScreen] = (0, import_react8.useState)(false);
+    const [steps, setSteps] = (0, import_react8.useState)(20);
+    const [solver, setSolver] = (0, import_react8.useState)("Euler");
+    const [targetShape, setTargetShape] = (0, import_react8.useState)("circle");
+    const [noiseScale, setNoiseScale] = (0, import_react8.useState)(0.01);
+    const [groupSize, setGroupSize] = (0, import_react8.useState)(8);
+    const [klCoeff, setKlCoeff] = (0, import_react8.useState)(0.04);
+    const [blockSize, setBlockSize] = (0, import_react8.useState)(256);
+    const [precision, setPrecision] = (0, import_react8.useState)("FP16");
+    const [rank, setRank] = (0, import_react8.useState)(64);
+    const [seqLen, setSeqLen] = (0, import_react8.useState)(4096);
+    const [threshold, setThreshold] = (0, import_react8.useState)(12);
+    const [numNodes, setNumNodes] = (0, import_react8.useState)(16);
+    (0, import_react8.useEffect)(() => {
       setPlaying(false);
       setRunOutput("");
     }, [activeTab, setRunOutput]);
@@ -1156,7 +1186,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/sections/ProjectsSection.jsx
-  var import_react8 = __toESM(require_react_shim());
+  var import_react9 = __toESM(require_react_shim());
   function ProjectsSection({ repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }) {
     return /* @__PURE__ */ React.createElement("section", { id: "projects", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
@@ -1348,7 +1378,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/sections/ContactSection.jsx
-  var import_react9 = __toESM(require_react_shim());
+  var import_react10 = __toESM(require_react_shim());
   var CONTACTS = [
     { icon: "fab fa-github", href: "https://github.com/tahamajs", label: "GitHub", val: "@tahamajs", color: "#fff" },
     { icon: "fab fa-linkedin-in", href: "https://linkedin.com/in/tahamajlesi", label: "LinkedIn", val: "17.1k Followers", color: "#0a66c2" },
@@ -1360,7 +1390,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     { icon: "fas fa-heart", href: "https://github.com/sponsors/tahamajs", label: "Sponsor", val: "Fund the mission", color: "#ea4aaa" }
   ];
   function ContactSection({ onHire, beep }) {
-    const [copied, setCopied] = (0, import_react9.useState)(false);
+    const [copied, setCopied] = (0, import_react10.useState)(false);
     const copyEmail = () => {
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       setCopied(true);
@@ -1449,13 +1479,13 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/sections/GpuTelemetrySection.jsx
-  var import_react10 = __toESM(require_react_shim());
+  var import_react11 = __toESM(require_react_shim());
   function GpuTelemetrySection() {
-    const [history, setHistory] = (0, import_react10.useState)(() => Array(20).fill(70));
-    const [flopsHist, setFlopsHist] = (0, import_react10.useState)(() => Array(20).fill(312));
-    const [vram, setVram] = (0, import_react10.useState)(68.4);
-    const [temp, setTemp] = (0, import_react10.useState)(62);
-    (0, import_react10.useEffect)(() => {
+    const [history, setHistory] = (0, import_react11.useState)(() => Array(20).fill(70));
+    const [flopsHist, setFlopsHist] = (0, import_react11.useState)(() => Array(20).fill(312));
+    const [vram, setVram] = (0, import_react11.useState)(68.4);
+    const [temp, setTemp] = (0, import_react11.useState)(62);
+    (0, import_react11.useEffect)(() => {
       const id = setInterval(() => {
         const util = Math.floor(65 + Math.random() * 32);
         const fl = Math.floor(300 + Math.random() * 25);
@@ -1608,12 +1638,12 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/modals/AIChatModal.jsx
-  var import_react12 = __toESM(require_react_shim());
+  var import_react13 = __toESM(require_react_shim());
 
   // src/components/ui/Modal.jsx
-  var import_react11 = __toESM(require_react_shim());
+  var import_react12 = __toESM(require_react_shim());
   function Modal({ open, onClose, children, wide = false }) {
-    (0, import_react11.useEffect)(() => {
+    (0, import_react12.useEffect)(() => {
       if (open) document.body.style.overflow = "hidden";
       else document.body.style.overflow = "";
       return () => {
@@ -1666,10 +1696,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     "How to hire Taha?"
   ];
   function AIChatModal({ open, onClose, beep, speak }) {
-    const [msgs, setMsgs] = (0, import_react12.useState)([
+    const [msgs, setMsgs] = (0, import_react13.useState)([
       { who: "bot", text: "\u{1F44B} I'm Taha's AI research assistant. Ask me about <b>Flow Matching</b>, <b>GRPO</b>, <b>Hoosha AI</b>, <b>Kaleido Engine</b>, <b>GitHub Sponsors</b>, or how to <b>hire Taha</b>!" }
     ]);
-    const [input, setInput] = (0, import_react12.useState)("");
+    const [input, setInput] = (0, import_react13.useState)("");
     const send = (q) => {
       if (!q?.trim()) return;
       setMsgs((p) => [...p, { who: "user", text: q.trim() }]);
@@ -1702,7 +1732,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/modals/HireModal.jsx
-  var import_react13 = __toESM(require_react_shim());
+  var import_react14 = __toESM(require_react_shim());
   var TEMPLATES = [
     { icon: "fa-building", label: "Senior AI / Systems Engineer Role", subj: "Senior AI Engineering Role" },
     { icon: "fa-graduation-cap", label: "Ph.D. & Academic Research Collaboration", subj: "PhD Research Collaboration" },
@@ -1710,10 +1740,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     { icon: "fa-heart", label: "Sponsor Open-Source AI Work", subj: "GitHub Sponsor Inquiry", href: "https://github.com/sponsors/tahamajs" }
   ];
   function HireModal({ open, onClose, showToast, beep }) {
-    const [name, setName] = (0, import_react13.useState)("");
-    const [email, setEmail] = (0, import_react13.useState)("");
-    const [msg, setMsg] = (0, import_react13.useState)("");
-    const [copied, setCopied] = (0, import_react13.useState)(false);
+    const [name, setName] = (0, import_react14.useState)("");
+    const [email, setEmail] = (0, import_react14.useState)("");
+    const [msg, setMsg] = (0, import_react14.useState)("");
+    const [copied, setCopied] = (0, import_react14.useState)(false);
     const handleCopyEmail = () => {
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       setCopied(true);
@@ -1777,9 +1807,9 @@ ${msg}`)}`;
   }
 
   // src/components/modals/CommandPalette.jsx
-  var import_react14 = __toESM(require_react_shim());
+  var import_react15 = __toESM(require_react_shim());
   function CommandPalette({ open, onClose, onCmd }) {
-    const [q, setQ] = (0, import_react14.useState)("");
+    const [q, setQ] = (0, import_react15.useState)("");
     if (!open) return null;
     const filtered = CMD_ITEMS.filter((i) => i.text.toLowerCase().includes(q.toLowerCase()));
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cmd-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-search" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), /* @__PURE__ */ React.createElement(
@@ -1810,7 +1840,7 @@ ${msg}`)}`;
   }
 
   // src/components/modals/TerminalModal.jsx
-  var import_react15 = __toESM(require_react_shim());
+  var import_react16 = __toESM(require_react_shim());
   var HELP_TEXT = `
 Available commands:
   help        - Show this help menu
@@ -1825,13 +1855,13 @@ Available commands:
   date        - Output current time in Tehran (UTC+3:30)
 `;
   function TerminalModal({ open, onClose, beep }) {
-    const [history, setHistory] = (0, import_react15.useState)([
+    const [history, setHistory] = (0, import_react16.useState)([
       { type: "sys", text: "Hoosha AI Terminal Shell [v2.4.0-release]" },
       { type: "sys", text: 'Type "help" to list available commands.' }
     ]);
-    const [input, setInput] = (0, import_react15.useState)("");
-    const bottomRef = (0, import_react15.useRef)(null);
-    (0, import_react15.useEffect)(() => {
+    const [input, setInput] = (0, import_react16.useState)("");
+    const bottomRef = (0, import_react16.useRef)(null);
+    (0, import_react16.useEffect)(() => {
       if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [history, open]);
     if (!open) return null;
@@ -1895,13 +1925,13 @@ Available commands:
   }
 
   // src/components/modals/ArticleCreatorModal.jsx
-  var import_react16 = __toESM(require_react_shim());
+  var import_react17 = __toESM(require_react_shim());
   function ArticleCreatorModal({ open, onClose, onAddArticle, beep, showToast }) {
-    const [title, setTitle] = (0, import_react16.useState)("");
-    const [desc, setDesc] = (0, import_react16.useState)("");
-    const [url, setUrl] = (0, import_react16.useState)("https://hooshaai.substack.com/p/");
-    const [date, setDate] = (0, import_react16.useState)((/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
-    const [tag, setTag] = (0, import_react16.useState)("Flow Matching");
+    const [title, setTitle] = (0, import_react17.useState)("");
+    const [desc, setDesc] = (0, import_react17.useState)("");
+    const [url, setUrl] = (0, import_react17.useState)("https://hooshaai.substack.com/p/");
+    const [date, setDate] = (0, import_react17.useState)((/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
+    const [tag, setTag] = (0, import_react17.useState)("Flow Matching");
     if (!open) return null;
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -1962,17 +1992,17 @@ Available commands:
   }
 
   // src/components/modals/NNPlaygroundModal.jsx
-  var import_react17 = __toESM(require_react_shim());
+  var import_react18 = __toESM(require_react_shim());
   function NNPlaygroundModal({ open, onClose, beep, showToast }) {
-    const canvasRef = (0, import_react17.useRef)(null);
-    const [layers, setLayers] = (0, import_react17.useState)([2, 4, 4, 1]);
-    const [activation, setActivation] = (0, import_react17.useState)("SiLU");
-    const [lr, setLr] = (0, import_react17.useState)(0.03);
-    const [dataset, setDataset] = (0, import_react17.useState)("circle");
-    const [training, setTraining] = (0, import_react17.useState)(false);
-    const [epoch, setEpoch] = (0, import_react17.useState)(0);
-    const [loss, setLoss] = (0, import_react17.useState)(0.482);
-    (0, import_react17.useEffect)(() => {
+    const canvasRef = (0, import_react18.useRef)(null);
+    const [layers, setLayers] = (0, import_react18.useState)([2, 4, 4, 1]);
+    const [activation, setActivation] = (0, import_react18.useState)("SiLU");
+    const [lr, setLr] = (0, import_react18.useState)(0.03);
+    const [dataset, setDataset] = (0, import_react18.useState)("circle");
+    const [training, setTraining] = (0, import_react18.useState)(false);
+    const [epoch, setEpoch] = (0, import_react18.useState)(0);
+    const [loss, setLoss] = (0, import_react18.useState)(0.482);
+    (0, import_react18.useEffect)(() => {
       if (!open) return;
       const ctx = canvasRef.current?.getContext("2d");
       if (!ctx) return;
@@ -2004,7 +2034,7 @@ Available commands:
         ctx.fill();
       }
     }, [open, dataset, training, epoch]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react18.useEffect)(() => {
       if (!training) return;
       const id = setInterval(() => {
         setEpoch((e) => e + 1);
@@ -2027,9 +2057,9 @@ Available commands:
   }
 
   // src/components/modals/PaperReaderModal.jsx
-  var import_react18 = __toESM(require_react_shim());
+  var import_react19 = __toESM(require_react_shim());
   function PaperReaderModal({ paper, onClose, onCopyBib, beep }) {
-    const [tab, setTab] = (0, import_react18.useState)("abstract");
+    const [tab, setTab] = (0, import_react19.useState)("abstract");
     if (!paper) return null;
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box paper-reader-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "paper-reader-header" }, /* @__PURE__ */ React.createElement("div", { className: "paper-tag-badge" }, paper.tag || "AI Research Paper"), /* @__PURE__ */ React.createElement("h2", { className: "paper-title" }, paper.title), /* @__PURE__ */ React.createElement("div", { className: "paper-meta" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-user-edit" }), " Mohammad Taha Majlesi, Hoosha AI Research Team"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt" }), " ", paper.date || "2026"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-book" }), " ", paper.venue || "Hoosha AI Technical Report Series")), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "paper-reader-tabs" }, /* @__PURE__ */ React.createElement("button", { className: `paper-tab ${tab === "abstract" ? "active" : ""}`, onClick: () => {
       setTab("abstract");
@@ -2057,15 +2087,15 @@ Available commands:
   }
 
   // src/components/modals/CyberpunkGameModal.jsx
-  var import_react19 = __toESM(require_react_shim());
+  var import_react20 = __toESM(require_react_shim());
   function CyberpunkGameModal({ open, onClose, showToast, beep }) {
-    const canvasRef = (0, import_react19.useRef)(null);
-    const [score, setScore] = (0, import_react19.useState)(0);
-    const [level, setLevel] = (0, import_react19.useState)(1);
-    const [modelSize, setModelSize] = (0, import_react19.useState)("1B Params");
-    const [gameOver, setGameOver] = (0, import_react19.useState)(false);
-    const [gameStarted, setGameStarted] = (0, import_react19.useState)(false);
-    (0, import_react19.useEffect)(() => {
+    const canvasRef = (0, import_react20.useRef)(null);
+    const [score, setScore] = (0, import_react20.useState)(0);
+    const [level, setLevel] = (0, import_react20.useState)(1);
+    const [modelSize, setModelSize] = (0, import_react20.useState)("1B Params");
+    const [gameOver, setGameOver] = (0, import_react20.useState)(false);
+    const [gameStarted, setGameStarted] = (0, import_react20.useState)(false);
+    (0, import_react20.useEffect)(() => {
       if (!open || !gameStarted || gameOver) return;
       const cvs = canvasRef.current;
       if (!cvs) return;
@@ -2246,28 +2276,28 @@ Available commands:
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react20.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react20.useState)("");
-    const [filter, setFilter] = (0, import_react20.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react20.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react20.useState)("");
-    const [pageView, setPageView] = (0, import_react20.useState)("all");
-    const [weatherMode, setWeatherMode] = (0, import_react20.useState)("rain");
-    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react20.useState)(false);
-    const [accent, setAccent] = (0, import_react20.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react20.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react20.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react20.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react20.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react20.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react20.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react20.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react20.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react20.useState)(false);
-    const [gameOpen, setGameOpen] = (0, import_react20.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react20.useState)(false);
-    const [selectedPaper, setSelectedPaper] = (0, import_react20.useState)(null);
-    const [bibtexPub, setBibtexPub] = (0, import_react20.useState)(null);
+    const [data, setData] = (0, import_react21.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react21.useState)("");
+    const [filter, setFilter] = (0, import_react21.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react21.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react21.useState)("");
+    const [pageView, setPageView] = (0, import_react21.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react21.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react21.useState)(false);
+    const [accent, setAccent] = (0, import_react21.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react21.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react21.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react21.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react21.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react21.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react21.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react21.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react21.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react21.useState)(false);
+    const [gameOpen, setGameOpen] = (0, import_react21.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react21.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react21.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react21.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
@@ -2279,11 +2309,11 @@ Available commands:
       showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
       beep(700);
     };
-    (0, import_react20.useEffect)(() => {
+    (0, import_react21.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react20.useEffect)(() => {
+    (0, import_react21.useEffect)(() => {
       const fn = (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
@@ -2305,16 +2335,16 @@ Available commands:
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, []);
-    const repos = (0, import_react20.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react21.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react20.useMemo)(() => {
+    const articles = (0, import_react21.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react20.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const hfAssets = (0, import_react21.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -2384,7 +2414,7 @@ Available commands:
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    const counts = (0, import_react20.useMemo)(() => ({
+    const counts = (0, import_react21.useMemo)(() => ({
       all: repos.length,
       course: repos.filter((r) => r.category === "course").length,
       ml: repos.filter((r) => r.category === "ml").length,
@@ -2396,7 +2426,7 @@ Available commands:
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       showToast("\u{1F4CB} Email (tahamajlesi@ut.ac.ir) copied to clipboard!");
     };
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement(FloatingContactBar, { onHire: () => setHireOpen(true), onCopyEmail: handleCopyEmail, beep, showToast }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement(GameHUDHeader, { beep }), /* @__PURE__ */ React.createElement(FloatingContactBar, { onHire: () => setHireOpen(true), onCopyEmail: handleCopyEmail, beep, showToast }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
     }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "UI Beeps On \u{1F50A}");
@@ -2425,5 +2455,5 @@ Available commands:
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react21.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react22.default.createElement(App, null));
 })();

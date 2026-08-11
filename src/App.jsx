@@ -6,6 +6,7 @@ import Navigation from './components/layout/Navigation.jsx';
 import PageRouterBar from './components/layout/PageRouterBar.jsx';
 import Footer from './components/layout/Footer.jsx';
 import FloatingContactBar from './components/ui/FloatingContactBar.jsx';
+import GameHUDHeader from './components/ui/GameHUDHeader.jsx';
 
 import HeroSection from './components/sections/HeroSection.jsx';
 import AchievementsSection from './components/sections/AchievementsSection.jsx';
@@ -168,6 +169,7 @@ export default function App() {
     <>
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
       <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
+      <GameHUDHeader beep={beep} />
       <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} beep={beep} showToast={showToast} />
       
       <main style={{ paddingTop: '80px' }}>
