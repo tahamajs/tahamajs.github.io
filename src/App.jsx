@@ -22,6 +22,8 @@ import ContactSection from './components/sections/ContactSection.jsx';
 import SocialFeedSection from './components/sections/SocialFeedSection.jsx';
 import GpuTelemetrySection from './components/sections/GpuTelemetrySection.jsx';
 import BenchmarkSection from './components/sections/BenchmarkSection.jsx';
+import TeachingSection from './components/sections/TeachingSection.jsx';
+import TalksSection from './components/sections/TalksSection.jsx';
 
 import AIChatModal from './components/modals/AIChatModal.jsx';
 import HireModal from './components/modals/HireModal.jsx';
@@ -165,6 +167,7 @@ export default function App() {
             <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
             <AchievementsSection />
             <TimelineSection />
+            <TeachingSection beep={beep} />
             <SkillsSection />
           </>
         )}
@@ -188,6 +191,7 @@ export default function App() {
         {(pageView === 'all' || pageView === 'papers') && (
           <>
             <PublicationsSection onCopyBib={setBibtexPub} onSelectPaper={setSelectedPaper} beep={beep} />
+            <TalksSection beep={beep} />
             <SocialFeedSection beep={beep} />
             <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} beep={beep} />
           </>

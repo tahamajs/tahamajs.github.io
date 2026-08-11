@@ -606,3 +606,18 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .page-router-tab{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:var(--muted);font-size:.78rem;padding:.35rem .75rem;border-radius:8px;cursor:pointer;white-space:nowrap;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem;}
 .page-router-tab:hover{color:#fff;background:rgba(0,240,255,0.08);border-color:var(--accent);}
 .page-router-tab.active{background:var(--glass2);border-color:var(--accent);color:var(--accent);font-weight:600;box-shadow:var(--glow-sm);}
+
+/* ── Teaching & Talks Aesthetics ── */
+.teaching-grid, .talks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:1.5rem;}
+.teaching-card, .talk-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem;border-radius:14px;display:flex;flex-direction:column;gap:.8rem;transition:all .3s;}
+.teaching-card:hover, .talk-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--glow-sm);}
+.teaching-header{display:flex;justify-content:space-between;align-items:center;}
+.teaching-code{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);background:rgba(0,240,255,0.1);padding:.2rem .6rem;border-radius:6px;}
+.teaching-role{font-size:.78rem;color:var(--muted);}
+.teaching-title, .talk-title{font-size:1.1rem;color:#fff;font-weight:600;}
+.teaching-inst, .talk-event{font-size:.82rem;color:var(--muted);}
+.teaching-desc, .talk-desc{font-size:.88rem;color:#cbd5e1;line-height:1.6;}
+.teaching-topics{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem;}
+.teaching-tag{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#e2e8f0;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;font-family:'JetBrains Mono',monospace;}
+.talk-date-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--cyan);background:rgba(0,240,255,0.08);padding:.2rem .6rem;border-radius:6px;width:max-content;}
+.talk-links, .teaching-actions{margin-top:auto;display:flex;gap:.8rem;}

@@ -1511,6 +1511,91 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     )))))))));
   }
 
+  // src/components/sections/TeachingSection.jsx
+  var COURSES = [
+    {
+      code: "CS-401",
+      role: "Head Teaching Assistant",
+      title: "Compiler Construction & Code Generation",
+      inst: "Sharif University of Technology",
+      term: "Spring 2026",
+      desc: "Leading lab sessions on LLVM IR code generation, register allocation algorithms, and lexer/parser construction in C++/Rust.",
+      topics: ["LLVM IR", "Register Allocation", "Lexing & Parsing", "LALR(1) Grammars"],
+      slides: "https://github.com/tahamajs/compiler-construction-lab"
+    },
+    {
+      code: "CE-204",
+      role: "Teaching Assistant",
+      title: "Computer Architecture & Assembly Language",
+      inst: "University of Tehran",
+      term: "Fall 2025",
+      desc: "Designing RISC-V processor simulators, cache memory hierarchy labs, and hardware pipelining experiments.",
+      topics: ["RISC-V ISA", "Cache Memory", "5-Stage Pipeline", "Hazard Resolution"],
+      slides: "https://github.com/tahamajs/riscv-architecture-simulator"
+    },
+    {
+      code: "AI-502",
+      role: "Workshop Instructor",
+      title: "Distributed LLM Training & Fused CUDA Kernels",
+      inst: "Hoosha AI Academy",
+      term: "Winter 2025",
+      desc: "Hands-on intensive workshop on PyTorch FSDP, DeepSpeed ZeRO-3, and custom CUDA warp shuffle kernel programming.",
+      topics: ["Fused CUDA", "PyTorch FSDP", "ZeRO-3", "FlashAttention-2"],
+      slides: "https://github.com/tahamajs/distributed-llm-workshop"
+    }
+  ];
+  function TeachingSection({ beep }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "teaching", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Academic Pedagogy",
+        title: "Teaching & Mentorship \u{1F468}\u200D\u{1F3EB}",
+        sub: "Course instruction, lab design, and curriculum development at Sharif University and University of Tehran."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "teaching-grid" }, COURSES.map((c, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "teaching-card" }, /* @__PURE__ */ React.createElement("div", { className: "teaching-header" }, /* @__PURE__ */ React.createElement("span", { className: "teaching-code" }, c.code), /* @__PURE__ */ React.createElement("span", { className: "teaching-role" }, c.role)), /* @__PURE__ */ React.createElement("h3", { className: "teaching-title" }, c.title), /* @__PURE__ */ React.createElement("div", { className: "teaching-inst" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-university" }), " ", c.inst, " \xB7 ", c.term), /* @__PURE__ */ React.createElement("p", { className: "teaching-desc" }, c.desc), /* @__PURE__ */ React.createElement("div", { className: "teaching-topics" }, c.topics.map((t) => /* @__PURE__ */ React.createElement("span", { key: t, className: "teaching-tag" }, t))), /* @__PURE__ */ React.createElement("div", { className: "teaching-actions" }, /* @__PURE__ */ React.createElement("a", { href: c.slides, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-folder-open" }), " View Course Materials & Labs"))))));
+  }
+
+  // src/components/sections/TalksSection.jsx
+  var TALKS = [
+    {
+      title: "Flow Matching vs Diffusion: The Frontier of Continuous Normalizing Flows",
+      event: "Hoosha AI Annual Keynote 2026",
+      location: "Tehran, Iran / Virtual",
+      date: "Jan 2026",
+      desc: "Deep dive into straight optimal transport probability paths, simulation-free ODE velocity regression, and 5-step sampling.",
+      slides: "https://hooshaai.substack.com",
+      video: "https://youtube.com"
+    },
+    {
+      title: "Group Relative Policy Optimization (GRPO) for Reasoning LLMs",
+      event: "Sharif AI & Robotics Colloquium",
+      location: "Sharif University of Technology",
+      date: "Nov 2025",
+      desc: "Eliminating the Critic network in PPO. Mathematical formulation of group-normalized advantages and KL regularization.",
+      slides: "https://hooshaai.substack.com",
+      video: null
+    },
+    {
+      title: "Writing Custom CUDA Kernels for High-Throughput LLM Inference",
+      event: "University of Tehran Systems Seminar",
+      location: "University of Tehran",
+      date: "Sep 2025",
+      desc: "Warp-level register shuffles, shared memory bank conflict elimination, and FP16/BF16 memory alignment.",
+      slides: "https://github.com/tahamajs/cuda-learning-lab",
+      video: null
+    }
+  ];
+  function TalksSection({ beep }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "talks", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Academic Outreach",
+        title: "Invited Keynotes & Seminars \u{1F3A4}",
+        sub: "Technical presentations, guest lectures, and keynote addresses on generative AI and GPU computing."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "talks-grid" }, TALKS.map((t, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "talk-card" }, /* @__PURE__ */ React.createElement("div", { className: "talk-date-badge" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt" }), " ", t.date), /* @__PURE__ */ React.createElement("h3", { className: "talk-title" }, t.title), /* @__PURE__ */ React.createElement("div", { className: "talk-event" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-microphone" }), " ", t.event, " \xB7 ", t.location), /* @__PURE__ */ React.createElement("p", { className: "talk-desc" }, t.desc), /* @__PURE__ */ React.createElement("div", { className: "talk-links" }, /* @__PURE__ */ React.createElement("a", { href: t.slides, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-powerpoint" }), " View Slides"), t.video && /* @__PURE__ */ React.createElement("a", { href: t.video, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-video" }), " Watch Recording"))))));
+  }
+
   // src/components/modals/AIChatModal.jsx
   var import_react12 = __toESM(require_react_shim());
 
@@ -2132,7 +2217,7 @@ Available commands:
       hfDatasets: hfAssets.filter((a) => a.type === "dataset").length
     }), [repos, hfAssets]);
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "UI Beeps On \u{1F50A}");
       beep(600);
