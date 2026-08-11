@@ -49,7 +49,154 @@ document.addEventListener('DOMContentLoaded', () => {
   
   typingEffect();
 
-  // 2. Built-in Zero-Dependency 3D Card Tilt Effect
+  // 2. Interactive Neural Network Canvas Background
+  const canvas = document.getElementById('neural-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    let mouseX = width / 2;
+    let mouseY = height / 2;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    const particles = [];
+    const numParticles = Math.min(width > 700 ? 55 : 25, 60);
+
+    for (let p = 0; p < numParticles; p++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: Math.random() * 2 + 1
+      });
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw connections
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 130)})`;
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+
+        // Mouse connection
+        const mdx = particles[a].x - mouseX;
+        const mdy = particles[a].y - mouseY;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < 150) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(138, 43, 226, ${0.25 * (1 - mdist / 150)})`;
+          ctx.lineWidth = 1.2;
+          ctx.moveTo(particles[a].x, particles[a].y);
+          ctx.lineTo(mouseX, mouseY);
+          ctx.stroke();
+        }
+
+        // Particle position update
+        particles[a].x += particles[a].vx;
+        particles[a].y += particles[a].vy;
+
+        if (particles[a].x < 0 || particles[a].x > width) particles[a].vx *= -1;
+        if (particles[a].y < 0 || particles[a].y > height) particles[a].vy *= -1;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(particles[a].x, particles[a].y, particles[a].radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animateCanvas);
+    }
+
+    animateCanvas();
+  }
+
+  // 3. Web Audio API Sci-Fi SFX Synthesizer
+  let soundEnabled = false;
+  let audioCtx = null;
+
+  function playSciFiSound(freq = 440, type = 'sine') {
+    if (!soundEnabled) return;
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.15);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.15);
+    } catch(e){}
+  }
+
+  const soundToggle = document.getElementById('sound-toggle');
+  if (soundToggle) {
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        soundToggle.classList.add('active');
+        playSciFiSound(880, 'sine');
+        showToast('Sci-Fi Sound FX Enabled! 🔊');
+      } else {
+        soundToggle.classList.remove('active');
+        showToast('Sound Muted 🔇');
+      }
+    });
+  }
+
+  // Toast System
+  function showToast(msg) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 3000);
+  }
+
+  // 4. Live Tehran Clock Ticker
+  function updateTehranClock() {
+    const clockEl = document.getElementById('live-tehran-clock');
+    if (clockEl) {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Tehran', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      clockEl.textContent = new Intl.DateTimeFormat('en-US', options).format(now);
+    }
+  }
+  setInterval(updateTehranClock, 1000);
+  updateTehranClock();
+
+  // 5. Zero-Dependency 3D Card Tilt Effect
   const tiltElements = document.querySelectorAll('[data-tilt]');
   tiltElements.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -66,12 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
     });
 
+    card.addEventListener('mouseenter', () => playSciFiSound(600, 'sine'));
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
     });
   });
 
-  // 3. Category Filtering & Real-Time Search Logic
+  // 6. Category Filtering & Real-Time Search Logic
   const filterBtns = document.querySelectorAll('.filter-btn');
   const bentoItems = document.querySelectorAll('.bento-item');
   const searchInput = document.getElementById('repo-search');
@@ -101,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   filterBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+      playSciFiSound(500, 'triangle');
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       filterProjects();
@@ -112,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', filterProjects);
   }
 
-  // 4. Repo Quick Detail Modal Popup
+  // 7. Repo Quick Detail Modal Popup
   const repoModal = document.getElementById('repo-detail-modal');
   const modalTag = document.getElementById('modal-tag');
   const modalTitle = document.getElementById('modal-title');
@@ -123,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   bentoItems.forEach(card => {
     card.addEventListener('click', (e) => {
-      // If user clicked directly on link or meta keys
       if (e.metaKey || e.ctrlKey) return;
       
       const name = card.getAttribute('data-name');
@@ -133,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (name && url && repoModal) {
         e.preventDefault();
+        playSciFiSound(700, 'square');
         modalTag.innerHTML = tag || 'GitHub Repository';
         modalTitle.textContent = name.replace(/_/g, ' ').replace(/-/g, ' ');
         modalDesc.textContent = desc || '';
@@ -154,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 5. Command Palette Modal (Cmd + K / Ctrl + K)
+  // 8. Command Palette Modal (Cmd + K / Ctrl + K)
   const cmdModal = document.getElementById('cmd-palette-modal');
   const cmdTrigger = document.getElementById('cmd-k-trigger');
   const cmdInput = document.getElementById('cmd-input');
@@ -162,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openCmdPalette() {
     if (cmdModal) {
+      playSciFiSound(650, 'sawtooth');
       cmdModal.classList.add('active');
       if (cmdInput) {
         cmdInput.value = '';
@@ -211,13 +361,13 @@ document.addEventListener('DOMContentLoaded', () => {
         closeCmdPalette();
       } else if (action === 'copy') {
         navigator.clipboard.writeText(target);
-        alert(`Copied ${target} to clipboard!`);
+        showToast(`Copied ${target} to clipboard! 🚀`);
         closeCmdPalette();
       }
     });
   });
 
-  // 6. Back To Top Button
+  // 9. Back To Top Button
   const backToTopBtn = document.getElementById('back-to-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 400) {
@@ -233,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Theme Accent Switcher Widget
+  // 10. Theme Accent Switcher Widget
   const accentDots = document.querySelectorAll('.accent-dot');
   accentDots.forEach(dot => {
     dot.addEventListener('click', () => {
@@ -241,24 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
       dot.classList.add('active');
       const color = dot.getAttribute('data-color');
       document.body.setAttribute('data-accent', color);
+      playSciFiSound(800, 'sine');
+      showToast(`Switched theme to ${color.toUpperCase()} ✨`);
     });
-  });
-
-  // 8. Scroll Reveal Observer
-  const observerOptions = {
-    threshold: 0.05,
-    rootMargin: "0px 0px -20px 0px"
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.fade-in-up').forEach(el => {
-    observer.observe(el);
   });
 });

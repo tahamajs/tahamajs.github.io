@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mohammad Taha Majlesi - Co-Founder & Systems/AI Architect at Hoosha AI, Computer Engineering at University of Tehran & Sharif University.">
   <title>Mohammad Taha Majlesi | Co-Founder & Systems/AI Architect</title>
-  <link rel="stylesheet" href="style.css?v=15.0">
+  <link rel="stylesheet" href="style.css?v=16.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body data-accent="cyan">
   
-  <!-- Dynamic Background Orbs -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <!-- Interactive Canvas Neural Network Background -->
+  <canvas id="neural-canvas"></canvas>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
 
   <!-- Accent Color Switcher Widget -->
   <div class="theme-switcher">
+    <button class="sound-toggle-btn" id="sound-toggle" title="Toggle Sci-Fi SFX"><i class="fas fa-volume-up"></i></button>
+    <div class="switcher-divider"></div>
     <button class="accent-dot active" data-color="cyan" title="Cyan Theme" style="background: #00f0ff;"></button>
     <button class="accent-dot" data-color="purple" title="Purple Theme" style="background: #8a2be2;"></button>
     <button class="accent-dot" data-color="emerald" title="Emerald Theme" style="background: #10b981;"></button>
@@ -35,6 +38,7 @@
       </div>
       <div class="nav-links">
         <a href="#about">About</a>
+        <a href="#skills">Skills</a>
         <a href="#activity">Activity</a>
         <a href="#experience">Experience</a>
         <a href="#teaching">Teaching</a>
@@ -59,6 +63,7 @@
         <div class="cmd-item" data-action="url" data-target="assets/resume.pdf"><i class="fas fa-file-pdf"></i> Download Official Resume (PDF)</div>
         <div class="cmd-item" data-action="url" data-target="https://telegram.me/tahamajlesii"><i class="fab fa-telegram"></i> Open Telegram (@tahamajlesii)</div>
         <div class="cmd-item" data-action="goto" data-target="#about"><i class="fas fa-user"></i> Go to About Section</div>
+        <div class="cmd-item" data-action="goto" data-target="#skills"><i class="fas fa-microchip"></i> Go to Technical Skills Matrix</div>
         <div class="cmd-item" data-action="goto" data-target="#activity"><i class="fas fa-fire"></i> Go to Recent Activity &amp; 12.7k Commits</div>
         <div class="cmd-item" data-action="goto" data-target="#experience"><i class="fas fa-briefcase"></i> Go to Experience &amp; Hoosha AI</div>
         <div class="cmd-item" data-action="goto" data-target="#teaching"><i class="fas fa-chalkboard-teacher"></i> Go to Teaching Assistantships</div>
@@ -104,6 +109,11 @@
         
         <div class="badge-pill">
           <span class="pulse-dot"></span> Co-Founder @ Hoosha AI 🧠 | Computer Engineering @ University of Tehran
+        </div>
+
+        <!-- Live Clock & Status Badge -->
+        <div class="live-clock-badge">
+          <i class="far fa-clock"></i> Tehran Local Time: <span id="live-tehran-clock">--:--:-- AM</span> (UTC +3:30) • <span class="status-green">Available for R&amp;D</span>
         </div>
 
         <h1 class="hero-title">
@@ -174,6 +184,41 @@
         <span>PyTorch</span> <span>•</span> <span>CUDA</span> <span>•</span> <span>Flow Matching</span> <span>•</span> <span>GRPO</span> <span>•</span> <span>C / C++</span> <span>•</span> <span>Go</span> <span>•</span> <span>Django / DRF</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Docker</span> <span>•</span> <span>xv6 Kernel</span> <span>•</span> <span>Transformers</span> <span>•</span> <span>SFML</span> <span>•</span>
       </div>
     </div>
+
+    <!-- Technical Skills Matrix -->
+    <section id="skills" class="section">
+      <div class="section-header fade-in-up">
+        <h2>Technical <span class="gradient-text">Mastery Matrix</span></h2>
+        <p>Core engineering proficiency breakdown across AI &amp; Systems.</p>
+      </div>
+
+      <div class="skills-grid fade-in-up">
+        <div class="skill-card">
+          <div class="skill-info"><span>Deep Learning &amp; Flow Matching (PyTorch)</span><span>98%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width: 98%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-info"><span>LLM Alignment &amp; Reasoning (GRPO/SFT)</span><span>95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-info"><span>Distributed Infrastructure (CUDA / C++)</span><span>92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width: 92%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-info"><span>Kernel Programming &amp; Low-Level OS (C / Go)</span><span>90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-info"><span>Backend Web Systems (Django / DRF / Docker)</span><span>94%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width: 94%;"></div></div>
+        </div>
+      </div>
+    </section>
 
     <!-- Recent Active Research & Commits Section -->
     <section id="activity" class="section">
@@ -849,6 +894,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=15.0"></script>
+  <script src="script.js?v=16.0"></script>
 </body>
 </html>
