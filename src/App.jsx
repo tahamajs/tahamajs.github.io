@@ -35,6 +35,7 @@ import ArticleCreatorModal from './components/modals/ArticleCreatorModal.jsx';
 import NNPlaygroundModal from './components/modals/NNPlaygroundModal.jsx';
 import PaperReaderModal from './components/modals/PaperReaderModal.jsx';
 import CyberpunkGameModal from './components/modals/CyberpunkGameModal.jsx';
+import KeyboardShortcutsModal from './components/modals/KeyboardShortcutsModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -65,6 +66,7 @@ export default function App() {
   const [cliOpen, setCliOpen] = useState(false);
   const [nnOpen, setNnOpen] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
@@ -88,16 +90,29 @@ export default function App() {
     fetch('data.json').then(r => r.json()).then(d => setData(d)).catch(() => {});
   }, []);
 
-  // Keyboard Shortcuts (⌘K, ⌘J)
+  // Keyboard Shortcuts (⌘K, ⌘J, ?, 1-5, M, Esc)
   useEffect(() => {
     const fn = e => {
+      if (['input', 'textarea', 'select'].includes(document.activeElement?.tagName?.toLowerCase())) return;
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setCmdOpen(p => !p); }
       if ((e.metaKey || e.ctrlKey) && e.key === 'j') { e.preventDefault(); setCliOpen(p => !p); }
-      if (e.key === 'Escape') { setCmdOpen(false); setAiOpen(false); setHireOpen(false); setCliOpen(false); setBibtexPub(null); setMobileNav(false); }
+      if (e.key === '?' || (e.shiftKey && e.key === '/')) { e.preventDefault(); setShortcutsOpen(p => !p); }
+      if (e.key === '1') setPageView('home');
+      if (e.key === '2') setPageView('lab');
+      if (e.key === '3') setPageView('projects');
+      if (e.key === '4') setPageView('papers');
+      if (e.key === '5') setPageView('contact');
+      if (e.key === 'm' || e.key === 'M') handleToggleWeatherAudio();
+      if (e.key === 'Escape') {
+        setCmdOpen(false); setAiOpen(false); setHireOpen(false);
+        setCliOpen(false); setBibtexPub(null); setMobileNav(false);
+        setNnOpen(false); setGameOpen(false); setShortcutsOpen(false);
+        setSelectedPaper(null);
+      }
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
-  }, []);
+  }, [weatherMode]);
 
   // Derived Data (Filtering)
   const repos = useMemo(() => (data.repos || []).filter(r => {
@@ -268,6 +283,7 @@ export default function App() {
       <NNPlaygroundModal open={nnOpen} onClose={() => setNnOpen(false)} beep={beep} showToast={showToast} />
       <PaperReaderModal paper={selectedPaper} onClose={() => setSelectedPaper(null)} onCopyBib={copyBib} beep={beep} />
       <CyberpunkGameModal open={gameOpen} onClose={() => setGameOpen(false)} showToast={showToast} beep={beep} />
+      <KeyboardShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

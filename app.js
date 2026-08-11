@@ -2197,6 +2197,23 @@ Available commands:
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box arcade-modal-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "modal-header" }, /* @__PURE__ */ React.createElement("h3", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-gamepad", style: { color: "var(--accent)" } }), " Cyberpunk AI Arcade: Neural Defender"), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "arcade-status-bar" }, /* @__PURE__ */ React.createElement("div", null, "Score: ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--accent)" } }, score, " FLOPS")), /* @__PURE__ */ React.createElement("div", null, "Level: ", /* @__PURE__ */ React.createElement("b", null, "LVL ", level)), /* @__PURE__ */ React.createElement("div", null, "Model Size: ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--emerald)" } }, modelSize))), /* @__PURE__ */ React.createElement("div", { className: "arcade-canvas-wrapper" }, /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { borderRadius: "10px", border: "1px solid var(--border)", background: "#030712" } }), (!gameStarted || gameOver) && /* @__PURE__ */ React.createElement("div", { className: "arcade-overlay-screen" }, /* @__PURE__ */ React.createElement("h2", null, gameOver ? "\u{1F4A5} GAME OVER" : "\u{1F47E} NEURAL DEFENDER"), /* @__PURE__ */ React.createElement("p", null, gameOver ? `Final Model Capacity: ${modelSize} (${score} FLOPS)` : "Use \u2B05\uFE0F Arrow Keys \u27A1\uFE0F to catch Gradient Tokens and avoid OOM Monsters!"), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: handleStart, style: { marginTop: "1rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play" }), " ", gameOver ? "Try Again" : "Start Arcade Game")))));
   }
 
+  // src/components/modals/KeyboardShortcutsModal.jsx
+  var SHORTCUTS = [
+    { key: "\u2318 K", desc: "Open Global Command Palette" },
+    { key: "\u2318 J", desc: "Open Interactive Terminal CLI Shell" },
+    { key: "?", desc: "Show / Hide Keyboard Shortcuts Cheat Sheet" },
+    { key: "1", desc: "Switch to Overview & Bio Page" },
+    { key: "2", desc: "Switch to Interactive AI Lab Page" },
+    { key: "3", desc: "Switch to Projects & HF Models Page" },
+    { key: "4", desc: "Switch to Papers & Substack Page" },
+    { key: "5", desc: "Switch to Contact & Recruit Page" },
+    { key: "M", desc: "Toggle Ambient Sound & Weather Audio" },
+    { key: "Esc", desc: "Close active modal window" }
+  ];
+  function KeyboardShortcutsModal({ open, onClose }) {
+    return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, "\u2328\uFE0F Power User UX"), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", marginBottom: "1rem" } }, "Keyboard Shortcuts \u{1F680}"), /* @__PURE__ */ React.createElement("div", { className: "shortcuts-grid" }, SHORTCUTS.map((s, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "shortcut-item" }, /* @__PURE__ */ React.createElement("span", { className: "shortcut-key" }, s.key), /* @__PURE__ */ React.createElement("span", { className: "shortcut-desc" }, s.desc)))));
+  }
+
   // src/components/ui/Toast.jsx
   function Toast({ msg }) {
     if (!msg) return null;
@@ -2295,6 +2312,7 @@ Available commands:
     const [cliOpen, setCliOpen] = (0, import_react21.useState)(false);
     const [nnOpen, setNnOpen] = (0, import_react21.useState)(false);
     const [gameOpen, setGameOpen] = (0, import_react21.useState)(false);
+    const [shortcutsOpen, setShortcutsOpen] = (0, import_react21.useState)(false);
     const [articleModalOpen, setArticleModalOpen] = (0, import_react21.useState)(false);
     const [selectedPaper, setSelectedPaper] = (0, import_react21.useState)(null);
     const [bibtexPub, setBibtexPub] = (0, import_react21.useState)(null);
@@ -2315,6 +2333,7 @@ Available commands:
     }, []);
     (0, import_react21.useEffect)(() => {
       const fn = (e) => {
+        if (["input", "textarea", "select"].includes(document.activeElement?.tagName?.toLowerCase())) return;
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
           setCmdOpen((p) => !p);
@@ -2323,6 +2342,16 @@ Available commands:
           e.preventDefault();
           setCliOpen((p) => !p);
         }
+        if (e.key === "?" || e.shiftKey && e.key === "/") {
+          e.preventDefault();
+          setShortcutsOpen((p) => !p);
+        }
+        if (e.key === "1") setPageView("home");
+        if (e.key === "2") setPageView("lab");
+        if (e.key === "3") setPageView("projects");
+        if (e.key === "4") setPageView("papers");
+        if (e.key === "5") setPageView("contact");
+        if (e.key === "m" || e.key === "M") handleToggleWeatherAudio();
         if (e.key === "Escape") {
           setCmdOpen(false);
           setAiOpen(false);
@@ -2330,11 +2359,15 @@ Available commands:
           setCliOpen(false);
           setBibtexPub(null);
           setMobileNav(false);
+          setNnOpen(false);
+          setGameOpen(false);
+          setShortcutsOpen(false);
+          setSelectedPaper(null);
         }
       };
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
-    }, []);
+    }, [weatherMode]);
     const repos = (0, import_react21.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
@@ -2449,7 +2482,7 @@ Available commands:
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
       setAiOpen(true);
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(KeyboardShortcutsModal, { open: shortcutsOpen, onClose: () => setShortcutsOpen(false) }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
   }
 
   // src/index.jsx

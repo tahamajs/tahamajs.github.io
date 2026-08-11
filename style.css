@@ -659,3 +659,10 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .quest-item.done{color:var(--muted);text-decoration:line-through;opacity:.7;}
 .quest-item:hover{background:rgba(0,240,255,0.08);}
 .quest-xp{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--emerald);}
+
+/* ── Keyboard Shortcuts Cheat Sheet Modal ── */
+.shortcuts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem;}
+@media(max-width:600px){.shortcuts-grid{grid-template-columns:1fr;}}
+.shortcut-item{display:flex;align-items:center;gap:.8rem;background:var(--bg2);border:1px solid var(--border);padding:.6rem 1rem;border-radius:10px;}
+.shortcut-key{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--accent);background:rgba(0,240,255,0.1);padding:.2rem .6rem;border-radius:6px;border:1px solid rgba(0,240,255,0.2);min-width:48px;text-align:center;}
+.shortcut-desc{font-size:.82rem;color:#cbd5e1;}
