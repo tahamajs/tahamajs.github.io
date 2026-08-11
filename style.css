@@ -81,9 +81,15 @@ body {
 
 /* Sections */
 .section { padding: 7rem 2rem; max-width: 1200px; margin: 0 auto; }
-.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header { text-align: center; margin-bottom: 2.5rem; }
 .section-header h2 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.8rem; }
 .section-header p { font-size: 1.15rem; color: var(--text-gray); }
+
+/* Live Search Box */
+.search-box-wrapper { position: relative; max-width: 700px; margin: 0 auto 2.5rem auto; }
+.search-box-wrapper input { width: 100%; padding: 1.2rem 1.5rem 1.2rem 3.5rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 99px; color: var(--text-light); font-family: 'Plus Jakarta Sans'; font-size: 1rem; backdrop-filter: blur(20px); transition: border-color 0.3s, box-shadow 0.3s; }
+.search-box-wrapper input:focus { outline: none; border-color: var(--cyan); box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); }
+.search-icon { position: absolute; left: 1.4rem; top: 50%; transform: translateY(-50%); color: var(--text-gray); font-size: 1.2rem; }
 
 /* Filter Tabs */
 .filter-tabs { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 3rem; flex-wrap: wrap; }

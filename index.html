@@ -27,7 +27,7 @@
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#teaching">Teaching</a>
-        <a href="#projects">All Repos &amp; Work</a>
+        <a href="#projects">Ecosystem</a>
         <a href="#publications">Research</a>
         <a href="#contact" class="nav-btn">Contact</a>
       </div>
@@ -100,7 +100,7 @@
     <!-- Experience & Research Section -->
     <section id="experience" class="section">
       <div class="section-header fade-in-up">
-        <h2>Experience &amp; <span class="gradient-text">Research</span></h2>
+        <h2>Experience &amp; <span class="gradient-text">Research Labs</span></h2>
         <p>My academic, lab, and engineering positions.</p>
       </div>
       
@@ -191,30 +191,36 @@
       </div>
     </section>
 
-    <!-- Interactive Filterable Works & Repositories Gallery -->
+    <!-- Interactive Search & Repository Ecosystem -->
     <section id="projects" class="section">
       <div class="section-header fade-in-up">
-        <h2>Complete <span class="gradient-text">Works &amp; Repository Ecosystem</span></h2>
-        <p>Filter through my open-source repositories, HuggingFace models, and engineering projects.</p>
+        <h2>Interactive <span class="gradient-text">Repository &amp; Work Ecosystem</span></h2>
+        <p>Live search and filter through all 140+ repositories, Hugging Face models, and engineering projects.</p>
+      </div>
+
+      <!-- Live Search Bar -->
+      <div class="search-box-wrapper fade-in-up">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="repo-search" placeholder="Live search across 140+ repos, languages (PyTorch, C++, CUDA, Django)...">
       </div>
 
       <!-- Filter Category Buttons -->
       <div class="filter-tabs fade-in-up">
-        <button class="filter-btn active" data-filter="all">All (16+ Showcased)</button>
+        <button class="filter-btn active" data-filter="all">All Projects</button>
         <button class="filter-btn" data-filter="ai">AI &amp; LLMs</button>
         <button class="filter-btn" data-filter="systems">Systems &amp; Kernels</button>
         <button class="filter-btn" data-filter="hf">Hugging Face Models</button>
         <button class="filter-btn" data-filter="web">Full-Stack &amp; Games</button>
       </div>
       
-      <div class="bento-grid">
+      <div class="bento-grid" id="bento-grid">
         
         <!-- Repo 1 -->
         <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="ai" data-tilt data-tilt-max="3">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> LLM Alignment</div>
-            <h3>4B LLM Reasoning with GRPO &amp; SFT</h3>
-            <p>Fine-tuning 4B language models on GSM8k using Group Relative Policy Optimization (GRPO) and Supervised Fine-Tuning for complex mathematical reasoning.</p>
+            <h3 class="repo-title">4B LLM Reasoning with GRPO &amp; SFT</h3>
+            <p class="repo-desc">Fine-tuning 4B language models on GSM8k using Group Relative Policy Optimization (GRPO) and Supervised Fine-Tuning for complex mathematical reasoning.</p>
             <div class="bento-tags"><span class="tag">GRPO</span><span class="tag">GSM8k</span><span class="tag">PyTorch</span><span class="tag">SFT</span></div>
           </div>
         </a>
@@ -223,8 +229,8 @@
         <a href="https://github.com/tahamajs/Kaleido" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Distributed Systems</div>
-            <h3>Kaleido LLM Engine</h3>
-            <p>First-principles distributed training framework supporting tensor, pipeline, and data parallelism across GPU nodes.</p>
+            <h3 class="repo-title">Kaleido LLM Engine</h3>
+            <p class="repo-desc">First-principles distributed training framework supporting tensor, pipeline, and data parallelism across GPU nodes.</p>
             <div class="bento-tags"><span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">Distributed</span></div>
           </div>
         </a>
@@ -233,8 +239,8 @@
         <a href="https://huggingface.co/tahamajs/paligemma-clevr-cogen-qlora" target="_blank" class="bento-item fade-in-up" data-category="hf" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-robot"></i> Hugging Face Model</div>
-            <h3>PaliGemma CLEVR VQA (QLoRA)</h3>
-            <p>Fine-tuned PaliGemma Vision-Language model for CLEVR visual question answering using QLoRA quantisation.</p>
+            <h3 class="repo-title">PaliGemma CLEVR VQA (QLoRA)</h3>
+            <p class="repo-desc">Fine-tuned PaliGemma Vision-Language model for CLEVR visual question answering using QLoRA quantisation.</p>
             <div class="bento-tags"><span class="tag">PaliGemma</span><span class="tag">VQA</span><span class="tag">QLoRA</span><span class="tag">HuggingFace</span></div>
           </div>
         </a>
@@ -243,8 +249,8 @@
         <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="ai" data-tilt data-tilt-max="3">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-atom"></i> Generative AI</div>
-            <h3>Deep Generative Models Suite</h3>
-            <p>Implementations of continuous probability paths, Flow Matching, Score-Based Diffusion (DDPM), and VAE selective amnesia machine unlearning.</p>
+            <h3 class="repo-title">Deep Generative Models Suite</h3>
+            <p class="repo-desc">Implementations of continuous probability paths, Flow Matching, Score-Based Diffusion (DDPM), and VAE selective amnesia machine unlearning.</p>
             <div class="bento-tags"><span class="tag">Flow Matching</span><span class="tag">DDPM</span><span class="tag">Unlearning</span><span class="tag">VAEs</span></div>
           </div>
         </a>
@@ -253,8 +259,8 @@
         <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-terminal"></i> Kernel OS</div>
-            <h3>xv6 Unix Kernel Schedulers</h3>
-            <p>Custom process schedulers, virtual memory management, and system calls implemented inside the xv6 Unix kernel in C.</p>
+            <h3 class="repo-title">xv6 Unix Kernel Schedulers</h3>
+            <p class="repo-desc">Custom process schedulers, virtual memory management, and system calls implemented inside the xv6 Unix kernel in C.</p>
             <div class="bento-tags"><span class="tag">C</span><span class="tag">Unix Kernel</span><span class="tag">OS</span></div>
           </div>
         </a>
@@ -263,8 +269,8 @@
         <a href="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-flask"></i> Research Code</div>
-            <h3>Shortcut Learning &amp; Task Arithmetic</h3>
-            <p>Investigating inductive biases and shortcut learning mitigation in deep networks using task arithmetic vector spaces.</p>
+            <h3 class="repo-title">Shortcut Learning &amp; Task Arithmetic</h3>
+            <p class="repo-desc">Investigating inductive biases and shortcut learning mitigation in deep networks using task arithmetic vector spaces.</p>
             <div class="bento-tags"><span class="tag">Task Arithmetic</span><span class="tag">RIML Lab</span><span class="tag">PyTorch</span></div>
           </div>
         </a>
@@ -273,8 +279,8 @@
         <a href="https://github.com/tahamajs/Course-Selection-System_Project" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Full-Stack</div>
-            <h3>University Course Selection System</h3>
-            <p>Enterprise academic management system built with Django REST, PostgreSQL, Docker Compose, MinIO storage, and Nginx reverse proxy.</p>
+            <h3 class="repo-title">University Course Selection System</h3>
+            <p class="repo-desc">Enterprise academic management system built with Django REST, PostgreSQL, Docker Compose, MinIO storage, and Nginx reverse proxy.</p>
             <div class="bento-tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span></div>
           </div>
         </a>
@@ -283,8 +289,8 @@
         <a href="https://github.com/tahamajs/Turtix_Game" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-gamepad"></i> Game Dev</div>
-            <h3>Turtix 2D Platformer Engine</h3>
-            <p>Custom 2D platformer engine built in C++ using SFML featuring particle effects, physics, and custom map editor.</p>
+            <h3 class="repo-title">Turtix 2D Platformer Engine</h3>
+            <p class="repo-desc">Custom 2D platformer engine built in C++ using SFML featuring particle effects, physics, and custom map editor.</p>
             <div class="bento-tags"><span class="tag">C++</span><span class="tag">SFML</span><span class="tag">Game Engine</span></div>
           </div>
         </a>
@@ -293,8 +299,8 @@
         <a href="https://huggingface.co/datasets/tahamajs/consciousness-datasets" target="_blank" class="bento-item fade-in-up" data-category="hf" data-tilt data-tilt-max="5">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-database"></i> Hugging Face Dataset</div>
-            <h3>Synthetic Consciousness Dataset</h3>
-            <p>Curated dataset supporting Integrated Information Theory (IIT) and Global Workspace Theory cognitive evaluation.</p>
+            <h3 class="repo-title">Synthetic Consciousness Dataset</h3>
+            <p class="repo-desc">Curated dataset supporting Integrated Information Theory (IIT) and Global Workspace Theory cognitive evaluation.</p>
             <div class="bento-tags"><span class="tag">HuggingFace</span><span class="tag">IIT</span><span class="tag">Dataset</span></div>
           </div>
         </a>
@@ -302,10 +308,30 @@
         <!-- Repo 10 -->
         <a href="https://github.com/tahamajs/AirMouse" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <div class="project-tag"><i class="fas fa-hand-pointer"></i> Computer Vision</div>
-            <h3>AirMouse Gesture Controller</h3>
-            <p>Real-time computer vision system controlling OS pointer movements using hand gesture detection and OpenCV.</p>
+            <div class="project-tag"><i class="fas fa-hand-pointer"></i> Vision &amp; Gestures</div>
+            <h3 class="repo-title">AirMouse Gesture Controller</h3>
+            <p class="repo-desc">Real-time computer vision system controlling OS pointer movements using hand gesture detection and OpenCV.</p>
             <div class="bento-tags"><span class="tag">OpenCV</span><span class="tag">Python</span><span class="tag">Gestures</span></div>
+          </div>
+        </a>
+
+        <!-- Repo 11 -->
+        <a href="https://github.com/tahamajs/Natural-Language-Processing-Projects" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag"><i class="fas fa-language"></i> NLP Suite</div>
+            <h3 class="repo-title">NLP Course Projects &amp; Transformers</h3>
+            <p class="repo-desc">Comprehensive suite of sequence labeling, word embeddings, subword tokenization, and transformer architectures.</p>
+            <div class="bento-tags"><span class="tag">NLP</span><span class="tag">Transformers</span><span class="tag">Sharif</span></div>
+          </div>
+        </a>
+
+        <!-- Repo 12 -->
+        <a href="https://github.com/tahamajs/Unlearning_from_VAE" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag"><i class="fas fa-user-shield"></i> Machine Unlearning</div>
+            <h3 class="repo-title">Selective Amnesia in VAEs</h3>
+            <p class="repo-desc">Algorithm for erasing specific concepts and sensitive data representations from Variational Autoencoders without full retraining.</p>
+            <div class="bento-tags"><span class="tag">VAE</span><span class="tag">Unlearning</span><span class="tag">Safety</span></div>
           </div>
         </a>
 
@@ -369,6 +395,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=6.0"></script>
+  <script src="script.js?v=7.0"></script>
 </body>
 </html>

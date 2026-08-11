@@ -49,26 +49,44 @@ document.addEventListener('DOMContentLoaded', () => {
   
   typingEffect();
 
-  // Category Filtering Logic for Repos Ecosystem
+  // Category Filtering & Real-Time Search Logic
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const bentoItems = document.querySelectorAll('.bento-item[data-category]');
+  const bentoItems = document.querySelectorAll('.bento-item');
+  const searchInput = document.getElementById('repo-search');
 
+  function filterProjects() {
+    const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+    const activeFilterBtn = document.querySelector('.filter-btn.active');
+    const activeCategory = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+    bentoItems.forEach(item => {
+      const category = item.getAttribute('data-category');
+      const textContent = item.textContent.toLowerCase();
+
+      const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+      const matchesSearch = (query === "" || textContent.includes(query));
+
+      if (matchesCategory && matchesSearch) {
+        item.classList.remove('hide');
+      } else {
+        item.classList.add('hide');
+      }
+    });
+  }
+
+  // Category Button Click
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-filter');
-
-      bentoItems.forEach(item => {
-        if (filter === 'all' || item.getAttribute('data-category') === filter) {
-          item.classList.remove('hide');
-        } else {
-          item.classList.add('hide');
-        }
-      });
+      filterProjects();
     });
   });
+
+  // Search Input Keyup
+  if (searchInput) {
+    searchInput.addEventListener('input', filterProjects);
+  }
 
   // Scroll Reveal Observer
   const observerOptions = {
