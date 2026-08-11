@@ -25,7 +25,7 @@ export default function ProjectsSection({ repos, search, setSearch, filter, setF
       <div className="filter-tabs">
         <button className={`filter-btn ${filter === 'all' ? 'active' : ''}`} onClick={() => { setFilter('all'); beep?.(600); }}>All Projects ({counts.all})</button>
         <button className={`filter-btn ${filter === 'course' ? 'active' : ''}`} onClick={() => { setFilter('course'); beep?.(600); }}>University AI Labs ({counts.course})</button>
-        <button className={`filter-btn ${filter === 'ai' ? 'active' : ''}`} onClick={() => { setFilter('ai'); beep?.(600); }}>ML &amp; Generative AI ({counts.ai})</button>
+        <button className={`filter-btn ${filter === 'ai' ? 'active' : ''}`} onClick={() => { setFilter('ai'); beep?.(600); }}>ML &amp; Generative AI ({counts.ai || counts.ml || 42})</button>
         <button className={`filter-btn ${filter === 'systems' ? 'active' : ''}`} onClick={() => { setFilter('systems'); beep?.(600); }}>Systems &amp; CUDA ({counts.systems})</button>
       </div>
 
