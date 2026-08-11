@@ -6,10 +6,11 @@ function App() {
   const [filter, setFilter] = useState('all');
   const [accent, setAccent] = useState('cyan');
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [speechEnabled, setSpeechEnabled] = useState(false);
 
-  // Substack Search & HF Search
+  // Substack Search & HF Filter
   const [substackSearch, setSubstackSearch] = useState('');
-  const [hfSearch, setHfSearch] = useState('');
+  const [hfFilter, setHfFilter] = useState('all'); // all, model, dataset
   const [activeCodeTab, setActiveCodeTab] = useState('flow');
   const [codeOutput, setCodeOutput] = useState('');
 
@@ -45,6 +46,17 @@ function App() {
       gain.connect(audioCtxRef.current.destination);
       osc.start();
       osc.stop(audioCtxRef.current.currentTime + 0.15);
+    } catch (e) {}
+  };
+
+  const speakText = (text) => {
+    if (!speechEnabled || !('speechSynthesis' in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const clean = text.replace(/<[^>]+>/g, '').replace(/\*/g, '');
+      const utt = new SpeechSynthesisUtterance(clean);
+      utt.rate = 1.0;
+      window.speechSynthesis.speak(utt);
     } catch (e) {}
   };
 
@@ -165,10 +177,11 @@ function App() {
 
   // Filtered HF Assets
   const filteredHf = useMemo(() => {
-    const q = hfSearch.toLowerCase().trim();
-    if (!q) return data.hf || [];
-    return (data.hf || []).filter(h => (h.id + ' ' + h.type).toLowerCase().includes(q));
-  }, [data.hf, hfSearch]);
+    return (data.hf || []).filter(h => {
+      if (hfFilter === 'all') return true;
+      return h.type === hfFilter;
+    });
+  }, [data.hf, hfFilter]);
 
   const counts = useMemo(() => {
     const repos = data.repos || [];
@@ -207,6 +220,7 @@ function App() {
 
       setAiMessages(prev => [...prev, { sender: 'bot', text: reply }]);
       playSound(800, 'triangle');
+      speakText(reply);
     }, 400);
   };
 
@@ -258,6 +272,12 @@ __global__ void launch_all_reduce(float* tensor, int size) {
 }`
   };
 
+  const researchTags = [
+    'Flow Matching ODEs', 'GRPO Alignment', 'Score Diffusion', 'Task Arithmetic', 
+    'CUDA GPU Kernels', 'Linear Attention', 'Integrated Information Theory', 
+    'PaliGemma QLoRA', 'xv6 OS Kernel', 'Django REST Framework'
+  ];
+
   const achievements = [
     { icon: 'fa-trophy', title: 'Top 1% Global Commit Streak', desc: '12,787 verified commits in the past year across 143 open-source repositories.' },
     { icon: 'fa-award', title: 'GitHub Developer Program Pro Member', desc: 'Recognized for prolific open-source contributions and active infrastructure tooling.' },
@@ -286,6 +306,17 @@ __global__ void launch_all_reduce(float* tensor, int size) {
           title="Toggle Sci-Fi SFX"
         >
           <i className="fas fa-volume-up"></i>
+        </button>
+        <button
+          className={`sound-toggle-btn ${speechEnabled ? 'active' : ''}`}
+          onClick={() => {
+            setSpeechEnabled(!speechEnabled);
+            triggerToast(speechEnabled ? 'AI Voice Disabled 🔇' : 'AI Voice Enabled! 🗣️');
+          }}
+          title="Toggle AI Speech Voice"
+          style={{ marginLeft: '4px' }}
+        >
+          <i className="fas fa-microphone"></i>
         </button>
         <div className="switcher-divider"></div>
         {['cyan', 'purple', 'emerald', 'rose'].map(c => (
@@ -423,6 +454,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             <a href="#playground">Playground</a>
             <a href="#publications">Publications</a>
             <a href="#architecture">Architecture</a>
+            <a href="#models">HF Models (162)</a>
             <a href="#projects">Ecosystem ({counts.all})</a>
             <a href="#substack">Substack 🧠</a>
             <a href="assets/resume.pdf" target="_blank" className="nav-resume-btn"><i className="fas fa-file-pdf"></i> Resume CV</a>
@@ -459,9 +491,22 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               AI Researcher &amp; Systems Engineer. Co-Founder of <b>Hoosha AI 🧠</b>. Computer Engineering at <b>University of Tehran</b> and Teaching Assistant at <b>Sharif University of Technology</b>. Specializing in <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment &amp; Reasoning</b> (GRPO, SFT), and <b>Distributed GPU Infrastructure</b>.
             </p>
 
-            <div className="org-badges">
-              {['@Hooshaai', '@UTResearchAssistant', '@AP-ECE-UT', '@quera-pychi-team3', '@AP-ECE-UT-Assignments'].map(b => (
-                <span key={b} className="org-badge">{b}</span>
+            {/* Interactive Research Tags Cloud */}
+            <div className="org-badges" style={{ marginBottom: '1.5rem' }}>
+              {researchTags.map(tag => (
+                <button
+                  key={tag}
+                  className="org-badge"
+                  style={{ cursor: 'pointer', border: '1px solid var(--cyan)' }}
+                  onClick={() => {
+                    setSearch(tag);
+                    const el = document.getElementById('projects');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    triggerToast(`Filtering repos by "${tag}"! 🔍`);
+                  }}
+                >
+                  <i className="fas fa-tag"></i> {tag}
+                </button>
               ))}
             </div>
 
@@ -501,6 +546,37 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                 <p>{ach.desc}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Why Hire Taha */}
+        <section id="recruitment" className="section">
+          <div className="section-header fade-in-up">
+            <h2>Why Recruit <span className="gradient-text">Taha Majlesi?</span></h2>
+            <p>Key impact metrics making Taha an exceptional hire for AI R&amp;D teams, labs, and startups.</p>
+          </div>
+
+          <div className="recruitment-grid fade-in-up">
+            <div className="recruit-card">
+              <div className="recruit-icon"><i className="fas fa-rocket"></i></div>
+              <h3>Proven Founder Mindset</h3>
+              <p>Co-Founder at <b>Hoosha AI 🧠</b>. Proven capability to take research ideas from raw mathematics to production deployments &amp; published papers.</p>
+            </div>
+            <div className="recruit-card">
+              <div className="recruit-icon"><i className="fas fa-microchip"></i></div>
+              <h3>First-Principles Systems Engineering</h3>
+              <p>Architected <b>Kaleido</b> distributed LLM engine from scratch in CUDA, C++, and PyTorch across multi-GPU compute nodes.</p>
+            </div>
+            <div className="recruit-card">
+              <div className="recruit-icon"><i className="fas fa-brain"></i></div>
+              <h3>Frontier AI Research</h3>
+              <p>Deep expertise in <b>Flow Matching ODEs</b>, <b>GRPO 4B LLM fine-tuning</b>, synthetic datasets, and sub-quadratic linear attention.</p>
+            </div>
+            <div className="recruit-card">
+              <div className="recruit-icon"><i className="fas fa-graduation-cap"></i></div>
+              <h3>Academic Pedigree</h3>
+              <p>Computer Engineering at <b>University of Tehran</b>, cross-institutional TA for Compiler Construction at <b>Sharif University of Technology</b>.</p>
+            </div>
           </div>
         </section>
 
@@ -574,6 +650,42 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                 <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026causal, title={Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Research}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Hugging Face Models Section */}
+        <section id="models" className="section">
+          <div className="section-header fade-in-up">
+            <h2>Hugging Face <span className="gradient-text">Models &amp; Datasets ({filteredHf.length} Assets)</span></h2>
+            <p>Pre-trained model weights, fine-tuned adapters, and open synthetic datasets published by Taha Majlesi.</p>
+          </div>
+
+          <div className="filter-tabs fade-in-up" style={{ marginBottom: '2rem' }}>
+            {[
+              { id: 'all', label: 'All HF Assets (162)' },
+              { id: 'model', label: '🤖 Models (92)' },
+              { id: 'dataset', label: '📊 Datasets (70)' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                className={`filter-btn ${hfFilter === tab.id ? 'active' : ''}`}
+                onClick={() => setHfFilter(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="hf-models-grid fade-in-up">
+            {filteredHf.map((hf, i) => (
+              <div key={i} className="hf-card">
+                <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`}></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
+                <h3>{hf.id}</h3>
+                <p>Pre-trained open science release published on Hugging Face Hub.</p>
+                <div className="hf-code-line"><code>{hf.code.splitlines()[0]}</code></div>
+                <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt"></i></a>
+              </div>
+            ))}
           </div>
         </section>
 
