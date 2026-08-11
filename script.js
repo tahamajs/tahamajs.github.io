@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Dynamic Typewriter Effect
+  // 1. Dynamic Typewriter Effect
   const words = [
     "Scalable AI Systems.",
     "Flow Matching Models.",
@@ -49,7 +49,29 @@ document.addEventListener('DOMContentLoaded', () => {
   
   typingEffect();
 
-  // Category Filtering & Real-Time Search Logic
+  // 2. Built-in Zero-Dependency 3D Card Tilt Effect (No External CDNs required!)
+  const tiltElements = document.querySelectorAll('[data-tilt]');
+  tiltElements.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10;
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  });
+
+  // 3. Category Filtering & Real-Time Search Logic
   const filterBtns = document.querySelectorAll('.filter-btn');
   const bentoItems = document.querySelectorAll('.bento-item');
   const searchInput = document.getElementById('repo-search');
@@ -67,31 +89,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const matchesSearch = (query === "" || textContent.includes(query));
 
       if (matchesCategory && matchesSearch) {
+        item.style.display = 'block';
         item.classList.remove('hide');
       } else {
+        item.style.display = 'none';
         item.classList.add('hide');
       }
     });
   }
 
-  // Category Button Click
   filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       filterProjects();
     });
   });
 
-  // Search Input Keyup
   if (searchInput) {
+    searchInput.addEventListener('keyup', filterProjects);
     searchInput.addEventListener('input', filterProjects);
   }
 
-  // Scroll Reveal Observer
+  // 4. Scroll Reveal Observer
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
+    threshold: 0.05,
+    rootMargin: "0px 0px -20px 0px"
   };
 
   const observer = new IntersectionObserver((entries) => {
