@@ -169,6 +169,67 @@ function SVDVis({ playing }) {
 }
 
 
+// Machine Unlearning: Null-space projection erasing concept vectors
+function UnlearningVis({ playing }) {
+  return (
+    <div className="vis-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '12px' }}>
+      <div className="vis-label">Concept Subspace Null-Space Projection</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '10px' }}>
+        <div className={`matrix ${playing ? 'shrink' : ''}`} style={{ width: '90px', height: '60px', background: 'rgba(244,63,94,0.1)', borderColor: 'var(--rose)', color: 'var(--rose)' }}>
+          W (Full)
+        </div>
+        <div style={{ color: 'var(--accent)', fontSize: '18px' }}>×</div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+          <div className="matrix" style={{ width: '100px', height: '40px', background: 'rgba(0,240,255,0.1)', borderColor: 'var(--cyan)' }}>
+            (I - U_k U_kᵀ)
+          </div>
+          <span style={{ fontSize: '10px', color: 'var(--muted)', fontFamily: 'monospace' }}>Null-Space Filter</span>
+        </div>
+        <div style={{ color: 'var(--emerald)', fontSize: '18px' }}>=</div>
+        <div className="matrix" style={{ width: '90px', height: '60px', background: 'rgba(16,185,129,0.1)', borderColor: 'var(--emerald)', color: 'var(--emerald)' }}>
+          W_unlearned
+        </div>
+      </div>
+      <div style={{ fontSize: '11px', color: playing ? 'var(--emerald)' : 'var(--muted)', fontFamily: 'monospace', opacity: playing ? 1 : 0.6, transition: 'all 0.5s' }}>
+        {playing ? '✓ Concept Erased — Retain Set Accuracy Preserved (93.8%)' : 'Ready to project concept vectors onto null-space'}
+      </div>
+    </div>
+  );
+}
+
+// IIT Phi: Integrated Information Theory network partitions
+function IITVis({ playing }) {
+  return (
+    <div className="vis-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: '10px' }}>
+      <div className="vis-label">IIT 4.0 Integrated Information Φ Cut</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '30px', marginTop: '15px' }}>
+        {/* System A */}
+        <div style={{ border: '1px dashed var(--accent)', padding: '10px', borderRadius: '12px', background: 'rgba(0,240,255,0.04)', display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '6px' }}>
+          {Array.from({length:4}).map((_,i) => (
+            <div key={i} style={{ width: '12px', height: '12px', borderRadius: '50%', background: playing ? 'var(--cyan)' : 'var(--muted)', boxShadow: playing ? '0 0 8px var(--cyan)' : 'none', transition: 'all 0.3s' }} />
+          ))}
+        </div>
+
+        {/* MIP Cut */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+          <div style={{ height: '50px', width: '2px', background: playing ? 'var(--rose)' : 'var(--muted)', transition: 'all 0.5s' }} />
+          <span style={{ fontSize: '10px', color: playing ? 'var(--rose)' : 'var(--muted)', fontFamily: 'monospace' }}>MIP Cut</span>
+        </div>
+
+        {/* System B */}
+        <div style={{ border: '1px dashed var(--purple)', padding: '10px', borderRadius: '12px', background: 'rgba(138,43,226,0.04)', display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '6px' }}>
+          {Array.from({length:4}).map((_,i) => (
+            <div key={i} style={{ width: '12px', height: '12px', borderRadius: '50%', background: playing ? 'var(--purple)' : 'var(--muted)', boxShadow: playing ? '0 0 8px var(--purple)' : 'none', transition: 'all 0.3s' }} />
+          ))}
+        </div>
+      </div>
+      <div style={{ fontSize: '12px', color: 'var(--cyan)', fontFamily: 'monospace', marginTop: '6px' }}>
+        {playing ? 'Φ = 2.389 bits  (System is Consciously Integrated)' : 'Click Run to compute Minimum Information Partition'}
+      </div>
+    </div>
+  );
+}
+
 /* --- Main Component --- */
 
 export default function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
@@ -242,6 +303,8 @@ export default function CodeSandboxSection({ activeTab, setActiveTab, runOutput,
             {activeTab === 'grpo' && <GRPOVis playing={playing} />}
             {activeTab === 'cuda' && <CUDAReductionVis playing={playing} />}
             {activeTab === 'svd' && <SVDVis playing={playing} />}
+            {activeTab === 'unlearning' && <UnlearningVis playing={playing} />}
+            {activeTab === 'iit' && <IITVis playing={playing} />}
             {!playing && (
               <div className="vis-overlay-play" onClick={handleRun}>
                 <i className="fas fa-play-circle" />
@@ -263,6 +326,12 @@ export default function CodeSandboxSection({ activeTab, setActiveTab, runOutput,
             )}
             {activeTab === 'svd' && (
               <p><b>Linear Attention</b> solves the <i>O(N²)</i> sequence length bottleneck of the standard Transformer self-attention mechanism. By applying the kernel trick <i>exp(q · k) ≈ φ(q)^T φ(k)</i> (where <i>φ</i> represents a low-rank SVD projection with rank <i>r</i>), we can fundamentally alter the computation order from <i>(Q K^T) V</i> to <i>Q (K^T V)</i>. This mathematically reduces computational complexity and VRAM usage to <i>O(N · r)</i>, unlocking the potential for infinite-context language models.</p>
+            )}
+            {activeTab === 'unlearning' && (
+              <p><b>Machine Unlearning &amp; Concept Erasure</b> removes copyrighted or sensitive concepts from trained model weights without full retraining. By computing singular value decomposition (SVD) on concept representations, we construct a <i>Null-Space Projection Matrix (I - U_k U_kᵀ)</i>. Multiplying model weights by this matrix completely zeroes out activation components along the target concept dimensions while leaving orthogonal task capabilities intact.</p>
+            )}
+            {activeTab === 'iit' && (
+              <p><b>Integrated Information Theory (IIT 4.0)</b> quantifies synthetic consciousness and cognitive integration via the <b>Φ (Phi) metric</b>. By evaluating the Effective Information (EI) of the system as a whole versus the sum of its Minimum Information Partition (MIP) cuts, Φ measures how irreducibly integrated a cognitive network is. A system with Φ &gt; 0 possesses non-zero integrated cause-effect power.</p>
             )}
           </div>
         </div>
