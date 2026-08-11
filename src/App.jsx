@@ -28,6 +28,7 @@ import CommandPalette from './components/modals/CommandPalette.jsx';
 import TerminalModal from './components/modals/TerminalModal.jsx';
 import ArticleCreatorModal from './components/modals/ArticleCreatorModal.jsx';
 import NNPlaygroundModal from './components/modals/NNPlaygroundModal.jsx';
+import PaperReaderModal from './components/modals/PaperReaderModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -53,6 +54,7 @@ export default function App() {
   const [cliOpen, setCliOpen] = useState(false);
   const [nnOpen, setNnOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
+  const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
 
   // Custom Hooks
@@ -156,7 +158,7 @@ export default function App() {
         <TimelineSection />
         <SkillsSection />
         <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
-        <PublicationsSection onCopyBib={setBibtexPub} beep={beep} />
+        <PublicationsSection onCopyBib={setBibtexPub} onSelectPaper={setSelectedPaper} beep={beep} />
         <SocialFeedSection beep={beep} />
         <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} beep={beep} />
         <NewsletterSection beep={beep} />
@@ -195,6 +197,7 @@ export default function App() {
       <TerminalModal open={cliOpen} onClose={() => setCliOpen(false)} beep={beep} />
       <ArticleCreatorModal open={articleModalOpen} onClose={() => setArticleModalOpen(false)} onAddArticle={handleAddArticle} beep={beep} showToast={showToast} />
       <NNPlaygroundModal open={nnOpen} onClose={() => setNnOpen(false)} beep={beep} showToast={showToast} />
+      <PaperReaderModal paper={selectedPaper} onClose={() => setSelectedPaper(null)} onCopyBib={copyBib} beep={beep} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

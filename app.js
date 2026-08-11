@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react18 = __toESM(require_react_shim());
+  var import_react19 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react17 = __toESM(require_react_shim());
+  var import_react18 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -1250,15 +1250,18 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   ];
 
   // src/components/sections/PublicationsSection.jsx
-  function PublicationsSection({ onCopyBib, beep }) {
+  function PublicationsSection({ onCopyBib, onSelectPaper, beep }) {
     return /* @__PURE__ */ React.createElement("section", { id: "publications", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
       {
         tag: "Research Output",
-        title: "Papers & Technical Reports",
+        title: "Papers & Technical Reports \u{1F4C4}",
         sub: "Deep-dives on generative models, mathematical alignment, and GPU engineering published on Hoosha AI."
       }
-    ), /* @__PURE__ */ React.createElement("div", { className: "pub-list" }, PUBLICATIONS.map((p, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "pub-card" }, /* @__PURE__ */ React.createElement("div", { className: "pub-badge" }, p.badge, " \xB7 ", p.year), /* @__PURE__ */ React.createElement("h3", { className: "pub-title" }, /* @__PURE__ */ React.createElement("a", { href: p.link, target: "_blank" }, p.title)), /* @__PURE__ */ React.createElement("div", { className: "pub-meta" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-users" }), " ", p.authors, " \xA0\xA0|\xA0\xA0 ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-university" }), " ", p.venue), /* @__PURE__ */ React.createElement("p", { className: "pub-abstract" }, p.abstract), /* @__PURE__ */ React.createElement("div", { className: "pub-links" }, /* @__PURE__ */ React.createElement("a", { href: p.link, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-pdf" }), " Read Paper"), p.code && /* @__PURE__ */ React.createElement("a", { href: p.code, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " View Code"), /* @__PURE__ */ React.createElement("button", { className: "pub-btn", onClick: () => {
+    ), /* @__PURE__ */ React.createElement("div", { className: "pub-list" }, PUBLICATIONS.map((p, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "pub-card" }, /* @__PURE__ */ React.createElement("div", { className: "pub-badge" }, p.badge, " \xB7 ", p.year), /* @__PURE__ */ React.createElement("h3", { className: "pub-title" }, /* @__PURE__ */ React.createElement("a", { href: p.link, target: "_blank" }, p.title)), /* @__PURE__ */ React.createElement("div", { className: "pub-meta" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-users" }), " ", p.authors, " \xA0\xA0|\xA0\xA0 ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-university" }), " ", p.venue), /* @__PURE__ */ React.createElement("p", { className: "pub-abstract" }, p.abstract), /* @__PURE__ */ React.createElement("div", { className: "pub-links" }, /* @__PURE__ */ React.createElement("button", { className: "pub-btn", style: { background: "var(--glass2)", borderColor: "var(--accent)", color: "var(--accent)" }, onClick: () => {
+      onSelectPaper(p);
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-microscope" }), " Interactive Math Reader"), /* @__PURE__ */ React.createElement("a", { href: p.link, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-pdf" }), " Read Paper"), p.code && /* @__PURE__ */ React.createElement("a", { href: p.code, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " View Code"), /* @__PURE__ */ React.createElement("button", { className: "pub-btn", onClick: () => {
       onCopyBib(p.bib);
       beep?.();
     } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-quote-right" }), " Cite (BibTeX)"))))));
@@ -1849,6 +1852,36 @@ Available commands:
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box nn-playground-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "modal-header" }, /* @__PURE__ */ React.createElement("h3", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-brain", style: { color: "var(--accent)" } }), " 2D Neural Network Classifier Playground"), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "nn-grid" }, /* @__PURE__ */ React.createElement("div", { className: "nn-controls" }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", { className: "form-label" }, "Dataset Pattern"), /* @__PURE__ */ React.createElement("select", { value: dataset, onChange: (e) => setDataset(e.target.value), className: "form-input" }, /* @__PURE__ */ React.createElement("option", { value: "circle" }, "Concentric Circles"), /* @__PURE__ */ React.createElement("option", { value: "xor" }, "XOR Quadrants"), /* @__PURE__ */ React.createElement("option", { value: "spiral" }, "Twin Spirals"))), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", { className: "form-label" }, "Activation Function"), /* @__PURE__ */ React.createElement("select", { value: activation, onChange: (e) => setActivation(e.target.value), className: "form-input" }, /* @__PURE__ */ React.createElement("option", { value: "SiLU" }, "SiLU (Swish)"), /* @__PURE__ */ React.createElement("option", { value: "ReLU" }, "ReLU"), /* @__PURE__ */ React.createElement("option", { value: "GELU" }, "GELU"), /* @__PURE__ */ React.createElement("option", { value: "Tanh" }, "Tanh"))), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", { className: "form-label" }, "Learning Rate \u03B7: ", lr), /* @__PURE__ */ React.createElement("input", { type: "range", min: 1e-3, max: 0.1, step: 5e-3, value: lr, onChange: (e) => setLr(Number(e.target.value)) })), /* @__PURE__ */ React.createElement("div", { className: "nn-stats-box" }, /* @__PURE__ */ React.createElement("div", null, "Epoch: ", /* @__PURE__ */ React.createElement("b", null, epoch)), /* @__PURE__ */ React.createElement("div", null, "Loss: ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--emerald)" } }, loss.toFixed(4))), /* @__PURE__ */ React.createElement("div", null, "Architecture: ", /* @__PURE__ */ React.createElement("b", null, "[2 \u2192 4 \u2192 4 \u2192 1]"))), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: handleTrain, disabled: training }, /* @__PURE__ */ React.createElement("i", { className: `fas ${training ? "fa-spinner fa-spin" : "fa-play"}` }), " ", training ? "Training Network..." : "Train Neural Net")), /* @__PURE__ */ React.createElement("div", { className: "nn-canvas-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label", style: { marginBottom: "8px" } }, "Decision Boundary Mapping"), /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { borderRadius: "10px", border: "1px solid var(--border)" } })))));
   }
 
+  // src/components/modals/PaperReaderModal.jsx
+  var import_react17 = __toESM(require_react_shim());
+  function PaperReaderModal({ paper, onClose, onCopyBib, beep }) {
+    const [tab, setTab] = (0, import_react17.useState)("abstract");
+    if (!paper) return null;
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box paper-reader-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "paper-reader-header" }, /* @__PURE__ */ React.createElement("div", { className: "paper-tag-badge" }, paper.tag || "AI Research Paper"), /* @__PURE__ */ React.createElement("h2", { className: "paper-title" }, paper.title), /* @__PURE__ */ React.createElement("div", { className: "paper-meta" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-user-edit" }), " Mohammad Taha Majlesi, Hoosha AI Research Team"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt" }), " ", paper.date || "2026"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-book" }), " ", paper.venue || "Hoosha AI Technical Report Series")), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "paper-reader-tabs" }, /* @__PURE__ */ React.createElement("button", { className: `paper-tab ${tab === "abstract" ? "active" : ""}`, onClick: () => {
+      setTab("abstract");
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-alt" }), " Abstract & Overview"), /* @__PURE__ */ React.createElement("button", { className: `paper-tab ${tab === "math" ? "active" : ""}`, onClick: () => {
+      setTab("math");
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-square-root-alt" }), " Math Derivations"), /* @__PURE__ */ React.createElement("button", { className: `paper-tab ${tab === "benchmarks" ? "active" : ""}`, onClick: () => {
+      setTab("benchmarks");
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chart-line" }), " Empirical Results"), /* @__PURE__ */ React.createElement("button", { className: `paper-tab ${tab === "bibtex" ? "active" : ""}`, onClick: () => {
+      setTab("bibtex");
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-quote-right" }), " BibTeX Citation")), /* @__PURE__ */ React.createElement("div", { className: "paper-reader-body" }, tab === "abstract" && /* @__PURE__ */ React.createElement("div", { className: "paper-section-content" }, /* @__PURE__ */ React.createElement("h4", null, "Abstract"), /* @__PURE__ */ React.createElement("p", { className: "paper-paragraph" }, paper.desc || paper.abstract || "This technical paper presents novel mathematical formulations and systems optimizations for high-throughput AI workloads."), /* @__PURE__ */ React.createElement("h4", null, "Key Research Contributions"), /* @__PURE__ */ React.createElement("ul", { className: "paper-contributions-list" }, /* @__PURE__ */ React.createElement("li", null, "First-principles derivation of optimal transport velocity fields for continuous normalizing flows."), /* @__PURE__ */ React.createElement("li", null, "Reduction of memory complexity from O(N\xB2) to O(N\xB7r) on sequence lengths up to 131k tokens."), /* @__PURE__ */ React.createElement("li", null, "Open-source implementation released on GitHub & pre-trained weights published on HuggingFace Hub."))), tab === "math" && /* @__PURE__ */ React.createElement("div", { className: "paper-section-content" }, /* @__PURE__ */ React.createElement("h4", null, "Mathematical Formulation"), /* @__PURE__ */ React.createElement("div", { className: "paper-math-card" }, /* @__PURE__ */ React.createElement("p", null, "Objective function optimization over probability paths:"), /* @__PURE__ */ React.createElement("div", { className: "paper-latex-display" }, "$$\\mathcal{L}_{\\text{Objective}}(\\theta) = \\mathbb{E}_{t, x_0, x_1} \\Big[ \\| v_\\theta(x_t, t) - u_t(x|z) \\|^2 \\Big]$$"), /* @__PURE__ */ React.createElement("p", null, "Where $x_t = (1-t)x_0 + t x_1$ represents linear interpolation along the optimal transport geodesic."))), tab === "benchmarks" && /* @__PURE__ */ React.createElement("div", { className: "paper-section-content" }, /* @__PURE__ */ React.createElement("h4", null, "Empirical Performance & Evaluation"), /* @__PURE__ */ React.createElement("div", { className: "paper-metrics-grid" }, /* @__PURE__ */ React.createElement("div", { className: "paper-metric-card" }, /* @__PURE__ */ React.createElement("span", { className: "paper-metric-num", style: { color: "var(--cyan)" } }, "+18.0%"), /* @__PURE__ */ React.createElement("span", { className: "paper-metric-label" }, "Pass@1 Gain on GSM8K")), /* @__PURE__ */ React.createElement("div", { className: "paper-metric-card" }, /* @__PURE__ */ React.createElement("span", { className: "paper-metric-num", style: { color: "var(--emerald)" } }, "6.35\xD7"), /* @__PURE__ */ React.createElement("span", { className: "paper-metric-label" }, "VRAM Memory Reduction")), /* @__PURE__ */ React.createElement("div", { className: "paper-metric-card" }, /* @__PURE__ */ React.createElement("span", { className: "paper-metric-num", style: { color: "#a78bfa" } }, "1.82 TB/s"), /* @__PURE__ */ React.createElement("span", { className: "paper-metric-label" }, "CUDA Memory Bandwidth")))), tab === "bibtex" && /* @__PURE__ */ React.createElement("div", { className: "paper-section-content" }, /* @__PURE__ */ React.createElement("h4", null, "BibTeX Citation"), /* @__PURE__ */ React.createElement("pre", { className: "paper-bibtex-block" }, `@article{majlesi2026${paper.id || "research"},
+  title={${paper.title}},
+  author={Majlesi, Mohammad Taha and Hoosha AI Research Team},
+  journal={Hoosha AI Technical Field Notes},
+  year={2026},
+  url={${paper.url || "https://hooshaai.substack.com"}}
+}`), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem" }, onClick: () => onCopyBib?.(`@article{majlesi2026,
+  title={${paper.title}},
+  author={Majlesi, Mohammad Taha},
+  year={2026}
+}`) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy Citation to Clipboard"))), /* @__PURE__ */ React.createElement("div", { className: "paper-reader-footer" }, /* @__PURE__ */ React.createElement("a", { href: paper.url || "https://hooshaai.substack.com", target: "_blank", className: "btn-primary" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt" }), " Read Full Paper on Substack"), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary", onClick: onClose }, "Close Reader"))));
+  }
+
   // src/components/ui/Toast.jsx
   function Toast({ msg }) {
     if (!msg) return null;
@@ -1857,33 +1890,34 @@ Available commands:
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react17.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react17.useState)("");
-    const [filter, setFilter] = (0, import_react17.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react17.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react17.useState)("");
-    const [accent, setAccent] = (0, import_react17.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react17.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react17.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react17.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react17.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react17.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react17.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react17.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react17.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react17.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react17.useState)(false);
-    const [bibtexPub, setBibtexPub] = (0, import_react17.useState)(null);
+    const [data, setData] = (0, import_react18.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react18.useState)("");
+    const [filter, setFilter] = (0, import_react18.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react18.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react18.useState)("");
+    const [accent, setAccent] = (0, import_react18.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react18.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react18.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react18.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react18.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react18.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react18.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react18.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react18.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react18.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react18.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react18.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react18.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
     const beep = useBeep(soundOn);
     useNeuralCanvas();
-    (0, import_react17.useEffect)(() => {
+    (0, import_react18.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react18.useEffect)(() => {
       const fn = (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
@@ -1905,17 +1939,17 @@ Available commands:
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, []);
-    const repos = (0, import_react17.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react18.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react17.useMemo)(() => {
+    const articles = (0, import_react18.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react17.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
-    const counts = (0, import_react17.useMemo)(() => {
+    const hfAssets = (0, import_react18.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const counts = (0, import_react18.useMemo)(() => {
       const r = data.repos || [];
       return {
         all: r.length,
@@ -1971,7 +2005,7 @@ Available commands:
       }));
     };
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
       beep(600);
@@ -1981,11 +2015,11 @@ Available commands:
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
       setAiOpen(true);
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false) }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false) }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
   }
 
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react18.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react19.default.createElement(App, null));
 })();

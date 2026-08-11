@@ -575,3 +575,25 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 /* ── Art Notebook / Field Notes Aesthetics ── */
 .hero-inner, .terminal, .benchmark-card, .article-card, .tweet-card{background-image:linear-gradient(rgba(0,240,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.02) 1px, transparent 1px);background-size:24px 24px;}
 .notebook-callout{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--accent);border-left:3px solid var(--accent);padding-left:.8rem;margin-top:.6rem;opacity:.9;}
+
+/* ── Paper Reader Modal ── */
+.paper-reader-box{max-width:840px;width:92%;background:#080d1a;border:1px solid var(--border);border-radius:18px;}
+.paper-reader-header{padding:1.5rem;border-bottom:1px solid var(--border);position:relative;}
+.paper-tag-badge{background:rgba(0,240,255,0.1);color:var(--accent);font-size:.72rem;padding:.2rem .6rem;border-radius:20px;display:inline-block;margin-bottom:.5rem;font-family:'JetBrains Mono',monospace;}
+.paper-title{font-size:1.3rem;color:#fff;margin-bottom:.5rem;}
+.paper-meta{display:flex;gap:1.2rem;font-size:.78rem;color:var(--muted);flex-wrap:wrap;}
+.paper-reader-tabs{display:flex;gap:.5rem;background:rgba(0,0,0,0.3);padding:.5rem 1.5rem;border-bottom:1px solid var(--border);overflow-x:auto;}
+.paper-tab{background:none;border:none;color:var(--muted);font-size:.82rem;padding:.5rem .8rem;border-radius:8px;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.paper-tab.active{background:var(--glass2);color:var(--accent);font-weight:600;}
+.paper-reader-body{padding:1.8rem;max-height:420px;overflow-y:auto;line-height:1.7;}
+.paper-section-content h4{font-size:1rem;color:#fff;margin-bottom:.8rem;}
+.paper-paragraph{font-size:.9rem;color:#cbd5e1;margin-bottom:1rem;}
+.paper-contributions-list{padding-left:1.2rem;font-size:.88rem;color:#94a3b8;display:flex;flex-direction:column;gap:.4rem;}
+.paper-math-card{background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.15);padding:1.2rem;border-radius:12px;margin-top:.8rem;}
+.paper-latex-display{background:rgba(0,0,0,0.4);padding:1rem;border-radius:8px;margin:1rem 0;text-align:center;}
+.paper-metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;}
+.paper-metric-card{background:var(--bg2);border:1px solid var(--border);padding:1rem;border-radius:12px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.paper-metric-num{font-size:1.4rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.paper-metric-label{font-size:.75rem;color:var(--muted);margin-top:.2rem;}
+.paper-bibtex-block{background:rgba(0,0,0,0.5);border:1px solid var(--border);padding:1rem;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#e2e8f0;white-space:pre-wrap;}
+.paper-reader-footer{padding:1.2rem 1.8rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}

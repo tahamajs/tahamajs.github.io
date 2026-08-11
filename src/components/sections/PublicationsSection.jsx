@@ -2,12 +2,12 @@
 import { PUBLICATIONS } from '../../data/publications.js';
 import SectionHead from '../ui/SectionHead.jsx';
 
-export default function PublicationsSection({ onCopyBib, beep }) {
+export default function PublicationsSection({ onCopyBib, onSelectPaper, beep }) {
   return (
     <section id="publications" className="section fade-up">
       <SectionHead
         tag="Research Output"
-        title="Papers &amp; Technical Reports"
+        title="Papers &amp; Technical Reports 📄"
         sub="Deep-dives on generative models, mathematical alignment, and GPU engineering published on Hoosha AI."
       />
       <div className="pub-list">
@@ -18,6 +18,9 @@ export default function PublicationsSection({ onCopyBib, beep }) {
             <div className="pub-meta"><i className="fas fa-users" /> {p.authors} &nbsp;&nbsp;|&nbsp;&nbsp; <i className="fas fa-university" /> {p.venue}</div>
             <p className="pub-abstract">{p.abstract}</p>
             <div className="pub-links">
+              <button className="pub-btn" style={{ background: 'var(--glass2)', borderColor: 'var(--accent)', color: 'var(--accent)' }} onClick={() => { onSelectPaper(p); beep?.(); }}>
+                <i className="fas fa-microscope" /> Interactive Math Reader
+              </button>
               <a href={p.link} target="_blank" className="pub-btn" onClick={() => beep?.()}>
                 <i className="fas fa-file-pdf" /> Read Paper
               </a>
