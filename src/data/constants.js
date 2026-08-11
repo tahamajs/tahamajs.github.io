@@ -45,6 +45,7 @@ export const TIMELINE = [
   { year:'2024', icon:'fa-graduation-cap',color:'#10b981', title:'TA @ UT — M.Sc. ML, AI, OS Lab, C++',        desc:'Teaching Assistant for 4 simultaneous graduate/undergraduate courses at University of Tehran — 300+ students mentored.' },
   { year:'2024', icon:'fa-robot',         color:'#f59e0b', title:'162 HuggingFace Assets Published',             desc:'Reached 162 public HF assets: 92 pre-trained model checkpoints and 70 synthetic evaluation datasets with 1000+ total downloads.' },
   { year:'2023', icon:'fa-graduation-cap',color:'#00f0ff', title:'Started CE at University of Tehran',           desc:'Enrolled in Computer Engineering at University of Tehran — focus on systems architecture, AI research, and distributed computing.' },
+  { year:'2022', icon:'fa-school',        color:'#e1306c', title:'Public High School Graduate (من از مدرسه دولتی اومدم)', desc:'Self-made academic path: graduated from a regular public state high school in Iran. Never attended selective Helli or SAMPAD magnet schools.' },
 ];
 
 export const CONSTELLATION = [

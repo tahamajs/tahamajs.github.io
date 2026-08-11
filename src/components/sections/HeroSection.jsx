@@ -15,7 +15,7 @@ export default function HeroSection({ time, onHire, onAI, onSponsor, setSearch, 
 
           <div className="hero-badge">
             <span className="dot" />
-            Co-Founder &amp; AI Architect @ Hoosha AI 🧠 · University of Tehran
+            Co-Founder &amp; AI Architect @ Hoosha AI 🧠 · Self-Made Public School Student (مدرسه دولتی)
           </div>
 
           <div className="hero-clock">
@@ -32,9 +32,11 @@ export default function HeroSection({ time, onHire, onAI, onSponsor, setSearch, 
           <p className="hero-subtitle">
             Building scalable AI systems and distributed GPU infrastructure.
             Co-Founder of <b>Hoosha AI 🧠</b> · <b>17.1k+ LinkedIn community</b> ·
-            CE student at <b>University of Tehran</b> · TA at <b>Sharif University</b>.
-            Research focus: <b>Flow Matching</b>, <b>GRPO alignment</b>, <b>CUDA/C++ engines</b>,
-            and <b>sub-quadratic attention</b>.
+            CE student at <b>University of Tehran</b> · TA for Compiler Construction at <b>Sharif University</b>.
+            <br />
+            <span style={{ color: 'var(--accent)', fontWeight: 600 }}>
+              🎓 Self-Made Journey: Graduated from a Public State High School (من از مدرسه دولتی اومدم — Never studied at Helli or SAMPAD selective magnet schools).
+            </span>
           </p>
 
           {/* Research tag cloud */}
