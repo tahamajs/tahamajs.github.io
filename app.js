@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react14 = __toESM(require_react_shim());
+  var import_react15 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react13 = __toESM(require_react_shim());
+  var import_react14 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -1248,13 +1248,43 @@ class SVDLinearAttention(nn.Module):
     }, alt: t.author, className: "tweet-avatar" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "tweet-author" }, t.author, " ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle tweet-badge" })), /* @__PURE__ */ React.createElement("div", { className: "tweet-handle" }, t.handle, " \xB7 ", t.date)), /* @__PURE__ */ React.createElement("span", { className: "tweet-tag" }, t.tag)), /* @__PURE__ */ React.createElement("p", { className: "tweet-body" }, t.text), /* @__PURE__ */ React.createElement("div", { className: "tweet-footer" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "far fa-comment" }), " ", t.stats.replies), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-retweet" }), " ", t.stats.retweets), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "far fa-heart" }), " ", t.stats.likes), /* @__PURE__ */ React.createElement("span", { style: { marginLeft: "auto", color: "var(--accent)" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-x-twitter" }), " View on X"))))));
   }
 
+  // src/components/sections/GpuTelemetrySection.jsx
+  var import_react10 = __toESM(require_react_shim());
+  function GpuTelemetrySection() {
+    const [history, setHistory] = (0, import_react10.useState)(() => Array(20).fill(70));
+    const [flopsHist, setFlopsHist] = (0, import_react10.useState)(() => Array(20).fill(312));
+    const [vram, setVram] = (0, import_react10.useState)(68.4);
+    const [temp, setTemp] = (0, import_react10.useState)(62);
+    (0, import_react10.useEffect)(() => {
+      const id = setInterval(() => {
+        const util = Math.floor(65 + Math.random() * 32);
+        const fl = Math.floor(300 + Math.random() * 25);
+        const vr = (66 + Math.random() * 4).toFixed(1);
+        const tm = Math.floor(60 + Math.random() * 6);
+        setHistory((prev) => [...prev.slice(1), util]);
+        setFlopsHist((prev) => [...prev.slice(1), fl]);
+        setVram(vr);
+        setTemp(tm);
+      }, 1500);
+      return () => clearInterval(id);
+    }, []);
+    return /* @__PURE__ */ React.createElement("section", { id: "telemetry", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Real-Time Node Telemetry",
+        title: "Distributed Cluster Health & Metrics \u{1F4CA}",
+        sub: "Live monitoring simulation of Taha's 8\xD7A100 SXM4 80GB GPU cluster node executing Flow Matching ODE integrations and GRPO post-training steps."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "telemetry-grid" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-microchip", style: { color: "var(--accent)" } }), " Streaming Multiprocessor (SM)"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "var(--accent)" } }, history[history.length - 1], "%")), /* @__PURE__ */ React.createElement("div", { className: "sparkline" }, history.map((h, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "sparkline-bar", style: { height: `${h}%`, background: "var(--accent)" } }))), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Target: 108 SMs @ 1.41 GHz \xB7 6,912 CUDA Cores")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-bolt", style: { color: "var(--emerald)" } }), " Tensor FLOPS (BF16)"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "var(--emerald)" } }, flopsHist[flopsHist.length - 1], " TFLOPS")), /* @__PURE__ */ React.createElement("div", { className: "sparkline" }, flopsHist.map((f, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "sparkline-bar", style: { height: `${(f - 280) / 50 * 100}%`, background: "var(--emerald)" } }))), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Peak FP16 Tensor Core Performance: 312 TFLOPS")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-memory", style: { color: "#a78bfa" } }), " HBM2e VRAM Usage"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "#a78bfa" } }, vram, " / 80 GB")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress-fill", style: { width: `${vram / 80 * 100}%`, background: "#a78bfa" } })), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Bandwidth: 1,935 GB/s (1.93 TB/s peak)")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-temperature-high", style: { color: "#f43f5e" } }), " Thermal & Power Draw"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "#f43f5e" } }, temp, "\xB0C / 380W")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress-fill", style: { width: `${temp / 85 * 100}%`, background: "#f43f5e" } })), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "SXM4 Liquid-Cooled Loop \xB7 Max TDP: 400W"))));
+  }
+
   // src/components/modals/AIChatModal.jsx
-  var import_react11 = __toESM(require_react_shim());
+  var import_react12 = __toESM(require_react_shim());
 
   // src/components/ui/Modal.jsx
-  var import_react10 = __toESM(require_react_shim());
+  var import_react11 = __toESM(require_react_shim());
   function Modal({ open, onClose, children, wide = false }) {
-    (0, import_react10.useEffect)(() => {
+    (0, import_react11.useEffect)(() => {
       if (open) document.body.style.overflow = "hidden";
       else document.body.style.overflow = "";
       return () => {
@@ -1307,10 +1337,10 @@ class SVDLinearAttention(nn.Module):
     "How to hire Taha?"
   ];
   function AIChatModal({ open, onClose, beep, speak }) {
-    const [msgs, setMsgs] = (0, import_react11.useState)([
+    const [msgs, setMsgs] = (0, import_react12.useState)([
       { who: "bot", text: "\u{1F44B} I'm Taha's AI research assistant. Ask me about <b>Flow Matching</b>, <b>GRPO</b>, <b>Hoosha AI</b>, <b>Kaleido Engine</b>, <b>GitHub Sponsors</b>, or how to <b>hire Taha</b>!" }
     ]);
-    const [input, setInput] = (0, import_react11.useState)("");
+    const [input, setInput] = (0, import_react12.useState)("");
     const send = (q) => {
       if (!q?.trim()) return;
       setMsgs((p) => [...p, { who: "user", text: q.trim() }]);
@@ -1365,9 +1395,9 @@ class SVDLinearAttention(nn.Module):
   }
 
   // src/components/modals/CommandPalette.jsx
-  var import_react12 = __toESM(require_react_shim());
+  var import_react13 = __toESM(require_react_shim());
   function CommandPalette({ open, onClose, onCmd }) {
-    const [q, setQ] = (0, import_react12.useState)("");
+    const [q, setQ] = (0, import_react13.useState)("");
     if (!open) return null;
     const filtered = CMD_ITEMS.filter((i) => i.text.toLowerCase().includes(q.toLowerCase()));
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cmd-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-search" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), /* @__PURE__ */ React.createElement(
@@ -1405,30 +1435,30 @@ class SVDLinearAttention(nn.Module):
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react13.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react13.useState)("");
-    const [filter, setFilter] = (0, import_react13.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react13.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react13.useState)("");
-    const [accent, setAccent] = (0, import_react13.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react13.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react13.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react13.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react13.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react13.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react13.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react13.useState)(false);
-    const [bibtexPub, setBibtexPub] = (0, import_react13.useState)(null);
+    const [data, setData] = (0, import_react14.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react14.useState)("");
+    const [filter, setFilter] = (0, import_react14.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react14.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react14.useState)("");
+    const [accent, setAccent] = (0, import_react14.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react14.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react14.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react14.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react14.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react14.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react14.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react14.useState)(false);
+    const [bibtexPub, setBibtexPub] = (0, import_react14.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
     const beep = useBeep(soundOn);
     useNeuralCanvas();
-    (0, import_react13.useEffect)(() => {
+    (0, import_react14.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react13.useEffect)(() => {
+    (0, import_react14.useEffect)(() => {
       const fn = (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
@@ -1445,17 +1475,17 @@ class SVDLinearAttention(nn.Module):
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, []);
-    const repos = (0, import_react13.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react14.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react13.useMemo)(() => {
+    const articles = (0, import_react14.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react13.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
-    const counts = (0, import_react13.useMemo)(() => {
+    const hfAssets = (0, import_react14.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const counts = (0, import_react14.useMemo)(() => {
       const r = data.repos || [];
       return {
         all: r.length,
@@ -1494,7 +1524,7 @@ class SVDLinearAttention(nn.Module):
       }))();
     };
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
       beep(600);
@@ -1510,5 +1540,5 @@ class SVDLinearAttention(nn.Module):
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react14.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react15.default.createElement(App, null));
 })();

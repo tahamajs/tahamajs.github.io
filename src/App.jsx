@@ -19,6 +19,7 @@ import ReadmeSection from './components/sections/ReadmeSection.jsx';
 import NewsletterSection from './components/sections/NewsletterSection.jsx';
 import ContactSection from './components/sections/ContactSection.jsx';
 import SocialFeedSection from './components/sections/SocialFeedSection.jsx';
+import GpuTelemetrySection from './components/sections/GpuTelemetrySection.jsx';
 
 import AIChatModal from './components/modals/AIChatModal.jsx';
 import HireModal from './components/modals/HireModal.jsx';
@@ -121,6 +122,7 @@ export default function App() {
       <main>
         <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
         <AchievementsSection />
+        <GpuTelemetrySection />
         <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} beep={beep} />
         <ConstellationSection beep={beep} />
         <ContributionGraph />
