@@ -177,6 +177,22 @@ body {
 .cursor { animation: blink 1s infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
+/* Publications List */
+.publications-list { display: flex; flex-direction: column; gap: 1.8rem; max-width: 950px; margin: 0 auto; }
+.pub-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2.2rem; backdrop-filter: blur(20px); transition: border-color 0.3s, transform 0.2s; }
+.pub-card:hover { border-color: var(--cyan); transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15); }
+.pub-badge { display: inline-block; font-family: monospace; font-size: 0.8rem; color: var(--cyan); background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); padding: 0.3rem 0.9rem; border-radius: 99px; margin-bottom: 0.8rem; }
+.pub-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.35; }
+.pub-title a { color: var(--text-light); text-decoration: none; transition: color 0.2s; }
+.pub-title a:hover { color: var(--cyan); }
+.pub-authors { font-size: 0.95rem; color: var(--text-light); margin-bottom: 0.3rem; }
+.pub-authors u { color: var(--cyan); font-weight: 700; text-decoration: underline; }
+.pub-venue { font-family: monospace; font-size: 0.85rem; color: var(--purple); margin-bottom: 1rem; font-weight: 600; }
+.pub-abstract { color: var(--text-gray); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.6; }
+.pub-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.pub-btn { background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); color: var(--text-light); padding: 0.4rem 1rem; border-radius: 99px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.pub-btn:hover { background: var(--cyan); color: var(--bg-dark); border-color: var(--cyan); }
+
 /* Technical Skills Matrix */
 .skills-grid { display: flex; flex-direction: column; gap: 1.2rem; max-width: 800px; margin: 0 auto; }
 .skill-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.2rem 1.8rem; border-radius: 16px; backdrop-filter: blur(20px); transition: border-color 0.3s; }

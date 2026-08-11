@@ -190,6 +190,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
+  // BibTeX Copy Listener
+  const bibtexBtns = document.querySelectorAll('.bibtex-btn');
+  bibtexBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const bibtex = btn.getAttribute('data-bibtex');
+      if (bibtex) {
+        navigator.clipboard.writeText(bibtex);
+        playSciFiSound(700, 'square');
+        showToast('BibTeX citation copied to clipboard! 📄');
+      }
+    });
+  });
+
   // 4. Live Tehran Clock Ticker
   function updateTehranClock() {
     const clockEl = document.getElementById('live-tehran-clock');
