@@ -554,3 +554,12 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .form-textarea{resize:vertical;min-height:90px;}
 .preview-card{background:rgba(0,240,255,0.03);border-color:rgba(0,240,255,0.2);margin-top:.4rem;}
 .form-actions{display:flex;justify-content:flex-end;gap:1rem;margin-top:.8rem;}
+
+/* ── Interactive Hyper-parameter Controls & Fullscreen Lab ── */
+.sandbox-controls-panel{background:rgba(0,240,255,0.03);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:1rem;display:flex;flex-direction:column;gap:.8rem;}
+.controls-panel-title{font-size:.8rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:.5rem;}
+.controls-row{display:flex;gap:1rem;flex-wrap:wrap;}
+.ctrl-group{display:flex;flex-direction:column;gap:.3rem;flex:1;min-width:140px;}
+.ctrl-group label{font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.ctrl-group select, .ctrl-group input[type="range"]{background:var(--bg2);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:.78rem;padding:.3rem .5rem;border-radius:6px;outline:none;}
+.sandbox-fullscreen-mode{position:fixed;inset:0;z-index:2000;background:var(--bg);padding:2rem;overflow-y:auto;}
