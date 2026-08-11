@@ -43,21 +43,64 @@ export function useGpuMetrics() {
   return m;
 }
 
-/* ── Sound ── */
+/* ── Multi-Tone Sound Engine & Screen Click Listener ── */
 export function useBeep(soundOn) {
   const ctx = useRef(null);
-  return useCallback((freq = 440, type = 'sine', vol = 0.03) => {
+
+  const beep = useCallback((freq = 440, type = 'sine', vol = 0.03, soundProfile = 'synth') => {
     if (!soundOn) return;
     try {
       if (!ctx.current) ctx.current = new (window.AudioContext || window.webkitAudioContext)();
-      const c = ctx.current, osc = c.createOscillator(), g = c.createGain();
-      osc.type = type; osc.frequency.value = freq;
-      g.gain.setValueAtTime(vol, c.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.18);
-      osc.connect(g); g.connect(c.destination);
-      osc.start(); osc.stop(c.currentTime + 0.18);
-    } catch (_) {}
+      const c = ctx.current;
+      
+      if (soundProfile === 'click') {
+        // Mechanical switch click sound profile
+        const osc = c.createOscillator(), g = c.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200, c.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, c.currentTime + 0.04);
+        g.gain.setValueAtTime(vol * 1.5, c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.04);
+        osc.connect(g); g.connect(c.destination);
+        osc.start(); osc.stop(c.currentTime + 0.04);
+      } else if (soundProfile === 'chime') {
+        // Retro Arcade dual-tone arpeggio chime profile
+        [523.25, 659.25, 783.99].forEach((f, idx) => {
+          const osc = c.createOscillator(), g = c.createGain();
+          osc.type = 'sine'; osc.frequency.value = f;
+          g.gain.setValueAtTime(vol * 0.8, c.currentTime + idx * 0.05);
+          g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + idx * 0.05 + 0.1);
+          osc.connect(g); g.connect(c.destination);
+          osc.start(c.currentTime + idx * 0.05);
+          osc.stop(c.currentTime + idx * 0.05 + 0.1);
+        });
+      } else {
+        // Default Cyber Synth Beep profile
+        const osc = c.createOscillator(), g = c.createGain();
+        osc.type = type; osc.frequency.value = freq;
+        g.gain.setValueAtTime(vol, c.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.08);
+        osc.connect(g); g.connect(c.destination);
+        osc.start(); osc.stop(c.currentTime + 0.08);
+      }
+    } catch {}
   }, [soundOn]);
+
+  // Global screen click listener
+  useEffect(() => {
+    if (!soundOn) return;
+    const onClick = (e) => {
+      if (['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName)) {
+        beep(880, 'sine', 0.03, 'click');
+      } else {
+        beep(440, 'sine', 0.015, 'click');
+      }
+    };
+    window.addEventListener('click', onClick);
+    return () => window.removeEventListener('click', onClick);
+  }, [soundOn, beep]);
+
+  return beep;
 }
 
 /* ── Canvas: neural mesh + snow + rain + matrix ── */

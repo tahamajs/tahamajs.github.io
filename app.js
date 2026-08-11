@@ -96,22 +96,61 @@
   }
   function useBeep(soundOn) {
     const ctx = (0, import_react.useRef)(null);
-    return (0, import_react.useCallback)((freq = 440, type = "sine", vol = 0.03) => {
+    const beep = (0, import_react.useCallback)((freq = 440, type = "sine", vol = 0.03, soundProfile = "synth") => {
       if (!soundOn) return;
       try {
         if (!ctx.current) ctx.current = new (window.AudioContext || window.webkitAudioContext)();
-        const c = ctx.current, osc = c.createOscillator(), g = c.createGain();
-        osc.type = type;
-        osc.frequency.value = freq;
-        g.gain.setValueAtTime(vol, c.currentTime);
-        g.gain.exponentialRampToValueAtTime(1e-4, c.currentTime + 0.18);
-        osc.connect(g);
-        g.connect(c.destination);
-        osc.start();
-        osc.stop(c.currentTime + 0.18);
-      } catch (_) {
+        const c = ctx.current;
+        if (soundProfile === "click") {
+          const osc = c.createOscillator(), g = c.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(1200, c.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(300, c.currentTime + 0.04);
+          g.gain.setValueAtTime(vol * 1.5, c.currentTime);
+          g.gain.exponentialRampToValueAtTime(1e-3, c.currentTime + 0.04);
+          osc.connect(g);
+          g.connect(c.destination);
+          osc.start();
+          osc.stop(c.currentTime + 0.04);
+        } else if (soundProfile === "chime") {
+          [523.25, 659.25, 783.99].forEach((f, idx) => {
+            const osc = c.createOscillator(), g = c.createGain();
+            osc.type = "sine";
+            osc.frequency.value = f;
+            g.gain.setValueAtTime(vol * 0.8, c.currentTime + idx * 0.05);
+            g.gain.exponentialRampToValueAtTime(1e-3, c.currentTime + idx * 0.05 + 0.1);
+            osc.connect(g);
+            g.connect(c.destination);
+            osc.start(c.currentTime + idx * 0.05);
+            osc.stop(c.currentTime + idx * 0.05 + 0.1);
+          });
+        } else {
+          const osc = c.createOscillator(), g = c.createGain();
+          osc.type = type;
+          osc.frequency.value = freq;
+          g.gain.setValueAtTime(vol, c.currentTime);
+          g.gain.exponentialRampToValueAtTime(1e-4, c.currentTime + 0.08);
+          osc.connect(g);
+          g.connect(c.destination);
+          osc.start();
+          osc.stop(c.currentTime + 0.08);
+        }
+      } catch {
       }
     }, [soundOn]);
+    (0, import_react.useEffect)(() => {
+      if (!soundOn) return;
+      const onClick = (e) => {
+        if (["BUTTON", "A", "INPUT", "SELECT"].includes(e.target.tagName)) {
+          beep(880, "sine", 0.03, "click");
+        } else {
+          beep(440, "sine", 0.015, "click");
+        }
+      };
+      window.addEventListener("click", onClick);
+      return () => window.removeEventListener("click", onClick);
+    }, [soundOn, beep]);
+    return beep;
   }
   function useNeuralCanvas(mode = "rain") {
     (0, import_react.useEffect)(() => {
@@ -1543,27 +1582,30 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     const [flopsHist, setFlopsHist] = (0, import_react12.useState)(() => Array(20).fill(312));
     const [vram, setVram] = (0, import_react12.useState)(68.4);
     const [temp, setTemp] = (0, import_react12.useState)(62);
+    const [drlReward, setDrlReward] = (0, import_react12.useState)(482);
     (0, import_react12.useEffect)(() => {
       const id = setInterval(() => {
         const util = Math.floor(65 + Math.random() * 32);
         const fl = Math.floor(300 + Math.random() * 25);
         const vr = (66 + Math.random() * 4).toFixed(1);
         const tm = Math.floor(60 + Math.random() * 6);
+        const rw = Math.floor(480 + Math.random() * 15);
         setHistory((prev) => [...prev.slice(1), util]);
         setFlopsHist((prev) => [...prev.slice(1), fl]);
         setVram(vr);
         setTemp(tm);
+        setDrlReward(rw);
       }, 1500);
       return () => clearInterval(id);
     }, []);
     return /* @__PURE__ */ React.createElement("section", { id: "telemetry", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
       {
-        tag: "Real-Time Node Telemetry",
-        title: "Distributed Cluster Health & Metrics \u{1F4CA}",
-        sub: "Live monitoring simulation of Taha's 8\xD7A100 SXM4 80GB GPU cluster node executing Flow Matching ODE integrations and GRPO post-training steps."
+        tag: "Real-Time Cluster & DRL Telemetry",
+        title: "Distributed Cluster Health & DRL Metrics \u{1F4CA}",
+        sub: "Live monitoring of Taha's 8\xD7A100 SXM4 80GB cluster nodes executing Flow Matching ODEs, Deep Reinforcement Learning (DRL) homework policy benchmarks, and GRPO steps."
       }
-    ), /* @__PURE__ */ React.createElement("div", { className: "telemetry-grid" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-microchip", style: { color: "var(--accent)" } }), " Streaming Multiprocessor (SM)"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "var(--accent)" } }, history[history.length - 1], "%")), /* @__PURE__ */ React.createElement("div", { className: "sparkline" }, history.map((h, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "sparkline-bar", style: { height: `${h}%`, background: "var(--accent)" } }))), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Target: 108 SMs @ 1.41 GHz \xB7 6,912 CUDA Cores")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-bolt", style: { color: "var(--emerald)" } }), " Tensor FLOPS (BF16)"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "var(--emerald)" } }, flopsHist[flopsHist.length - 1], " TFLOPS")), /* @__PURE__ */ React.createElement("div", { className: "sparkline" }, flopsHist.map((f, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "sparkline-bar", style: { height: `${(f - 280) / 50 * 100}%`, background: "var(--emerald)" } }))), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Peak FP16 Tensor Core Performance: 312 TFLOPS")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-memory", style: { color: "#a78bfa" } }), " HBM2e VRAM Usage"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "#a78bfa" } }, vram, " / 80 GB")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress-fill", style: { width: `${vram / 80 * 100}%`, background: "#a78bfa" } })), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Bandwidth: 1,935 GB/s (1.93 TB/s peak)")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-temperature-high", style: { color: "#f43f5e" } }), " Thermal & Power Draw"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "#f43f5e" } }, temp, "\xB0C / 380W")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress-fill", style: { width: `${temp / 85 * 100}%`, background: "#f43f5e" } })), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "SXM4 Liquid-Cooled Loop \xB7 Max TDP: 400W"))));
+    ), /* @__PURE__ */ React.createElement("div", { className: "telemetry-grid" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-microchip", style: { color: "var(--accent)" } }), " Streaming Multiprocessor (SM)"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "var(--accent)" } }, history[history.length - 1], "%")), /* @__PURE__ */ React.createElement("div", { className: "sparkline" }, history.map((h, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "sparkline-bar", style: { height: `${h}%`, background: "var(--accent)" } }))), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Target: 108 SMs @ 1.41 GHz \xB7 6,912 CUDA Cores")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-bolt", style: { color: "var(--emerald)" } }), " Tensor FLOPS (BF16)"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "var(--emerald)" } }, flopsHist[flopsHist.length - 1], " TFLOPS")), /* @__PURE__ */ React.createElement("div", { className: "sparkline" }, flopsHist.map((f, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "sparkline-bar", style: { height: `${(f - 280) / 50 * 100}%`, background: "var(--emerald)" } }))), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Peak FP16 Tensor Core Performance: 312 TFLOPS")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-memory", style: { color: "#a78bfa" } }), " HBM2e VRAM Usage"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "#a78bfa" } }, vram, " / 80 GB")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress-fill", style: { width: `${vram / 80 * 100}%`, background: "#a78bfa" } })), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "Bandwidth: 1,935 GB/s (1.93 TB/s peak)")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-card" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-header" }, /* @__PURE__ */ React.createElement("span", { className: "telemetry-title" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-temperature-high", style: { color: "#f43f5e" } }), " Thermal & Power Draw"), /* @__PURE__ */ React.createElement("span", { className: "telemetry-val", style: { color: "#f43f5e" } }, temp, "\xB0C / 380W")), /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress" }, /* @__PURE__ */ React.createElement("div", { className: "telemetry-progress-fill", style: { width: `${temp / 85 * 100}%`, background: "#f43f5e" } })), /* @__PURE__ */ React.createElement("div", { className: "telemetry-sub" }, "SXM4 Liquid-Cooled Loop \xB7 Max TDP: 400W"))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: "2.5rem", background: "var(--bg2)", border: "1px solid var(--border)", padding: "1.5rem", borderRadius: "16px" } }, /* @__PURE__ */ React.createElement("h4", { style: { color: "#fff", fontSize: "1.1rem", marginBottom: "1rem", display: "flex", alignItems: "center", gap: ".6rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-gamepad", style: { color: "var(--accent)" } }), " Deep Reinforcement Learning (DRL) Homework & Policy Benchmarks"), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" } }, /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", padding: "1rem", borderRadius: "10px" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".8rem", color: "var(--cyan)", fontFamily: "monospace" } }, "DRL HW1: DQN & Rainbow PPO"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: "1.2rem", fontWeight: "bold", color: "#fff", margin: ".3rem 0" } }, "Score: +", drlReward, " Mean Reward"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".75rem", color: "var(--muted)" } }, "Gymnasium Breakout & Humanoid-v4")), /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", padding: "1rem", borderRadius: "10px" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".8rem", color: "var(--emerald)", fontFamily: "monospace" } }, "DRL HW2: Soft Actor-Critic (SAC)"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: "1.2rem", fontWeight: "bold", color: "#fff", margin: ".3rem 0" } }, "Entropy \u03B1 = 0.20"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".75rem", color: "var(--muted)" } }, "Continuous Control TD3 Overestimation Reduction")), /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", padding: "1rem", borderRadius: "10px" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".8rem", color: "var(--purple)", fontFamily: "monospace" } }, "DRL HW3: Flow Matching Policy"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: "1.2rem", fontWeight: "bold", color: "#fff", margin: ".3rem 0" } }, "NFE = 12 Steps"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".75rem", color: "var(--muted)" } }, "Simulation-Free Velocity Gradient Alignment")))));
   }
 
   // src/components/sections/BenchmarkSection.jsx
