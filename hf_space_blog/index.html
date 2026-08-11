@@ -1,0 +1,234 @@
+---
+title: Hoosha AI Technical Research Journal 🧠
+emoji: 🔬
+colorFrom: cyan
+colorTo: purple
+sdk: static
+pinned: false
+license: mit
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoosha AI — Substack &amp; Technical Research Journal | Taha Majlesi</title>
+  <meta name="description" content="Technical research papers and multi-part series on Flow Matching ODEs, GRPO alignment, CUDA kernels, and synthetic cognitive architectures by Mohammad Taha Majlesi.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome & KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="if(window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+  <style>
+    :root {
+      --bg: #030712;
+      --bg2: #0a0f1e;
+      --cyan: #00f0ff;
+      --purple: #8a2be2;
+      --emerald: #10b981;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(0, 240, 255, 0.18);
+      --glow: 0 0 25px rgba(0, 240, 255, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+
+    .header-box {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      text-align: center;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+      border-radius: 20px;
+      box-shadow: var(--glow);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(0, 240, 255, 0.08);
+      color: var(--cyan);
+      border: 1px solid var(--border);
+      padding: .4rem 1rem;
+      border-radius: 20px;
+      font-size: .82rem;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .8rem;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .series-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .series-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+    }
+
+    .chapter-item {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      margin-top: .8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000;
+      font-weight: 700;
+      padding: .5rem 1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: .82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .btn:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+  <div class="header-box">
+    <div class="badge"><i class="fas fa-brain"></i> HuggingFace Space: tahamajs/Blog</div>
+    <h1 class="title">Hoosha AI — Substack &amp; Technical Research Journal</h1>
+    <p class="sub">
+      Deep-dive AI engineering essays, multi-part research series, and mathematical derivations on Flow Matching ODEs, GRPO alignment, and CUDA kernels by Mohammad Taha Majlesi.
+    </p>
+  </div>
+
+  <div class="series-grid">
+    <!-- Series 1 -->
+    <div class="series-card">
+      <div style="display:flex; justify-content:space-between; margin-bottom:.5rem;">
+        <span style="color:var(--cyan); font-family:monospace; font-size:.8rem;">📚 Multi-Part Series</span>
+        <span style="color:var(--muted); font-size:.8rem;">4 Chapters</span>
+      </div>
+      <h2 style="color:#fff; margin-bottom:.4rem;">Adaptive RAG &amp; Retrieval Masterclass</h2>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:1rem;">
+        Teaching models when to retrieve, probing knowledge boundaries, and eliminating naive RAG bottlenecks.
+      </p>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 1</div>
+          <h3 style="color:#fff; font-size:1rem;">The Hidden Costs of Naive Retrieval: Adaptive RAG, Part 1</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 12 min read · 3,599 words</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 2</div>
+          <h3 style="color:#fff; font-size:1rem;">Deciding When Not to Retrieve: Adaptive RAG, Part 2</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 9 min read · 2,242 words</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 3</div>
+          <h3 style="color:#fff; font-size:1rem;">Probing LLMs' Knowledge Boundary: Adaptive RAG, Part 3</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 18 min read · 6,071 words</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 4</div>
+          <h3 style="color:#fff; font-size:1rem;">Teaching Models to Decide When to Retrieve: Adaptive RAG, Part 4</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 22 min read · 7,573 words</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+    </div>
+
+    <!-- Series 2 -->
+    <div class="series-card">
+      <div style="display:flex; justify-content:space-between; margin-bottom:.5rem;">
+        <span style="color:var(--emerald); font-family:monospace; font-size:.8rem;">🌊 Flow Matching Series</span>
+        <span style="color:var(--muted); font-size:.8rem;">3 Chapters</span>
+      </div>
+      <h2 style="color:#fff; margin-bottom:.4rem;">Continuous Flow Matching &amp; ODE Trajectories</h2>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:1rem;">
+        Mathematical foundations of Conditional Flow Matching (CFM), simulation-free ODE velocity alignment, and optimal transport vector fields.
+      </p>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--emerald); font-size:.75rem; font-family:monospace;">Part 1</div>
+          <h3 style="color:#fff; font-size:1rem;">Flow Matching vs Diffusion SDEs: Velocity Vector Fields</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 14 min read · 4,210 words</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--emerald); font-size:.75rem; font-family:monospace;">Part 2</div>
+          <h3 style="color:#fff; font-size:1rem;">Optimal Transport Straight Paths for Fast ODE Integration</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 19 min read · 5,890 words</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <footer style="text-align:center; margin-top:4rem; color:var(--muted); font-size:.85rem;">
+    &copy; 2026 Mohammad Taha Majlesi · Hoosha AI Research Lab · HuggingFace Space <a href="https://huggingface.co/spaces/tahamajs/Blog" target="_blank" style="color:var(--cyan);">tahamajs/Blog</a>
+  </footer>
+
+</body>
+</html>
