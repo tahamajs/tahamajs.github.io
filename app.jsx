@@ -131,7 +131,7 @@ function App() {
     { icon: 'fa-newspaper', id: 'substack', label: 'Substack (20 Papers)', type: 'research', x: 50, y: 80, desc: '20 published deep-dive research reports on Flow Matching & Linear Attention.' }
   ];
 
-  // Mouse Spotlight & Canvas setup
+  // Mouse Spotlight & Running Shooting Stars Canvas setup
   useEffect(() => {
     const spotlight = document.getElementById('cursor-spotlight');
     const handleMouseMove = (e) => {
@@ -142,49 +142,121 @@ function App() {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Neural Canvas setup
+    // Cosmic Running Stars & Neural Canvas Engine
     const canvas = document.getElementById('neural-canvas');
     if (canvas) {
       const ctx = canvas.getContext('2d');
       let w = canvas.width = window.innerWidth;
       let h = canvas.height = window.innerHeight;
-      const particles = Array.from({ length: w > 700 ? 55 : 25 }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8,
-        radius: Math.random() * 2 + 1
+
+      // 1. Running background stars
+      const starCount = w > 700 ? 110 : 50;
+      const stars = Array.from({ length: starCount }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.9,
+        vy: (Math.random() - 0.5) * 0.9,
+        radius: Math.random() * 2 + 0.8,
+        alpha: Math.random(),
+        alphaSpeed: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
       }));
+
+      // 2. Running Shooting Stars (Comets)
+      const shootingStars = [];
+      const createShootingStar = () => {
+        shootingStars.push({
+          x: Math.random() * w,
+          y: Math.random() * (h * 0.4),
+          length: Math.random() * 80 + 40,
+          speed: Math.random() * 8 + 6,
+          angle: 45 * (Math.PI / 180),
+          alpha: 1,
+          decay: Math.random() * 0.015 + 0.01
+        });
+      };
+
+      // Spawn shooting stars periodically
+      const shootingInterval = setInterval(() => {
+        if (Math.random() < 0.7) createShootingStar();
+      }, 2500);
 
       let animId;
       const render = () => {
         ctx.clearRect(0, 0, w, h);
-        for (let a = 0; a < particles.length; a++) {
-          for (let b = a + 1; b < particles.length; b++) {
-            const dx = particles[a].x - particles[b].x;
-            const dy = particles[a].y - particles[b].y;
+
+        // Draw running stars & constellation lines
+        for (let a = 0; a < stars.length; a++) {
+          for (let b = a + 1; b < stars.length; b++) {
+            const dx = stars[a].x - stars[b].x;
+            const dy = stars[a].y - stars[b].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 130) {
+            if (dist < 120) {
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 130)})`;
-              ctx.lineWidth = 0.8;
-              ctx.moveTo(particles[a].x, particles[a].y);
-              ctx.lineTo(particles[b].x, particles[b].y);
+              ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 120)})`;
+              ctx.lineWidth = 0.7;
+              ctx.moveTo(stars[a].x, stars[a].y);
+              ctx.lineTo(stars[b].x, stars[b].y);
               ctx.stroke();
             }
           }
-          particles[a].x += particles[a].vx;
-          particles[a].y += particles[a].vy;
-          if (particles[a].x < 0 || particles[a].x > w) particles[a].vx *= -1;
-          if (particles[a].y < 0 || particles[a].y > h) particles[a].vy *= -1;
+
+          // Move stars across screen
+          stars[a].x += stars[a].vx;
+          stars[a].y += stars[a].vy;
+
+          if (stars[a].x < 0) stars[a].x = w;
+          if (stars[a].x > w) stars[a].x = 0;
+          if (stars[a].y < 0) stars[a].y = h;
+          if (stars[a].y > h) stars[a].y = 0;
+
+          // Twinkle alpha
+          stars[a].alpha += stars[a].alphaSpeed;
+          if (stars[a].alpha <= 0.2 || stars[a].alpha >= 1) stars[a].alphaSpeed *= -1;
+
+          // Draw star point with glow
           ctx.beginPath();
-          ctx.arc(particles[a].x, particles[a].y, particles[a].radius, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+          ctx.arc(stars[a].x, stars[a].y, stars[a].radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 240, 255, ${stars[a].alpha * 0.8})`;
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#00f0ff';
           ctx.fill();
+          ctx.shadowBlur = 0;
         }
+
+        // Render running shooting stars (comets)
+        for (let i = shootingStars.length - 1; i >= 0; i--) {
+          const ss = shootingStars[i];
+          const endX = ss.x + Math.cos(ss.angle) * ss.length;
+          const endY = ss.y + Math.sin(ss.angle) * ss.length;
+
+          const grad = ctx.createLinearGradient(ss.x, ss.y, endX, endY);
+          grad.addColorStop(0, `rgba(255, 255, 255, ${ss.alpha})`);
+          grad.addColorStop(0.3, `rgba(0, 240, 255, ${ss.alpha * 0.8})`);
+          grad.addColorStop(1, 'rgba(138, 43, 226, 0)');
+
+          ctx.beginPath();
+          ctx.moveTo(ss.x, ss.y);
+          ctx.lineTo(endX, endY);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          ss.x += Math.cos(ss.angle) * ss.speed;
+          ss.y += Math.sin(ss.angle) * ss.speed;
+          ss.alpha -= ss.decay;
+
+          if (ss.alpha <= 0 || ss.x > w || ss.y > h) {
+            shootingStars.splice(i, 1);
+          }
+        }
+
         animId = requestAnimationFrame(render);
       };
       render();
+
       return () => {
         window.removeEventListener('mousemove', handleMouseMove);
+        clearInterval(shootingInterval);
         cancelAnimationFrame(animId);
       };
     }
