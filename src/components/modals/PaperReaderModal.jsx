@@ -1,8 +1,21 @@
-// src/components/modals/PaperReaderModal.jsx
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function PaperReaderModal({ paper, onClose, onCopyBib, beep }) {
   const [tab, setTab] = useState('abstract');
+  const mathRef = useRef(null);
+
+  useEffect(() => {
+    if (paper && window.renderMathInElement && mathRef.current) {
+      window.renderMathInElement(mathRef.current, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false }
+        ]
+      });
+    }
+  }, [paper, tab]);
 
   if (!paper) return null;
 
@@ -39,7 +52,7 @@ export default function PaperReaderModal({ paper, onClose, onCopyBib, beep }) {
         </div>
 
         {/* Content Body */}
-        <div className="paper-reader-body">
+        <div className="paper-reader-body" ref={mathRef}>
           {tab === 'abstract' && (
             <div className="paper-section-content">
               <h4>Abstract</h4>
