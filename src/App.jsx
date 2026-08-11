@@ -223,7 +223,7 @@ export default function App() {
             <PublicationsSection onCopyBib={setBibtexPub} onSelectPaper={setSelectedPaper} beep={beep} />
             <TalksSection beep={beep} />
             <SocialFeedSection beep={beep} />
-            <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} beep={beep} />
+            <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} onSelectPaper={setSelectedPaper} beep={beep} />
           </>
         )}
 
