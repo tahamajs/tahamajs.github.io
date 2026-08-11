@@ -530,11 +530,110 @@ class SVDLinearAttention(nn.Module):
   };
 
   // src/components/sections/CodeSandboxSection.jsx
+  function FlowMatchingVis({ playing }) {
+    const canvasRef = (0, import_react3.useRef)(null);
+    (0, import_react3.useEffect)(() => {
+      if (!playing) return;
+      const ctx = canvasRef.current.getContext("2d");
+      let W = 300, H = 200;
+      canvasRef.current.width = W;
+      canvasRef.current.height = H;
+      const N = 80;
+      const pts = Array.from({ length: N }, () => {
+        const startX = W / 2 + (Math.random() - 0.5) * W * 0.8;
+        const startY = H / 2 + (Math.random() - 0.5) * H * 0.8;
+        const angle = Math.random() * Math.PI * 2;
+        const targetX = W / 2 + Math.cos(angle) * 50;
+        const targetY = H / 2 + Math.sin(angle) * 50;
+        return { startX, startY, targetX, targetY, t: 0 };
+      });
+      let frame;
+      const draw = () => {
+        ctx.clearRect(0, 0, W, H);
+        let allDone = true;
+        pts.forEach((p) => {
+          if (p.t < 1) p.t += 0.01;
+          if (p.t < 1) allDone = false;
+          const x = p.startX + (p.targetX - p.startX) * p.t;
+          const y = p.startY + (p.targetY - p.startY) * p.t;
+          ctx.beginPath();
+          ctx.moveTo(p.startX, p.startY);
+          ctx.lineTo(x, y);
+          ctx.strokeStyle = `rgba(0, 240, 255, ${0.1 * (1 - p.t)})`;
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 240, 255, ${0.3 + 0.7 * p.t})`;
+          ctx.fill();
+        });
+        if (!allDone) frame = requestAnimationFrame(draw);
+      };
+      frame = requestAnimationFrame(draw);
+      return () => cancelAnimationFrame(frame);
+    }, [playing]);
+    return /* @__PURE__ */ React.createElement("div", { className: "vis-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "Flow Trajectories (x\u2080 \u2192 x\u2081)"), /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { width: "100%", height: "200px" } }));
+  }
+  function GRPOVis({ playing }) {
+    const [step, setStep] = (0, import_react3.useState)(0);
+    (0, import_react3.useEffect)(() => {
+      if (!playing) {
+        setStep(0);
+        return;
+      }
+      let s = 0;
+      const id = setInterval(() => {
+        s++;
+        setStep(s);
+        if (s > 3) clearInterval(id);
+      }, 800);
+      return () => clearInterval(id);
+    }, [playing]);
+    const rollouts = [
+      { id: 1, val: 0.1, color: "#f43f5e", text: "x = 5" },
+      { id: 2, val: 0.9, color: "#10b981", text: "\\boxed{42}" },
+      { id: 3, val: 0.4, color: "#fbbf24", text: "42" },
+      { id: 4, val: 0.8, color: "#10b981", text: "\\boxed{42}" }
+    ];
+    return /* @__PURE__ */ React.createElement("div", { className: "vis-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "Group Relative Advantages"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "8px", marginTop: "20px" } }, rollouts.map((r, i) => /* @__PURE__ */ React.createElement("div", { key: r.id, style: {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      opacity: step >= 1 ? 1 : 0,
+      transition: "all 0.5s",
+      transitionDelay: `${i * 0.1}s`
+    } }, /* @__PURE__ */ React.createElement("div", { style: { flex: 1, background: "rgba(255,255,255,0.05)", padding: "4px 8px", borderRadius: "4px", fontFamily: "monospace", fontSize: "12px" } }, "Output ", r.id, ": ", r.text), step >= 2 && /* @__PURE__ */ React.createElement("div", { style: { width: "60px", height: "6px", background: "rgba(255,255,255,0.1)", borderRadius: "3px", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { width: `${r.val * 100}%`, height: "100%", background: r.color, transition: "width 0.5s" } })), step >= 3 && /* @__PURE__ */ React.createElement("div", { style: { fontSize: "11px", color: r.val > 0.5 ? "#10b981" : "#f43f5e", width: "40px", fontWeight: "bold" } }, r.val > 0.5 ? "+Adv" : "-Adv")))));
+  }
+  function CUDAReductionVis({ playing }) {
+    const [step, setStep] = (0, import_react3.useState)(0);
+    (0, import_react3.useEffect)(() => {
+      if (!playing) {
+        setStep(0);
+        return;
+      }
+      let s = 0;
+      const id = setInterval(() => {
+        s++;
+        setStep(s);
+        if (s > 3) clearInterval(id);
+      }, 600);
+      return () => clearInterval(id);
+    }, [playing]);
+    return /* @__PURE__ */ React.createElement("div", { className: "vis-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "Warp-Level Reduction (Thread Shfl)"), /* @__PURE__ */ React.createElement("div", { className: "cuda-tree", style: { marginTop: "20px", display: "flex", flexDirection: "column", alignItems: "center", gap: "15px" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "10px", opacity: step >= 0 ? 1 : 0, transition: "opacity 0.3s" } }, Array.from({ length: 8 }).map((_, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "cuda-node" }))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "34px", opacity: step >= 1 ? 1 : 0, transition: "opacity 0.3s" } }, Array.from({ length: 4 }).map((_, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "cuda-node active" }))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "82px", opacity: step >= 2 ? 1 : 0, transition: "opacity 0.3s" } }, Array.from({ length: 2 }).map((_, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "cuda-node active" }))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", opacity: step >= 3 ? 1 : 0, transition: "opacity 0.3s" } }, /* @__PURE__ */ React.createElement("div", { className: "cuda-node final" }))));
+  }
+  function SVDVis({ playing }) {
+    return /* @__PURE__ */ React.createElement("div", { className: "vis-container", style: { display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column", gap: "20px" } }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "Low-Rank Attention Complexity"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "15px" } }, /* @__PURE__ */ React.createElement("div", { className: `matrix n-by-n ${playing ? "shrink" : ""}` }, "N \xD7 N"), /* @__PURE__ */ React.createElement("div", { style: { color: "var(--muted)", fontSize: "20px", opacity: playing ? 1 : 0, transition: "opacity 0.5s" } }, "\u2248"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "5px", opacity: playing ? 1 : 0, transition: "opacity 0.5s" } }, /* @__PURE__ */ React.createElement("div", { className: "matrix n-by-r" }, "N\xD7r"), /* @__PURE__ */ React.createElement("div", { className: "matrix r-by-n" }, "r\xD7N"))), /* @__PURE__ */ React.createElement("div", { style: { fontSize: "12px", color: "var(--accent)", opacity: playing ? 1 : 0, transition: "opacity 0.5s 0.3s" } }, "Memory reduced from 7.8GB to 1.2GB!"));
+  }
   function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
     const tabs = Object.keys(CODE_TABS);
     const data = CODE_TABS[activeTab];
+    const [playing, setPlaying] = (0, import_react3.useState)(false);
+    (0, import_react3.useEffect)(() => {
+      setPlaying(false);
+      setRunOutput("");
+    }, [activeTab, setRunOutput]);
     const handleRun = () => {
       setRunOutput("");
+      setPlaying(true);
       beep?.(600, "square");
       let idx = 0;
       const lines = data.output.split("\n");
@@ -550,23 +649,22 @@ class SVDLinearAttention(nn.Module):
     return /* @__PURE__ */ React.createElement("section", { id: "sandbox", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
       {
-        tag: "Interactive Lab",
-        title: "Interactive <b>AI Research Sandbox</b> \u{1F9EA}",
-        sub: "Explore and execute core implementations of Flow Matching ODEs, GRPO alignment, and CUDA kernels directly in the browser. Learn how these frontier architectures are built from first principles."
+        tag: "Interactive AI Lab",
+        title: "Explore Core Algorithms \u{1F9EA}",
+        sub: "Execute Python and CUDA kernels directly in the browser. Watch the real-time visualizers to actively learn how these frontier architectures function under the hood."
       }
-    ), /* @__PURE__ */ React.createElement("div", { className: "terminal" }, /* @__PURE__ */ React.createElement("div", { className: "t-bar" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("div", { className: "t-tabs" }, tabs.map((k) => /* @__PURE__ */ React.createElement(
+    ), /* @__PURE__ */ React.createElement("div", { className: "sandbox-grid" }, /* @__PURE__ */ React.createElement("div", { className: "terminal sandbox-left" }, /* @__PURE__ */ React.createElement("div", { className: "t-bar" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("div", { className: "t-tabs" }, tabs.map((k) => /* @__PURE__ */ React.createElement(
       "button",
       {
         key: k,
         className: `t-tab ${activeTab === k ? "active" : ""}`,
         onClick: () => {
           setActiveTab(k);
-          setRunOutput("");
           beep?.();
         }
       },
       CODE_TABS[k].label
-    ))), /* @__PURE__ */ React.createElement("div", { className: "t-label" }, "~/hoosha-ai/research/", activeTab, ".", activeTab === "cuda" ? "cu" : "py")), /* @__PURE__ */ React.createElement("div", { className: "t-body" }, /* @__PURE__ */ React.createElement("div", { className: "t-code" }, data.code), /* @__PURE__ */ React.createElement("button", { className: "t-run-btn", onClick: handleRun }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play" }), " Execute Simulation"), runOutput && /* @__PURE__ */ React.createElement("div", { className: "t-output" }, runOutput), /* @__PURE__ */ React.createElement("div", { className: "sandbox-tutorial" }, /* @__PURE__ */ React.createElement("h4", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-graduation-cap" }), " Deep Dive Learning"), activeTab === "flow" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Conditional Flow Matching (CFM)"), " provides a simulation-free approach to training Continuous Normalizing Flows. Unlike Diffusion models that rely on SDEs with complex noise schedules, CFM directly regresses a vector field ", /* @__PURE__ */ React.createElement("i", null, "v_\u03B8(t, x)"), " pointing from a noise distribution ", /* @__PURE__ */ React.createElement("i", null, "x\u2080 ~ N(0, I)"), " to the data distribution ", /* @__PURE__ */ React.createElement("i", null, "x\u2081 ~ q(x\u2081)"), ". This allows for straight paths, requiring far fewer integration steps (e.g., 20) during inference using simple ODE solvers like Euler."), activeTab === "grpo" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Group Relative Policy Optimization (GRPO)"), " eliminates the need for an external Critic network used in PPO. Instead of estimating value functions, GRPO samples a ", /* @__PURE__ */ React.createElement("i", null, "group"), " of ", /* @__PURE__ */ React.createElement("i", null, "G"), " responses for a prompt, scores them via a Reward Model, and normalizes the rewards within that specific group to compute advantages. This massively reduces VRAM overhead, enabling RLHF/alignment training of large models like Qwen-4B on constrained clusters."), activeTab === "cuda" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Fused CUDA Kernels"), " are critical for distributed LLM training. The ", /* @__PURE__ */ React.createElement("code", null, "fused_allreduce_scale_fp16"), " kernel above bypasses expensive global memory round-trips by performing gradient scaling (dividing by world size) and warp-level reductions directly in registers and shared memory before atomic accumulation. This achieves near-theoretical peak bandwidth on A100 SXM4 architecture."), activeTab === "svd" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Linear Attention"), " solves the ", /* @__PURE__ */ React.createElement("i", null, "O(N\xB2)"), " sequence length bottleneck of standard Transformer attention. By applying the kernel trick ", /* @__PURE__ */ React.createElement("i", null, "exp(q \xB7 k) \u2248 \u03C6(q)^T \u03C6(k)"), " (where ", /* @__PURE__ */ React.createElement("i", null, "\u03C6"), " represents a low-rank SVD projection), we can change the computation order from ", /* @__PURE__ */ React.createElement("i", null, "(Q K^T) V"), " to ", /* @__PURE__ */ React.createElement("i", null, "Q (K^T V)"), ". This reduces computational complexity and memory usage to ", /* @__PURE__ */ React.createElement("i", null, "O(N \xB7 r)"), ", making infinite-context LLMs possible.")))));
+    ))), /* @__PURE__ */ React.createElement("div", { className: "t-label", style: { display: "none" } }, "~/hoosha-ai/", activeTab, ".", activeTab === "cuda" ? "cu" : "py")), /* @__PURE__ */ React.createElement("div", { className: "t-body" }, /* @__PURE__ */ React.createElement("div", { className: "t-code" }, data.code), /* @__PURE__ */ React.createElement("button", { className: "t-run-btn", onClick: handleRun, disabled: playing && runOutput.split("\n").length < data.output.split("\n").length }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play" }), " ", playing ? "Executing..." : "Run Simulation"), runOutput && /* @__PURE__ */ React.createElement("div", { className: "t-output" }, runOutput))), /* @__PURE__ */ React.createElement("div", { className: "sandbox-right" }, /* @__PURE__ */ React.createElement("div", { className: "sandbox-visualizer" }, activeTab === "flow" && /* @__PURE__ */ React.createElement(FlowMatchingVis, { playing }), activeTab === "grpo" && /* @__PURE__ */ React.createElement(GRPOVis, { playing }), activeTab === "cuda" && /* @__PURE__ */ React.createElement(CUDAReductionVis, { playing }), activeTab === "svd" && /* @__PURE__ */ React.createElement(SVDVis, { playing }), !playing && /* @__PURE__ */ React.createElement("div", { className: "vis-overlay-play", onClick: handleRun }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play-circle" }), /* @__PURE__ */ React.createElement("span", null, "Click to animate"))), /* @__PURE__ */ React.createElement("div", { className: "sandbox-tutorial" }, /* @__PURE__ */ React.createElement("h4", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-graduation-cap" }), " Deep Dive Learning"), activeTab === "flow" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Conditional Flow Matching (CFM)"), " provides a simulation-free approach to training Continuous Normalizing Flows. Unlike Diffusion models that rely on complex noise schedules (SDEs), CFM directly regresses a vector field ", /* @__PURE__ */ React.createElement("i", null, "v_\u03B8(t, x)"), " pointing from a pure noise distribution ", /* @__PURE__ */ React.createElement("i", null, "x\u2080 ~ N(0, I)"), " directly to the data distribution ", /* @__PURE__ */ React.createElement("i", null, "x\u2081 ~ q(x\u2081)"), ". This allows for straight trajectories, requiring far fewer integration steps (e.g., 20) during inference using simple ODE solvers like Euler. The animation above demonstrates how straight-path interpolation cleanly maps noise to a target structure."), activeTab === "grpo" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Group Relative Policy Optimization (GRPO)"), " eliminates the massive memory overhead of standard PPO by completely removing the need for an external Critic network. Instead of estimating absolute value functions, GRPO samples a ", /* @__PURE__ */ React.createElement("i", null, "group"), " of ", /* @__PURE__ */ React.createElement("i", null, "G"), " responses (rollouts) for a given prompt, scores them via a lightweight Reward Model, and normalizes the rewards ", /* @__PURE__ */ React.createElement("b", null, "relative to that specific group"), " to compute advantages. This enables RLHF/alignment training of large models like Qwen-4B on constrained clusters."), activeTab === "cuda" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Fused CUDA Kernels"), " are critical for maximizing throughput in distributed LLM training. The ", /* @__PURE__ */ React.createElement("code", null, "fused_allreduce_scale_fp16"), " kernel above bypasses expensive global memory round-trips. By utilizing ", /* @__PURE__ */ React.createElement("i", null, "thread shuffle instructions"), " (", /* @__PURE__ */ React.createElement("code", null, "__shfl_xor_sync"), "), it performs gradient scaling and warp-level tree reductions directly in ultra-fast registers before atomic accumulation. This achieves near-theoretical peak bandwidth on A100 SXM4 architecture."), activeTab === "svd" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Linear Attention"), " solves the ", /* @__PURE__ */ React.createElement("i", null, "O(N\xB2)"), " sequence length bottleneck of the standard Transformer self-attention mechanism. By applying the kernel trick ", /* @__PURE__ */ React.createElement("i", null, "exp(q \xB7 k) \u2248 \u03C6(q)^T \u03C6(k)"), " (where ", /* @__PURE__ */ React.createElement("i", null, "\u03C6"), " represents a low-rank SVD projection with rank ", /* @__PURE__ */ React.createElement("i", null, "r"), "), we can fundamentally alter the computation order from ", /* @__PURE__ */ React.createElement("i", null, "(Q K^T) V"), " to ", /* @__PURE__ */ React.createElement("i", null, "Q (K^T V)"), ". This mathematically reduces computational complexity and VRAM usage to ", /* @__PURE__ */ React.createElement("i", null, "O(N \xB7 r)"), ", unlocking the potential for infinite-context language models.")))));
   }
 
   // src/components/sections/ProjectsSection.jsx

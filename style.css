@@ -373,8 +373,29 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .readme-content th{background:rgba(0,240,255,0.05);color:var(--accent);}
 .readme-content code{background:rgba(0,240,255,0.06);padding:.1rem .4rem;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);}
 
-/* ── Educational Sandbox ── */
-.sandbox-tutorial{margin-top:1.5rem;padding:1.5rem;background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.15);border-radius:12px;border-left:4px solid var(--accent);animation:fadeIn .4s ease;}
+/* ── Educational Sandbox (Split Layout & Animations) ── */
+.sandbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;align-items:start;}
+@media(max-width: 1000px){ .sandbox-grid{grid-template-columns:1fr;} }
+.sandbox-left{max-height:650px;overflow-y:auto;}
+.sandbox-right{display:flex;flex-direction:column;gap:1.5rem;}
+.sandbox-visualizer{position:relative;background:var(--bg2);border:1px solid var(--border);border-radius:16px;height:240px;overflow:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,0.5);}
+.vis-overlay-play{position:absolute;inset:0;background:rgba(3,7,18,0.7);backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--accent);cursor:pointer;z-index:10;transition:all .3s;}
+.vis-overlay-play i{font-size:3rem;margin-bottom:.5rem;filter:drop-shadow(0 0 10px var(--accent));transition:transform .2s;}
+.vis-overlay-play:hover i{transform:scale(1.1);}
+.vis-container{width:100%;height:100%;padding:1rem;position:relative;}
+.vis-label{position:absolute;top:10px;left:15px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;}
+
+/* Animation specific classes */
+.cuda-node{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);}
+.cuda-node.active{background:var(--accent);border-color:var(--accent);box-shadow:var(--glow-sm);}
+.cuda-node.final{width:20px;height:20px;background:var(--emerald);border-color:var(--emerald);box-shadow:0 0 15px var(--emerald);}
+.matrix{display:flex;align-items:center;justify-content:center;border:1px solid var(--accent);background:rgba(0,240,255,0.05);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;border-radius:6px;transition:all 0.5s ease;}
+.matrix.n-by-n{width:100px;height:100px;}
+.matrix.n-by-n.shrink{transform:scale(0.8);opacity:0.5;}
+.matrix.n-by-r{width:30px;height:100px;}
+.matrix.r-by-n{width:100px;height:30px;}
+
+.sandbox-tutorial{padding:1.5rem;background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.15);border-radius:12px;border-left:4px solid var(--accent);animation:fadeIn .4s ease;}
 .sandbox-tutorial h4{color:var(--accent);font-size:1.05rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem;}
 .sandbox-tutorial p{font-size:.88rem;color:#c9d1d9;line-height:1.7;}
 .sandbox-tutorial p b{color:#fff;}
