@@ -3,242 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Taha Majlesi - AI & Deep Learning Researcher, Distributed Systems Architect.">
-  <title>Taha Majlesi | Systems & AI Researcher</title>
+  <meta name="description" content="Taha Majlesi - Systems & AI Researcher">
+  <title>Taha Majlesi</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   
-  <!-- Glowing Background -->
-  <div class="bg-glow"></div>
-  <div class="bg-glow-2"></div>
-  
-  <!-- Custom Mouse Trailer -->
-  <div class="cursor-trailer"></div>
+  <div class="noise"></div>
+  <div class="radial-glow"></div>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="logo">Taha.</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">TM.</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header id="home">
-    <div class="hero-content">
-      <div class="avatar-container reveal active">
-        <img src="https://github.com/tahamajs.png" alt="Taha Majlesi" class="avatar">
-      </div>
-      <h1 class="title reveal active">Taha Majlesi</h1>
-      
-      <!-- Interactive Terminal -->
-      <div class="terminal-container reveal active">
-        <div class="terminal-header">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-          <span class="terminal-title">taha@ut-server: ~</span>
-        </div>
-        <div class="terminal-body">
-          <p><span class="prompt">$</span> ./whoami</p>
-          <p class="typewriter" id="typewriter-text"></p>
-        </div>
-      </div>
-
-      <p class="subtitle reveal active">
-        Bridging the gap between <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment</b> (GRPO, SFT), and <b>High-Performance Distributed Infrastructure</b>.
-      </p>
-      <div class="social-links reveal active">
-        <a href="https://github.com/tahamajs" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/tahamajlesi" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://huggingface.co/tahamajs" class="social-icon" target="_blank"><i class="fas fa-robot"></i></a>
-        <a href="https://x.com/hooshaaii" class="social-icon" target="_blank"><i class="fab fa-x-twitter"></i></a>
-        <a href="mailto:tahamajlesi@ut.ac.ir" class="social-icon"><i class="fas fa-envelope"></i></a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Experience & Education Timeline -->
-  <section id="experience" class="reveal">
-    <h2 class="section-title">Academic & Professional <span>Journey</span></h2>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Sharif University of Technology (SUT)</h3>
-          <span class="timeline-date">Advanced NLP & Language Models</span>
-          <p>Advanced coursework and research in sequence-to-sequence transformers, word embeddings, and robust NLP toolkits.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>University of Tehran (UT)</h3>
-          <span class="timeline-date">Research Assistant | Deep Generative Models</span>
-          <p>Leading research in Flow Matching, DDPM Score-Based Diffusion, and Selective Amnesia Machine Unlearning in VAEs.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Hoosha AI</h3>
-          <span class="timeline-date">Systems & AI Architect</span>
-          <p>Architecting the core backbone of high-performance ML models and deployment pipelines for intelligent systems.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>Distributed Training Platform (Kaleido)</h3>
-          <span class="timeline-date">Core Developer</span>
-          <p>Building a first-principles distributed LLM training engine optimizing tensor, pipeline, and data parallelism across multi-GPU setups.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Grid -->
-  <section id="skills" class="reveal">
-    <h2 class="section-title">Technology <span>Stack</span></h2>
-    <div class="skills-container">
-      <div class="skill-category">
-        <h3>AI & Deep Learning</h3>
-        <div class="skill-icons">
-          <img src="https://skillicons.dev/icons?i=pytorch,tensorflow,py,opencv&theme=dark" alt="AI Stack">
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3>Systems & Backend</h3>
-        <div class="skill-icons">
-          <img src="https://skillicons.dev/icons?i=go,cpp,c,java,kotlin&theme=dark" alt="Backend Stack">
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3>Infrastructure & Cloud</h3>
-        <div class="skill-icons">
-          <img src="https://skillicons.dev/icons?i=docker,kubernetes,postgres,mongodb,redis,linux&theme=dark" alt="Infra Stack">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Research Section -->
-  <section id="research" class="reveal">
-    <h2 class="section-title">Core <span>Research</span> Domains</h2>
-    <div class="grid">
-      <div class="card">
-        <i class="fas fa-brain card-icon"></i>
-        <h3>Generative AI & Flow Matching</h3>
-        <p>Researching continuous probability paths, Score-Based Diffusion (DDPM), and Normalizing Flows for next-generation generative modeling.</p>
-        <div class="card-tags">
-          <span class="tag">Flow Matching</span>
-          <span class="tag">Diffusion</span>
-          <span class="tag">PyTorch</span>
-        </div>
-      </div>
-      
-      <div class="card">
-        <i class="fas fa-microchip card-icon"></i>
-        <h3>LLM Reasoning & Alignment</h3>
-        <p>Developing Group Relative Policy Optimization (GRPO) frameworks and Supervised Fine-Tuning strategies for small-scale math reasoning models.</p>
-        <div class="card-tags">
-          <span class="tag">GRPO</span>
-          <span class="tag">SFT</span>
-          <span class="tag">Transformers</span>
-        </div>
-      </div>
-      
-      <div class="card">
-        <i class="fas fa-server card-icon"></i>
-        <h3>Distributed Training (Kaleido)</h3>
-        <p>Architecting first-principles distributed LLM training engines optimizing tensor, pipeline, data, and expert parallelism across GPU nodes.</p>
-        <div class="card-tags">
-          <span class="tag">Distributed Systems</span>
-          <span class="tag">CUDA</span>
-          <span class="tag">C++</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <i class="fas fa-terminal card-icon"></i>
-        <h3>Low-Level OS Kernels</h3>
-        <p>Developing custom process schedulers, memory management, and system calls in the xv6 Unix Operating System entirely in C.</p>
-        <div class="card-tags">
-          <span class="tag">C</span>
-          <span class="tag">Unix/Linux</span>
-          <span class="tag">Kernel</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="reveal">
-    <h2 class="section-title">Open Source <span>Arsenal</span></h2>
-    <div class="repo-grid">
-      <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=Deep_Generative_models_course&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
-      </a>
-      <a href="https://github.com/tahamajs/Kaleido" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=Kaleido&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
-      </a>
-      <a href="https://github.com/tahamajs/Unlearning_from_VAE" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=Unlearning_from_VAE&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
-      </a>
-      <a href="https://github.com/tahamajs/AirMouse" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=AirMouse&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
-      </a>
-      <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=FineTuning-4B-LLM-GSM8k-GRPO-SFT&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
-      </a>
-      <a href="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
-      </a>
-    </div>
+  <main class="container">
     
-    <div style="text-align: center; margin-top: 3rem;">
-      <a href="https://github.com/tahamajs" target="_blank" class="primary-btn">View All 140+ Projects on GitHub <i class="fas fa-arrow-right"></i></a>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="reveal">
-    <h2 class="section-title">Get In <span>Touch</span></h2>
-    <div class="contact-container">
-      <div class="contact-info">
-        <h3>Let's collaborate!</h3>
-        <p>I'm always open to discussing research collaborations, open-source projects, and new opportunities in AI & Distributed Systems.</p>
-        <ul class="contact-list">
-          <li><i class="fas fa-envelope"></i> tahamajlesi@ut.ac.ir</li>
-          <li><i class="fab fa-telegram"></i> @tahamajlesii</li>
-          <li><i class="fas fa-map-marker-alt"></i> Tehran, Iran</li>
-        </ul>
+    <header id="about" class="hero fade-up">
+      <div class="hero-text">
+        <h1 class="title">Taha Majlesi</h1>
+        <h2 class="subtitle">Systems Engineer &amp; AI Researcher</h2>
+        <p class="description">
+          Building high-performance distributed systems and researching deep generative modeling (Flow Matching, VAEs) and LLM alignment (GRPO, SFT). Currently optimizing intelligent architectures at Hoosha AI and University of Tehran.
+        </p>
+        <div class="social-links">
+          <a href="https://github.com/tahamajs" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://x.com/hooshaaii" target="_blank"><i class="fab fa-x-twitter"></i></a>
+          <a href="mailto:tahamajlesi@ut.ac.ir"><i class="fas fa-envelope"></i></a>
+          <a href="https://linkedin.com/in/tahamajlesi" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
       </div>
-      <div class="contact-form-card">
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent simulated!');">
-          <div class="form-group">
-            <input type="text" placeholder="Your Name" required>
-          </div>
-          <div class="form-group">
-            <input type="email" placeholder="Your Email" required>
-          </div>
-          <div class="form-group">
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="primary-btn">Send Message <i class="fas fa-paper-plane"></i></button>
-        </form>
+      <div class="hero-image">
+        <img src="https://github.com/tahamajs.png" alt="Taha Majlesi">
       </div>
-    </div>
-  </section>
+    </header>
 
-  <footer class="reveal">
-    <p>&copy; 2026 Taha Majlesi. Built with high-performance Vanilla CSS & JS.</p>
+    <section id="experience" class="fade-up" style="animation-delay: 0.1s;">
+      <h3 class="section-title">Experience</h3>
+      <div class="timeline">
+        
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <span class="timeline-date">2023 — Present</span>
+          </div>
+          <div class="timeline-content">
+            <h4>Systems & AI Architect</h4>
+            <span class="company">Hoosha AI</span>
+            <p>Architecting the core backbone of high-performance ML models and deployment pipelines for robust, scalable intelligent systems.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <span class="timeline-date">2022 — Present</span>
+          </div>
+          <div class="timeline-content">
+            <h4>Research Assistant</h4>
+            <span class="company">University of Tehran (UT)</span>
+            <p>Leading research in Deep Generative Models, Flow Matching, DDPM Score-Based Diffusion, and Selective Amnesia Machine Unlearning in VAEs.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-meta">
+            <span class="timeline-date">2024 — Present</span>
+          </div>
+          <div class="timeline-content">
+            <h4>Core Developer</h4>
+            <span class="company">Kaleido Distributed Engine</span>
+            <p>Building a first-principles distributed LLM training engine optimizing tensor, pipeline, and data parallelism across multi-GPU environments.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="work" class="fade-up" style="animation-delay: 0.2s;">
+      <h3 class="section-title">Selected Work</h3>
+      <div class="bento-grid">
+        
+        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-card bento-large group">
+          <div class="bento-glow"></div>
+          <div class="bento-content">
+            <i class="fas fa-microchip icon"></i>
+            <h4>LLM Reasoning & Alignment</h4>
+            <p>Group Relative Policy Optimization (GRPO) and Supervised Fine-Tuning strategies for small-scale math reasoning models.</p>
+            <div class="tags"><span class="tag">GRPO</span><span class="tag">Transformers</span><span class="tag">PyTorch</span></div>
+          </div>
+        </a>
+
+        <a href="https://github.com/tahamajs/Kaleido" target="_blank" class="bento-card group">
+          <div class="bento-glow"></div>
+          <div class="bento-content">
+            <i class="fas fa-server icon"></i>
+            <h4>Kaleido</h4>
+            <p>Distributed LLM training engine optimizing parallelism across GPU nodes.</p>
+            <div class="tags"><span class="tag">CUDA</span><span class="tag">C++</span></div>
+          </div>
+        </a>
+
+        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-card group">
+          <div class="bento-glow"></div>
+          <div class="bento-content">
+            <i class="fas fa-brain icon"></i>
+            <h4>Generative AI</h4>
+            <p>Continuous probability paths and Score-Based Diffusion (DDPM).</p>
+            <div class="tags"><span class="tag">Flow Matching</span></div>
+          </div>
+        </a>
+
+        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-card bento-large group">
+          <div class="bento-glow"></div>
+          <div class="bento-content">
+            <i class="fas fa-terminal icon"></i>
+            <h4>xv6 Kernel Architecture</h4>
+            <p>Developing custom process schedulers, memory management, and system calls in the xv6 Unix Operating System entirely in C.</p>
+            <div class="tags"><span class="tag">C</span><span class="tag">Unix Kernel</span><span class="tag">OS</span></div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <section id="contact" class="fade-up" style="animation-delay: 0.3s;">
+      <div class="contact-box">
+        <h3>Let's build something great.</h3>
+        <p>I'm always open to discussing research collaborations and new opportunities.</p>
+        <a href="mailto:tahamajlesi@ut.ac.ir" class="primary-btn">Email Me <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Taha Majlesi &copy; 2026. Designed with minimal precision.</p>
   </footer>
 
   <script src="script.js"></script>
