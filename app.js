@@ -374,7 +374,14 @@
       setQuests((prev) => prev.map((q) => {
         if (q.id === id && !q.done) {
           beep?.(880, "sine");
-          setXp((x) => x + q.xp);
+          setXp((x) => {
+            const newXp = x + q.xp;
+            if (newXp >= 5e3) {
+              setLevel((l) => l + 1);
+              return newXp - 5e3;
+            }
+            return newXp;
+          });
           return { ...q, done: true };
         }
         return q;
@@ -2236,8 +2243,9 @@ Available commands:
         { text: "NaN Spike", color: "#fbbf24", points: -1, bad: true }
       ];
       const onKey = (e) => {
-        if (e.key === "ArrowLeft" || e.key === "a") playerX = Math.max(0, playerX - 24);
-        if (e.key === "ArrowRight" || e.key === "d") playerX = Math.min(W - playerW, playerX + 24);
+        if (["ArrowLeft", "ArrowRight", "a", "d", "A", "D"].includes(e.key)) e.preventDefault();
+        if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") playerX = Math.max(0, playerX - 24);
+        if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") playerX = Math.min(W - playerW, playerX + 24);
       };
       window.addEventListener("keydown", onKey);
       const spawnInterval = setInterval(() => {
@@ -2435,7 +2443,11 @@ Available commands:
         beep?.(700);
       } else {
         beep?.(1e3, "sine");
-        showToast?.(`\u{1F3C6} ALGORITHM MASTER CERTIFICATE EARNED! Score: ${score + 500} XP`);
+        showToast?.(`\u{1F3C6} ALGORITHM MASTER CERTIFICATE EARNED! Score: ${score} XP`);
+        setLevelIdx(0);
+        setScore(0);
+        setSelectedOpt(null);
+        setAnswered(false);
         onClose();
       }
     };

@@ -32,8 +32,9 @@ export default function CyberpunkGameModal({ open, onClose, showToast, beep }) {
     ];
 
     const onKey = e => {
-      if (e.key === 'ArrowLeft' || e.key === 'a') playerX = Math.max(0, playerX - 24);
-      if (e.key === 'ArrowRight' || e.key === 'd') playerX = Math.min(W - playerW, playerX + 24);
+      if (['ArrowLeft', 'ArrowRight', 'a', 'd', 'A', 'D'].includes(e.key)) e.preventDefault();
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') playerX = Math.max(0, playerX - 24);
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') playerX = Math.min(W - playerW, playerX + 24);
     };
     window.addEventListener('keydown', onKey);
 

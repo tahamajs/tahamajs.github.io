@@ -17,7 +17,14 @@ export default function GameHUDHeader({ onOpenQuest, beep }) {
     setQuests(prev => prev.map(q => {
       if (q.id === id && !q.done) {
         beep?.(880, 'sine');
-        setXp(x => x + q.xp);
+        setXp(x => {
+          const newXp = x + q.xp;
+          if (newXp >= 5000) {
+            setLevel(l => l + 1);
+            return newXp - 5000;
+          }
+          return newXp;
+        });
         return { ...q, done: true };
       }
       return q;

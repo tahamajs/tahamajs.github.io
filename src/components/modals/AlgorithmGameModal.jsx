@@ -105,7 +105,11 @@ export default function AlgorithmGameModal({ open, onClose, showToast, beep }) {
       beep?.(700);
     } else {
       beep?.(1000, 'sine');
-      showToast?.(`🏆 ALGORITHM MASTER CERTIFICATE EARNED! Score: ${score + 500} XP`);
+      showToast?.(`🏆 ALGORITHM MASTER CERTIFICATE EARNED! Score: ${score} XP`);
+      setLevelIdx(0);
+      setScore(0);
+      setSelectedOpt(null);
+      setAnswered(false);
       onClose();
     }
   };
