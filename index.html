@@ -6,11 +6,10 @@
   <meta name="description" content="Mohammad Taha Majlesi - AI Researcher & Systems Engineer. Co-Founder & AI Architect at Hoosha AI. University of Tehran & Sharif University.">
   <title>Taha Majlesi | AI Lab &amp; Systems Field Notes</title>
   
-  <!-- Defensive Global Polyfill for splitlines -->
+      <!-- Defensive Global Polyfill for splitlines -->
   <script>
     if (!String.prototype.splitlines) {
-      String.prototype.splitlines = function() { return this.split(/?
-/); };
+      String.prototype.splitlines = function() { return (this || '').split(String.fromCharCode(10)); };
     }
   </script>
 
