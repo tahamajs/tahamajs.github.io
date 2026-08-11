@@ -38,6 +38,8 @@ import CyberpunkGameModal from './components/modals/CyberpunkGameModal.jsx';
 import KeyboardShortcutsModal from './components/modals/KeyboardShortcutsModal.jsx';
 import AlgorithmGameModal from './components/modals/AlgorithmGameModal.jsx';
 import TelegramBotModal from './components/modals/TelegramBotModal.jsx';
+import BookingModal from './components/modals/BookingModal.jsx';
+import AuthModal from './components/modals/AuthModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -50,6 +52,7 @@ export default function App() {
   const [filter, setFilter] = useState('all');
   const [hfFilter, setHfFilter] = useState('all');
   const [subSearch, setSubSearch] = useState('');
+  const [userProfile, setUserProfile] = useState(null);
   
   // UI & Weather States
   const [pageView, setPageView] = useState('all'); // 'all', 'home', 'lab', 'projects', 'papers', 'contact'
@@ -71,6 +74,8 @@ export default function App() {
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [algoGameOpen, setAlgoGameOpen] = useState(false);
   const [telegramOpen, setTelegramOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
@@ -130,7 +135,7 @@ export default function App() {
     return (data.articles || []).filter(a => !q || (a.title + a.desc).toLowerCase().includes(q));
   }, [data.articles, subSearch]);
 
-  const hfAssets = useMemo(() => (data.hf || []).filter(h => hfFilter === 'all' || h.type === hfFilter), [data.hf, hfFilter]);
+  const hfAssets = useMemo(() => (data.hf || []).filter(h => hfFilter === 'all' || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
 
   // Actions
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
@@ -189,7 +194,7 @@ export default function App() {
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
       <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
       <GameHUDHeader beep={beep} />
-      <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} onTelegramBot={() => setTelegramOpen(true)} beep={beep} showToast={showToast} />
+      <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} onTelegramBot={() => setTelegramOpen(true)} onBookCall={() => setBookingOpen(true)} onAuth={() => setAuthOpen(true)} userProfile={userProfile} beep={beep} showToast={showToast} />
       
       <main style={{ paddingTop: '80px' }}>
         {(pageView === 'all' || pageView === 'home') && (
@@ -290,6 +295,8 @@ export default function App() {
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       <AlgorithmGameModal open={algoGameOpen} onClose={() => setAlgoGameOpen(false)} showToast={showToast} beep={beep} />
       <TelegramBotModal open={telegramOpen} onClose={() => setTelegramOpen(false)} showToast={showToast} beep={beep} />
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} showToast={showToast} beep={beep} />
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} onLogin={setUserProfile} showToast={showToast} beep={beep} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

@@ -58,9 +58,9 @@ export default function ProjectsSection({ repos, search, setSearch, filter, setF
         <i className="fas fa-robot" style={{ color: 'var(--accent)' }} /> Hugging Face Assets (162 total)
       </h3>
       <div className="filter-tabs">
-        <button className={`filter-btn ${hfFilter === 'all' ? 'active' : ''}`} onClick={() => { setHfFilter('all'); beep?.(); }}>All Assets</button>
-        <button className={`filter-btn ${hfFilter === 'Model' ? 'active' : ''}`} onClick={() => { setHfFilter('Model'); beep?.(); }}>Models (92)</button>
-        <button className={`filter-btn ${hfFilter === 'Dataset' ? 'active' : ''}`} onClick={() => { setHfFilter('Dataset'); beep?.(); }}>Datasets (70)</button>
+        <button className={`filter-btn ${hfFilter === 'all' ? 'active' : ''}`} onClick={() => { setHfFilter('all'); beep?.(); }}>All Assets (162)</button>
+        <button className={`filter-btn ${hfFilter === 'model' || hfFilter === 'Model' ? 'active' : ''}`} onClick={() => { setHfFilter('model'); beep?.(); }}>Models (92)</button>
+        <button className={`filter-btn ${hfFilter === 'dataset' || hfFilter === 'Dataset' ? 'active' : ''}`} onClick={() => { setHfFilter('dataset'); beep?.(); }}>Datasets (70)</button>
       </div>
       <div className="hf-grid">
         {hfAssets.map((h, i) => (

@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react25 = __toESM(require_react_shim());
+  var import_react27 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react24 = __toESM(require_react_shim());
+  var import_react26 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -302,11 +302,14 @@
   }
 
   // src/components/ui/FloatingContactBar.jsx
-  function FloatingContactBar({ onHire, onCopyEmail, onTelegramBot, beep, showToast }) {
+  function FloatingContactBar({ onHire, onCopyEmail, onTelegramBot, onBookCall, onAuth, userProfile, beep, showToast }) {
     return /* @__PURE__ */ React.createElement("div", { className: "floating-contact-bar" }, /* @__PURE__ */ React.createElement("div", { className: "floating-contact-inner" }, /* @__PURE__ */ React.createElement("button", { className: "floating-contact-btn primary", onClick: () => {
       onHire();
       beep?.(880);
     }, title: "Direct Recruit / Contact Modal" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane" }), " ", /* @__PURE__ */ React.createElement("span", null, "Quick Contact")), /* @__PURE__ */ React.createElement("button", { className: "floating-contact-btn", onClick: () => {
+      onBookCall?.();
+      beep?.(880);
+    }, title: "Schedule 1-on-1 Call with Taha" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt", style: { color: "var(--emerald)" } }), " ", /* @__PURE__ */ React.createElement("span", null, "Book 1-on-1 Call")), /* @__PURE__ */ React.createElement("button", { className: "floating-contact-btn", onClick: () => {
       onCopyEmail();
       beep?.(700, "square");
     }, title: "1-Click Copy Email" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope" }), " ", /* @__PURE__ */ React.createElement("span", null, "Copy Email")), /* @__PURE__ */ React.createElement("button", { className: "floating-contact-btn", onClick: () => {
@@ -1233,11 +1236,11 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     } }, "Systems & CUDA (", counts.systems, ")")), /* @__PURE__ */ React.createElement("div", { className: "bento" }, repos.map((r, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: r.url, target: "_blank", className: `bento-card ${r.star ? "bento-wide" : ""}` }, r.star && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: ".8rem", right: ".8rem", color: "var(--emerald)" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-star" }), " Featured"), /* @__PURE__ */ React.createElement("div", { className: "bento-tag" }, /* @__PURE__ */ React.createElement("i", { className: r.cat === "ai" ? "fas fa-brain" : r.cat === "systems" ? "fas fa-microchip" : "fas fa-book" }), r.tag), /* @__PURE__ */ React.createElement("h3", { className: "bento-title" }, r.name), /* @__PURE__ */ React.createElement("p", { className: "bento-desc" }, r.desc), /* @__PURE__ */ React.createElement("div", { className: "bento-footer" }, /* @__PURE__ */ React.createElement("span", { className: "bento-pill", style: { color: "#00f0ff", borderColor: "#00f0ff" } }, r.lang), r.lib?.split(",").map((l) => /* @__PURE__ */ React.createElement("span", { key: l, className: "bento-pill" }, l.trim()))))), repos.length === 0 && /* @__PURE__ */ React.createElement("div", { style: { gridColumn: "1/-1", textAlign: "center", padding: "3rem", color: "var(--muted)" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search", style: { fontSize: "2rem", marginBottom: "1rem", opacity: 0.5 } }), /* @__PURE__ */ React.createElement("br", null), 'No repositories found matching "', search, '"')), /* @__PURE__ */ React.createElement("h3", { style: { marginTop: "5rem", marginBottom: "1.5rem", color: "#fff", fontSize: "1.5rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot", style: { color: "var(--accent)" } }), " Hugging Face Assets (162 total)"), /* @__PURE__ */ React.createElement("div", { className: "filter-tabs" }, /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "all" ? "active" : ""}`, onClick: () => {
       setHfFilter("all");
       beep?.();
-    } }, "All Assets"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "Model" ? "active" : ""}`, onClick: () => {
-      setHfFilter("Model");
+    } }, "All Assets (162)"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "model" || hfFilter === "Model" ? "active" : ""}`, onClick: () => {
+      setHfFilter("model");
       beep?.();
-    } }, "Models (92)"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "Dataset" ? "active" : ""}`, onClick: () => {
-      setHfFilter("Dataset");
+    } }, "Models (92)"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "dataset" || hfFilter === "Dataset" ? "active" : ""}`, onClick: () => {
+      setHfFilter("dataset");
       beep?.();
     } }, "Datasets (70)")), /* @__PURE__ */ React.createElement("div", { className: "hf-grid" }, hfAssets.map((h, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: h.url, target: "_blank", className: "hf-card" }, /* @__PURE__ */ React.createElement("div", { className: "hf-type", style: {
       color: h.type === "Model" ? "#60a5fa" : "#a78bfa",
@@ -2431,6 +2434,140 @@ Available commands:
     ))) : /* @__PURE__ */ React.createElement("div", { className: "telegram-success-box" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle", style: { fontSize: "2.5rem", color: "var(--emerald)", marginBottom: ".5rem" } }), /* @__PURE__ */ React.createElement("h3", null, "Successfully Subscribed!"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".85rem", color: "var(--muted)", marginTop: ".4rem" } }, "Updates for ", /* @__PURE__ */ React.createElement("b", null, telegramHandle), " are active. You will receive Telegram notifications directly from ", /* @__PURE__ */ React.createElement("code", null, "@tahamajlesii"), " / Hoosha AI Bot!"), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary", onClick: () => setSubscribed(false), style: { marginTop: "1rem", width: "100%", justifyContent: "center" } }, "Edit Subscription Handle")));
   }
 
+  // src/components/modals/BookingModal.jsx
+  var import_react24 = __toESM(require_react_shim());
+  var TIMESLOTS = [
+    "09:00 AM IRST (UTC+3:30)",
+    "11:30 AM IRST (UTC+3:30)",
+    "02:00 PM IRST (UTC+3:30)",
+    "04:30 PM IRST (UTC+3:30)",
+    "07:00 PM IRST (UTC+3:30)",
+    "09:30 PM IRST (UTC+3:30)"
+  ];
+  var TYPES = [
+    "\u{1F680} AI Advisory & Consulting",
+    "\u{1F393} Ph.D. / Academic Research Collaboration",
+    "\u{1F4BC} Executive Recruitment & Engineering Role",
+    "\u{1F4A1} 1-on-1 Technical Mentorship & Guidance"
+  ];
+  function BookingModal({ open, onClose, showToast, beep }) {
+    const [selectedDate, setSelectedDate] = (0, import_react24.useState)("");
+    const [selectedTime, setSelectedTime] = (0, import_react24.useState)(TIMESLOTS[0]);
+    const [meetingType, setMeetingType] = (0, import_react24.useState)(TYPES[0]);
+    const [name, setName] = (0, import_react24.useState)("");
+    const [email, setEmail] = (0, import_react24.useState)("");
+    const [notes, setNotes] = (0, import_react24.useState)("");
+    const [confirmed, setConfirmed] = (0, import_react24.useState)(false);
+    if (!open) return null;
+    const handleBook = (e) => {
+      e.preventDefault();
+      if (!name || !email || !selectedDate) return;
+      beep?.(880, "sine");
+      setConfirmed(true);
+      showToast?.(`\u{1F4C5} Meeting Booked for ${selectedDate} at ${selectedTime}! Invitation sent to ${email}`);
+      const subject = encodeURIComponent(`1-on-1 Meeting Booking: ${name} (${meetingType})`);
+      const body = encodeURIComponent(`Hi Taha,
+
+I have scheduled a meeting via your portfolio:
+
+\u{1F4C5} Date: ${selectedDate}
+\u23F0 Time: ${selectedTime}
+\u{1F3AF} Type: ${meetingType}
+\u{1F464} Name: ${name}
+\u2709\uFE0F Email: ${email}
+
+Notes:
+${notes}
+
+Best regards,
+${name}`);
+      window.open(`mailto:tahamajlesi@ut.ac.ir?subject=${subject}&body=${body}`, "_blank");
+    };
+    return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, "\u{1F4C5} 1-on-1 Calendar Booking"), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", marginBottom: ".5rem" } }, "Schedule a Meeting with Taha \u{1F91D}"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".88rem", color: "#cbd5e1", lineHeight: "1.6", marginBottom: "1rem" } }, "Select a date and time slot below for a direct 1-on-1 Google Meet / Zoom call with Taha Majlesi."), !confirmed ? /* @__PURE__ */ React.createElement("form", { onSubmit: handleBook, style: { display: "flex", flexDirection: "column", gap: "1rem" } }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Select Topic / Purpose:"), /* @__PURE__ */ React.createElement("select", { value: meetingType, onChange: (e) => setMeetingType(e.target.value), className: "form-input" }, TYPES.map((t, i) => /* @__PURE__ */ React.createElement("option", { key: i, value: t }, t)))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" } }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Date:"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "date",
+        required: true,
+        value: selectedDate,
+        onChange: (e) => setSelectedDate(e.target.value),
+        className: "form-input"
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Time Slot (Tehran Time):"), /* @__PURE__ */ React.createElement("select", { value: selectedTime, onChange: (e) => setSelectedTime(e.target.value), className: "form-input" }, TIMESLOTS.map((t, i) => /* @__PURE__ */ React.createElement("option", { key: i, value: t }, t))))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" } }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Your Full Name:"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "text",
+        required: true,
+        placeholder: "Dr. Sarah Connor",
+        value: name,
+        onChange: (e) => setName(e.target.value),
+        className: "form-input"
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Your Email Address:"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "email",
+        required: true,
+        placeholder: "sarah@mit.edu",
+        value: email,
+        onChange: (e) => setEmail(e.target.value),
+        className: "form-input"
+      }
+    ))), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Discussion Topics / Agenda Notes:"), /* @__PURE__ */ React.createElement(
+      "textarea",
+      {
+        rows: "3",
+        placeholder: "Briefly describe what you'd like to discuss during our call...",
+        value: notes,
+        onChange: (e) => setNotes(e.target.value),
+        className: "form-input"
+      }
+    )), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary", style: { justifyContent: "center", marginTop: ".5rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-check" }), " Confirm & Schedule Meeting")) : /* @__PURE__ */ React.createElement("div", { className: "telegram-success-box" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt", style: { fontSize: "2.5rem", color: "var(--emerald)", marginBottom: ".5rem" } }), /* @__PURE__ */ React.createElement("h3", null, "Meeting Confirmed!"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".85rem", color: "var(--muted)", marginTop: ".4rem", lineHeight: "1.6" } }, "A calendar invitation for ", /* @__PURE__ */ React.createElement("b", null, selectedDate), " at ", /* @__PURE__ */ React.createElement("b", null, selectedTime), " has been generated for ", /* @__PURE__ */ React.createElement("b", null, name), " (", email, "). Taha looks forward to talking with you!"), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary", onClick: () => setConfirmed(false), style: { marginTop: "1rem", width: "100%", justifyContent: "center" } }, "Schedule Another Slot")));
+  }
+
+  // src/components/modals/AuthModal.jsx
+  var import_react25 = __toESM(require_react_shim());
+  function AuthModal({ open, onClose, onLogin, showToast, beep }) {
+    const [email, setEmail] = (0, import_react25.useState)("");
+    const [name, setName] = (0, import_react25.useState)("");
+    const [role, setRole] = (0, import_react25.useState)("Researcher");
+    if (!open) return null;
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (!name || !email) return;
+      const user = {
+        name,
+        email,
+        role,
+        avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(name)}`
+      };
+      onLogin(user);
+      beep?.(880, "sine");
+      showToast?.(`\u{1F44B} Welcome ${name}! You are now signed in and connected to Taha Majlesi's AI Terminal.`);
+      onClose();
+    };
+    return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, "\u{1F510} Visitor Authentication"), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", marginBottom: ".5rem" } }, "Sign In & Talk with Taha \u{1F7E2}"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".88rem", color: "#cbd5e1", lineHeight: "1.6", marginBottom: "1.2rem" } }, "Log in to personalize your interactive AI session, save your neural network training weights, and initiate direct priority messaging with Taha Majlesi."), /* @__PURE__ */ React.createElement("form", { onSubmit: handleSubmit, style: { display: "flex", flexDirection: "column", gap: "1rem" } }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Your Full Name:"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "text",
+        required: true,
+        placeholder: "Prof. Alex Mercer",
+        value: name,
+        onChange: (e) => setName(e.target.value),
+        className: "form-input"
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Your Email Address:"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "email",
+        required: true,
+        placeholder: "alex@stanford.edu",
+        value: email,
+        onChange: (e) => setEmail(e.target.value),
+        className: "form-input"
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", null, "Your Profession / Role:"), /* @__PURE__ */ React.createElement("select", { value: role, onChange: (e) => setRole(e.target.value), className: "form-input" }, /* @__PURE__ */ React.createElement("option", { value: "AI Researcher" }, "\u{1F52C} AI Researcher / Scientist"), /* @__PURE__ */ React.createElement("option", { value: "Software Engineer" }, "\u{1F4BB} Senior Software / CUDA Engineer"), /* @__PURE__ */ React.createElement("option", { value: "Recruiter" }, "\u{1F4BC} Tech Recruiter / Executive"), /* @__PURE__ */ React.createElement("option", { value: "Student" }, "\u{1F393} Student / Fellow"))), /* @__PURE__ */ React.createElement("div", { className: "auth-hope-banner", style: { background: "rgba(0,240,255,0.06)", border: "1px solid var(--border)", padding: ".8rem 1rem", borderRadius: "10px", fontSize: ".82rem", color: "var(--cyan)", lineHeight: "1.5" } }, "\u{1F4A1} ", /* @__PURE__ */ React.createElement("b", null, "Hope & Direct Connection:"), " Taha actively reads and responds to all logged-in researcher messages within 24 hours!"), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary", style: { justifyContent: "center", marginTop: ".4rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-sign-in-alt" }), " Sign In & Start Live Session")));
+  }
+
   // src/components/ui/Toast.jsx
   function Toast({ msg }) {
     if (!msg) return null;
@@ -2510,31 +2647,34 @@ Available commands:
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react24.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react24.useState)("");
-    const [filter, setFilter] = (0, import_react24.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react24.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react24.useState)("");
-    const [pageView, setPageView] = (0, import_react24.useState)("all");
-    const [weatherMode, setWeatherMode] = (0, import_react24.useState)("rain");
-    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react24.useState)(false);
-    const [accent, setAccent] = (0, import_react24.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react24.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react24.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react24.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react24.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react24.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react24.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react24.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react24.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react24.useState)(false);
-    const [gameOpen, setGameOpen] = (0, import_react24.useState)(false);
-    const [shortcutsOpen, setShortcutsOpen] = (0, import_react24.useState)(false);
-    const [algoGameOpen, setAlgoGameOpen] = (0, import_react24.useState)(false);
-    const [telegramOpen, setTelegramOpen] = (0, import_react24.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react24.useState)(false);
-    const [selectedPaper, setSelectedPaper] = (0, import_react24.useState)(null);
-    const [bibtexPub, setBibtexPub] = (0, import_react24.useState)(null);
+    const [data, setData] = (0, import_react26.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react26.useState)("");
+    const [filter, setFilter] = (0, import_react26.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react26.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react26.useState)("");
+    const [userProfile, setUserProfile] = (0, import_react26.useState)(null);
+    const [pageView, setPageView] = (0, import_react26.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react26.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react26.useState)(false);
+    const [accent, setAccent] = (0, import_react26.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react26.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react26.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react26.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react26.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react26.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react26.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react26.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react26.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react26.useState)(false);
+    const [gameOpen, setGameOpen] = (0, import_react26.useState)(false);
+    const [shortcutsOpen, setShortcutsOpen] = (0, import_react26.useState)(false);
+    const [algoGameOpen, setAlgoGameOpen] = (0, import_react26.useState)(false);
+    const [telegramOpen, setTelegramOpen] = (0, import_react26.useState)(false);
+    const [bookingOpen, setBookingOpen] = (0, import_react26.useState)(false);
+    const [authOpen, setAuthOpen] = (0, import_react26.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react26.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react26.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react26.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
@@ -2546,11 +2686,11 @@ Available commands:
       showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
       beep(700);
     };
-    (0, import_react24.useEffect)(() => {
+    (0, import_react26.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react26.useEffect)(() => {
       const fn = (e) => {
         if (["input", "textarea", "select"].includes(document.activeElement?.tagName?.toLowerCase())) return;
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -2587,16 +2727,16 @@ Available commands:
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, [weatherMode]);
-    const repos = (0, import_react24.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react26.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react24.useMemo)(() => {
+    const articles = (0, import_react26.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react24.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const hfAssets = (0, import_react26.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -2666,7 +2806,7 @@ Available commands:
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    const counts = (0, import_react24.useMemo)(() => ({
+    const counts = (0, import_react26.useMemo)(() => ({
       all: repos.length,
       course: repos.filter((r) => r.category === "course").length,
       ml: repos.filter((r) => r.category === "ml").length,
@@ -2678,7 +2818,7 @@ Available commands:
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       showToast("\u{1F4CB} Email (tahamajlesi@ut.ac.ir) copied to clipboard!");
     };
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement(GameHUDHeader, { beep }), /* @__PURE__ */ React.createElement(FloatingContactBar, { onHire: () => setHireOpen(true), onCopyEmail: handleCopyEmail, onTelegramBot: () => setTelegramOpen(true), beep, showToast }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement(GameHUDHeader, { beep }), /* @__PURE__ */ React.createElement(FloatingContactBar, { onHire: () => setHireOpen(true), onCopyEmail: handleCopyEmail, onTelegramBot: () => setTelegramOpen(true), onBookCall: () => setBookingOpen(true), onAuth: () => setAuthOpen(true), userProfile, beep, showToast }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
     }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, onOpenAlgoGame: () => setAlgoGameOpen(true), beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), onSelectPaper: setSelectedPaper, beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "UI Beeps On \u{1F50A}");
@@ -2701,11 +2841,11 @@ Available commands:
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
       setAiOpen(true);
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(KeyboardShortcutsModal, { open: shortcutsOpen, onClose: () => setShortcutsOpen(false) }), /* @__PURE__ */ React.createElement(AlgorithmGameModal, { open: algoGameOpen, onClose: () => setAlgoGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(TelegramBotModal, { open: telegramOpen, onClose: () => setTelegramOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(KeyboardShortcutsModal, { open: shortcutsOpen, onClose: () => setShortcutsOpen(false) }), /* @__PURE__ */ React.createElement(AlgorithmGameModal, { open: algoGameOpen, onClose: () => setAlgoGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(TelegramBotModal, { open: telegramOpen, onClose: () => setTelegramOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(BookingModal, { open: bookingOpen, onClose: () => setBookingOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(AuthModal, { open: authOpen, onClose: () => setAuthOpen(false), onLogin: setUserProfile, showToast, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
   }
 
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react25.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react27.default.createElement(App, null));
 })();
