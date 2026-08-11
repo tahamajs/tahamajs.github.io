@@ -7,10 +7,14 @@ function App() {
   const [accent, setAccent] = useState('cyan');
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [speechEnabled, setSpeechEnabled] = useState(false);
+  const [viewMode, setViewMode] = useState('bento'); // 'bento' or 'constellation'
+
+  // Telemetry HUD state
+  const [gpuMetrics, setGpuMetrics] = useState({ flops: 312, vram: 68.4, latency: 1.2 });
 
   // Substack Search & HF Filter
   const [substackSearch, setSubstackSearch] = useState('');
-  const [hfFilter, setHfFilter] = useState('all'); // all, model, dataset
+  const [hfFilter, setHfFilter] = useState('all');
   const [activeCodeTab, setActiveCodeTab] = useState('flow');
   const [codeOutput, setCodeOutput] = useState('');
 
@@ -18,6 +22,7 @@ function App() {
   const [aiModalOpen, setAiModalOpen] = useState(false);
   const [cmdModalOpen, setCmdModalOpen] = useState(false);
   const [hireModalOpen, setHireModalOpen] = useState(false);
+  const [activeConstellationNode, setActiveConstellationNode] = useState(null);
 
   // Chat state
   const [aiMessages, setAiMessages] = useState([
@@ -73,6 +78,18 @@ function App() {
       .catch(() => {});
   }, []);
 
+  // Live GPU Telemetry simulation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setGpuMetrics({
+        flops: (310 + Math.random() * 15).toFixed(1),
+        vram: (67.5 + Math.random() * 2.5).toFixed(1),
+        latency: (1.1 + Math.random() * 0.3).toFixed(2)
+      });
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Tehran Clock
   useEffect(() => {
     const timer = setInterval(() => {
@@ -93,11 +110,23 @@ function App() {
         setCmdModalOpen(false);
         setAiModalOpen(false);
         setHireModalOpen(false);
+        setActiveConstellationNode(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Constellation Nodes
+  const constellationNodes = [
+    { id: 'core', label: 'Mohammad Taha Majlesi', type: 'core', x: 50, y: 50, desc: 'Co-Founder & AI Architect @ Hoosha AI 🧠 | CE @ UT & TA @ Sharif' },
+    { id: 'hoosha', label: 'Hoosha AI 🧠', type: 'startup', x: 25, y: 30, desc: 'Frontier AI Startup co-founded by Taha. Focus on cognitive scaling, GRPO & IIT consciousness.' },
+    { id: 'ut', label: 'University of Tehran', type: 'academic', x: 75, y: 30, desc: 'Primary CE degree institution & Research Assistant for M.Sc. ML, AI & Operating Systems.' },
+    { id: 'sharif', label: 'Sharif University', type: 'academic', x: 80, y: 70, desc: 'Cross-institutional Teaching Assistant for Compiler Construction.' },
+    { id: 'kaleido', label: 'Kaleido Engine ⚡', type: 'system', x: 20, y: 70, desc: 'First-principles distributed CUDA/C++ LLM engine jointly optimizing 4D parallel compute.' },
+    { id: 'hf', label: 'Hugging Face (162)', type: 'open_science', x: 50, y: 20, desc: '92 pre-trained model weights & 70 open synthetic evaluation datasets.' },
+    { icon: 'fa-newspaper', id: 'substack', label: 'Substack (20 Papers)', type: 'research', x: 50, y: 80, desc: '20 published deep-dive research reports on Flow Matching & Linear Attention.' }
+  ];
 
   // Mouse Spotlight & Canvas setup
   useEffect(() => {
@@ -298,8 +327,31 @@ __global__ void launch_all_reduce(float* tensor, int size) {
         </div>
       )}
 
-      {/* Theme Switcher Widget */}
+      {/* Floating GPU Cluster Telemetry Bar */}
+      <div className="gpu-telemetry-bar">
+        <span className="gpu-dot"></span>
+        <span className="gpu-item"><b>CUDA:</b> 0,1,2,3 (A100 SXM4)</span>
+        <span className="gpu-item"><b>FLOPS:</b> {gpuMetrics.flops} TFLOPS</span>
+        <span className="gpu-item"><b>VRAM:</b> {gpuMetrics.vram} GB / 80 GB</span>
+        <span className="gpu-item"><b>LATENCY:</b> {gpuMetrics.latency} ms</span>
+        <span className="gpu-item"><b>TEHRAN:</b> {tehranTime}</span>
+      </div>
+
+      {/* Theme & Mode Switcher Widget */}
       <div className="theme-switcher">
+        <button
+          className={`sound-toggle-btn ${viewMode === 'constellation' ? 'active' : ''}`}
+          onClick={() => {
+            const next = viewMode === 'bento' ? 'constellation' : 'bento';
+            setViewMode(next);
+            playSound(900, 'triangle');
+            triggerToast(next === 'constellation' ? 'Activated Interactive 3D Constellation Graph! 🕸️' : 'Switched to Bento Matrix Grid! 🎛️');
+          }}
+          title="Toggle Novel 3D Constellation Mode"
+        >
+          <i className={viewMode === 'bento' ? 'fas fa-project-diagram' : 'fas fa-th-large'}></i>
+        </button>
+
         <button
           className={`sound-toggle-btn ${soundEnabled ? 'active' : ''}`}
           onClick={() => {
@@ -310,6 +362,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
         >
           <i className="fas fa-volume-up"></i>
         </button>
+
         <button
           className={`sound-toggle-btn ${speechEnabled ? 'active' : ''}`}
           onClick={() => {
@@ -317,10 +370,10 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             triggerToast(speechEnabled ? 'AI Voice Disabled 🔇' : 'AI Voice Enabled! 🗣️');
           }}
           title="Toggle AI Speech Voice"
-          style={{ marginLeft: '4px' }}
         >
           <i className="fas fa-microphone"></i>
         </button>
+
         <div className="switcher-divider"></div>
         {['cyan', 'purple', 'emerald', 'rose'].map(c => (
           <button
@@ -400,18 +453,18 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <i className="fas fa-search"></i>
               <input
                 type="text"
-                placeholder="Type a command (e.g. 'recruit', 'linkedin', 'achievements', 'resume')..."
+                placeholder="Type a command (e.g. 'recruit', 'linkedin', 'constellation', 'resume')..."
                 autoFocus
               />
               <span className="cmd-esc" onClick={() => setCmdModalOpen(false)}>ESC</span>
             </div>
             <div className="cmd-results">
+              <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setViewMode(prev => prev === 'bento' ? 'constellation' : 'bento'); }}><i className="fas fa-project-diagram"></i> Toggle 3D Constellation Network Mode</div>
               <div className="cmd-item" onClick={() => window.open('https://linkedin.com/in/tahamajlesi', '_blank')}><i className="fab fa-linkedin"></i> Open LinkedIn Profile (17.1k Followers)</div>
               <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setHireModalOpen(true); }}><i className="fas fa-briefcase"></i> Open Direct Recruitment &amp; Hire Modal</div>
               <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setAiModalOpen(true); }}><i className="fas fa-robot"></i> Open AI Research Assistant Chat</div>
               <div className="cmd-item" onClick={() => window.open('assets/resume.pdf', '_blank')}><i className="fas fa-file-pdf"></i> Download Official Resume (PDF)</div>
               <div className="cmd-item" onClick={() => window.open('https://hooshaai.substack.com', '_blank')}><i className="fas fa-newspaper"></i> Open Hoosha AI Substack Newsletter</div>
-              <div className="cmd-item" onClick={() => { navigator.clipboard.writeText('tahamajlesi@ut.ac.ir'); triggerToast('Copied tahamajlesi@ut.ac.ir!'); setCmdModalOpen(false); }}><i className="fas fa-envelope"></i> Copy Primary Email</div>
             </div>
           </div>
         </div>
@@ -461,7 +514,9 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             <a href="#models">HF Models (162)</a>
             <a href="#projects">Ecosystem ({counts.all})</a>
             <a href="#substack">Substack 🧠</a>
-            <a href="assets/resume.pdf" target="_blank" className="nav-resume-btn"><i className="fas fa-file-pdf"></i> Resume CV</a>
+            <button className="nav-resume-btn" style={{ background: viewMode === 'constellation' ? 'var(--cyan)' : 'transparent', color: viewMode === 'constellation' ? '#000' : 'var(--cyan)' }} onClick={() => setViewMode(prev => prev === 'bento' ? 'constellation' : 'bento')}>
+              <i className="fas fa-project-diagram"></i> {viewMode === 'bento' ? 'Constellation Graph' : 'Bento Grid'}
+            </button>
             <button className="nav-hire-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase"></i> Recruit Taha</button>
             <button className="cmd-k-btn" onClick={() => setCmdModalOpen(true)}><i className="fas fa-search"></i> <span className="cmd-k-key">⌘K</span></button>
           </div>
@@ -470,319 +525,379 @@ __global__ void launch_all_reduce(float* tensor, int size) {
 
       {/* Main Content */}
       <main>
-        {/* Hero */}
-        <section id="about" className="hero">
-          <div className="hero-content fade-in-up">
-            <div className="avatar-wrapper">
-              <div className="avatar-glow-ring"></div>
-              <img src="assets/avatar.jpg?v=22.0" onError={(e) => { e.target.src = 'https://github.com/tahamajs.png'; }} alt="Taha Majlesi" className="avatar-img" />
-            </div>
-            
-            <div className="badge-pill">
-              <span className="pulse-dot"></span> Co-Founder &amp; Systems/AI Architect @ Hoosha AI 🧠 | University of Tehran
+        {/* Novel 3D Constellation View Mode */}
+        {viewMode === 'constellation' ? (
+          <section className="section" style={{ paddingTop: '8rem', minHeight: '85vh' }}>
+            <div className="section-header fade-in-up">
+              <h2>Interactive <span className="gradient-text">Neural Constellation Graph</span></h2>
+              <p>Click any node in Taha Majlesi's interconnected research &amp; engineering universe.</p>
             </div>
 
-            <div className="live-clock-badge">
-              <i className="far fa-clock"></i> Tehran Local Time: <span>{tehranTime}</span> (UTC +3:30) • <span className="status-green">Available for R&amp;D &amp; Recruiting</span>
-            </div>
+            <div style={{ position: 'relative', width: '100%', height: '550px', background: 'rgba(5,7,12,0.8)', borderRadius: '20px', border: '1px solid rgba(0,240,255,0.2)', overflow: 'hidden' }}>
+              <svg style={{ position: 'absolute', width: '100%', height: '100%' }}>
+                {constellationNodes.slice(1).map(n => (
+                  <line
+                    key={n.id}
+                    x1="50%" y1="50%"
+                    x2={`${n.x}%`} y2={`${n.y}%`}
+                    stroke="rgba(0, 240, 255, 0.4)" strokeWidth="2" strokeDasharray="5,5"
+                  />
+                ))}
+              </svg>
 
-            <h1 className="hero-title">
-              Mohammad Taha Majlesi<br/>
-              <span className="subtitle-line">Building <span className="gradient-text">Scalable AI Systems &amp; Distributed Engines</span></span>
-            </h1>
-            
-            <p className="hero-subtitle">
-              AI Researcher &amp; Systems Engineer. Co-Founder of <b>Hoosha AI 🧠</b> with a <b>17.1k+ LinkedIn Community</b>. Computer Engineering at <b>University of Tehran</b> and Teaching Assistant at <b>Sharif University of Technology</b>. Specializing in <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment &amp; Reasoning</b> (GRPO, SFT), and <b>Distributed GPU Infrastructure</b>.
-            </p>
-
-            {/* Interactive Research Tags Cloud */}
-            <div className="org-badges" style={{ marginBottom: '1.5rem' }}>
-              {researchTags.map(tag => (
-                <button
-                  key={tag}
-                  className="org-badge"
-                  style={{ cursor: 'pointer', border: '1px solid var(--cyan)' }}
-                  onClick={() => {
-                    setSearch(tag);
-                    const el = document.getElementById('projects');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    triggerToast(`Filtering repos by "${tag}"! 🔍`);
+              {constellationNodes.map(n => (
+                <div
+                  key={n.id}
+                  onClick={() => { setActiveConstellationNode(n); playSound(850, 'sine'); }}
+                  style={{
+                    position: 'absolute',
+                    left: `${n.x}%`, top: `${n.y}%`,
+                    transform: 'translate(-50%, -50%)',
+                    cursor: 'pointer',
+                    background: n.type === 'core' ? 'var(--cyan)' : 'rgba(15, 23, 42, 0.9)',
+                    color: n.type === 'core' ? '#000' : '#fff',
+                    border: '2px solid var(--cyan)',
+                    borderRadius: '30px',
+                    padding: '0.6rem 1.4rem',
+                    fontWeight: '700',
+                    fontSize: n.type === 'core' ? '1.1rem' : '0.9rem',
+                    boxShadow: '0 0 20px rgba(0, 240, 255, 0.5)',
+                    transition: 'all 0.3s ease'
                   }}
                 >
-                  <i className="fas fa-tag"></i> {tag}
-                </button>
+                  <i className={`fas ${n.type === 'core' ? 'fa-brain' : n.type === 'startup' ? 'fa-rocket' : n.type === 'academic' ? 'fa-graduation-cap' : 'fa-server'}`} style={{ marginRight: '8px' }}></i>
+                  {n.label}
+                </div>
               ))}
-            </div>
 
-            <div className="hero-actions-row">
-              <button className="primary-btn glow-btn hire-hero-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase"></i> Recruit / Hire Taha</button>
-              <a href="assets/resume.pdf" target="_blank" className="secondary-btn"><i className="fas fa-file-pdf"></i> Download Resume CV</a>
-              <a href="https://hooshaai.substack.com" target="_blank" className="secondary-btn"><i className="fas fa-newspaper"></i> Read Substack 🧠</a>
-              <div className="social-row">
-                <a href="https://github.com/tahamajs" target="_blank" className="social-btn" title="GitHub (521 Followers)"><i className="fab fa-github"></i></a>
-                <a href="https://huggingface.co/tahamajs" target="_blank" className="social-btn" title="Hugging Face (162 Assets)"><i className="fas fa-robot"></i></a>
-                <a href="https://hooshaai.substack.com" target="_blank" className="social-btn" title="Substack Newsletter"><i className="fas fa-newspaper"></i></a>
-                <a href="https://linkedin.com/in/tahamajlesi" target="_blank" className="social-btn" title="LinkedIn (17.1k+ Followers & Community)"><i className="fab fa-linkedin-in"></i></a>
-                <a href="https://telegram.me/tahamajlesii" target="_blank" className="social-btn" title="Telegram (@tahamajlesii)"><i className="fab fa-telegram"></i></a>
-                <a href="https://x.com/hooshaaii" target="_blank" className="social-btn" title="X (Twitter)"><i className="fab fa-x-twitter"></i></a>
-                <a href="mailto:tahamajlesi@ut.ac.ir" className="social-btn" title="Email"><i className="fas fa-envelope"></i></a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Bar */}
-        <div className="stats-bar fade-in-up">
-          <div className="stat-item"><span className="stat-number">12,787</span><span className="stat-label">Commits (Past Year)</span></div>
-          <div className="stat-divider"></div>
-          <div className="stat-item"><span className="stat-number">143</span><span className="stat-label">GitHub Repositories</span></div>
-          <div className="stat-divider"></div>
-          <div className="stat-item"><span className="stat-number">92 / 70</span><span className="stat-label">HF Models &amp; Datasets</span></div>
-          <div className="stat-divider"></div>
-          <div className="stat-item"><span className="stat-number">521</span><span className="stat-label">GitHub Followers</span></div>
-          <div className="stat-divider"></div>
-          <div className="stat-item"><span className="stat-number">17.1k+</span><span className="stat-label">LinkedIn Followers</span></div>
-        </div>
-
-        {/* Honors & Key Achievements Section */}
-        <section id="achievements" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Honors &amp; Key <span className="gradient-text">Achievements</span></h2>
-            <p>Major technical milestones, academic distinctions, and open-source impact.</p>
-          </div>
-
-          <div className="recruitment-grid fade-in-up">
-            {achievements.map((ach, idx) => (
-              <div key={idx} className="recruit-card">
-                <div className="recruit-icon"><i className={`fas ${ach.icon}`}></i></div>
-                <h3>{ach.title}</h3>
-                <p>{ach.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Why Hire Taha */}
-        <section id="recruitment" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Why Recruit <span className="gradient-text">Taha Majlesi?</span></h2>
-            <p>Key impact metrics making Taha an exceptional hire for AI R&amp;D teams, labs, and startups.</p>
-          </div>
-
-          <div className="recruitment-grid fade-in-up">
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-rocket"></i></div>
-              <h3>Proven Founder Mindset</h3>
-              <p>Co-Founder at <b>Hoosha AI 🧠</b>. Proven capability to take research ideas from raw mathematics to production deployments &amp; published papers.</p>
-            </div>
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-microchip"></i></div>
-              <h3>First-Principles Systems Engineering</h3>
-              <p>Architected <b>Kaleido</b> distributed LLM engine from scratch in CUDA, C++, and PyTorch across multi-GPU compute nodes.</p>
-            </div>
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-brain"></i></div>
-              <h3>Frontier AI Research</h3>
-              <p>Deep expertise in <b>Flow Matching ODEs</b>, <b>GRPO 4B LLM fine-tuning</b>, synthetic datasets, and sub-quadratic linear attention.</p>
-            </div>
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-graduation-cap"></i></div>
-              <h3>Academic &amp; Social Pedigree</h3>
-              <p>Computer Engineering at <b>University of Tehran</b>, TA at <b>Sharif University of Technology</b>, reaching <b>17.1k+ LinkedIn Followers</b>.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Interactive PyTorch & CUDA Code Playground */}
-        <section id="playground" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Interactive <span className="gradient-text">Code &amp; Algorithm Sandbox</span></h2>
-            <p>Test and inspect live research code snippets authored by Taha Majlesi.</p>
-          </div>
-
-          <div className="terminal-card fade-in-up">
-            <div className="terminal-bar">
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <span className="t-dot red"></span>
-                <span className="t-dot yellow"></span>
-                <span className="t-dot green"></span>
-              </div>
-              <div style={{ marginLeft: '1.5rem', display: 'flex', gap: '1rem' }}>
-                <button className={`pub-btn ${activeCodeTab === 'flow' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('flow'); setCodeOutput(''); }}>Flow Matching ODE</button>
-                <button className={`pub-btn ${activeCodeTab === 'grpo' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('grpo'); setCodeOutput(''); }}>GRPO Loss (PyTorch)</button>
-                <button className={`pub-btn ${activeCodeTab === 'kaleido' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('kaleido'); setCodeOutput(''); }}>Kaleido CUDA Kernel</button>
-              </div>
-              <span className="t-title">gpu-node-01 (PyTorch 2.4)</span>
-            </div>
-            <div className="terminal-code">
-              <pre>{codeSnippets[activeCodeTab]}</pre>
-              <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <button className="primary-btn glow-btn" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }} onClick={runCodeSnippet}>
-                  <i className="fas fa-play"></i> Run Sandbox Test
-                </button>
-              </div>
-              {codeOutput && (
-                <div style={{ marginTop: '1rem', padding: '1rem', background: '#030508', borderRadius: '8px', border: '1px solid var(--cyan)', color: '#00f0ff', fontSize: '0.85rem' }}>
-                  <pre>{codeOutput}</pre>
+              {activeConstellationNode && (
+                <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', width: '90%', maxWidth: '600px', background: 'rgba(10,15,25,0.95)', border: '1px solid var(--cyan)', borderRadius: '16px', padding: '1.5rem', backdropFilter: 'blur(10px)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h3 style={{ margin: 0, color: 'var(--cyan)' }}>{activeConstellationNode.label}</h3>
+                    <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }} onClick={() => setActiveConstellationNode(null)}>✕</button>
+                  </div>
+                  <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#94a3b8' }}>{activeConstellationNode.desc}</p>
                 </div>
               )}
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <>
+            {/* Hero */}
+            <section id="about" className="hero">
+              <div className="hero-content fade-in-up">
+                <div className="avatar-wrapper">
+                  <div className="avatar-glow-ring"></div>
+                  <img src="assets/avatar.jpg?v=22.0" onError={(e) => { e.target.src = 'https://github.com/tahamajs.png'; }} alt="Taha Majlesi" className="avatar-img" />
+                </div>
+                
+                <div className="badge-pill">
+                  <span className="pulse-dot"></span> Co-Founder &amp; Systems/AI Architect @ Hoosha AI 🧠 | University of Tehran
+                </div>
 
-        {/* Selected Publications */}
-        <section id="publications" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Selected Research <span className="gradient-text">Publications &amp; Reports</span></h2>
-            <p>Preprints, technical reports, and research papers authored by Taha Majlesi &amp; Hoosha AI.</p>
-          </div>
+                <div className="live-clock-badge">
+                  <i className="far fa-clock"></i> Tehran Local Time: <span>{tehranTime}</span> (UTC +3:30) • <span className="status-green">Available for R&amp;D &amp; Recruiting</span>
+                </div>
 
-          <div className="publications-list fade-in-up">
-            <div className="pub-card">
-              <div className="pub-badge">Technical Report • 2026</div>
-              <h3 className="pub-title"><a href="https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention" target="_blank">Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI</a></h3>
-              <p className="pub-authors"><u>Mohammad Taha Majlesi</u>, Hoosha AI Research Team</p>
-              <p className="pub-venue">Hoosha AI Technical Report Series &amp; Open Paper 2026</p>
-              <p className="pub-abstract">We investigate sub-quadratic linear attention mechanisms (LinRec, SVD Attention) for scaling transformer architectures across long-context sequence modeling tasks without incurring $O(N^2)$ memory overhead.</p>
-              <div className="pub-links">
-                <a href="https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention" target="_blank" className="pub-btn"><i className="fas fa-file-alt"></i> Article</a>
-                <a href="https://github.com/tahamajs/SVD_linear_Attention" target="_blank" className="pub-btn"><i className="fab fa-github"></i> Code</a>
-                <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026linear, title={Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Technical Reports}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
-              </div>
-            </div>
+                <h1 className="hero-title">
+                  Mohammad Taha Majlesi<br/>
+                  <span className="subtitle-line">Building <span className="gradient-text">Scalable AI Systems &amp; Distributed Engines</span></span>
+                </h1>
+                
+                <p className="hero-subtitle">
+                  AI Researcher &amp; Systems Engineer. Co-Founder of <b>Hoosha AI 🧠</b> with a <b>17.1k+ LinkedIn Community</b>. Computer Engineering at <b>University of Tehran</b> and Teaching Assistant at <b>Sharif University of Technology</b>. Specializing in <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment &amp; Reasoning</b> (GRPO, SFT), and <b>Distributed GPU Infrastructure</b>.
+                </p>
 
-            <div className="pub-card">
-              <div className="pub-badge">Research Paper • 2026</div>
-              <h3 className="pub-title"><a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank">Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems</a></h3>
-              <p className="pub-authors"><u>Mohammad Taha Majlesi</u>, Hoosha AI Lab</p>
-              <p className="pub-venue">Frontiers in AI Alignment &amp; Reasoning 2026</p>
-              <p className="pub-abstract">A formal mathematical framework introducing grounded causal verification to constrain self-improving LLMs, preventing recursive hallucination loops and epistemic degradation.</p>
-              <div className="pub-links">
-                <a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank" className="pub-btn"><i className="fas fa-file-alt"></i> Article</a>
-                <a href="https://github.com/Hooshaai/consciousness_in_LLMs" target="_blank" className="pub-btn"><i className="fab fa-github"></i> Code</a>
-                <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026causal, title={Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Research}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
-              </div>
-            </div>
-          </div>
-        </section>
+                {/* Interactive Research Tags Cloud */}
+                <div className="org-badges" style={{ marginBottom: '1.5rem' }}>
+                  {researchTags.map(tag => (
+                    <button
+                      key={tag}
+                      className="org-badge"
+                      style={{ cursor: 'pointer', border: '1px solid var(--cyan)' }}
+                      onClick={() => {
+                        setSearch(tag);
+                        const el = document.getElementById('projects');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        triggerToast(`Filtering repos by "${tag}"! 🔍`);
+                      }}
+                    >
+                      <i className="fas fa-tag"></i> {tag}
+                    </button>
+                  ))}
+                </div>
 
-        {/* Hugging Face Models Section */}
-        <section id="models" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Hugging Face <span className="gradient-text">Models &amp; Datasets ({filteredHf.length} Assets)</span></h2>
-            <p>Pre-trained model weights, fine-tuned adapters, and open synthetic datasets published by Taha Majlesi.</p>
-          </div>
-
-          <div className="filter-tabs fade-in-up" style={{ marginBottom: '2rem' }}>
-            {[
-              { id: 'all', label: 'All HF Assets (162)' },
-              { id: 'model', label: '🤖 Models (92)' },
-              { id: 'dataset', label: '📊 Datasets (70)' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                className={`filter-btn ${hfFilter === tab.id ? 'active' : ''}`}
-                onClick={() => setHfFilter(tab.id)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="hf-models-grid fade-in-up">
-            {filteredHf.map((hf, i) => (
-              <div key={i} className="hf-card">
-                <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`}></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
-                <h3>{hf.id}</h3>
-                <p>Pre-trained open science release published on Hugging Face Hub.</p>
-                <div className="hf-code-line"><code>{hf.code.splitlines()[0]}</code></div>
-                <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt"></i></a>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Interactive Search & Bento Ecosystem */}
-        <section id="projects" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Interactive <span className="gradient-text">Repository Ecosystem ({counts.all} Repos)</span></h2>
-            <p>Live search and filter through all 143 repositories, Hugging Face models, and engineering projects.</p>
-          </div>
-
-          <div className="search-box-wrapper fade-in-up">
-            <i className="fas fa-search search-icon"></i>
-            <input
-              type="text"
-              placeholder="Live search across 143 repos, languages (PyTorch, C++, CUDA, Django)..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-          </div>
-
-          <div className="filter-tabs fade-in-up">
-            {[
-              { id: 'all', label: 'All Projects', count: counts.all },
-              { id: 'course', label: '🎓 University Courses', count: counts.course },
-              { id: 'ai', label: 'AI & LLMs', count: counts.ai },
-              { id: 'systems', label: 'Systems & Kernels', count: counts.systems },
-              { id: 'hf', label: 'Hugging Face', count: counts.hf },
-              { id: 'web', label: 'Software & Web', count: counts.web }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                className={`filter-btn ${filter === tab.id ? 'active' : ''}`}
-                onClick={() => setFilter(tab.id)}
-              >
-                {tab.label} <span className="filter-count">{tab.count}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="bento-grid">
-            {filteredRepos.map((r, i) => (
-              <a key={i} href={r.url} target="_blank" className={`bento-item ${r.isCourse || r.stars >= 4 ? 'bento-wide' : ''}`}>
-                <div className="bento-inner">
-                  <div className="project-tag"><i className={`fas ${r.icon}`}></i> {r.tag} • ⭐ {r.stars}</div>
-                  <h3 className="repo-title">{r.title}</h3>
-                  <p className="repo-desc">{r.desc}</p>
-                  <div className="bento-tags">
-                    <span className="tag">{r.lang}</span>
-                    {r.isCourse && <span className="tag">{r.uni} Course</span>}
+                <div className="hero-actions-row">
+                  <button className="primary-btn glow-btn hire-hero-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase"></i> Recruit / Hire Taha</button>
+                  <a href="assets/resume.pdf" target="_blank" className="secondary-btn"><i className="fas fa-file-pdf"></i> Download Resume CV</a>
+                  <a href="https://hooshaai.substack.com" target="_blank" className="secondary-btn"><i className="fas fa-newspaper"></i> Read Substack 🧠</a>
+                  <div className="social-row">
+                    <a href="https://github.com/tahamajs" target="_blank" className="social-btn" title="GitHub (521 Followers)"><i className="fab fa-github"></i></a>
+                    <a href="https://huggingface.co/tahamajs" target="_blank" className="social-btn" title="Hugging Face (162 Assets)"><i className="fas fa-robot"></i></a>
+                    <a href="https://hooshaai.substack.com" target="_blank" className="social-btn" title="Substack Newsletter"><i className="fas fa-newspaper"></i></a>
+                    <a href="https://linkedin.com/in/tahamajlesi" target="_blank" className="social-btn" title="LinkedIn (17.1k+ Followers & Community)"><i className="fab fa-linkedin-in"></i></a>
+                    <a href="https://telegram.me/tahamajlesii" target="_blank" className="social-btn" title="Telegram (@tahamajlesii)"><i className="fab fa-telegram"></i></a>
+                    <a href="https://x.com/hooshaaii" target="_blank" className="social-btn" title="X (Twitter)"><i className="fab fa-x-twitter"></i></a>
+                    <a href="mailto:tahamajlesi@ut.ac.ir" className="social-btn" title="Email"><i className="fas fa-envelope"></i></a>
                   </div>
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
+              </div>
+            </section>
 
-        {/* Substack Articles */}
-        <section id="substack" className="section">
-          <div className="section-header fade-in-up">
-            <h2>Hoosha AI 🧠 <span className="gradient-text">Substack Newsletter ({filteredArticles.length} Deep Dives)</span></h2>
-            <p>Deep dives into ML/AI papers, LLM reasoning, cognitive scaling, and sub-quadratic attention.</p>
-          </div>
+            {/* Stats Bar */}
+            <div className="stats-bar fade-in-up">
+              <div className="stat-item"><span className="stat-number">12,787</span><span className="stat-label">Commits (Past Year)</span></div>
+              <div className="stat-divider"></div>
+              <div className="stat-item"><span className="stat-number">143</span><span className="stat-label">GitHub Repositories</span></div>
+              <div className="stat-divider"></div>
+              <div className="stat-item"><span className="stat-number">92 / 70</span><span className="stat-label">HF Models &amp; Datasets</span></div>
+              <div className="stat-divider"></div>
+              <div className="stat-item"><span className="stat-number">521</span><span className="stat-label">GitHub Followers</span></div>
+              <div className="stat-divider"></div>
+              <div className="stat-item"><span className="stat-number">17.1k+</span><span className="stat-label">LinkedIn Followers</span></div>
+            </div>
 
-          <div className="search-box-wrapper fade-in-up" style={{ marginBottom: '2rem' }}>
-            <i className="fas fa-search search-icon"></i>
-            <input
-              type="text"
-              placeholder="Search Substack articles by title or topic..."
-              value={substackSearch}
-              onChange={e => setSubstackSearch(e.target.value)}
-            />
-          </div>
+            {/* Honors & Key Achievements Section */}
+            <section id="achievements" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Honors &amp; Key <span className="gradient-text">Achievements</span></h2>
+                <p>Major technical milestones, academic distinctions, and open-source impact.</p>
+              </div>
 
-          <div className="articles-grid">
-            {filteredArticles.map((art, idx) => (
-              <a key={idx} href={art.link} target="_blank" className="article-card fade-in-up">
-                <div className="article-tag"><i className="fas fa-newspaper"></i> Substack • {art.date}</div>
-                <h3>{art.title}</h3>
-                <p>{art.desc}</p>
-                <span className="read-more">Read Full Deep Dive <i className="fas fa-arrow-right"></i></span>
-              </a>
-            ))}
-          </div>
-        </section>
+              <div className="recruitment-grid fade-in-up">
+                {achievements.map((ach, idx) => (
+                  <div key={idx} className="recruit-card">
+                    <div className="recruit-icon"><i className={`fas ${ach.icon}`}></i></div>
+                    <h3>{ach.title}</h3>
+                    <p>{ach.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Why Hire Taha */}
+            <section id="recruitment" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Why Recruit <span className="gradient-text">Taha Majlesi?</span></h2>
+                <p>Key impact metrics making Taha an exceptional hire for AI R&amp;D teams, labs, and startups.</p>
+              </div>
+
+              <div className="recruitment-grid fade-in-up">
+                <div className="recruit-card">
+                  <div className="recruit-icon"><i className="fas fa-rocket"></i></div>
+                  <h3>Proven Founder Mindset</h3>
+                  <p>Co-Founder at <b>Hoosha AI 🧠</b>. Proven capability to take research ideas from raw mathematics to production deployments &amp; published papers.</p>
+                </div>
+                <div className="recruit-card">
+                  <div className="recruit-icon"><i className="fas fa-microchip"></i></div>
+                  <h3>First-Principles Systems Engineering</h3>
+                  <p>Architected <b>Kaleido</b> distributed LLM engine from scratch in CUDA, C++, and PyTorch across multi-GPU compute nodes.</p>
+                </div>
+                <div className="recruit-card">
+                  <div className="recruit-icon"><i className="fas fa-brain"></i></div>
+                  <h3>Frontier AI Research</h3>
+                  <p>Deep expertise in <b>Flow Matching ODEs</b>, <b>GRPO 4B LLM fine-tuning</b>, synthetic datasets, and sub-quadratic linear attention.</p>
+                </div>
+                <div className="recruit-card">
+                  <div className="recruit-icon"><i className="fas fa-graduation-cap"></i></div>
+                  <h3>Academic &amp; Social Pedigree</h3>
+                  <p>Computer Engineering at <b>University of Tehran</b>, TA at <b>Sharif University of Technology</b>, reaching <b>17.1k+ LinkedIn Followers</b>.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Interactive PyTorch & CUDA Code Playground */}
+            <section id="playground" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Interactive <span className="gradient-text">Code &amp; Algorithm Sandbox</span></h2>
+                <p>Test and inspect live research code snippets authored by Taha Majlesi.</p>
+              </div>
+
+              <div className="terminal-card fade-in-up">
+                <div className="terminal-bar">
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <span className="t-dot red"></span>
+                    <span className="t-dot yellow"></span>
+                    <span className="t-dot green"></span>
+                  </div>
+                  <div style={{ marginLeft: '1.5rem', display: 'flex', gap: '1rem' }}>
+                    <button className={`pub-btn ${activeCodeTab === 'flow' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('flow'); setCodeOutput(''); }}>Flow Matching ODE</button>
+                    <button className={`pub-btn ${activeCodeTab === 'grpo' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('grpo'); setCodeOutput(''); }}>GRPO Loss (PyTorch)</button>
+                    <button className={`pub-btn ${activeCodeTab === 'kaleido' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('kaleido'); setCodeOutput(''); }}>Kaleido CUDA Kernel</button>
+                  </div>
+                  <span className="t-title">gpu-node-01 (PyTorch 2.4)</span>
+                </div>
+                <div className="terminal-code">
+                  <pre>{codeSnippets[activeCodeTab]}</pre>
+                  <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <button className="primary-btn glow-btn" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }} onClick={runCodeSnippet}>
+                      <i className="fas fa-play"></i> Run Sandbox Test
+                    </button>
+                  </div>
+                  {codeOutput && (
+                    <div style={{ marginTop: '1rem', padding: '1rem', background: '#030508', borderRadius: '8px', border: '1px solid var(--cyan)', color: '#00f0ff', fontSize: '0.85rem' }}>
+                      <pre>{codeOutput}</pre>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
+
+            {/* Selected Publications */}
+            <section id="publications" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Selected Research <span className="gradient-text">Publications &amp; Reports</span></h2>
+                <p>Preprints, technical reports, and research papers authored by Taha Majlesi &amp; Hoosha AI.</p>
+              </div>
+
+              <div className="publications-list fade-in-up">
+                <div className="pub-card">
+                  <div className="pub-badge">Technical Report • 2026</div>
+                  <h3 className="pub-title"><a href="https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention" target="_blank">Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI</a></h3>
+                  <p className="pub-authors"><u>Mohammad Taha Majlesi</u>, Hoosha AI Research Team</p>
+                  <p className="pub-venue">Hoosha AI Technical Report Series &amp; Open Paper 2026</p>
+                  <p className="pub-abstract">We investigate sub-quadratic linear attention mechanisms (LinRec, SVD Attention) for scaling transformer architectures across long-context sequence modeling tasks without incurring $O(N^2)$ memory overhead.</p>
+                  <div className="pub-links">
+                    <a href="https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention" target="_blank" className="pub-btn"><i className="fas fa-file-alt"></i> Article</a>
+                    <a href="https://github.com/tahamajs/SVD_linear_Attention" target="_blank" className="pub-btn"><i className="fab fa-github"></i> Code</a>
+                    <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026linear, title={Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Technical Reports}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
+                  </div>
+                </div>
+
+                <div className="pub-card">
+                  <div className="pub-badge">Research Paper • 2026</div>
+                  <h3 className="pub-title"><a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank">Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems</a></h3>
+                  <p className="pub-authors"><u>Mohammad Taha Majlesi</u>, Hoosha AI Lab</p>
+                  <p className="pub-venue">Frontiers in AI Alignment &amp; Reasoning 2026</p>
+                  <p className="pub-abstract">A formal mathematical framework introducing grounded causal verification to constrain self-improving LLMs, preventing recursive hallucination loops and epistemic degradation.</p>
+                  <div className="pub-links">
+                    <a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank" className="pub-btn"><i className="fas fa-file-alt"></i> Article</a>
+                    <a href="https://github.com/Hooshaai/consciousness_in_LLMs" target="_blank" className="pub-btn"><i className="fab fa-github"></i> Code</a>
+                    <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026causal, title={Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Research}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Hugging Face Models Section */}
+            <section id="models" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Hugging Face <span className="gradient-text">Models &amp; Datasets ({filteredHf.length} Assets)</span></h2>
+                <p>Pre-trained model weights, fine-tuned adapters, and open synthetic datasets published by Taha Majlesi.</p>
+              </div>
+
+              <div className="filter-tabs fade-in-up" style={{ marginBottom: '2rem' }}>
+                {[
+                  { id: 'all', label: 'All HF Assets (162)' },
+                  { id: 'model', label: '🤖 Models (92)' },
+                  { id: 'dataset', label: '📊 Datasets (70)' }
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    className={`filter-btn ${hfFilter === tab.id ? 'active' : ''}`}
+                    onClick={() => setHfFilter(tab.id)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="hf-models-grid fade-in-up">
+                {filteredHf.map((hf, i) => (
+                  <div key={i} className="hf-card">
+                    <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`}></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
+                    <h3>{hf.id}</h3>
+                    <p>Pre-trained open science release published on Hugging Face Hub.</p>
+                    <div className="hf-code-line"><code>{hf.code.splitlines()[0]}</code></div>
+                    <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt"></i></a>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Interactive Search & Bento Ecosystem */}
+            <section id="projects" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Interactive <span className="gradient-text">Repository Ecosystem ({counts.all} Repos)</span></h2>
+                <p>Live search and filter through all 143 repositories, Hugging Face models, and engineering projects.</p>
+              </div>
+
+              <div className="search-box-wrapper fade-in-up">
+                <i className="fas fa-search search-icon"></i>
+                <input
+                  type="text"
+                  placeholder="Live search across 143 repos, languages (PyTorch, C++, CUDA, Django)..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+              </div>
+
+              <div className="filter-tabs fade-in-up">
+                {[
+                  { id: 'all', label: 'All Projects', count: counts.all },
+                  { id: 'course', label: '🎓 University Courses', count: counts.course },
+                  { id: 'ai', label: 'AI & LLMs', count: counts.ai },
+                  { id: 'systems', label: 'Systems & Kernels', count: counts.systems },
+                  { id: 'hf', label: 'Hugging Face', count: counts.hf },
+                  { id: 'web', label: 'Software & Web', count: counts.web }
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    className={`filter-btn ${filter === tab.id ? 'active' : ''}`}
+                    onClick={() => setFilter(tab.id)}
+                  >
+                    {tab.label} <span className="filter-count">{tab.count}</span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="bento-grid">
+                {filteredRepos.map((r, i) => (
+                  <a key={i} href={r.url} target="_blank" className={`bento-item ${r.isCourse || r.stars >= 4 ? 'bento-wide' : ''}`}>
+                    <div className="bento-inner">
+                      <div className="project-tag"><i className={`fas ${r.icon}`}></i> {r.tag} • ⭐ {r.stars}</div>
+                      <h3 className="repo-title">{r.title}</h3>
+                      <p className="repo-desc">{r.desc}</p>
+                      <div className="bento-tags">
+                        <span className="tag">{r.lang}</span>
+                        {r.isCourse && <span className="tag">{r.uni} Course</span>}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+
+            {/* Substack Articles */}
+            <section id="substack" className="section">
+              <div className="section-header fade-in-up">
+                <h2>Hoosha AI 🧠 <span className="gradient-text">Substack Newsletter ({filteredArticles.length} Deep Dives)</span></h2>
+                <p>Deep dives into ML/AI papers, LLM reasoning, cognitive scaling, and sub-quadratic attention.</p>
+              </div>
+
+              <div className="search-box-wrapper fade-in-up" style={{ marginBottom: '2rem' }}>
+                <i className="fas fa-search search-icon"></i>
+                <input
+                  type="text"
+                  placeholder="Search Substack articles by title or topic..."
+                  value={substackSearch}
+                  onChange={e => setSubstackSearch(e.target.value)}
+                />
+              </div>
+
+              <div className="articles-grid">
+                {filteredArticles.map((art, idx) => (
+                  <a key={idx} href={art.link} target="_blank" className="article-card fade-in-up">
+                    <div className="article-tag"><i className="fas fa-newspaper"></i> Substack • {art.date}</div>
+                    <h3>{art.title}</h3>
+                    <p>{art.desc}</p>
+                    <span className="read-more">Read Full Deep Dive <i className="fas fa-arrow-right"></i></span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
       </main>
 
       <footer>

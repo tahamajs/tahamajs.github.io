@@ -85,6 +85,39 @@ body {
 .hf-link { color: #ffd21e; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
 .hf-link:hover { text-decoration: underline; }
 
+/* Floating GPU Cluster Telemetry Bar */
+.gpu-telemetry-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(3, 5, 10, 0.92);
+  border-top: 1px solid rgba(0, 240, 255, 0.3);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.4rem 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.gpu-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulseGlow 1.5s infinite;
+}
+
+.gpu-item b {
+  color: var(--cyan);
+}
+
 /* Toast Notifications */
 .toast-container { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 99999; display: flex; flex-direction: column; gap: 0.8rem; pointer-events: none; }
 .toast { background: rgba(18, 18, 22, 0.92); border: 1px solid var(--cyan); color: white; padding: 0.85rem 1.5rem; border-radius: 14px; font-size: 0.92rem; font-weight: 600; box-shadow: 0 15px 35px rgba(0,240,255,0.4); backdrop-filter: blur(15px); pointer-events: auto; animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.7s forwards; }
