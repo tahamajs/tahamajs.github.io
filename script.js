@@ -1,40 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Bento Card Mouse Glow Effect (Vercel/Linear style)
-  const cards = document.querySelectorAll('.bento-card');
+  // Dynamic Typewriter Effect
+  const words = ["AI Algorithms.", "Distributed Systems.", "Machine Unlearning.", "The Future."];
+  let i = 0;
+  let timer;
+  
+  function typingEffect() {
+    let word = words[i].split("");
+    var loopTyping = function() {
+      if (word.length > 0) {
+        document.querySelector('.type-text').innerHTML += word.shift();
+      } else {
+        setTimeout(deletingEffect, 2000);
+        return false;
+      };
+      timer = setTimeout(loopTyping, 100);
+    };
+    loopTyping();
+  }
 
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const glow = card.querySelector('.bento-glow');
-      if (glow) {
-        glow.style.left = `${x}px`;
-        glow.style.top = `${y}px`;
-      }
-    });
-  });
+  function deletingEffect() {
+    let word = words[i].split("");
+    var loopDeleting = function() {
+      if (word.length > 0) {
+        word.pop();
+        document.querySelector('.type-text').innerHTML = word.join("");
+      } else {
+        if (words.length > (i + 1)) {
+          i++;
+        } else {
+          i = 0;
+        };
+        setTimeout(typingEffect, 500);
+        return false;
+      };
+      timer = setTimeout(loopDeleting, 50);
+    };
+    loopDeleting();
+  }
+  
+  typingEffect();
 
-  // Staggered Fade Up Animation
+  // Scroll Reveal Observer
   const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
   };
 
-  const observer = new IntersectionObserver((entries, observer) => {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
-        observer.unobserve(entry.target);
+        entry.target.classList.add('visible');
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.fade-up').forEach(el => {
-    el.style.animationPlayState = 'paused';
+  document.querySelectorAll('.fade-in-up').forEach(el => {
     observer.observe(el);
   });
 });
