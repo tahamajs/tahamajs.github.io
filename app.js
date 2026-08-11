@@ -150,6 +150,14 @@
       const ct = setInterval(() => {
         if (Math.random() < 0.7) spawn();
       }, 2400);
+      const rain = Array.from({ length: W > 700 ? 45 : 20 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        len: Math.random() * 25 + 15,
+        spd: Math.random() * 4 + 2,
+        opacity: Math.random() * 0.4 + 0.1
+      }));
+      const ripples = [];
       let raf, last = 0;
       const draw = (ts) => {
         if (ts - last < 16) {
@@ -183,6 +191,36 @@
           ctx.arc(p.x, p.y, p.r, 0, 6.283);
           ctx.fillStyle = `rgba(0,240,255,${p.a * 0.7})`;
           ctx.fill();
+        }
+        for (let i = 0; i < rain.length; i++) {
+          const r = rain[i];
+          ctx.beginPath();
+          ctx.moveTo(r.x, r.y);
+          ctx.lineTo(r.x, r.y + r.len);
+          ctx.strokeStyle = `rgba(0, 240, 255, ${r.opacity})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          r.y += r.spd;
+          if (r.y > H) {
+            if (Math.random() < 0.6) {
+              ripples.push({ x: r.x, y: H - 5, radius: 2, maxR: Math.random() * 20 + 10, alpha: 0.6 });
+            }
+            r.y = -r.len;
+            r.x = Math.random() * W;
+          }
+        }
+        for (let i = ripples.length - 1; i >= 0; i--) {
+          const rip = ripples[i];
+          ctx.beginPath();
+          ctx.ellipse(rip.x, rip.y, rip.radius, rip.radius * 0.4, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(138, 43, 226, ${rip.alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          rip.radius += 0.8;
+          rip.alpha -= 0.02;
+          if (rip.alpha <= 0 || rip.radius >= rip.maxR) {
+            ripples.splice(i, 1);
+          }
         }
         for (let i = comets.length - 1; i >= 0; i--) {
           const c = comets[i];
