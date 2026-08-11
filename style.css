@@ -100,12 +100,13 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1
 .accent-dot:hover,.accent-dot.active{border-color:#fff;transform:scale(1.2);box-shadow:0 0 8px currentColor;}
 .ctrl-divider{width:100%;height:1px;background:var(--border);margin:.1rem 0;}
 
-.back-top-btn{position:fixed;right:1.2rem;bottom:2.5rem;z-index:995;width:40px;height:40px;border-radius:12px;background:var(--glass);border:1px solid var(--border);color:var(--accent);font-size:1rem;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);transition:all .25s;}
+.back-top-btn{position:fixed;right:1.2rem;bottom:34px;z-index:995;width:40px;height:40px;border-radius:12px;background:var(--glass);border:1px solid var(--border);color:var(--accent);font-size:1rem;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all .25s;}
 .back-top-btn:hover{background:rgba(0,240,255,0.12);box-shadow:var(--glow-sm);transform:translateY(-2px);}
 
-.ai-fab{position:fixed;left:1.2rem;bottom:2.5rem;z-index:995;display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--purple));color:#000;font-weight:700;font-size:.85rem;padding:.6rem 1.1rem;border-radius:14px;border:none;box-shadow:0 4px 20px rgba(0,240,255,0.3);transition:all .25s;cursor:pointer;}
+.ai-fab{position:fixed;left:1.2rem;bottom:34px;z-index:995;display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--purple));color:#000;font-weight:700;font-size:.85rem;padding:.6rem 1.1rem;border-radius:14px;border:none;box-shadow:0 4px 20px rgba(0,240,255,0.3);transition:all .25s;cursor:pointer;}
 .ai-fab:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,240,255,0.4);}
 .ai-fab i{font-size:1rem;}
+@media(max-width:600px){.ai-fab{bottom:34px;left:1.2rem;padding:.5rem .9rem;font-size:.78rem;}}
 
 /* ── Gradient text ── */
 .gradient-text{background:linear-gradient(135deg,var(--accent) 0%,var(--purple) 50%,var(--rose) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -352,9 +353,9 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 
 /* ── Responsive ── */
 @media(max-width:900px){
-  .nav-links{display:none;position:fixed;top:92px;left:0;right:0;background:rgba(3,7,18,.97);padding:1rem;flex-direction:column;gap:.5rem;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);}
+  .mobile-nav-toggle{display:block;}
+  .nav-links{display:none;position:fixed;top:92px;left:0;right:0;height:calc(100vh - 92px);overflow-y:auto;background:rgba(3,7,18,0.98);padding:1.5rem;flex-direction:column;gap:.8rem;border-bottom:1px solid var(--border);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:1005;}
   .nav-links.open{display:flex;}
-  .mobile-nav-toggle{display:flex;align-items:center;justify-content:center;}
   .theme-switcher{display:none;}
   .tl-item{grid-template-columns:40px 1fr;}
   .tl-item .tl-empty{display:none;}
@@ -656,15 +657,15 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .btn-primary:hover, .btn-secondary:hover, .pub-btn:hover, .social-btn:hover, .ctrl-btn:hover, .page-router-tab:hover, .floating-contact-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:var(--glow-sm);}
 .btn-primary:active, .btn-secondary:active, .pub-btn:active, .social-btn:active, .ctrl-btn:active, .page-router-tab:active, .floating-contact-btn:active{transform:scale(0.97);}
 
-.floating-contact-bar{position:fixed;bottom:28px;left:140px;z-index:997;}
-.floating-contact-inner{display:flex;gap:.5rem;background:rgba(3,7,18,0.85);backdrop-filter:blur(16px);border:1px solid var(--border);padding:.4rem;border-radius:30px;box-shadow:var(--glow-md);}
+.floating-contact-bar{position:fixed;bottom:34px;left:160px;z-index:997;}
+.floating-contact-inner{display:flex;gap:.5rem;background:rgba(3,7,18,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);padding:.4rem;border-radius:30px;box-shadow:var(--glow-md);}
 .floating-contact-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:.78rem;padding:.4rem .9rem;border-radius:20px;display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
 .floating-contact-btn.primary{background:var(--accent);color:#000;font-weight:600;border:none;}
-@media(max-width:768px){.floating-contact-bar{display:none;}}
+@media(max-width:850px){.floating-contact-bar{display:none;}}
 
 /* ── RPG Video Game HUD & Quest Log Aesthetics ── */
-.game-hud-bar{position:fixed;top:44px;right:220px;z-index:999;}
-@media(max-width:992px){.game-hud-bar{display:none;}}
+.game-hud-bar{position:fixed;top:36px;right:1.2rem;z-index:1001;}
+@media(max-width:1200px){.game-hud-bar{display:none;}}
 .hud-pill{background:rgba(3,7,18,0.85);backdrop-filter:blur(16px);border:1px solid var(--accent);padding:.4rem .8rem;border-radius:24px;display:flex;align-items:center;gap:.6rem;cursor:pointer;box-shadow:var(--glow-sm);transition:all .3s;}
 .hud-pill:hover{transform:translateY(-2px);box-shadow:var(--glow-md);}
 .hud-avatar{font-size:1.2rem;}
