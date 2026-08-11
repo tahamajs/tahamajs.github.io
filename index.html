@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=50.0">
+  <link rel="stylesheet" href="style.css?v=60.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- KaTeX for LaTeX Math Formulas -->
@@ -178,7 +178,7 @@ function App() {
     { icon: 'fa-newspaper', id: 'substack', label: 'Substack (20 Papers)', type: 'research', x: 50, y: 80, desc: '20 published deep-dive research reports on Flow Matching & Linear Attention.' }
   ];
 
-  // Mouse Spotlight & Running Shooting Stars Canvas setup
+  // Optimized High-Performance Cosmic Running Stars & Neural Canvas
   useEffect(() => {
     const spotlight = document.getElementById('cursor-spotlight');
     const handleMouseMove = (e) => {
@@ -189,21 +189,20 @@ function App() {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Cosmic Running Stars & Neural Canvas Engine
     const canvas = document.getElementById('neural-canvas');
     if (canvas) {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: true });
       let w = canvas.width = window.innerWidth;
       let h = canvas.height = window.innerHeight;
 
-      // 1. Running background stars
-      const starCount = w > 700 ? 110 : 50;
+      // 1. Running background stars (Optimized particle count to eliminate rAF violations)
+      const starCount = w > 700 ? 55 : 25;
       const stars = Array.from({ length: starCount }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.9,
-        vy: (Math.random() - 0.5) * 0.9,
-        radius: Math.random() * 2 + 0.8,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        radius: Math.random() * 1.8 + 0.8,
         alpha: Math.random(),
         alphaSpeed: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
       }));
@@ -214,40 +213,49 @@ function App() {
         shootingStars.push({
           x: Math.random() * w,
           y: Math.random() * (h * 0.4),
-          length: Math.random() * 80 + 40,
-          speed: Math.random() * 8 + 6,
+          length: Math.random() * 70 + 40,
+          speed: Math.random() * 7 + 6,
           angle: 45 * (Math.PI / 180),
           alpha: 1,
-          decay: Math.random() * 0.015 + 0.01
+          decay: Math.random() * 0.02 + 0.015
         });
       };
 
-      // Spawn shooting stars periodically
       const shootingInterval = setInterval(() => {
         if (Math.random() < 0.7) createShootingStar();
-      }, 2500);
+      }, 3000);
 
       let animId;
-      const render = () => {
+      let lastTime = performance.now();
+
+      const render = (now) => {
+        // Delta time throttling to ensure smooth 60fps without lag spikes
+        if (now - lastTime < 16) {
+          animId = requestAnimationFrame(render);
+          return;
+        }
+        lastTime = now;
+
         ctx.clearRect(0, 0, w, h);
 
-        // Draw running stars & constellation lines
+        // Draw constellation mesh lines
         for (let a = 0; a < stars.length; a++) {
           for (let b = a + 1; b < stars.length; b++) {
             const dx = stars[a].x - stars[b].x;
             const dy = stars[a].y - stars[b].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
+            const distSq = dx * dx + dy * dy;
+            if (distSq < 12000) {
+              const dist = Math.sqrt(distSq);
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 120)})`;
-              ctx.lineWidth = 0.7;
+              ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 110)})`;
+              ctx.lineWidth = 0.6;
               ctx.moveTo(stars[a].x, stars[a].y);
               ctx.lineTo(stars[b].x, stars[b].y);
               ctx.stroke();
             }
           }
 
-          // Move stars across screen
+          // Move stars
           stars[a].x += stars[a].vx;
           stars[a].y += stars[a].vy;
 
@@ -256,18 +264,14 @@ function App() {
           if (stars[a].y < 0) stars[a].y = h;
           if (stars[a].y > h) stars[a].y = 0;
 
-          // Twinkle alpha
           stars[a].alpha += stars[a].alphaSpeed;
           if (stars[a].alpha <= 0.2 || stars[a].alpha >= 1) stars[a].alphaSpeed *= -1;
 
-          // Draw star point with glow
+          // Draw star point (Zero shadowBlur for 60fps performance!)
           ctx.beginPath();
           ctx.arc(stars[a].x, stars[a].y, stars[a].radius, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(0, 240, 255, ${stars[a].alpha * 0.8})`;
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = '#00f0ff';
           ctx.fill();
-          ctx.shadowBlur = 0;
         }
 
         // Render running shooting stars (comets)
@@ -285,7 +289,7 @@ function App() {
           ctx.moveTo(ss.x, ss.y);
           ctx.lineTo(endX, endY);
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 2.5;
+          ctx.lineWidth = 2.2;
           ctx.stroke();
 
           ss.x += Math.cos(ss.angle) * ss.speed;
@@ -299,7 +303,7 @@ function App() {
 
         animId = requestAnimationFrame(render);
       };
-      render();
+      animId = requestAnimationFrame(render);
 
       return () => {
         window.removeEventListener('mousemove', handleMouseMove);
@@ -970,7 +974,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                     <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`} aria-hidden="true"></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
                     <h3>{hf.id}</h3>
                     <p>Pre-trained open science release published on Hugging Face Hub.</p>
-                    <div className="hf-code-line"><code>{(hf.code || '').split('\n')[0]}</code></div>
+                    <div className="hf-code-line"><code>{String(hf.code || '').split('\n')[0]}</code></div>
                     <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt" aria-hidden="true"></i></a>
                   </div>
                 ))}

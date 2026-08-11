@@ -1,1 +1,780 @@
-{"repos": [{"name": "Deep_Generative_models_course", "title": "Deep Generative models course", "url": "https://github.com/tahamajs/Deep_Generative_models_course", "lang": "Jupyter Notebook", "stars": 21, "desc": "This repository collects lecture slides, assignments (CAs), code notebooks, reports, and reference papers used in the \"Deep Generative Mo...", "cat": "course", "tag": "\ud83c\udf93 UT: Deep Generative Models", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Natural-Language-Processing-Projects", "title": "Natural Language Processing Projects", "url": "https://github.com/tahamajs/Natural-Language-Processing-Projects", "lang": "Jupyter Notebook", "stars": 8, "desc": "This repository contains a collection of Natural Language Processing (NLP) projects completed as assignments for the NLP course at Sharif...", "cat": "course", "tag": "\ud83c\udf93 Sharif: Natural Language Processing", "icon": "fa-graduation-cap", "isCourse": true, "uni": "Sharif"}, {"name": "Computer_Network_Projects", "title": "Computer Network Projects", "url": "https://github.com/tahamajs/Computer_Network_Projects", "lang": "C++", "stars": 3, "desc": "This repository is a comprehensive archive of Computer Networks course materials, including assignments, experiments, simulations, and re...", "cat": "course", "tag": "\ud83c\udf93 UT: Computer Networks", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "DeepLearning_Assignments", "title": "DeepLearning Assignments", "url": "https://github.com/tahamajs/DeepLearning_Assignments", "lang": "Jupyter Notebook", "stars": 2, "desc": "This repository contains comprehensive implementations of advanced deep learning concepts and models as part of the Neural Networks and D...", "cat": "course", "tag": "\ud83c\udf93 UT: Deep Learning", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Computer_Architecture_LAB", "title": "Computer Architecture LAB", "url": "https://github.com/tahamajs/Computer_Architecture_LAB", "lang": "TeX", "stars": 2, "desc": "This project contains a complete implementation of an ARM processor with Pipeline architecture.", "cat": "course", "tag": "\ud83c\udf93 UT: Computer Architecture", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Trustworthy_AI_Course_Assignments", "title": "Trustworthy AI Course Assignments", "url": "https://github.com/tahamajs/Trustworthy_AI_Course_Assignments", "lang": "Jupyter Notebook", "stars": 2, "desc": "A collection of course assignments and supporting code for the \"Trustworthy AI\" class \u2014 organized, documented, and ready for development ...", "cat": "course", "tag": "\ud83c\udf93 UT: Trustworthy AI", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "LLM_UT_FINAL_PROJECT", "title": "LLM UT FINAL PROJECT", "url": "https://github.com/tahamajs/LLM_UT_FINAL_PROJECT", "lang": "Jupyter Notebook", "stars": 1, "desc": "Open-source repository focusing on advanced engineering & research.", "cat": "course", "tag": "\ud83c\udf93 UT: LLMs Final Project", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Data_Science_Cource_Assignments", "title": "Data Science Cource Assignments", "url": "https://github.com/tahamajs/Data_Science_Cource_Assignments", "lang": "Jupyter Notebook", "stars": 2, "desc": "This repository contains all coursework, projects, and materials for the Data Science course at the University of Tehran. The course cove...", "cat": "course", "tag": "\ud83c\udf93 UT: Data Science", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "SE2_UT", "title": "SE2 UT", "url": "https://github.com/tahamajs/SE2_UT", "lang": "Python", "stars": 2, "desc": "This repository contains the first assignment for the Software Engineering course, exploring two critical areas of modern software develo...", "cat": "course", "tag": "\ud83c\udf93 UT: Software Engineering II", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Ethics_In_AI_Course", "title": "Ethics In AI Course", "url": "https://github.com/tahamajs/Ethics_In_AI_Course", "lang": "Jupyter Notebook", "stars": 2, "desc": "This repository contains the complete set of AI Ethics course materials, organized by syllabus topic. Each topic folder is a self contain...", "cat": "course", "tag": "\ud83c\udf93 UT: AI Ethics", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Shortcut_Learning_in_Large-Scale_Models", "title": "Shortcut Learning in Large Scale Models", "url": "https://github.com/tahamajs/Shortcut_Learning_in_Large-Scale_Models", "lang": "Python", "stars": 2, "desc": "This repository provides a reproducible, modular pipeline for detecting and mitigating shortcut learning in language models.", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic", "title": "Shortcut Learning Through the Lens of Task Arithmetic", "url": "https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic", "lang": "Python", "stars": 7, "desc": "This repository now includes a complete implementation scaffold in shortcut_patcher/ for:", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "AirMouse", "title": "AirMouse", "url": "https://github.com/tahamajs/AirMouse", "lang": "Kotlin", "stars": 1, "desc": "Air Mouse turns your Android smartphone into a wireless mouse using only the phone's built\u2011in sensors (accelerometer, gyroscope, magnetom...", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3", "title": "Diffusion Models and ScoreLearning DeepGenModels HW3", "url": "https://github.com/tahamajs/Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3", "lang": "Jupyter Notebook", "stars": 2, "desc": "This repository contains Homework 3 for the Deep Generative Models course at the University of Tehran . The assignment covers two major g...", "cat": "course", "tag": "\ud83c\udf93 UT: Diffusion & Score Matching", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "machine_learning_course", "title": "machine learning course", "url": "https://github.com/tahamajs/machine_learning_course", "lang": "Jupyter Notebook", "stars": 6, "desc": "This repository contains machine learning assignments and a final project from the University of Tehran. The assignments cover regression...", "cat": "course", "tag": "\ud83c\udf93 UT: Machine Learning", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Systems_2_in_AI__Course_Assignments", "title": "Systems 2 in AI  Course Assignments", "url": "https://github.com/tahamajs/Systems_2_in_AI__Course_Assignments", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains a collection of advanced, hands-on assignments for the Systems 2 in AI course. Each folder under CAs/ is an inde...", "cat": "course", "tag": "\ud83c\udf93 UT: Systems 2 in AI", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Deep_Reinforcement_Learning_SUT", "title": "Deep Reinforcement Learning SUT", "url": "https://github.com/tahamajs/Deep_Reinforcement_Learning_SUT", "lang": "Jupyter Notebook", "stars": 1, "desc": "A comprehensive collection of Deep Reinforcement Learning assignments, solutions, and resources for the DRL course at Sharif University o...", "cat": "course", "tag": "\ud83c\udf93 Sharif: Deep Reinforcement Learning", "icon": "fa-graduation-cap", "isCourse": true, "uni": "Sharif"}, {"name": "Data_Science_Final_Project_Taxi_Demand_New_York", "title": "Data Science Final Project Taxi Demand New York", "url": "https://github.com/tahamajs/Data_Science_Final_Project_Taxi_Demand_New_York", "lang": "Jupyter Notebook", "stars": 0, "desc": "This project represents a complete end-to-end data science solution for analyzing and predicting taxi demand in New York City. It demonst...", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}, {"name": "Unlearning_from_VAE", "title": "Unlearning from VAE", "url": "https://github.com/tahamajs/Unlearning_from_VAE", "lang": "Jupyter Notebook", "stars": 0, "desc": "This repository implements Selective Amnesia, a principled approach for machine unlearning in Conditional Variational Autoencoders (VAEs)...", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Turtix_Game", "title": "Turtix Game", "url": "https://github.com/tahamajs/Turtix_Game", "lang": "C++", "stars": 4, "desc": "Turtix Game is a C++ game developed using the SFML library. It offers an interactive gameplay experience where players control a turtle, ...", "cat": "course", "tag": "\ud83c\udf93 UT: Advanced Programming Project", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Qwen3-VL-T", "title": "Qwen3 VL T", "url": "https://github.com/tahamajs/Qwen3-VL-T", "lang": "Python", "stars": 0, "desc": "Qwen3-VL is the multimodal large language model series developed by Qwen team, Alibaba Cloud.", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Qwen3-Coder-T", "title": "Qwen3 Coder T", "url": "https://github.com/tahamajs/Qwen3-Coder-T", "lang": "Python", "stars": 0, "desc": "Qwen3-Coder is the code version of Qwen3, the large language model series developed by Qwen team, Alibaba Cloud.", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Speaker-ID-and-Gender-Classification", "title": "Speaker ID and Gender Classification", "url": "https://github.com/tahamajs/Speaker-ID-and-Gender-Classification", "lang": "Jupyter Notebook", "stars": 2, "desc": "This project focuses on utilizing machine learning algorithms to perform voice authentication and gender classification using audio featu...", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}, {"name": "Advanced_programming_Projects", "title": "Advanced programming Projects", "url": "https://github.com/tahamajs/Advanced_programming_Projects", "lang": "C++", "stars": 3, "desc": "This repository contains a collection of assignments for the Advanced Programming (APS02) course at the University of Tehran. The project...", "cat": "course", "tag": "\ud83c\udf93 UT: Advanced Programming", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "Persian_instruct_dataset", "title": "Persian instruct dataset", "url": "https://github.com/tahamajs/Persian_instruct_dataset", "lang": "Python", "stars": 4, "desc": "Open-source repository focusing on advanced engineering & research.", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "AI-CA1_-Agents_And_Search_Algorithms", "title": "AI CA1  Agents And Search Algorithms", "url": "https://github.com/tahamajs/AI-CA1_-Agents_And_Search_Algorithms", "lang": "HTML", "stars": 1, "desc": "This repository contains solutions for AI-S03-A1 , which focuses on agents , search algorithms , and problem-solving in Artificial Intell...", "cat": "course", "tag": "\ud83c\udf93 UT: Artificial Intelligence", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "xv6-Modified_OS_Lab_Projects", "title": "xv6 Modified OS Lab Projects", "url": "https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects", "lang": "C", "stars": 2, "desc": "This repository contains a collection of Operating Systems lab assignments implemented using xv6, an educational Unix-like OS. The labs c...", "cat": "course", "tag": "\ud83c\udf93 UT: Operating Systems Lab", "icon": "fa-graduation-cap", "isCourse": true, "uni": "UT"}, {"name": "FineTuning-4B-LLM-GSM8k-GRPO-SFT", "title": "FineTuning 4B LLM GSM8k GRPO SFT", "url": "https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT", "lang": "Jupyter Notebook", "stars": 1, "desc": "Open-source repository focusing on advanced engineering & research.", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Programming_Languages_and_Compiler_Theory_course", "title": "Programming Languages and Compiler Theory course", "url": "https://github.com/tahamajs/Programming_Languages_and_Compiler_Theory_course", "lang": "Java", "stars": 1, "desc": "This project implements a compiler for the SimpleLang programming language as part of the Programming Language Concepts (PLC) course. Thi...", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}, {"name": "Large_language_models_course", "title": "Large language models course", "url": "https://github.com/tahamajs/Large_language_models_course", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains Jupyter notebooks for assignments in the Large Language Models (LLM) course. Each assignment explores different ...", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions", "title": "AI CA3  Clustering PCA Unsupervised Learning Solutions", "url": "https://github.com/tahamajs/AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions", "lang": "HTML", "stars": 1, "desc": "This repository contains solutions for AI-S03-A3 , focusing on Clustering Algorithms, Feature Engineering, and Dimensionality Reduction ....", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "Optimization_Methods_in_Machine_Learning_HW3", "title": "Optimization Methods in Machine Learning HW3", "url": "https://github.com/tahamajs/Optimization_Methods_in_Machine_Learning_HW3", "lang": "Jupyter Notebook", "stars": 1, "desc": "This assignment focuses on optimization algorithms in machine learning, including:  Line Search Algorithms Newton\u2019s Method Quasi-Newton M...", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}, {"name": "AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models", "title": "AI CA2  Bayesian Networks HMM   Probabilistic Models", "url": "https://github.com/tahamajs/AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains solutions for AI-S03-A2 , which focuses on Bayesian Networks (Bayes Nets) and Hidden Markov Models (HMM) . The p...", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation", "title": "AI CA4  Machine Learning Optimization   Model Evaluation", "url": "https://github.com/tahamajs/AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository includes solutions for AI-S03-A4 (Artificial Intelligence - Assignment 4) and HW-4 (Homework 4) focused on Machine Learni...", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions", "title": "AI CA5  Neural Networks Optimization   NLP Solutions", "url": "https://github.com/tahamajs/AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains solutions for Artificial Intelligence - CA5 and HW5 assignments. These assignments cover essential AI concepts s...", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4", "title": "Vision Language Models and Flow Matching DeepGenModels HW4", "url": "https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains Homework 4 for the Deep Generative Models course at the University of Tehran. The assignment covers cutting-edge...", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2", "title": "Flow Based Generative Models and GANs DeepGenModels HW2", "url": "https://github.com/tahamajs/Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains Homework 2 for the Deep Generative Models course at the University of Tehran. This assignment covers advanced ge...", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Variational_Inference_and_Generative_Models_DeepGenModels_HW1", "title": "Variational Inference and Generative Models DeepGenModels HW1", "url": "https://github.com/tahamajs/Variational_Inference_and_Generative_Models_DeepGenModels_HW1", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains Homework 1 for the Deep Generative Models course at the University of Tehran. The homework consists of theoretic...", "cat": "ai", "tag": "Research & AI", "icon": "fa-brain", "isCourse": false, "uni": ""}, {"name": "Datastructure_And_Algorithm_Course", "title": "Datastructure And Algorithm Course", "url": "https://github.com/tahamajs/Datastructure_And_Algorithm_Course", "lang": "Jupyter Notebook", "stars": 1, "desc": "This repository contains lecture notes, homework assignments, and additional resources for the Data Structures and Algorithms course at t...", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "Artificial_Intelligence_Projects", "title": "Artificial Intelligence Projects", "url": "https://github.com/tahamajs/Artificial_Intelligence_Projects", "lang": "Jupyter Notebook", "stars": 2, "desc": "This repository contains the coursework and assessments for the Artificial Intelligence course at the University of Tehran. Each folder r...", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "Computer_Architecture_Projects", "title": "Computer Architecture Projects", "url": "https://github.com/tahamajs/Computer_Architecture_Projects", "lang": "Verilog", "stars": 1, "desc": "Computer Architecture Projects", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}, {"name": "FormalLanguagesandAutomataTheory_Course", "title": "FormalLanguagesandAutomataTheory Course", "url": "https://github.com/tahamajs/FormalLanguagesandAutomataTheory_Course", "lang": "Python", "stars": 1, "desc": "Open-source repository focusing on advanced engineering & research.", "cat": "systems", "tag": "Systems & Engines", "icon": "fa-server", "isCourse": false, "uni": ""}, {"name": "Course-Selection-System_Project", "title": "Course Selection System Project", "url": "https://github.com/tahamajs/Course-Selection-System_Project", "lang": "Python", "stars": 3, "desc": "Course Selection System", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}, {"name": "Football_Fantesy_CPP_PH2", "title": "Football Fantesy CPP PH2", "url": "https://github.com/tahamajs/Football_Fantesy_CPP_PH2", "lang": "C++", "stars": 1, "desc": "Fantasy Football Application Phase 2", "cat": "web", "tag": "Software & Web", "icon": "fa-code", "isCourse": false, "uni": ""}], "articles": [], "hf": [{"id": "tahamajs/my-paligemma-model", "type": "model", "likes": 2, "downloads": 4, "url": "https://huggingface.co/tahamajs/my-paligemma-model", "code": "from transformers import AutoModel.from_pretrained(\"tahamajs/my-paligemma-model\")"}, {"id": "tahamajs/plamma", "type": "model", "likes": 3, "downloads": 10, "url": "https://huggingface.co/tahamajs/plamma", "code": "from transformers import AutoModel.from_pretrained(\"tahamajs/plamma\")"}, {"id": "tahamajs/LLaMA-3-2-LoRA-EmotionTune", "type": "model", "likes": 2, "downloads": 0, "url": "https://huggingface.co/tahamajs/LLaMA-3-2-LoRA-EmotionTune", "code": "from transformers import AutoModel.from_pretrained(\"tahamajs/LLaMA-3-2-LoRA-EmotionTune\")"}, {"id": "tahamajs/LLaMA-3-2-LoRA-EmotionTune-Full", "type": "model", "likes": 3, "downloads": 6, "url": "https://huggingface.co/tahamajs/LLaMA-3-2-LoRA-EmotionTune-Full", "code": "from transformers import AutoModel.from_pretrained(\"tahamajs/LLaMA-3-2-LoRA-EmotionTune-Full\")"}, {"id": "tahamajs/results", "type": "model", "likes": 2, "downloads": 2, "url": "https://huggingface.co/tahamajs/results", "code": "from transformers import AutoModel.from_pretrained(\"tahamajs/results\")"}, {"id": "tahamajs/distilbert-base-uncased-sequence-classification-imdb-v1", "type": "model", "likes": 2, "downloads": 0, "url": "https://huggingface.co/tahamajs/distilbert-base-uncased-sequence-classification-imdb-v1", "code": "from transformers import AutoModel.from_pretrained(\"tahamajs/distilbert-base-uncased-sequence-classification-imdb-v1\")"}, {"id": "tahamajs/clean_c4_dataset", "type": "dataset", "likes": 1, "downloads": 6, "url": "https://huggingface.co/datasets/tahamajs/clean_c4_dataset", "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/clean_c4_dataset\")"}, {"id": "tahamajs/Iran_FDA_1400_Dataset", "type": "dataset", "likes": 2, "downloads": 13, "url": "https://huggingface.co/datasets/tahamajs/Iran_FDA_1400_Dataset", "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/Iran_FDA_1400_Dataset\")"}, {"id": "tahamajs/WHO_ATC_Index", "type": "dataset", "likes": 1, "downloads": 27, "url": "https://huggingface.co/datasets/tahamajs/WHO_ATC_Index", "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/WHO_ATC_Index\")"}, {"id": "tahamajs/medicine_ds_merged", "type": "dataset", "likes": 1, "downloads": 20, "url": "https://huggingface.co/datasets/tahamajs/medicine_ds_merged", "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/medicine_ds_merged\")"}]}
+{
+  "repos": [
+    {
+      "name": "Deep_Generative_models_course",
+      "title": "Deep Generative models course",
+      "url": "https://github.com/tahamajs/Deep_Generative_models_course",
+      "lang": "Jupyter Notebook",
+      "stars": 21,
+      "desc": "This repository collects lecture slides, assignments (CAs), code notebooks, reports, and reference papers used in the \"Deep Generative Mo...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Deep Generative Models",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Natural-Language-Processing-Projects",
+      "title": "Natural Language Processing Projects",
+      "url": "https://github.com/tahamajs/Natural-Language-Processing-Projects",
+      "lang": "Jupyter Notebook",
+      "stars": 8,
+      "desc": "This repository contains a collection of Natural Language Processing (NLP) projects completed as assignments for the NLP course at Sharif...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 Sharif: Natural Language Processing",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "Sharif"
+    },
+    {
+      "name": "Computer_Network_Projects",
+      "title": "Computer Network Projects",
+      "url": "https://github.com/tahamajs/Computer_Network_Projects",
+      "lang": "C++",
+      "stars": 3,
+      "desc": "This repository is a comprehensive archive of Computer Networks course materials, including assignments, experiments, simulations, and re...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Computer Networks",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "DeepLearning_Assignments",
+      "title": "DeepLearning Assignments",
+      "url": "https://github.com/tahamajs/DeepLearning_Assignments",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "This repository contains comprehensive implementations of advanced deep learning concepts and models as part of the Neural Networks and D...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Deep Learning",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Computer_Architecture_LAB",
+      "title": "Computer Architecture LAB",
+      "url": "https://github.com/tahamajs/Computer_Architecture_LAB",
+      "lang": "TeX",
+      "stars": 2,
+      "desc": "This project contains a complete implementation of an ARM processor with Pipeline architecture.",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Computer Architecture",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Trustworthy_AI_Course_Assignments",
+      "title": "Trustworthy AI Course Assignments",
+      "url": "https://github.com/tahamajs/Trustworthy_AI_Course_Assignments",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "A collection of course assignments and supporting code for the \"Trustworthy AI\" class \u2014 organized, documented, and ready for development ...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Trustworthy AI",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "LLM_UT_FINAL_PROJECT",
+      "title": "LLM UT FINAL PROJECT",
+      "url": "https://github.com/tahamajs/LLM_UT_FINAL_PROJECT",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "Open-source repository focusing on advanced engineering & research.",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: LLMs Final Project",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Data_Science_Cource_Assignments",
+      "title": "Data Science Cource Assignments",
+      "url": "https://github.com/tahamajs/Data_Science_Cource_Assignments",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "This repository contains all coursework, projects, and materials for the Data Science course at the University of Tehran. The course cove...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Data Science",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "SE2_UT",
+      "title": "SE2 UT",
+      "url": "https://github.com/tahamajs/SE2_UT",
+      "lang": "Python",
+      "stars": 2,
+      "desc": "This repository contains the first assignment for the Software Engineering course, exploring two critical areas of modern software develo...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Software Engineering II",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Ethics_In_AI_Course",
+      "title": "Ethics In AI Course",
+      "url": "https://github.com/tahamajs/Ethics_In_AI_Course",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "This repository contains the complete set of AI Ethics course materials, organized by syllabus topic. Each topic folder is a self contain...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: AI Ethics",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Shortcut_Learning_in_Large-Scale_Models",
+      "title": "Shortcut Learning in Large Scale Models",
+      "url": "https://github.com/tahamajs/Shortcut_Learning_in_Large-Scale_Models",
+      "lang": "Python",
+      "stars": 2,
+      "desc": "This repository provides a reproducible, modular pipeline for detecting and mitigating shortcut learning in language models.",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic",
+      "title": "Shortcut Learning Through the Lens of Task Arithmetic",
+      "url": "https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic",
+      "lang": "Python",
+      "stars": 7,
+      "desc": "This repository now includes a complete implementation scaffold in shortcut_patcher/ for:",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "AirMouse",
+      "title": "AirMouse",
+      "url": "https://github.com/tahamajs/AirMouse",
+      "lang": "Kotlin",
+      "stars": 1,
+      "desc": "Air Mouse turns your Android smartphone into a wireless mouse using only the phone's built\u2011in sensors (accelerometer, gyroscope, magnetom...",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3",
+      "title": "Diffusion Models and ScoreLearning DeepGenModels HW3",
+      "url": "https://github.com/tahamajs/Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "This repository contains Homework 3 for the Deep Generative Models course at the University of Tehran . The assignment covers two major g...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Diffusion & Score Matching",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "machine_learning_course",
+      "title": "machine learning course",
+      "url": "https://github.com/tahamajs/machine_learning_course",
+      "lang": "Jupyter Notebook",
+      "stars": 6,
+      "desc": "This repository contains machine learning assignments and a final project from the University of Tehran. The assignments cover regression...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Machine Learning",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Systems_2_in_AI__Course_Assignments",
+      "title": "Systems 2 in AI  Course Assignments",
+      "url": "https://github.com/tahamajs/Systems_2_in_AI__Course_Assignments",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains a collection of advanced, hands-on assignments for the Systems 2 in AI course. Each folder under CAs/ is an inde...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Systems 2 in AI",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Deep_Reinforcement_Learning_SUT",
+      "title": "Deep Reinforcement Learning SUT",
+      "url": "https://github.com/tahamajs/Deep_Reinforcement_Learning_SUT",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "A comprehensive collection of Deep Reinforcement Learning assignments, solutions, and resources for the DRL course at Sharif University o...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 Sharif: Deep Reinforcement Learning",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "Sharif"
+    },
+    {
+      "name": "Data_Science_Final_Project_Taxi_Demand_New_York",
+      "title": "Data Science Final Project Taxi Demand New York",
+      "url": "https://github.com/tahamajs/Data_Science_Final_Project_Taxi_Demand_New_York",
+      "lang": "Jupyter Notebook",
+      "stars": 0,
+      "desc": "This project represents a complete end-to-end data science solution for analyzing and predicting taxi demand in New York City. It demonst...",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Unlearning_from_VAE",
+      "title": "Unlearning from VAE",
+      "url": "https://github.com/tahamajs/Unlearning_from_VAE",
+      "lang": "Jupyter Notebook",
+      "stars": 0,
+      "desc": "This repository implements Selective Amnesia, a principled approach for machine unlearning in Conditional Variational Autoencoders (VAEs)...",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Turtix_Game",
+      "title": "Turtix Game",
+      "url": "https://github.com/tahamajs/Turtix_Game",
+      "lang": "C++",
+      "stars": 4,
+      "desc": "Turtix Game is a C++ game developed using the SFML library. It offers an interactive gameplay experience where players control a turtle, ...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Advanced Programming Project",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Qwen3-VL-T",
+      "title": "Qwen3 VL T",
+      "url": "https://github.com/tahamajs/Qwen3-VL-T",
+      "lang": "Python",
+      "stars": 0,
+      "desc": "Qwen3-VL is the multimodal large language model series developed by Qwen team, Alibaba Cloud.",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Qwen3-Coder-T",
+      "title": "Qwen3 Coder T",
+      "url": "https://github.com/tahamajs/Qwen3-Coder-T",
+      "lang": "Python",
+      "stars": 0,
+      "desc": "Qwen3-Coder is the code version of Qwen3, the large language model series developed by Qwen team, Alibaba Cloud.",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Speaker-ID-and-Gender-Classification",
+      "title": "Speaker ID and Gender Classification",
+      "url": "https://github.com/tahamajs/Speaker-ID-and-Gender-Classification",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "This project focuses on utilizing machine learning algorithms to perform voice authentication and gender classification using audio featu...",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Advanced_programming_Projects",
+      "title": "Advanced programming Projects",
+      "url": "https://github.com/tahamajs/Advanced_programming_Projects",
+      "lang": "C++",
+      "stars": 3,
+      "desc": "This repository contains a collection of assignments for the Advanced Programming (APS02) course at the University of Tehran. The project...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Advanced Programming",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "Persian_instruct_dataset",
+      "title": "Persian instruct dataset",
+      "url": "https://github.com/tahamajs/Persian_instruct_dataset",
+      "lang": "Python",
+      "stars": 4,
+      "desc": "Open-source repository focusing on advanced engineering & research.",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "AI-CA1_-Agents_And_Search_Algorithms",
+      "title": "AI CA1  Agents And Search Algorithms",
+      "url": "https://github.com/tahamajs/AI-CA1_-Agents_And_Search_Algorithms",
+      "lang": "HTML",
+      "stars": 1,
+      "desc": "This repository contains solutions for AI-S03-A1 , which focuses on agents , search algorithms , and problem-solving in Artificial Intell...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Artificial Intelligence",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "xv6-Modified_OS_Lab_Projects",
+      "title": "xv6 Modified OS Lab Projects",
+      "url": "https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects",
+      "lang": "C",
+      "stars": 2,
+      "desc": "This repository contains a collection of Operating Systems lab assignments implemented using xv6, an educational Unix-like OS. The labs c...",
+      "cat": "course",
+      "tag": "\ud83c\udf93 UT: Operating Systems Lab",
+      "icon": "fa-graduation-cap",
+      "isCourse": true,
+      "uni": "UT"
+    },
+    {
+      "name": "FineTuning-4B-LLM-GSM8k-GRPO-SFT",
+      "title": "FineTuning 4B LLM GSM8k GRPO SFT",
+      "url": "https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "Open-source repository focusing on advanced engineering & research.",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Programming_Languages_and_Compiler_Theory_course",
+      "title": "Programming Languages and Compiler Theory course",
+      "url": "https://github.com/tahamajs/Programming_Languages_and_Compiler_Theory_course",
+      "lang": "Java",
+      "stars": 1,
+      "desc": "This project implements a compiler for the SimpleLang programming language as part of the Programming Language Concepts (PLC) course. Thi...",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Large_language_models_course",
+      "title": "Large language models course",
+      "url": "https://github.com/tahamajs/Large_language_models_course",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains Jupyter notebooks for assignments in the Large Language Models (LLM) course. Each assignment explores different ...",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions",
+      "title": "AI CA3  Clustering PCA Unsupervised Learning Solutions",
+      "url": "https://github.com/tahamajs/AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions",
+      "lang": "HTML",
+      "stars": 1,
+      "desc": "This repository contains solutions for AI-S03-A3 , focusing on Clustering Algorithms, Feature Engineering, and Dimensionality Reduction ....",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Optimization_Methods_in_Machine_Learning_HW3",
+      "title": "Optimization Methods in Machine Learning HW3",
+      "url": "https://github.com/tahamajs/Optimization_Methods_in_Machine_Learning_HW3",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This assignment focuses on optimization algorithms in machine learning, including:  Line Search Algorithms Newton\u2019s Method Quasi-Newton M...",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models",
+      "title": "AI CA2  Bayesian Networks HMM   Probabilistic Models",
+      "url": "https://github.com/tahamajs/AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains solutions for AI-S03-A2 , which focuses on Bayesian Networks (Bayes Nets) and Hidden Markov Models (HMM) . The p...",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation",
+      "title": "AI CA4  Machine Learning Optimization   Model Evaluation",
+      "url": "https://github.com/tahamajs/AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository includes solutions for AI-S03-A4 (Artificial Intelligence - Assignment 4) and HW-4 (Homework 4) focused on Machine Learni...",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions",
+      "title": "AI CA5  Neural Networks Optimization   NLP Solutions",
+      "url": "https://github.com/tahamajs/AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains solutions for Artificial Intelligence - CA5 and HW5 assignments. These assignments cover essential AI concepts s...",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4",
+      "title": "Vision Language Models and Flow Matching DeepGenModels HW4",
+      "url": "https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains Homework 4 for the Deep Generative Models course at the University of Tehran. The assignment covers cutting-edge...",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2",
+      "title": "Flow Based Generative Models and GANs DeepGenModels HW2",
+      "url": "https://github.com/tahamajs/Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains Homework 2 for the Deep Generative Models course at the University of Tehran. This assignment covers advanced ge...",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Variational_Inference_and_Generative_Models_DeepGenModels_HW1",
+      "title": "Variational Inference and Generative Models DeepGenModels HW1",
+      "url": "https://github.com/tahamajs/Variational_Inference_and_Generative_Models_DeepGenModels_HW1",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains Homework 1 for the Deep Generative Models course at the University of Tehran. The homework consists of theoretic...",
+      "cat": "ai",
+      "tag": "Research & AI",
+      "icon": "fa-brain",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Datastructure_And_Algorithm_Course",
+      "title": "Datastructure And Algorithm Course",
+      "url": "https://github.com/tahamajs/Datastructure_And_Algorithm_Course",
+      "lang": "Jupyter Notebook",
+      "stars": 1,
+      "desc": "This repository contains lecture notes, homework assignments, and additional resources for the Data Structures and Algorithms course at t...",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Artificial_Intelligence_Projects",
+      "title": "Artificial Intelligence Projects",
+      "url": "https://github.com/tahamajs/Artificial_Intelligence_Projects",
+      "lang": "Jupyter Notebook",
+      "stars": 2,
+      "desc": "This repository contains the coursework and assessments for the Artificial Intelligence course at the University of Tehran. Each folder r...",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Computer_Architecture_Projects",
+      "title": "Computer Architecture Projects",
+      "url": "https://github.com/tahamajs/Computer_Architecture_Projects",
+      "lang": "Verilog",
+      "stars": 1,
+      "desc": "Computer Architecture Projects",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "FormalLanguagesandAutomataTheory_Course",
+      "title": "FormalLanguagesandAutomataTheory Course",
+      "url": "https://github.com/tahamajs/FormalLanguagesandAutomataTheory_Course",
+      "lang": "Python",
+      "stars": 1,
+      "desc": "Open-source repository focusing on advanced engineering & research.",
+      "cat": "systems",
+      "tag": "Systems & Engines",
+      "icon": "fa-server",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Course-Selection-System_Project",
+      "title": "Course Selection System Project",
+      "url": "https://github.com/tahamajs/Course-Selection-System_Project",
+      "lang": "Python",
+      "stars": 3,
+      "desc": "Course Selection System",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    },
+    {
+      "name": "Football_Fantesy_CPP_PH2",
+      "title": "Football Fantesy CPP PH2",
+      "url": "https://github.com/tahamajs/Football_Fantesy_CPP_PH2",
+      "lang": "C++",
+      "stars": 1,
+      "desc": "Fantasy Football Application Phase 2",
+      "cat": "web",
+      "tag": "Software & Web",
+      "icon": "fa-code",
+      "isCourse": false,
+      "uni": ""
+    }
+  ],
+  "articles": [
+    {
+      "title": "Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI",
+      "link": "https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention",
+      "date": "Tue, 11 Aug 2026",
+      "desc": "Breaking the Quadratic Bottleneck in Recommender Systems and Bidirectional Modeling"
+    },
+    {
+      "title": "The Architecture of Boundaries",
+      "link": "https://hooshaai.substack.com/p/the-architecture-of-boundaries",
+      "date": "Tue, 11 Aug 2026",
+      "desc": "Navigating 2D Spintronics, Quasiconformal Geometry, and Infrared Kinematics"
+    },
+    {
+      "title": "The Post-Transformer Era",
+      "link": "https://hooshaai.substack.com/p/the-post-transformer-era",
+      "date": "Mon, 10 Aug 2026",
+      "desc": "A Deep Dive into Sub-Quadratic Sequence Models"
+    },
+    {
+      "title": "The Rise of Linear Attention in Bidirectional Modeling and Long-Term Recommenders",
+      "link": "https://hooshaai.substack.com/p/the-rise-of-linear-attention-in-bidirectional",
+      "date": "Mon, 10 Aug 2026",
+      "desc": "How LinRec and LION Are Rewriting the Rules for Sequences That Refuse to Stay Short"
+    },
+    {
+      "title": "Re-Engineering the Attention Engine",
+      "link": "https://hooshaai.substack.com/p/re-engineering-the-attention-engine",
+      "date": "Mon, 10 Aug 2026",
+      "desc": "Mathematical Frontiers in Sub-Quadratic Transformers"
+    },
+    {
+      "title": "Breaking the Quadratic Barrier",
+      "link": "https://hooshaai.substack.com/p/breaking-the-quadratic-barrier",
+      "date": "Mon, 10 Aug 2026",
+      "desc": "The Architectural Evolution of Linear Transformers and Infinite Context Models"
+    },
+    {
+      "title": "Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems",
+      "link": "https://hooshaai.substack.com/p/implementing-grounded-causal-verification",
+      "date": "Fri, 07 Aug 2026",
+      "desc": "The pursuit of recursive self-improvement in large language models relies on the fundamental premise that an artificial agent can autonomously eval..."
+    },
+    {
+      "title": "The Civilization Simulator: Why Recursive AI Needs an Evolutionary Verification Engine",
+      "link": "https://hooshaai.substack.com/p/the-civilization-simulator-why-recursive",
+      "date": "Fri, 07 Aug 2026",
+      "desc": "On the biological bottleneck, the flintknapping compiler, epistemic vigilance, and the grounded architecture of safe self-improvement."
+    },
+    {
+      "title": "Evaluation of Grounded Causal and Evolutionary Verification for Recursive Self-Improvement",
+      "link": "https://hooshaai.substack.com/p/evaluation-of-grounded-causal-and",
+      "date": "Fri, 07 Aug 2026",
+      "desc": "The ambition to architect a stable, non-degenerative loop for Recursive Self-Improvement (RSI) in artificial intelligence has historically been con..."
+    },
+    {
+      "title": "Why Biological Constraints Breed Universal Adaptation While Unconstrained AI Collapses",
+      "link": "https://hooshaai.substack.com/p/why-biological-constraints-breed",
+      "date": "Fri, 07 Aug 2026",
+      "desc": "On Working-Memory Bottlenecks, Symbol Grounding, and Why True Generalization Requires Embodied Causal Engines, Not Just Statistical Pattern Matching"
+    },
+    {
+      "title": "The Generalization Paradox: Why Biological Constraints Breed Universal Adaptation While Unconstrained AI Collapses",
+      "link": "https://hooshaai.substack.com/p/the-generalization-paradox-why-biological",
+      "date": "Fri, 07 Aug 2026",
+      "desc": "On Working Memory Bottlenecks, Symbol Grounding, and Why True Generalization Requires Embodied Causal Engines, Not Just Statistical Pattern Matching"
+    },
+    {
+      "title": "The True Paradigm: Symbolic Internalization, Not Just External Scaffolding",
+      "link": "https://hooshaai.substack.com/p/the-true-paradigm-symbolic-internalization",
+      "date": "Thu, 06 Aug 2026",
+      "desc": "Recent advances in LLM-based agents suggest that the core breakthrough in AI reasoning lies not in fusing neural nets with fixed symbolic rules, bu..."
+    },
+    {
+      "title": "The Cognitive Scaling Paradigm: Unifying Pre-Training, Inference Algorithms, and Post-Training Reinforcement Learning",
+      "link": "https://hooshaai.substack.com/p/the-cognitive-scaling-paradigm-unifying",
+      "date": "Mon, 03 Aug 2026",
+      "desc": "The trajectory of artificial intelligence development has irrevocably shifted from a regime dominated by static, pre-training data accumulation tow..."
+    },
+    {
+      "title": "Building AI that thinks before speaking",
+      "link": "https://hooshaai.substack.com/p/building-ai-that-thinks-before-speaking",
+      "date": "Mon, 03 Aug 2026",
+      "desc": ""
+    },
+    {
+      "title": "The ACWT Architecture",
+      "link": "https://hooshaai.substack.com/p/the-acwt-architecture",
+      "date": "Mon, 03 Aug 2026",
+      "desc": ""
+    },
+    {
+      "title": "Beyond Bigger Datasets",
+      "link": "https://hooshaai.substack.com/p/beyond-bigger-datasets",
+      "date": "Mon, 03 Aug 2026",
+      "desc": "How reinforcement learning, process supervision, and search are replacing bigger datasets as the path to smarter language models"
+    },
+    {
+      "title": "The Post-Training Frontier: Unified Frameworks for Reinforcement Learning, Process-Supervised Evaluation, and Test-Time Cognitive Scaling in Large Language Models",
+      "link": "https://hooshaai.substack.com/p/the-post-training-frontier-unified",
+      "date": "Mon, 03 Aug 2026",
+      "desc": "The trajectory of autoregressive language model development has historically been guided by empirical training-time scaling laws, which predict dow..."
+    },
+    {
+      "title": "Building Synthetic Consciousness with Integrated Information Theory, Global Workspace Theory, and System-2 Refinement",
+      "link": "https://hooshaai.substack.com/p/architecting-synthetic-consciousness",
+      "date": "Sat, 01 Aug 2026",
+      "desc": "Combining Integrated Information Theory, Global Workspace Theory, and System-2 refinement as inductive biases for transformer attention"
+    },
+    {
+      "title": "A Technical Report on the IIT-Attention Modulation (IIT-AM) Research Program: System Architecture, Benchmark Provenance, and Evaluation Results",
+      "link": "https://hooshaai.substack.com/p/a-technical-report-on-the-iit-attention",
+      "date": "Sat, 01 Aug 2026",
+      "desc": "Internal technical report, compiled from project artifacts (folder guide, benchmark provenance log, and result summaries) as of the most recent rec..."
+    },
+    {
+      "title": "Open-Ended Innovation: Closing the Vocabulary and Verifier Gaps",
+      "link": "https://hooshaai.substack.com/p/open-ended-innovation-closing-the",
+      "date": "Mon, 27 Jul 2026",
+      "desc": "Current AI excels at finding solutions within fixed frames, but truly creative innovation requires changing the frame itself &#8211; inventing new ..."
+    }
+  ],
+  "hf": [
+    {
+      "id": "tahamajs/my-paligemma-model",
+      "type": "model",
+      "likes": 2,
+      "downloads": 4,
+      "url": "https://huggingface.co/tahamajs/my-paligemma-model",
+      "code": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"tahamajs/my-paligemma-model\")"
+    },
+    {
+      "id": "tahamajs/plamma",
+      "type": "model",
+      "likes": 3,
+      "downloads": 10,
+      "url": "https://huggingface.co/tahamajs/plamma",
+      "code": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"tahamajs/plamma\")"
+    },
+    {
+      "id": "tahamajs/LLaMA-3-2-LoRA-EmotionTune",
+      "type": "model",
+      "likes": 2,
+      "downloads": 0,
+      "url": "https://huggingface.co/tahamajs/LLaMA-3-2-LoRA-EmotionTune",
+      "code": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"tahamajs/LLaMA-3-2-LoRA-EmotionTune\")"
+    },
+    {
+      "id": "tahamajs/LLaMA-3-2-LoRA-EmotionTune-Full",
+      "type": "model",
+      "likes": 3,
+      "downloads": 6,
+      "url": "https://huggingface.co/tahamajs/LLaMA-3-2-LoRA-EmotionTune-Full",
+      "code": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"tahamajs/LLaMA-3-2-LoRA-EmotionTune-Full\")"
+    },
+    {
+      "id": "tahamajs/results",
+      "type": "model",
+      "likes": 2,
+      "downloads": 2,
+      "url": "https://huggingface.co/tahamajs/results",
+      "code": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"tahamajs/results\")"
+    },
+    {
+      "id": "tahamajs/distilbert-base-uncased-sequence-classification-imdb-v1",
+      "type": "model",
+      "likes": 2,
+      "downloads": 0,
+      "url": "https://huggingface.co/tahamajs/distilbert-base-uncased-sequence-classification-imdb-v1",
+      "code": "from transformers import AutoModel\nmodel = AutoModel.from_pretrained(\"tahamajs/distilbert-base-uncased-sequence-classification-imdb-v1\")"
+    },
+    {
+      "id": "tahamajs/clean_c4_dataset",
+      "type": "dataset",
+      "likes": 1,
+      "downloads": 6,
+      "url": "https://huggingface.co/datasets/tahamajs/clean_c4_dataset",
+      "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/clean_c4_dataset\")"
+    },
+    {
+      "id": "tahamajs/Iran_FDA_1400_Dataset",
+      "type": "dataset",
+      "likes": 2,
+      "downloads": 13,
+      "url": "https://huggingface.co/datasets/tahamajs/Iran_FDA_1400_Dataset",
+      "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/Iran_FDA_1400_Dataset\")"
+    },
+    {
+      "id": "tahamajs/WHO_ATC_Index",
+      "type": "dataset",
+      "likes": 1,
+      "downloads": 27,
+      "url": "https://huggingface.co/datasets/tahamajs/WHO_ATC_Index",
+      "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/WHO_ATC_Index\")"
+    },
+    {
+      "id": "tahamajs/medicine_ds_merged",
+      "type": "dataset",
+      "likes": 1,
+      "downloads": 20,
+      "url": "https://huggingface.co/datasets/tahamajs/medicine_ds_merged",
+      "code": "from datasets import load_dataset\nds = load_dataset(\"tahamajs/medicine_ds_merged\")"
+    }
+  ]
+}
