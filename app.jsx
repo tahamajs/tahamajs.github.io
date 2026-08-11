@@ -8,6 +8,7 @@ function App() {
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [speechEnabled, setSpeechEnabled] = useState(false);
   const [viewMode, setViewMode] = useState('bento'); // 'bento' or 'constellation'
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   // Telemetry HUD state
   const [gpuMetrics, setGpuMetrics] = useState({ flops: 312, vram: 68.4, latency: 1.2 });
@@ -17,6 +18,7 @@ function App() {
   const [hfFilter, setHfFilter] = useState('all');
   const [activeCodeTab, setActiveCodeTab] = useState('flow');
   const [codeOutput, setCodeOutput] = useState('');
+  const [cmdQuery, setCmdQuery] = useState('');
 
   // Modals state
   const [aiModalOpen, setAiModalOpen] = useState(false);
@@ -111,6 +113,7 @@ function App() {
         setAiModalOpen(false);
         setHireModalOpen(false);
         setActiveConstellationNode(null);
+        setMobileNavOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -318,18 +321,27 @@ __global__ void launch_all_reduce(float* tensor, int size) {
     { icon: 'fa-newspaper', title: '20 Substack Research Publications', desc: 'Authored 20 deep-dive papers on Flow Matching, GRPO, IIT Consciousness, and Linear Attention.' }
   ];
 
+  const cmdItems = [
+    { text: 'Toggle 3D Constellation Network Mode', icon: 'fas fa-project-diagram', action: () => { setCmdModalOpen(false); setViewMode(prev => prev === 'bento' ? 'constellation' : 'bento'); } },
+    { text: 'Open LinkedIn Profile (17.1k Followers)', icon: 'fab fa-linkedin', action: () => window.open('https://linkedin.com/in/tahamajlesi', '_blank') },
+    { text: 'Open Direct Recruitment & Hire Modal', icon: 'fas fa-briefcase', action: () => { setCmdModalOpen(false); setHireModalOpen(true); } },
+    { text: 'Open AI Research Assistant Chat', icon: 'fas fa-robot', action: () => { setCmdModalOpen(false); setAiModalOpen(true); } },
+    { text: 'Download Official Resume (PDF)', icon: 'fas fa-file-pdf', action: () => window.open('assets/resume.pdf', '_blank') },
+    { text: 'Open Hoosha AI Substack Newsletter', icon: 'fas fa-newspaper', action: () => window.open('https://hooshaai.substack.com', '_blank') }
+  ];
+
   return (
     <div>
       {/* Toast Notification */}
       {toastMsg && (
-        <div className="toast-container">
+        <div className="toast-container" aria-live="polite">
           <div className="toast">{toastMsg}</div>
         </div>
       )}
 
       {/* Floating GPU Cluster Telemetry Bar */}
       <div className="gpu-telemetry-bar">
-        <span className="gpu-dot"></span>
+        <span className="gpu-dot" aria-hidden="true"></span>
         <span className="gpu-item"><b>CUDA:</b> 0,1,2,3 (A100 SXM4)</span>
         <span className="gpu-item"><b>FLOPS:</b> {gpuMetrics.flops} TFLOPS</span>
         <span className="gpu-item"><b>VRAM:</b> {gpuMetrics.vram} GB / 80 GB</span>
@@ -341,6 +353,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
       <div className="theme-switcher">
         <button
           className={`sound-toggle-btn ${viewMode === 'constellation' ? 'active' : ''}`}
+          aria-label="Toggle Novel 3D Constellation Mode"
           onClick={() => {
             const next = viewMode === 'bento' ? 'constellation' : 'bento';
             setViewMode(next);
@@ -349,29 +362,31 @@ __global__ void launch_all_reduce(float* tensor, int size) {
           }}
           title="Toggle Novel 3D Constellation Mode"
         >
-          <i className={viewMode === 'bento' ? 'fas fa-project-diagram' : 'fas fa-th-large'}></i>
+          <i className={viewMode === 'bento' ? 'fas fa-project-diagram' : 'fas fa-th-large'} aria-hidden="true"></i>
         </button>
 
         <button
           className={`sound-toggle-btn ${soundEnabled ? 'active' : ''}`}
+          aria-label="Toggle Sci-Fi SFX Audio"
           onClick={() => {
             setSoundEnabled(!soundEnabled);
             triggerToast(soundEnabled ? 'Sound Muted 🔇' : 'Sci-Fi Sound FX Enabled! 🔊');
           }}
           title="Toggle Sci-Fi SFX"
         >
-          <i className="fas fa-volume-up"></i>
+          <i className="fas fa-volume-up" aria-hidden="true"></i>
         </button>
 
         <button
           className={`sound-toggle-btn ${speechEnabled ? 'active' : ''}`}
+          aria-label="Toggle AI Speech Voice"
           onClick={() => {
             setSpeechEnabled(!speechEnabled);
             triggerToast(speechEnabled ? 'AI Voice Disabled 🔇' : 'AI Voice Enabled! 🗣️');
           }}
           title="Toggle AI Speech Voice"
         >
-          <i className="fas fa-microphone"></i>
+          <i className="fas fa-microphone" aria-hidden="true"></i>
         </button>
 
         <div className="switcher-divider"></div>
@@ -379,6 +394,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
           <button
             key={c}
             className={`accent-dot ${accent === c ? 'active' : ''}`}
+            aria-label={`Switch theme color to ${c}`}
             onClick={() => {
               setAccent(c);
               document.body.setAttribute('data-accent', c);
@@ -392,29 +408,37 @@ __global__ void launch_all_reduce(float* tensor, int size) {
       </div>
 
       {/* Back to Top */}
-      <button className="back-to-top-btn visible" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        <i className="fas fa-arrow-up"></i>
+      <button 
+        className="back-to-top-btn visible" 
+        aria-label="Scroll back to top of page"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      >
+        <i className="fas fa-arrow-up" aria-hidden="true"></i>
       </button>
 
       {/* AI Assistant Floating Button */}
-      <button className="ai-chat-fab" onClick={() => { setAiModalOpen(true); playSound(750, 'sine'); }}>
-        <i className="fas fa-brain"></i>
+      <button 
+        className="ai-chat-fab" 
+        aria-label="Open AI Research Assistant Chat Dialog"
+        onClick={() => { setAiModalOpen(true); playSound(750, 'sine'); }}
+      >
+        <i className="fas fa-brain" aria-hidden="true"></i>
         <span className="ai-fab-label">Ask AI Assistant</span>
       </button>
 
       {/* AI Chat Modal */}
       {aiModalOpen && (
         <div className="modal-overlay active" onClick={() => setAiModalOpen(false)}>
-          <div className="ai-chat-box" onClick={e => e.stopPropagation()}>
+          <div className="ai-chat-box" role="dialog" aria-modal="true" aria-labelledby="ai-modal-heading" onClick={e => e.stopPropagation()}>
             <div className="ai-chat-header">
               <div className="ai-title-row">
-                <div className="ai-avatar-dot"><i className="fas fa-robot"></i></div>
+                <div className="ai-avatar-dot" aria-hidden="true"><i className="fas fa-robot"></i></div>
                 <div>
-                  <h3>Taha's AI Research Assistant 🧠</h3>
+                  <h3 id="ai-modal-heading">Taha's AI Research Assistant 🧠</h3>
                   <span className="ai-subtitle">Ask about Hoosha AI research, Flow Matching, GRPO, or UT/Sharif courses</span>
                 </div>
               </div>
-              <span className="cmd-esc" onClick={() => setAiModalOpen(false)}>ESC</span>
+              <button className="cmd-esc" aria-label="Close AI Assistant dialog" onClick={() => setAiModalOpen(false)}>ESC</button>
             </div>
 
             <div className="ai-chat-body">
@@ -432,13 +456,14 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             <div className="ai-chat-input-row">
               <input
                 type="text"
+                aria-label="Ask AI Assistant a question"
                 placeholder="Ask a question about research papers, systems, background..."
                 value={aiInputText}
                 onChange={e => setAiInputText(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleAiQuestion(aiInputText)}
               />
-              <button className="primary-btn glow-btn send-btn" onClick={() => handleAiQuestion(aiInputText)}>
-                <i className="fas fa-paper-plane"></i>
+              <button className="primary-btn glow-btn send-btn" aria-label="Send Question" onClick={() => handleAiQuestion(aiInputText)}>
+                <i className="fas fa-paper-plane" aria-hidden="true"></i>
               </button>
             </div>
           </div>
@@ -448,23 +473,27 @@ __global__ void launch_all_reduce(float* tensor, int size) {
       {/* Command Palette Modal */}
       {cmdModalOpen && (
         <div className="modal-overlay active" onClick={() => setCmdModalOpen(false)}>
-          <div className="cmd-palette-box" onClick={e => e.stopPropagation()}>
+          <div className="cmd-palette-box" role="dialog" aria-modal="true" aria-labelledby="cmd-modal-heading" onClick={e => e.stopPropagation()}>
             <div className="cmd-input-row">
-              <i className="fas fa-search"></i>
+              <i className="fas fa-search" aria-hidden="true"></i>
               <input
                 type="text"
+                aria-label="Filter command actions"
                 placeholder="Type a command (e.g. 'recruit', 'linkedin', 'constellation', 'resume')..."
+                value={cmdQuery}
+                onChange={e => setCmdQuery(e.target.value)}
                 autoFocus
               />
-              <span className="cmd-esc" onClick={() => setCmdModalOpen(false)}>ESC</span>
+              <button className="cmd-esc" aria-label="Close Command Palette" onClick={() => setCmdModalOpen(false)}>ESC</button>
             </div>
             <div className="cmd-results">
-              <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setViewMode(prev => prev === 'bento' ? 'constellation' : 'bento'); }}><i className="fas fa-project-diagram"></i> Toggle 3D Constellation Network Mode</div>
-              <div className="cmd-item" onClick={() => window.open('https://linkedin.com/in/tahamajlesi', '_blank')}><i className="fab fa-linkedin"></i> Open LinkedIn Profile (17.1k Followers)</div>
-              <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setHireModalOpen(true); }}><i className="fas fa-briefcase"></i> Open Direct Recruitment &amp; Hire Modal</div>
-              <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setAiModalOpen(true); }}><i className="fas fa-robot"></i> Open AI Research Assistant Chat</div>
-              <div className="cmd-item" onClick={() => window.open('assets/resume.pdf', '_blank')}><i className="fas fa-file-pdf"></i> Download Official Resume (PDF)</div>
-              <div className="cmd-item" onClick={() => window.open('https://hooshaai.substack.com', '_blank')}><i className="fas fa-newspaper"></i> Open Hoosha AI Substack Newsletter</div>
+              {cmdItems
+                .filter(item => item.text.toLowerCase().includes(cmdQuery.toLowerCase()))
+                .map((item, i) => (
+                  <div key={i} className="cmd-item" role="button" tabIndex={0} onClick={item.action} onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && item.action()}>
+                    <i className={item.icon} aria-hidden="true"></i> {item.text}
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -473,52 +502,62 @@ __global__ void launch_all_reduce(float* tensor, int size) {
       {/* Hire Modal */}
       {hireModalOpen && (
         <div className="modal-overlay active" onClick={() => setHireModalOpen(false)}>
-          <div className="repo-modal-box" onClick={e => e.stopPropagation()}>
+          <div className="repo-modal-box" role="dialog" aria-modal="true" aria-labelledby="hire-modal-heading" onClick={e => e.stopPropagation()}>
             <div className="repo-modal-header">
-              <span className="project-tag"><i className="fas fa-briefcase"></i> Direct Recruitment &amp; Collaboration</span>
-              <span className="cmd-esc" onClick={() => setHireModalOpen(false)}>ESC</span>
+              <span className="project-tag"><i className="fas fa-briefcase" aria-hidden="true"></i> Direct Recruitment &amp; Collaboration</span>
+              <button className="cmd-esc" aria-label="Close Recruitment dialog" onClick={() => setHireModalOpen(false)}>ESC</button>
             </div>
-            <h2 className="modal-repo-title">Recruit / Collaborate with Taha 🚀</h2>
+            <h2 id="hire-modal-heading" className="modal-repo-title">Recruit / Collaborate with Taha 🚀</h2>
             <p className="modal-repo-desc">Select a quick email template to contact Taha Majlesi directly for Senior AI Engineer roles, Research Scientist positions, Ph.D. opportunities, or R&amp;D advisory:</p>
             
             <div className="template-box">
-              <div className="template-item" onClick={() => window.location.href = "mailto:tahamajlesi@ut.ac.ir?subject=Senior%20AI%20Engineering%20Role"}>
-                <i className="fas fa-building"></i> <b>Industry Senior AI / Systems Engineer Role</b>
+              <div className="template-item" role="button" tabIndex={0} onClick={() => window.location.href = "mailto:tahamajlesi@ut.ac.ir?subject=Senior%20AI%20Engineering%20Role"}>
+                <i className="fas fa-building" aria-hidden="true"></i> <b>Industry Senior AI / Systems Engineer Role</b>
                 <p>Request interview for AI Architecture, Distributed Training, or LLM Post-Training position.</p>
               </div>
-              <div className="template-item" onClick={() => window.location.href = "mailto:tahamajlesi@ut.ac.ir?subject=Ph.D.%20Research%20Opportunity"}>
-                <i className="fas fa-graduation-cap"></i> <b>Ph.D. &amp; Academic Research Collaboration</b>
+              <div className="template-item" role="button" tabIndex={0} onClick={() => window.location.href = "mailto:tahamajlesi@ut.ac.ir?subject=Ph.D.%20Research%20Opportunity"}>
+                <i className="fas fa-graduation-cap" aria-hidden="true"></i> <b>Ph.D. &amp; Academic Research Collaboration</b>
                 <p>Discuss graduate research, lab collaborations, or paper co-authorship.</p>
               </div>
             </div>
 
             <div className="modal-actions" style={{ marginTop: '1.5rem' }}>
-              <a href="mailto:tahamajlesi@ut.ac.ir" className="primary-btn glow-btn">Send Direct Email <i className="fas fa-envelope"></i></a>
-              <a href="https://telegram.me/tahamajlesii" target="_blank" className="secondary-btn">Telegram Chat <i className="fab fa-telegram"></i></a>
+              <a href="mailto:tahamajlesi@ut.ac.ir" className="primary-btn glow-btn">Send Direct Email <i className="fas fa-envelope" aria-hidden="true"></i></a>
+              <a href="https://telegram.me/tahamajlesii" target="_blank" className="secondary-btn">Telegram Chat <i className="fab fa-telegram" aria-hidden="true"></i></a>
             </div>
           </div>
         </div>
       )}
 
       {/* Navbar */}
-      <nav className="glass-nav">
+      <nav className="glass-nav" aria-label="Main Navigation">
         <div className="nav-container">
           <div className="logo"><span className="gradient-text">Taha Majlesi</span>.</div>
-          <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#achievements">Achievements</a>
-            <a href="#recruitment">Why Hire?</a>
-            <a href="#playground">Playground</a>
-            <a href="#publications">Publications</a>
-            <a href="#architecture">Architecture</a>
-            <a href="#models">HF Models (162)</a>
-            <a href="#projects">Ecosystem ({counts.all})</a>
-            <a href="#substack">Substack 🧠</a>
-            <button className="nav-resume-btn" style={{ background: viewMode === 'constellation' ? 'var(--cyan)' : 'transparent', color: viewMode === 'constellation' ? '#000' : 'var(--cyan)' }} onClick={() => setViewMode(prev => prev === 'bento' ? 'constellation' : 'bento')}>
-              <i className="fas fa-project-diagram"></i> {viewMode === 'bento' ? 'Constellation Graph' : 'Bento Grid'}
+          
+          <button 
+            className="mobile-nav-toggle" 
+            aria-label="Toggle Mobile Navigation Menu"
+            aria-expanded={mobileNavOpen}
+            onClick={() => setMobileNavOpen(!mobileNavOpen)}
+          >
+            <i className={mobileNavOpen ? "fas fa-times" : "fas fa-bars"} aria-hidden="true"></i>
+          </button>
+
+          <div className={`nav-links ${mobileNavOpen ? 'mobile-open' : ''}`}>
+            <a href="#about" onClick={() => setMobileNavOpen(false)}>About</a>
+            <a href="#achievements" onClick={() => setMobileNavOpen(false)}>Achievements</a>
+            <a href="#recruitment" onClick={() => setMobileNavOpen(false)}>Why Hire?</a>
+            <a href="#playground" onClick={() => setMobileNavOpen(false)}>Playground</a>
+            <a href="#publications" onClick={() => setMobileNavOpen(false)}>Publications</a>
+            <a href="#architecture" onClick={() => setMobileNavOpen(false)}>Architecture</a>
+            <a href="#models" onClick={() => setMobileNavOpen(false)}>HF Models (162)</a>
+            <a href="#projects" onClick={() => setMobileNavOpen(false)}>Ecosystem ({counts.all})</a>
+            <a href="#substack" onClick={() => setMobileNavOpen(false)}>Substack 🧠</a>
+            <button className="nav-resume-btn" style={{ background: viewMode === 'constellation' ? 'var(--cyan)' : 'transparent', color: viewMode === 'constellation' ? '#000' : 'var(--cyan)' }} onClick={() => { setViewMode(prev => prev === 'bento' ? 'constellation' : 'bento'); setMobileNavOpen(false); }}>
+              <i className="fas fa-project-diagram" aria-hidden="true"></i> {viewMode === 'bento' ? 'Constellation Graph' : 'Bento Grid'}
             </button>
-            <button className="nav-hire-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase"></i> Recruit Taha</button>
-            <button className="cmd-k-btn" onClick={() => setCmdModalOpen(true)}><i className="fas fa-search"></i> <span className="cmd-k-key">⌘K</span></button>
+            <button className="nav-hire-btn" onClick={() => { setHireModalOpen(true); setMobileNavOpen(false); }}><i className="fas fa-briefcase" aria-hidden="true"></i> Recruit Taha</button>
+            <button className="cmd-k-btn" onClick={() => { setCmdModalOpen(true); setMobileNavOpen(false); }}><i className="fas fa-search" aria-hidden="true"></i> <span className="cmd-k-key">⌘K</span></button>
           </div>
         </div>
       </nav>
@@ -548,7 +587,11 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               {constellationNodes.map(n => (
                 <div
                   key={n.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Select constellation node ${n.label}`}
                   onClick={() => { setActiveConstellationNode(n); playSound(850, 'sine'); }}
+                  onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setActiveConstellationNode(n)}
                   style={{
                     position: 'absolute',
                     left: `${n.x}%`, top: `${n.y}%`,
@@ -565,7 +608,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  <i className={`fas ${n.type === 'core' ? 'fa-brain' : n.type === 'startup' ? 'fa-rocket' : n.type === 'academic' ? 'fa-graduation-cap' : 'fa-server'}`} style={{ marginRight: '8px' }}></i>
+                  <i className={`fas ${n.type === 'core' ? 'fa-brain' : n.type === 'startup' ? 'fa-rocket' : n.type === 'academic' ? 'fa-graduation-cap' : 'fa-server'}`} aria-hidden="true" style={{ marginRight: '8px' }}></i>
                   {n.label}
                 </div>
               ))}
@@ -574,7 +617,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                 <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', width: '90%', maxWidth: '600px', background: 'rgba(10,15,25,0.95)', border: '1px solid var(--cyan)', borderRadius: '16px', padding: '1.5rem', backdropFilter: 'blur(10px)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h3 style={{ margin: 0, color: 'var(--cyan)' }}>{activeConstellationNode.label}</h3>
-                    <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }} onClick={() => setActiveConstellationNode(null)}>✕</button>
+                    <button style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }} aria-label="Close details" onClick={() => setActiveConstellationNode(null)}>✕</button>
                   </div>
                   <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#94a3b8' }}>{activeConstellationNode.desc}</p>
                 </div>
@@ -587,16 +630,16 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             <section id="about" className="hero">
               <div className="hero-content fade-in-up">
                 <div className="avatar-wrapper">
-                  <div className="avatar-glow-ring"></div>
-                  <img src="assets/avatar.jpg?v=22.0" onError={(e) => { e.target.src = 'https://github.com/tahamajs.png'; }} alt="Taha Majlesi" className="avatar-img" />
+                  <div className="avatar-glow-ring" aria-hidden="true"></div>
+                  <img src="assets/avatar.jpg?v=22.0" onError={(e) => { e.target.src = 'https://github.com/tahamajs.png'; }} alt="Mohammad Taha Majlesi Headshot" className="avatar-img" />
                 </div>
                 
                 <div className="badge-pill">
-                  <span className="pulse-dot"></span> Co-Founder &amp; Systems/AI Architect @ Hoosha AI 🧠 | University of Tehran
+                  <span className="pulse-dot" aria-hidden="true"></span> Co-Founder &amp; Systems/AI Architect @ Hoosha AI 🧠 | University of Tehran
                 </div>
 
                 <div className="live-clock-badge">
-                  <i className="far fa-clock"></i> Tehran Local Time: <span>{tehranTime}</span> (UTC +3:30) • <span className="status-green">Available for R&amp;D &amp; Recruiting</span>
+                  <i className="far fa-clock" aria-hidden="true"></i> Tehran Local Time: <span>{tehranTime}</span> (UTC +3:30) • <span className="status-green">Available for R&amp;D &amp; Recruiting</span>
                 </div>
 
                 <h1 className="hero-title">
@@ -622,23 +665,23 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                         triggerToast(`Filtering repos by "${tag}"! 🔍`);
                       }}
                     >
-                      <i className="fas fa-tag"></i> {tag}
+                      <i className="fas fa-tag" aria-hidden="true"></i> {tag}
                     </button>
                   ))}
                 </div>
 
                 <div className="hero-actions-row">
-                  <button className="primary-btn glow-btn hire-hero-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase"></i> Recruit / Hire Taha</button>
-                  <a href="assets/resume.pdf" target="_blank" className="secondary-btn"><i className="fas fa-file-pdf"></i> Download Resume CV</a>
-                  <a href="https://hooshaai.substack.com" target="_blank" className="secondary-btn"><i className="fas fa-newspaper"></i> Read Substack 🧠</a>
+                  <button className="primary-btn glow-btn hire-hero-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase" aria-hidden="true"></i> Recruit / Hire Taha</button>
+                  <a href="assets/resume.pdf" target="_blank" className="secondary-btn"><i className="fas fa-file-pdf" aria-hidden="true"></i> Download Resume CV</a>
+                  <a href="https://hooshaai.substack.com" target="_blank" className="secondary-btn substack-btn"><i className="fas fa-newspaper" aria-hidden="true"></i> Read Substack 🧠</a>
                   <div className="social-row">
-                    <a href="https://github.com/tahamajs" target="_blank" className="social-btn" title="GitHub (521 Followers)"><i className="fab fa-github"></i></a>
-                    <a href="https://huggingface.co/tahamajs" target="_blank" className="social-btn" title="Hugging Face (162 Assets)"><i className="fas fa-robot"></i></a>
-                    <a href="https://hooshaai.substack.com" target="_blank" className="social-btn" title="Substack Newsletter"><i className="fas fa-newspaper"></i></a>
-                    <a href="https://linkedin.com/in/tahamajlesi" target="_blank" className="social-btn" title="LinkedIn (17.1k+ Followers & Community)"><i className="fab fa-linkedin-in"></i></a>
-                    <a href="https://telegram.me/tahamajlesii" target="_blank" className="social-btn" title="Telegram (@tahamajlesii)"><i className="fab fa-telegram"></i></a>
-                    <a href="https://x.com/hooshaaii" target="_blank" className="social-btn" title="X (Twitter)"><i className="fab fa-x-twitter"></i></a>
-                    <a href="mailto:tahamajlesi@ut.ac.ir" className="social-btn" title="Email"><i className="fas fa-envelope"></i></a>
+                    <a href="https://github.com/tahamajs" target="_blank" className="social-btn" aria-label="GitHub Profile (521 Followers)" title="GitHub (521 Followers)"><i className="fab fa-github" aria-hidden="true"></i></a>
+                    <a href="https://huggingface.co/tahamajs" target="_blank" className="social-btn" aria-label="Hugging Face Profile (162 Assets)" title="Hugging Face (162 Assets)"><i className="fas fa-robot" aria-hidden="true"></i></a>
+                    <a href="https://hooshaai.substack.com" target="_blank" className="social-btn" aria-label="Substack Newsletter" title="Substack Newsletter"><i className="fas fa-newspaper" aria-hidden="true"></i></a>
+                    <a href="https://linkedin.com/in/tahamajlesi" target="_blank" className="social-btn" aria-label="LinkedIn Profile (17.1k Followers)" title="LinkedIn (17.1k+ Followers & Community)"><i className="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                    <a href="https://telegram.me/tahamajlesii" target="_blank" className="social-btn" aria-label="Telegram Chat" title="Telegram (@tahamajlesii)"><i className="fab fa-telegram" aria-hidden="true"></i></a>
+                    <a href="https://x.com/hooshaaii" target="_blank" className="social-btn" aria-label="X Twitter Profile" title="X (Twitter)"><i className="fab fa-x-twitter" aria-hidden="true"></i></a>
+                    <a href="mailto:tahamajlesi@ut.ac.ir" className="social-btn" aria-label="Email Taha Majlesi" title="Email"><i className="fas fa-envelope" aria-hidden="true"></i></a>
                   </div>
                 </div>
               </div>
@@ -667,7 +710,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <div className="recruitment-grid fade-in-up">
                 {achievements.map((ach, idx) => (
                   <div key={idx} className="recruit-card">
-                    <div className="recruit-icon"><i className={`fas ${ach.icon}`}></i></div>
+                    <div className="recruit-icon"><i className={`fas ${ach.icon}`} aria-hidden="true"></i></div>
                     <h3>{ach.title}</h3>
                     <p>{ach.desc}</p>
                   </div>
@@ -684,22 +727,22 @@ __global__ void launch_all_reduce(float* tensor, int size) {
 
               <div className="recruitment-grid fade-in-up">
                 <div className="recruit-card">
-                  <div className="recruit-icon"><i className="fas fa-rocket"></i></div>
+                  <div className="recruit-icon"><i className="fas fa-rocket" aria-hidden="true"></i></div>
                   <h3>Proven Founder Mindset</h3>
                   <p>Co-Founder at <b>Hoosha AI 🧠</b>. Proven capability to take research ideas from raw mathematics to production deployments &amp; published papers.</p>
                 </div>
                 <div className="recruit-card">
-                  <div className="recruit-icon"><i className="fas fa-microchip"></i></div>
+                  <div className="recruit-icon"><i className="fas fa-microchip" aria-hidden="true"></i></div>
                   <h3>First-Principles Systems Engineering</h3>
                   <p>Architected <b>Kaleido</b> distributed LLM engine from scratch in CUDA, C++, and PyTorch across multi-GPU compute nodes.</p>
                 </div>
                 <div className="recruit-card">
-                  <div className="recruit-icon"><i className="fas fa-brain"></i></div>
+                  <div className="recruit-icon"><i className="fas fa-brain" aria-hidden="true"></i></div>
                   <h3>Frontier AI Research</h3>
                   <p>Deep expertise in <b>Flow Matching ODEs</b>, <b>GRPO 4B LLM fine-tuning</b>, synthetic datasets, and sub-quadratic linear attention.</p>
                 </div>
                 <div className="recruit-card">
-                  <div className="recruit-icon"><i className="fas fa-graduation-cap"></i></div>
+                  <div className="recruit-icon"><i className="fas fa-graduation-cap" aria-hidden="true"></i></div>
                   <h3>Academic &amp; Social Pedigree</h3>
                   <p>Computer Engineering at <b>University of Tehran</b>, TA at <b>Sharif University of Technology</b>, reaching <b>17.1k+ LinkedIn Followers</b>.</p>
                 </div>
@@ -716,9 +759,9 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <div className="terminal-card fade-in-up">
                 <div className="terminal-bar">
                   <div style={{ display: 'flex', gap: '8px' }}>
-                    <span className="t-dot red"></span>
-                    <span className="t-dot yellow"></span>
-                    <span className="t-dot green"></span>
+                    <span className="t-dot red" aria-hidden="true"></span>
+                    <span className="t-dot yellow" aria-hidden="true"></span>
+                    <span className="t-dot green" aria-hidden="true"></span>
                   </div>
                   <div style={{ marginLeft: '1.5rem', display: 'flex', gap: '1rem' }}>
                     <button className={`pub-btn ${activeCodeTab === 'flow' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('flow'); setCodeOutput(''); }}>Flow Matching ODE</button>
@@ -731,7 +774,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                   <pre>{codeSnippets[activeCodeTab]}</pre>
                   <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <button className="primary-btn glow-btn" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }} onClick={runCodeSnippet}>
-                      <i className="fas fa-play"></i> Run Sandbox Test
+                      <i className="fas fa-play" aria-hidden="true"></i> Run Sandbox Test
                     </button>
                   </div>
                   {codeOutput && (
@@ -758,9 +801,9 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                   <p className="pub-venue">Hoosha AI Technical Report Series &amp; Open Paper 2026</p>
                   <p className="pub-abstract">We investigate sub-quadratic linear attention mechanisms (LinRec, SVD Attention) for scaling transformer architectures across long-context sequence modeling tasks without incurring $O(N^2)$ memory overhead.</p>
                   <div className="pub-links">
-                    <a href="https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention" target="_blank" className="pub-btn"><i className="fas fa-file-alt"></i> Article</a>
-                    <a href="https://github.com/tahamajs/SVD_linear_Attention" target="_blank" className="pub-btn"><i className="fab fa-github"></i> Code</a>
-                    <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026linear, title={Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Technical Reports}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
+                    <a href="https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention" target="_blank" className="pub-btn"><i className="fas fa-file-alt" aria-hidden="true"></i> Article</a>
+                    <a href="https://github.com/tahamajs/SVD_linear_Attention" target="_blank" className="pub-btn"><i className="fab fa-github" aria-hidden="true"></i> Code</a>
+                    <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026linear, title={Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Technical Reports}, year={2026}}')}><i className="fas fa-quote-right" aria-hidden="true"></i> BibTeX</button>
                   </div>
                 </div>
 
@@ -771,9 +814,9 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                   <p className="pub-venue">Frontiers in AI Alignment &amp; Reasoning 2026</p>
                   <p className="pub-abstract">A formal mathematical framework introducing grounded causal verification to constrain self-improving LLMs, preventing recursive hallucination loops and epistemic degradation.</p>
                   <div className="pub-links">
-                    <a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank" className="pub-btn"><i className="fas fa-file-alt"></i> Article</a>
-                    <a href="https://github.com/Hooshaai/consciousness_in_LLMs" target="_blank" className="pub-btn"><i className="fab fa-github"></i> Code</a>
-                    <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026causal, title={Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Research}, year={2026}}')}><i className="fas fa-quote-right"></i> BibTeX</button>
+                    <a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank" className="pub-btn"><i className="fas fa-file-alt" aria-hidden="true"></i> Article</a>
+                    <a href="https://github.com/Hooshaai/consciousness_in_LLMs" target="_blank" className="pub-btn"><i className="fab fa-github" aria-hidden="true"></i> Code</a>
+                    <button className="pub-btn bibtex-btn" onClick={() => copyBibtex('@article{majlesi2026causal, title={Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Research}, year={2026}}')}><i className="fas fa-quote-right" aria-hidden="true"></i> BibTeX</button>
                   </div>
                 </div>
               </div>
@@ -805,11 +848,11 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <div className="hf-models-grid fade-in-up">
                 {filteredHf.map((hf, i) => (
                   <div key={i} className="hf-card">
-                    <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`}></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
+                    <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`} aria-hidden="true"></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
                     <h3>{hf.id}</h3>
                     <p>Pre-trained open science release published on Hugging Face Hub.</p>
                     <div className="hf-code-line"><code>{(hf.code || '').split('\n')[0]}</code></div>
-                    <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt"></i></a>
+                    <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt" aria-hidden="true"></i></a>
                   </div>
                 ))}
               </div>
@@ -823,9 +866,10 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               </div>
 
               <div className="search-box-wrapper fade-in-up">
-                <i className="fas fa-search search-icon"></i>
+                <i className="fas fa-search search-icon" aria-hidden="true"></i>
                 <input
                   type="text"
+                  aria-label="Live search across repositories"
                   placeholder="Live search across 143 repos, languages (PyTorch, C++, CUDA, Django)..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
@@ -855,7 +899,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                 {filteredRepos.map((r, i) => (
                   <a key={i} href={r.url} target="_blank" className={`bento-item ${r.isCourse || r.stars >= 4 ? 'bento-wide' : ''}`}>
                     <div className="bento-inner">
-                      <div className="project-tag"><i className={`fas ${r.icon}`}></i> {r.tag} • ⭐ {r.stars}</div>
+                      <div className="project-tag"><i className={`fas ${r.icon}`} aria-hidden="true"></i> {r.tag} • ⭐ {r.stars}</div>
                       <h3 className="repo-title">{r.title}</h3>
                       <p className="repo-desc">{r.desc}</p>
                       <div className="bento-tags">
@@ -876,9 +920,10 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               </div>
 
               <div className="search-box-wrapper fade-in-up" style={{ marginBottom: '2rem' }}>
-                <i className="fas fa-search search-icon"></i>
+                <i className="fas fa-search search-icon" aria-hidden="true"></i>
                 <input
                   type="text"
+                  aria-label="Search Substack articles"
                   placeholder="Search Substack articles by title or topic..."
                   value={substackSearch}
                   onChange={e => setSubstackSearch(e.target.value)}
@@ -888,10 +933,10 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <div className="articles-grid">
                 {filteredArticles.map((art, idx) => (
                   <a key={idx} href={art.link} target="_blank" className="article-card fade-in-up">
-                    <div className="article-tag"><i className="fas fa-newspaper"></i> Substack • {art.date}</div>
+                    <div className="article-tag"><i className="fas fa-newspaper" aria-hidden="true"></i> Substack • {art.date}</div>
                     <h3>{art.title}</h3>
                     <p>{art.desc}</p>
-                    <span className="read-more">Read Full Deep Dive <i className="fas fa-arrow-right"></i></span>
+                    <span className="read-more">Read Full Deep Dive <i className="fas fa-arrow-right" aria-hidden="true"></i></span>
                   </a>
                 ))}
               </div>

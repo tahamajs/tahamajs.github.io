@@ -4,7 +4,17 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/sync-substack.yml'
   workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   deploy-and-validate:
@@ -13,21 +23,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
       - name: Validate JSON Data & HTML
         run: |
-          python -c "
+          python3 -c "
           import json
           with open('data.json', 'r') as f:
               data = json.load(f)
           print(f'Validated data.json: {len(data.get(\"repos\", []))} repos, {len(data.get(\"articles\", []))} articles, {len(data.get(\"hf\", []))} HF assets.')
           "
-
-      - name: Check HTML File Exists
-        run: |
           test -f index.html
           echo "index.html validation passed!"
