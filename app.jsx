@@ -21,7 +21,7 @@ function App() {
 
   // Chat state
   const [aiMessages, setAiMessages] = useState([
-    { sender: 'bot', text: "👋 Welcome! I am Taha Majlesi's AI assistant. Ask me about <b>Hoosha AI 🧠</b> research publications, <b>Flow Matching</b> ODEs, <b>GRPO Reasoning</b>, or his <b>University of Tehran & Sharif</b> coursework!" }
+    { sender: 'bot', text: "👋 Welcome! I am Taha Majlesi's AI assistant. Ask me about <b>Hoosha AI 🧠</b> research publications, <b>Flow Matching</b> ODEs, <b>GRPO Reasoning</b>, <b>17.1k LinkedIn Community</b>, or his <b>University of Tehran & Sharif</b> coursework!" }
   ]);
   const [aiInputText, setAiInputText] = useState('');
   const [tehranTime, setTehranTime] = useState('--:--:-- AM');
@@ -204,9 +204,11 @@ function App() {
 
     setTimeout(() => {
       const lower = userQ.toLowerCase();
-      let reply = "I am Taha Majlesi's AI assistant. Taha is Co-Founder & Systems/AI Architect at Hoosha AI 🧠 and a Computer Engineering student at University of Tehran, specializing in Flow Matching, GRPO, and Distributed Systems.";
+      let reply = "I am Taha Majlesi's AI assistant. Taha is Co-Founder & Systems/AI Architect at Hoosha AI 🧠 with a community of over 17,100 LinkedIn followers, specializing in Flow Matching, GRPO, and Distributed Systems.";
 
-      if (lower.includes('hoosha')) {
+      if (lower.includes('linkedin') || lower.includes('follower')) {
+        reply = "💼 Taha Majlesi has built a strong community of over **17,100+ followers** on LinkedIn (https://linkedin.com/in/tahamajlesi), sharing insights on AI systems, Flow Matching, and distributed GPU training!";
+      } else if (lower.includes('hoosha')) {
         reply = "🧠 **Hoosha AI** is an AI research startup co-founded by Taha Majlesi, focusing on frontier ML research, continuous cognitive scaling, synthetic consciousness (IIT & GWT), and high-performance post-training RL pipelines. Check out articles at https://hooshaai.substack.com!";
       } else if (lower.includes('flow') || lower.includes('grpo') || lower.includes('research')) {
         reply = "🎨 Taha's primary research centers on **Flow Matching** probability paths for generative modeling, **Group Relative Policy Optimization (GRPO)** for fine-tuning 4B LLMs on GSM8K math reasoning, and sub-quadratic linear attention architectures like LinRec & SVD attention!";
@@ -279,6 +281,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
   ];
 
   const achievements = [
+    { icon: 'fa-users', title: '17.1k+ LinkedIn Community', desc: 'Over 17,100+ followers & connections on LinkedIn actively engaging with AI research content.' },
     { icon: 'fa-trophy', title: 'Top 1% Global Commit Streak', desc: '12,787 verified commits in the past year across 143 open-source repositories.' },
     { icon: 'fa-award', title: 'GitHub Developer Program Pro Member', desc: 'Recognized for prolific open-source contributions and active infrastructure tooling.' },
     { icon: 'fa-cubes', title: '162 HuggingFace Open Science Assets', desc: 'Published 92 pre-trained model weights & 70 open synthetic evaluation datasets.' },
@@ -368,7 +371,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             </div>
 
             <div className="ai-quick-prompts">
-              {["What is Hoosha AI?", "Tell me about Flow Matching & GRPO", "What courses does Taha teach?", "How can I contact Taha?"].map((q, i) => (
+              {["Tell me about LinkedIn 17.1k followers", "What is Hoosha AI?", "Tell me about Flow Matching & GRPO", "What courses does Taha teach?"].map((q, i) => (
                 <button key={i} className="quick-prompt-btn" onClick={() => handleAiQuestion(q)}>{q}</button>
               ))}
             </div>
@@ -397,12 +400,13 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <i className="fas fa-search"></i>
               <input
                 type="text"
-                placeholder="Type a command (e.g. 'recruit', 'achievements', 'playground', 'resume')..."
+                placeholder="Type a command (e.g. 'recruit', 'linkedin', 'achievements', 'resume')..."
                 autoFocus
               />
               <span className="cmd-esc" onClick={() => setCmdModalOpen(false)}>ESC</span>
             </div>
             <div className="cmd-results">
+              <div className="cmd-item" onClick={() => window.open('https://linkedin.com/in/tahamajlesi', '_blank')}><i className="fab fa-linkedin"></i> Open LinkedIn Profile (17.1k Followers)</div>
               <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setHireModalOpen(true); }}><i className="fas fa-briefcase"></i> Open Direct Recruitment &amp; Hire Modal</div>
               <div className="cmd-item" onClick={() => { setCmdModalOpen(false); setAiModalOpen(true); }}><i className="fas fa-robot"></i> Open AI Research Assistant Chat</div>
               <div className="cmd-item" onClick={() => window.open('assets/resume.pdf', '_blank')}><i className="fas fa-file-pdf"></i> Download Official Resume (PDF)</div>
@@ -488,7 +492,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             </h1>
             
             <p className="hero-subtitle">
-              AI Researcher &amp; Systems Engineer. Co-Founder of <b>Hoosha AI 🧠</b>. Computer Engineering at <b>University of Tehran</b> and Teaching Assistant at <b>Sharif University of Technology</b>. Specializing in <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment &amp; Reasoning</b> (GRPO, SFT), and <b>Distributed GPU Infrastructure</b>.
+              AI Researcher &amp; Systems Engineer. Co-Founder of <b>Hoosha AI 🧠</b> with a <b>17.1k+ LinkedIn Community</b>. Computer Engineering at <b>University of Tehran</b> and Teaching Assistant at <b>Sharif University of Technology</b>. Specializing in <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment &amp; Reasoning</b> (GRPO, SFT), and <b>Distributed GPU Infrastructure</b>.
             </p>
 
             {/* Interactive Research Tags Cloud */}
@@ -514,6 +518,15 @@ __global__ void launch_all_reduce(float* tensor, int size) {
               <button className="primary-btn glow-btn hire-hero-btn" onClick={() => setHireModalOpen(true)}><i className="fas fa-briefcase"></i> Recruit / Hire Taha</button>
               <a href="assets/resume.pdf" target="_blank" className="secondary-btn"><i className="fas fa-file-pdf"></i> Download Resume CV</a>
               <a href="https://hooshaai.substack.com" target="_blank" className="secondary-btn"><i className="fas fa-newspaper"></i> Read Substack 🧠</a>
+              <div className="social-row">
+                <a href="https://github.com/tahamajs" target="_blank" className="social-btn" title="GitHub (521 Followers)"><i className="fab fa-github"></i></a>
+                <a href="https://huggingface.co/tahamajs" target="_blank" className="social-btn" title="Hugging Face (162 Assets)"><i className="fas fa-robot"></i></a>
+                <a href="https://hooshaai.substack.com" target="_blank" className="social-btn" title="Substack Newsletter"><i className="fas fa-newspaper"></i></a>
+                <a href="https://linkedin.com/in/tahamajlesi" target="_blank" className="social-btn" title="LinkedIn (17.1k+ Followers & Community)"><i className="fab fa-linkedin-in"></i></a>
+                <a href="https://telegram.me/tahamajlesii" target="_blank" className="social-btn" title="Telegram (@tahamajlesii)"><i className="fab fa-telegram"></i></a>
+                <a href="https://x.com/hooshaaii" target="_blank" className="social-btn" title="X (Twitter)"><i className="fab fa-x-twitter"></i></a>
+                <a href="mailto:tahamajlesi@ut.ac.ir" className="social-btn" title="Email"><i className="fas fa-envelope"></i></a>
+              </div>
             </div>
           </div>
         </section>
@@ -528,7 +541,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
           <div className="stat-divider"></div>
           <div className="stat-item"><span className="stat-number">521</span><span className="stat-label">GitHub Followers</span></div>
           <div className="stat-divider"></div>
-          <div className="stat-item"><span className="stat-number">17.1k</span><span className="stat-label">LinkedIn Community</span></div>
+          <div className="stat-item"><span className="stat-number">17.1k+</span><span className="stat-label">LinkedIn Followers</span></div>
         </div>
 
         {/* Honors & Key Achievements Section */}
@@ -574,8 +587,8 @@ __global__ void launch_all_reduce(float* tensor, int size) {
             </div>
             <div className="recruit-card">
               <div className="recruit-icon"><i className="fas fa-graduation-cap"></i></div>
-              <h3>Academic Pedigree</h3>
-              <p>Computer Engineering at <b>University of Tehran</b>, cross-institutional TA for Compiler Construction at <b>Sharif University of Technology</b>.</p>
+              <h3>Academic &amp; Social Pedigree</h3>
+              <p>Computer Engineering at <b>University of Tehran</b>, TA at <b>Sharif University of Technology</b>, reaching <b>17.1k+ LinkedIn Followers</b>.</p>
             </div>
           </div>
         </section>
