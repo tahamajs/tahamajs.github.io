@@ -507,3 +507,8 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .telemetry-progress{width:100%;height:8px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;margin-top:12px;}
 .telemetry-progress-fill{height:100%;border-radius:99px;transition:width .5s ease;}
 .telemetry-sub{font-size:.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* ── GitHub Follow Button ── */
+.btn-github-follow{display:inline-flex;align-items:center;gap:.6rem;background:#24292e;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:.8rem 1.6rem;border-radius:12px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .25s ease;box-shadow:0 4px 15px rgba(0,0,0,0.3);}
+.btn-github-follow:hover{background:#2f363d;border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,240,255,0.2);}
+.follow-count{background:rgba(255,255,255,0.15);padding:.15rem .5rem;border-radius:20px;font-size:.78rem;font-family:'JetBrains Mono',monospace;}

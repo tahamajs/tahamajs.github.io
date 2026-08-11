@@ -29,6 +29,10 @@ export default function Navigation({ mobileNav, setMobileNav, onHire, onCmd }) {
             <i className="fas fa-briefcase" /> Recruit / Hire Taha
           </button>
           
+          <a href="https://github.com/tahamajs" target="_blank" className="nav-hire-btn" style={{ background: '#24292e', color: '#fff', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <i className="fab fa-github" /> Follow
+          </a>
+          
           <a href="https://github.com/sponsors/tahamajs" target="_blank" className="nav-hire-btn" style={{ background: '#ea4aaa', color: '#fff' }}>
             <i className="fas fa-heart" /> Sponsor
           </a>

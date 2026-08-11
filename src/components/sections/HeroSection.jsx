@@ -49,18 +49,17 @@ export default function HeroSection({ time, onHire, onAI, onSponsor, setSearch, 
 
           {/* CTA buttons */}
           <div className="hero-actions">
+            <a href="https://github.com/tahamajs" target="_blank" className="btn-github-follow" onClick={() => beep?.(700)}>
+              <i className="fab fa-github" /> Follow @tahamajs <span className="follow-count">521</span>
+            </a>
+            <a href="https://github.com/sponsors/tahamajs" target="_blank" className="btn-sponsor" onClick={() => beep?.(880, 'triangle')}>
+              <i className="fas fa-heart" /> Sponsor on GitHub
+            </a>
             <button className="btn-primary" onClick={onHire}>
               <i className="fas fa-briefcase" /> Recruit / Hire Taha
             </button>
-            <a href="https://github.com/sponsors/tahamajs" target="_blank"
-              className="btn-sponsor" onClick={() => beep?.(880, 'triangle')}>
-              <i className="fas fa-heart" /> Sponsor on GitHub
-            </a>
             <a href="assets/resume.pdf" target="_blank" className="btn-secondary">
               <i className="fas fa-file-pdf" /> Resume PDF
-            </a>
-            <a href="https://hooshaai.substack.com" target="_blank" className="btn-secondary">
-              <i className="fas fa-newspaper" /> Substack
             </a>
           </div>
 
