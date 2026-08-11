@@ -111,6 +111,14 @@ export default function App() {
       substack: () => window.open('https://hooshaai.substack.com', '_blank'),
       email: () => window.location.href = 'mailto:tahamajlesi@ut.ac.ir',
       resume: () => window.open('assets/resume.pdf', '_blank'),
+      telemetry: () => scrollTo('telemetry'),
+      sandbox: () => scrollTo('sandbox'),
+      constellation: () => scrollTo('constellation'),
+      projects: () => scrollTo('projects'),
+      publications: () => scrollTo('publications'),
+      feed: () => scrollTo('social-feed'),
+      experience: () => scrollTo('experience'),
+      contact: () => scrollTo('contact'),
     };
     (map[id] || (() => {}))();
   };

@@ -15,11 +15,15 @@ export default function Navigation({ mobileNav, setMobileNav, onHire, onCmd }) {
         
         <div className={`nav-links ${mobileNav ? 'open' : ''}`}>
           <a href="#about" onClick={() => setMobileNav(false)}>About</a>
+          <a href="#telemetry" onClick={() => setMobileNav(false)}>Telemetry</a>
           <a href="#sandbox" onClick={() => setMobileNav(false)}>AI Lab</a>
-          <a href="#projects" onClick={() => setMobileNav(false)}>Systems &amp; Models</a>
-          <a href="#publications" onClick={() => setMobileNav(false)}>Publications</a>
-          <a href="#substack" onClick={() => setMobileNav(false)}>Essays</a>
+          <a href="#constellation" onClick={() => setMobileNav(false)}>Graph</a>
+          <a href="#projects" onClick={() => setMobileNav(false)}>Projects</a>
+          <a href="#publications" onClick={() => setMobileNav(false)}>Papers</a>
+          <a href="#social-feed" onClick={() => setMobileNav(false)}>X Feed</a>
+          <a href="#substack" onClick={() => setMobileNav(false)}>Substack</a>
           <a href="#experience" onClick={() => setMobileNav(false)}>Timeline</a>
+          <a href="#contact" onClick={() => setMobileNav(false)}>Contact</a>
           
           <button className="nav-hire-btn" onClick={() => { setMobileNav(false); onHire(); }}>
             <i className="fas fa-briefcase" /> Recruit / Hire Taha

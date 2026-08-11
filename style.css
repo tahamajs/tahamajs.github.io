@@ -28,7 +28,7 @@
 /* ── Reset & Base ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;font-size:16px;}
-body{background:var(--bg);color:var(--text);font-family:'Inter','Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;cursor:none;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(0,240,255,0.07),transparent),radial-gradient(ellipse 60% 50% at 100% 100%,rgba(138,43,226,0.05),transparent);pointer-events:none;z-index:0;}
 ::selection{background:rgba(0,240,255,0.2);color:#fff;}
 a{color:var(--accent);text-decoration:none;}

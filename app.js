@@ -227,7 +227,7 @@
       window.addEventListener("scroll", fn, { passive: true });
       return () => window.removeEventListener("scroll", fn);
     }, [setMobileNav]);
-    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, "/"), " Hoosha AI"), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Systems & Models"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Publications"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Essays"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
+    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, "/"), " Hoosha AI"), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#telemetry", onClick: () => setMobileNav(false) }, "Telemetry"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#constellation", onClick: () => setMobileNav(false) }, "Graph"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Projects"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Papers"), /* @__PURE__ */ React.createElement("a", { href: "#social-feed", onClick: () => setMobileNav(false) }, "X Feed"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Substack"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("a", { href: "#contact", onClick: () => setMobileNav(false) }, "Contact"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
       setMobileNav(false);
       onHire();
     } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#ea4aaa", color: "#fff" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor")), /* @__PURE__ */ React.createElement("button", { className: "cmd-k-btn", onClick: onCmd }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), " ", /* @__PURE__ */ React.createElement("span", { className: "cmd-k-key" }, "\u2318K")), /* @__PURE__ */ React.createElement("button", { className: "mobile-nav-toggle", onClick: () => setMobileNav(!mobileNav) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${mobileNav ? "fa-times" : "fa-bars"}` }))));
@@ -304,10 +304,15 @@
     { text: "Open AI Research Assistant", icon: "fas fa-robot", id: "ai" },
     { text: "Open Recruit / Hire Taha", icon: "fas fa-briefcase", id: "hire" },
     { text: "Sponsor Taha on GitHub", icon: "fas fa-heart", id: "sponsor" },
-    { text: "Toggle Constellation / Bento view", icon: "fas fa-project-diagram", id: "view" },
+    { text: "View GPU Cluster Telemetry", icon: "fas fa-chart-bar", id: "telemetry" },
+    { text: "Explore AI Lab & Simulations", icon: "fas fa-vial", id: "sandbox" },
+    { text: "View Research Constellation Graph", icon: "fas fa-project-diagram", id: "constellation" },
+    { text: "Browse Projects & HF Assets", icon: "fas fa-cubes", id: "projects" },
+    { text: "Read Publications & Papers", icon: "fas fa-scroll", id: "publications" },
+    { text: "View X Feed (@hooshaaii)", icon: "fab fa-x-twitter", id: "feed" },
+    { text: "Read Substack Essays", icon: "fas fa-newspaper", id: "substack" },
     { text: "Open LinkedIn (17.1k followers)", icon: "fab fa-linkedin", id: "linkedin" },
-    { text: "View HuggingFace (162 assets)", icon: "fas fa-robot", id: "hf" },
-    { text: "Read Hoosha AI Substack", icon: "fas fa-newspaper", id: "substack" },
+    { text: "View HuggingFace (162 assets)", icon: "fas fa-brain", id: "hf" },
     { text: "Email Taha directly", icon: "fas fa-envelope", id: "email" },
     { text: "Download Resume PDF", icon: "fas fa-file-pdf", id: "resume" }
   ];
@@ -1518,7 +1523,15 @@ class SVDLinearAttention(nn.Module):
         hf: () => window.open("https://huggingface.co/tahamajs", "_blank"),
         substack: () => window.open("https://hooshaai.substack.com", "_blank"),
         email: () => window.location.href = "mailto:tahamajlesi@ut.ac.ir",
-        resume: () => window.open("assets/resume.pdf", "_blank")
+        resume: () => window.open("assets/resume.pdf", "_blank"),
+        telemetry: () => scrollTo("telemetry"),
+        sandbox: () => scrollTo("sandbox"),
+        constellation: () => scrollTo("constellation"),
+        projects: () => scrollTo("projects"),
+        publications: () => scrollTo("publications"),
+        feed: () => scrollTo("social-feed"),
+        experience: () => scrollTo("experience"),
+        contact: () => scrollTo("contact")
       };
       (map[id] || (() => {
       }))();
