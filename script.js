@@ -64,9 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let mouseX = width / 2;
     let mouseY = height / 2;
 
+    const spotlight = document.getElementById('cursor-spotlight');
+
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      if (spotlight) {
+        spotlight.style.left = `${mouseX}px`;
+        spotlight.style.top = `${mouseY}px`;
+      }
     });
 
     const particles = [];
