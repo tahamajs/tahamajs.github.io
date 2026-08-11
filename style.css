@@ -666,3 +666,16 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .shortcut-item{display:flex;align-items:center;gap:.8rem;background:var(--bg2);border:1px solid var(--border);padding:.6rem 1rem;border-radius:10px;}
 .shortcut-key{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--accent);background:rgba(0,240,255,0.1);padding:.2rem .6rem;border-radius:6px;border:1px solid rgba(0,240,255,0.2);min-width:48px;text-align:center;}
 .shortcut-desc{font-size:.82rem;color:#cbd5e1;}
+
+/* ── Interactive Educational Algorithm Game Modal ── */
+.algo-game-progress{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;margin-bottom:1rem;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:.5rem;}
+.algo-game-card{display:flex;flex-direction:column;gap:.8rem;}
+.algo-game-algo-badge{background:rgba(0,240,255,0.1);color:var(--accent);font-size:.75rem;padding:.2rem .6rem;border-radius:6px;width:max-content;font-family:'JetBrains Mono',monospace;}
+.algo-game-title{font-size:1.1rem;color:#fff;}
+.algo-game-task{font-size:.88rem;color:#cbd5e1;line-height:1.6;}
+.algo-game-options{display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem;}
+.algo-opt-btn{background:var(--bg2);border:1px solid var(--border);color:#fff;font-size:.85rem;padding:.8rem 1rem;border-radius:10px;text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between;}
+.algo-opt-btn:hover:not(:disabled){border-color:var(--accent);background:rgba(0,240,255,0.08);transform:translateX(4px);}
+.algo-opt-btn.correct{background:rgba(16,185,129,0.15);border-color:var(--emerald);color:var(--emerald);font-weight:600;}
+.algo-opt-btn.wrong{background:rgba(244,63,94,0.15);border-color:var(--rose);color:var(--rose);}
+.algo-game-explanation{background:rgba(0,0,0,0.4);border:1px solid var(--border);padding:1rem;border-radius:10px;margin-top:1rem;font-size:.85rem;line-height:1.6;}

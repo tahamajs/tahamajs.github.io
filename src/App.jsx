@@ -36,6 +36,7 @@ import NNPlaygroundModal from './components/modals/NNPlaygroundModal.jsx';
 import PaperReaderModal from './components/modals/PaperReaderModal.jsx';
 import CyberpunkGameModal from './components/modals/CyberpunkGameModal.jsx';
 import KeyboardShortcutsModal from './components/modals/KeyboardShortcutsModal.jsx';
+import AlgorithmGameModal from './components/modals/AlgorithmGameModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -67,6 +68,7 @@ export default function App() {
   const [nnOpen, setNnOpen] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [algoGameOpen, setAlgoGameOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
@@ -201,7 +203,7 @@ export default function App() {
         {(pageView === 'all' || pageView === 'lab') && (
           <>
             <GpuTelemetrySection />
-            <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} beep={beep} />
+            <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} onOpenAlgoGame={() => setAlgoGameOpen(true)} beep={beep} />
             <BenchmarkSection />
           </>
         )}
@@ -284,6 +286,7 @@ export default function App() {
       <PaperReaderModal paper={selectedPaper} onClose={() => setSelectedPaper(null)} onCopyBib={copyBib} beep={beep} />
       <CyberpunkGameModal open={gameOpen} onClose={() => setGameOpen(false)} showToast={showToast} beep={beep} />
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
+      <AlgorithmGameModal open={algoGameOpen} onClose={() => setAlgoGameOpen(false)} showToast={showToast} beep={beep} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

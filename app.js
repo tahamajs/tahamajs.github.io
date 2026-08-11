@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react22 = __toESM(require_react_shim());
+  var import_react23 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react21 = __toESM(require_react_shim());
+  var import_react22 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -1115,7 +1115,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   function IITVis({ playing, numNodes }) {
     return /* @__PURE__ */ React.createElement("div", { className: "vis-container", style: { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", gap: "10px" } }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "IIT 4.0 \u03A6 Metric (N=", numNodes, " Nodes)"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "20px", marginTop: "10px" } }, /* @__PURE__ */ React.createElement("div", { style: { border: "1px dashed var(--accent)", padding: "8px", borderRadius: "10px", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "4px" } }, Array.from({ length: Math.min(numNodes, 6) }).map((_, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { width: "10px", height: "10px", borderRadius: "50%", background: playing ? "var(--cyan)" : "var(--muted)", boxShadow: playing ? "0 0 6px var(--cyan)" : "none" } }))), /* @__PURE__ */ React.createElement("div", { style: { width: "2px", height: "40px", background: playing ? "var(--rose)" : "var(--muted)" } }), /* @__PURE__ */ React.createElement("div", { style: { border: "1px dashed var(--purple)", padding: "8px", borderRadius: "10px", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "4px" } }, Array.from({ length: Math.min(numNodes, 6) }).map((_, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { width: "10px", height: "10px", borderRadius: "50%", background: playing ? "var(--purple)" : "var(--muted)", boxShadow: playing ? "0 0 6px var(--purple)" : "none" } })))), /* @__PURE__ */ React.createElement("span", { style: { fontSize: "11px", color: "var(--cyan)", fontFamily: "monospace" } }, playing ? `\u03A6 = ${(2.389 * (numNodes / 16)).toFixed(3)} bits (System Integrated)` : "Click Run to compute MIP cut"));
   }
-  function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
+  function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, onOpenAlgoGame, beep }) {
     const tabs = Object.keys(CODE_TABS);
     const data = CODE_TABS[activeTab];
     const [playing, setPlaying] = (0, import_react8.useState)(false);
@@ -1158,6 +1158,18 @@ phi_val, ei_val = compute_phi(W_cognition)`,
         title: "Explore Frontier Algorithms \u{1F9EA}",
         sub: "Adjust hyper-parameters, run ODE trajectories, and simulate CUDA warp reductions in real-time."
       }
+    ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: ".6rem", flexWrap: "wrap", marginTop: "1rem" } }, /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        className: "btn-primary",
+        onClick: () => {
+          onOpenAlgoGame?.();
+          beep?.(880);
+        },
+        style: { whiteSpace: "nowrap" }
+      },
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-gamepad" }),
+      " Play 6-Level Algorithm Quest Game \u{1F3AE}"
     ), /* @__PURE__ */ React.createElement(
       "button",
       {
@@ -1166,12 +1178,12 @@ phi_val, ei_val = compute_phi(W_cognition)`,
           setFullScreen(!fullScreen);
           beep?.();
         },
-        style: { marginTop: "1rem", whiteSpace: "nowrap" }
+        style: { whiteSpace: "nowrap" }
       },
       /* @__PURE__ */ React.createElement("i", { className: `fas ${fullScreen ? "fa-compress" : "fa-expand"}` }),
       " ",
       fullScreen ? "Exit Fullscreen" : "Fullscreen Lab"
-    )), /* @__PURE__ */ React.createElement("div", { className: "sandbox-grid" }, /* @__PURE__ */ React.createElement("div", { className: "terminal sandbox-left" }, /* @__PURE__ */ React.createElement("div", { className: "t-bar" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r", onClick: () => setFullScreen(false) }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("div", { className: "t-tabs" }, tabs.map((k) => /* @__PURE__ */ React.createElement(
+    ))), /* @__PURE__ */ React.createElement("div", { className: "sandbox-grid" }, /* @__PURE__ */ React.createElement("div", { className: "terminal sandbox-left" }, /* @__PURE__ */ React.createElement("div", { className: "t-bar" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r", onClick: () => setFullScreen(false) }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("div", { className: "t-tabs" }, tabs.map((k) => /* @__PURE__ */ React.createElement(
       "button",
       {
         key: k,
@@ -2214,6 +2226,129 @@ Available commands:
     return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, "\u2328\uFE0F Power User UX"), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", marginBottom: "1rem" } }, "Keyboard Shortcuts \u{1F680}"), /* @__PURE__ */ React.createElement("div", { className: "shortcuts-grid" }, SHORTCUTS.map((s, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "shortcut-item" }, /* @__PURE__ */ React.createElement("span", { className: "shortcut-key" }, s.key), /* @__PURE__ */ React.createElement("span", { className: "shortcut-desc" }, s.desc)))));
   }
 
+  // src/components/modals/AlgorithmGameModal.jsx
+  var import_react21 = __toESM(require_react_shim());
+  var ALGO_LEVELS = [
+    {
+      id: "flow",
+      title: "Level 1: Flow Matching Velocity Field \u{1F30A}",
+      algo: "Conditional Flow Matching (Lipman et al.)",
+      task: "Select the optimal ODE integration solver to reach the target data distribution with minimum function evaluations (NFE):",
+      options: [
+        { text: "Euler Solver (NFE=50)", correct: false, exp: "Euler works but requires 50+ steps for curved paths." },
+        { text: "Optimal Transport Straight Path + Midpoint (NFE=15)", correct: true, exp: "Correct! OT straight paths allow simulation-free ODE integration in just 15 steps!" },
+        { text: "SDE Noise Schedule Diffusion (NFE=1000)", correct: false, exp: "Diffusion SDEs are far too slow compared to CFM." }
+      ]
+    },
+    {
+      id: "grpo",
+      title: "Level 2: GRPO Policy Alignment \u{1F3AF}",
+      algo: "Group Relative Policy Optimization (DeepSeek R1)",
+      task: "For a prompt group of G=4 rollouts with rewards [0.9, 0.2, 0.8, 0.1], which rollout receives the highest positive advantage A_i?",
+      options: [
+        { text: "Rollout 1 (Reward = 0.9)", correct: true, exp: "Correct! Rollout 1 exceeds the group mean \u03BC_r=0.5, giving it the maximum positive advantage +Adv!" },
+        { text: "Rollout 4 (Reward = 0.1)", correct: false, exp: "Incorrect. Reward 0.1 is below average, resulting in negative advantage -Adv." },
+        { text: "All rollouts receive equal advantage", correct: false, exp: "Incorrect. GRPO normalizes advantages relative to group mean and std." }
+      ]
+    },
+    {
+      id: "cuda",
+      title: "Level 3: CUDA Warp Tree Reduction \u26A1",
+      algo: "Fused CUDA Warp Reduction Kernel",
+      task: "In a 32-thread CUDA warp executing __shfl_xor_sync(mask, val, delta), what offset delta is used in the first reduction step?",
+      options: [
+        { text: "delta = 1", correct: false, exp: "delta=1 is the final step in a warp tree reduction." },
+        { text: "delta = 16 (WARP / 2)", correct: true, exp: "Correct! Thread 0 pairs with Thread 16, Thread 1 pairs with Thread 17 down to delta=1!" },
+        { text: "delta = 32", correct: false, exp: "delta=32 is outside the 32-thread warp bounds." }
+      ]
+    },
+    {
+      id: "svd",
+      title: "Level 4: Linear SVD Attention \u{1F4D0}",
+      algo: "Sub-Quadratic Linear Attention (Katharopoulos et al.)",
+      task: "On a sequence of length N=65,536 tokens, how does Linear SVD Attention avoid the O(N\xB2) memory bottleneck?",
+      options: [
+        { text: "By computing (Q K^T) V softmax matrix first", correct: false, exp: "Materializing (Q K^T) creates a massive 65536\xD765536 matrix (O(N\xB2))." },
+        { text: "By re-associating to Q (K^T V) using SVD rank r projection", correct: true, exp: "Correct! Multiplying K^T @ V first reduces memory complexity from O(N\xB2) down to O(N\xB7r)!" },
+        { text: "By dropping 90% of tokens randomly", correct: false, exp: "Dropping tokens destroys context quality." }
+      ]
+    },
+    {
+      id: "unlearning",
+      title: "Level 5: Null-Space Machine Unlearning \u{1F9F9}",
+      algo: "Concept Erasure via Null-Space Projection",
+      task: "To erase a sensitive concept representation U_k from weight matrix W, which projection matrix is applied?",
+      options: [
+        { text: "W_clean = W (I - U_k U_k^T)", correct: true, exp: "Correct! Multiplying by (I - U_k U_k^T) projects weights onto the null-space, zeroing out concept activations!" },
+        { text: "W_clean = W + U_k", correct: false, exp: "Adding concept vectors amplifies the target concept." },
+        { text: "W_clean = 0", correct: false, exp: "Zeroing out all weights destroys all model capabilities." }
+      ]
+    },
+    {
+      id: "iit",
+      title: "Level 6: Integrated Information \u03A6 \u{1F9E0}",
+      algo: "Integrated Information Theory (IIT 4.0)",
+      task: "What condition indicates that a synthetic cognitive network possesses irreducibly integrated cause-effect power?",
+      options: [
+        { text: "\u03A6 > 0.0 (EI of Whole > EI of Minimum Information Partition)", correct: true, exp: "Correct! \u03A6 > 0 proves the system as a whole generates more cause-effect info than its MIP cut!" },
+        { text: "\u03A6 = 0.0", correct: false, exp: "\u03A6 = 0 means the system is completely reducible to independent parts." },
+        { text: "\u03A6 < 0.0", correct: false, exp: "\u03A6 is non-negative by definition." }
+      ]
+    }
+  ];
+  function AlgorithmGameModal({ open, onClose, showToast, beep }) {
+    const [levelIdx, setLevelIdx] = (0, import_react21.useState)(0);
+    const [selectedOpt, setSelectedOpt] = (0, import_react21.useState)(null);
+    const [answered, setAnswered] = (0, import_react21.useState)(false);
+    const [score, setScore] = (0, import_react21.useState)(0);
+    if (!open) return null;
+    const currentLevel = ALGO_LEVELS[levelIdx];
+    const handleSelect = (optIdx) => {
+      if (answered) return;
+      setSelectedOpt(optIdx);
+      setAnswered(true);
+      const isCorrect = currentLevel.options[optIdx].correct;
+      if (isCorrect) {
+        setScore((s) => s + 500);
+        beep?.(880, "sine");
+        showToast?.("\u{1F389} Correct Answer! +500 Algorithm Master XP!");
+      } else {
+        beep?.(300, "sawtooth");
+        showToast?.("\u274C Incorrect! Read explanation to learn.");
+      }
+    };
+    const handleNext = () => {
+      if (levelIdx < ALGO_LEVELS.length - 1) {
+        setLevelIdx((l) => l + 1);
+        setSelectedOpt(null);
+        setAnswered(false);
+        beep?.(700);
+      } else {
+        beep?.(1e3, "sine");
+        showToast?.(`\u{1F3C6} ALGORITHM MASTER CERTIFICATE EARNED! Score: ${score + 500} XP`);
+        onClose();
+      }
+    };
+    return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, "\u{1F3AE} Interactive Educational Game"), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", marginBottom: ".5rem" } }, "AI Algorithm Quest \u{1F9EA}"), /* @__PURE__ */ React.createElement("div", { className: "algo-game-progress" }, /* @__PURE__ */ React.createElement("span", null, "Level ", levelIdx + 1, " of ", ALGO_LEVELS.length), /* @__PURE__ */ React.createElement("span", { style: { color: "var(--emerald)", fontFamily: "monospace" } }, "Score: ", score, " XP")), /* @__PURE__ */ React.createElement("div", { className: "algo-game-card" }, /* @__PURE__ */ React.createElement("div", { className: "algo-game-algo-badge" }, currentLevel.algo), /* @__PURE__ */ React.createElement("h3", { className: "algo-game-title" }, currentLevel.title), /* @__PURE__ */ React.createElement("p", { className: "algo-game-task" }, currentLevel.task), /* @__PURE__ */ React.createElement("div", { className: "algo-game-options" }, currentLevel.options.map((opt, i) => {
+      let stateClass = "";
+      if (answered) {
+        if (opt.correct) stateClass = "correct";
+        else if (selectedOpt === i) stateClass = "wrong";
+      }
+      return /* @__PURE__ */ React.createElement(
+        "button",
+        {
+          key: i,
+          className: `algo-opt-btn ${stateClass}`,
+          onClick: () => handleSelect(i),
+          disabled: answered
+        },
+        /* @__PURE__ */ React.createElement("span", null, opt.text),
+        answered && opt.correct && /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" })
+      );
+    })), answered && /* @__PURE__ */ React.createElement("div", { className: "algo-game-explanation" }, /* @__PURE__ */ React.createElement("b", null, currentLevel.options[selectedOpt].correct ? "\u2713 Knowledge Unlocked:" : "\u{1F4A1} Learning Insight:"), /* @__PURE__ */ React.createElement("p", null, currentLevel.options[selectedOpt].exp), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: handleNext, style: { marginTop: ".8rem", width: "100%", justifyContent: "center" } }, levelIdx < ALGO_LEVELS.length - 1 ? "Next Level \u27A1\uFE0F" : "Claim Master Certificate \u{1F3C6}"))));
+  }
+
   // src/components/ui/Toast.jsx
   function Toast({ msg }) {
     if (!msg) return null;
@@ -2293,29 +2428,30 @@ Available commands:
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react21.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react21.useState)("");
-    const [filter, setFilter] = (0, import_react21.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react21.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react21.useState)("");
-    const [pageView, setPageView] = (0, import_react21.useState)("all");
-    const [weatherMode, setWeatherMode] = (0, import_react21.useState)("rain");
-    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react21.useState)(false);
-    const [accent, setAccent] = (0, import_react21.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react21.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react21.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react21.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react21.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react21.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react21.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react21.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react21.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react21.useState)(false);
-    const [gameOpen, setGameOpen] = (0, import_react21.useState)(false);
-    const [shortcutsOpen, setShortcutsOpen] = (0, import_react21.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react21.useState)(false);
-    const [selectedPaper, setSelectedPaper] = (0, import_react21.useState)(null);
-    const [bibtexPub, setBibtexPub] = (0, import_react21.useState)(null);
+    const [data, setData] = (0, import_react22.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react22.useState)("");
+    const [filter, setFilter] = (0, import_react22.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react22.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react22.useState)("");
+    const [pageView, setPageView] = (0, import_react22.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react22.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react22.useState)(false);
+    const [accent, setAccent] = (0, import_react22.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react22.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react22.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react22.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react22.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react22.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react22.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react22.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react22.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react22.useState)(false);
+    const [gameOpen, setGameOpen] = (0, import_react22.useState)(false);
+    const [shortcutsOpen, setShortcutsOpen] = (0, import_react22.useState)(false);
+    const [algoGameOpen, setAlgoGameOpen] = (0, import_react22.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react22.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react22.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react22.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
@@ -2327,11 +2463,11 @@ Available commands:
       showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
       beep(700);
     };
-    (0, import_react21.useEffect)(() => {
+    (0, import_react22.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react21.useEffect)(() => {
+    (0, import_react22.useEffect)(() => {
       const fn = (e) => {
         if (["input", "textarea", "select"].includes(document.activeElement?.tagName?.toLowerCase())) return;
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -2368,16 +2504,16 @@ Available commands:
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, [weatherMode]);
-    const repos = (0, import_react21.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react22.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react21.useMemo)(() => {
+    const articles = (0, import_react22.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react21.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const hfAssets = (0, import_react22.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -2447,7 +2583,7 @@ Available commands:
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    const counts = (0, import_react21.useMemo)(() => ({
+    const counts = (0, import_react22.useMemo)(() => ({
       all: repos.length,
       course: repos.filter((r) => r.category === "course").length,
       ml: repos.filter((r) => r.category === "ml").length,
@@ -2460,7 +2596,7 @@ Available commands:
       showToast("\u{1F4CB} Email (tahamajlesi@ut.ac.ir) copied to clipboard!");
     };
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement(GameHUDHeader, { beep }), /* @__PURE__ */ React.createElement(FloatingContactBar, { onHire: () => setHireOpen(true), onCopyEmail: handleCopyEmail, beep, showToast }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, onOpenAlgoGame: () => setAlgoGameOpen(true), beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "UI Beeps On \u{1F50A}");
       beep(600);
@@ -2482,11 +2618,11 @@ Available commands:
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
       setAiOpen(true);
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(KeyboardShortcutsModal, { open: shortcutsOpen, onClose: () => setShortcutsOpen(false) }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(KeyboardShortcutsModal, { open: shortcutsOpen, onClose: () => setShortcutsOpen(false) }), /* @__PURE__ */ React.createElement(AlgorithmGameModal, { open: algoGameOpen, onClose: () => setAlgoGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
   }
 
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react22.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react23.default.createElement(App, null));
 })();

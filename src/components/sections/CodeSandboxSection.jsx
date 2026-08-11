@@ -233,7 +233,7 @@ function IITVis({ playing, numNodes }) {
 
 /* --- Main Sandbox Component --- */
 
-export default function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
+export default function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, onOpenAlgoGame, beep }) {
   const tabs = Object.keys(CODE_TABS);
   const data = CODE_TABS[activeTab];
   const [playing, setPlaying] = useState(false);
@@ -286,12 +286,20 @@ export default function CodeSandboxSection({ activeTab, setActiveTab, runOutput,
           title="Explore Frontier Algorithms 🧪"
           sub="Adjust hyper-parameters, run ODE trajectories, and simulate CUDA warp reductions in real-time."
         />
-        <button
-          className="btn-secondary"
-          onClick={() => { setFullScreen(!fullScreen); beep?.(); }}
-          style={{ marginTop: '1rem', whiteSpace: 'nowrap' }}>
-          <i className={`fas ${fullScreen ? 'fa-compress' : 'fa-expand'}`} /> {fullScreen ? 'Exit Fullscreen' : 'Fullscreen Lab'}
-        </button>
+        <div style={{ display: 'flex', gap: '.6rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+          <button
+            className="btn-primary"
+            onClick={() => { onOpenAlgoGame?.(); beep?.(880); }}
+            style={{ whiteSpace: 'nowrap' }}>
+            <i className="fas fa-gamepad" /> Play 6-Level Algorithm Quest Game 🎮
+          </button>
+          <button
+            className="btn-secondary"
+            onClick={() => { setFullScreen(!fullScreen); beep?.(); }}
+            style={{ whiteSpace: 'nowrap' }}>
+            <i className={`fas ${fullScreen ? 'fa-compress' : 'fa-expand'}`} /> {fullScreen ? 'Exit Fullscreen' : 'Fullscreen Lab'}
+          </button>
+        </div>
       </div>
       
       <div className="sandbox-grid">
