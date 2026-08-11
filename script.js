@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // Dynamic Typewriter Effect
-  const words = ["AI Algorithms.", "Distributed Systems.", "Machine Unlearning.", "The Future."];
+  const words = [
+    "Scalable AI Systems.",
+    "Flow Matching Models.",
+    "Distributed Engines.",
+    "Trustworthy LLMs.",
+    "Open Source Tools."
+  ];
   let i = 0;
   let timer;
   
@@ -9,12 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let word = words[i].split("");
     var loopTyping = function() {
       if (word.length > 0) {
-        document.querySelector('.type-text').innerHTML += word.shift();
+        const el = document.querySelector('.type-text');
+        if (el) el.innerHTML += word.shift();
       } else {
         setTimeout(deletingEffect, 2000);
         return false;
       };
-      timer = setTimeout(loopTyping, 100);
+      timer = setTimeout(loopTyping, 90);
     };
     loopTyping();
   }
@@ -24,17 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
     var loopDeleting = function() {
       if (word.length > 0) {
         word.pop();
-        document.querySelector('.type-text').innerHTML = word.join("");
+        const el = document.querySelector('.type-text');
+        if (el) el.innerHTML = word.join("");
       } else {
         if (words.length > (i + 1)) {
           i++;
         } else {
           i = 0;
         };
-        setTimeout(typingEffect, 500);
+        setTimeout(typingEffect, 400);
         return false;
       };
-      timer = setTimeout(loopDeleting, 50);
+      timer = setTimeout(loopDeleting, 40);
     };
     loopDeleting();
   }

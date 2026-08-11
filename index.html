@@ -3,170 +3,336 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taha Majlesi | Systems & AI</title>
+  <meta name="description" content="Mohammad Taha Majlesi - Systems & AI Researcher, Computer Engineering at University of Tehran & Sharif University of Technology.">
+  <title>Mohammad Taha Majlesi | Systems & AI Researcher</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   
-  <!-- Dynamic Glowing Orbs -->
+  <!-- Dynamic Glowing Orbs & Background FX -->
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
   <div class="noise-overlay"></div>
 
+  <!-- Navigation -->
   <nav class="glass-nav">
     <div class="nav-container">
       <div class="logo">
-        <span class="gradient-text">Taha</span>.
+        <span class="gradient-text">Taha Majlesi</span>.
       </div>
       <div class="nav-links">
         <a href="#about">About</a>
-        <a href="#journey">Journey</a>
+        <a href="#experience">Experience</a>
+        <a href="#teaching">Teaching</a>
         <a href="#projects">Projects</a>
-        <a href="#contact" class="nav-btn">Let's Talk</a>
+        <a href="#publications">Research & Writing</a>
+        <a href="#contact" class="nav-btn">Contact</a>
       </div>
     </div>
   </nav>
 
   <main>
+    <!-- Hero Section -->
     <section id="about" class="hero">
       <div class="hero-content fade-in-up">
-        <div class="avatar-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.5">
+        <div class="avatar-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.4">
           <div class="avatar-glow-ring"></div>
           <img src="https://github.com/tahamajs.png" alt="Taha Majlesi" class="avatar-img">
         </div>
         
+        <div class="badge-pill">
+          <span class="pulse-dot"></span> Computer Engineering @ University of Tehran &amp; Sharif
+        </div>
+
         <h1 class="hero-title">
-          Engineering the Future of <br/>
-          <span class="gradient-text type-text"></span><span class="cursor">|</span>
+          Mohammad Taha Majlesi<br/>
+          <span class="subtitle-line">Building <span class="gradient-text type-text"></span><span class="cursor">|</span></span>
         </h1>
         
         <p class="hero-subtitle">
-          Bridging Deep Generative Modeling (Flow Matching, VAEs) & High-Performance Distributed Systems. Currently optimizing intelligent architectures at <b>Hoosha AI</b> and <b>University of Tehran</b>.
+          Working at the intersection of <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment & Reasoning</b> (GRPO, SFT), and <b>High-Performance Distributed Infrastructure</b>.
         </p>
 
-        <div class="hero-actions">
-          <a href="#projects" class="primary-btn glow-btn">Explore Work</a>
-          <div class="social-row">
-            <a href="https://github.com/tahamajs" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
-            <a href="https://x.com/hooshaaii" target="_blank" class="social-btn"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://linkedin.com/in/tahamajlesi" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="mailto:tahamajlesi@ut.ac.ir" class="social-btn"><i class="fas fa-envelope"></i></a>
-          </div>
+        <div class="social-row">
+          <a href="https://github.com/tahamajs" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://huggingface.co/tahamajs" target="_blank" class="social-btn" title="Hugging Face"><i class="fas fa-robot"></i></a>
+          <a href="https://linkedin.com/in/tahamajlesi" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://x.com/hooshaaii" target="_blank" class="social-btn" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+          <a href="mailto:tahamajlesi@ut.ac.ir" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
         </div>
       </div>
     </section>
+
+    <!-- Metrics Counter Bar -->
+    <div class="stats-bar fade-in-up">
+      <div class="stat-item">
+        <span class="stat-number">140+</span>
+        <span class="stat-label">GitHub Repositories</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">105</span>
+        <span class="stat-label">HuggingFace Models</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">71</span>
+        <span class="stat-label">Datasets Published</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">17k+</span>
+        <span class="stat-label">LinkedIn Community</span>
+      </div>
+    </div>
 
     <!-- Infinite Tech Marquee -->
     <div class="marquee-container">
       <div class="marquee-content">
-        <span>PyTorch</span> <span>•</span> <span>Go</span> <span>•</span> <span>C++</span> <span>•</span> <span>TensorFlow</span> <span>•</span> <span>CUDA</span> <span>•</span> <span>Kubernetes</span> <span>•</span> <span>Docker</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Flow Matching</span> <span>•</span> <span>LLM Alignment</span> <span>•</span>
-        <span>PyTorch</span> <span>•</span> <span>Go</span> <span>•</span> <span>C++</span> <span>•</span> <span>TensorFlow</span> <span>•</span> <span>CUDA</span> <span>•</span> <span>Kubernetes</span> <span>•</span> <span>Docker</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Flow Matching</span> <span>•</span> <span>LLM Alignment</span> <span>•</span>
+        <span>PyTorch</span> <span>•</span> <span>CUDA</span> <span>•</span> <span>Flow Matching</span> <span>•</span> <span>GRPO</span> <span>•</span> <span>C / C++</span> <span>•</span> <span>Go</span> <span>•</span> <span>Django / DRF</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Docker</span> <span>•</span> <span>xv6 Kernel</span> <span>•</span> <span>Transformers</span> <span>•</span> <span>SFML</span> <span>•</span>
+        <span>PyTorch</span> <span>•</span> <span>CUDA</span> <span>•</span> <span>Flow Matching</span> <span>•</span> <span>GRPO</span> <span>•</span> <span>C / C++</span> <span>•</span> <span>Go</span> <span>•</span> <span>Django / DRF</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Docker</span> <span>•</span> <span>xv6 Kernel</span> <span>•</span> <span>Transformers</span> <span>•</span> <span>SFML</span> <span>•</span>
       </div>
     </div>
 
-    <section id="journey" class="section">
+    <!-- Experience & Research Section -->
+    <section id="experience" class="section">
       <div class="section-header fade-in-up">
-        <h2>Professional <span class="gradient-text">Journey</span></h2>
-        <p>A timeline of my academic and professional milestones.</p>
+        <h2>Experience &amp; <span class="gradient-text">Research</span></h2>
+        <p>My academic, lab, and engineering positions.</p>
       </div>
       
       <div class="timeline-container">
         
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="5" data-tilt-scale="1.02">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
           <div class="card-glass"></div>
           <div class="timeline-meta">2023 — Present</div>
-          <h3>Systems & AI Architect</h3>
-          <h4>Hoosha AI</h4>
-          <p>Architecting the core backbone of high-performance ML models and deployment pipelines for robust, scalable intelligent systems.</p>
+          <h3>Systems &amp; AI Architect</h3>
+          <h4>Hoosha AI 🧠</h4>
+          <p>Architecting high-performance ML models, deep dives into post-training RL, continuous cognitive scaling, and sub-quadratic attention mechanisms. Authoring research articles on frontier AI topics.</p>
         </div>
 
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="5" data-tilt-scale="1.02">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
           <div class="card-glass"></div>
-          <div class="timeline-meta">2022 — Present</div>
+          <div class="timeline-meta">Jun 2025 — Oct 2025</div>
           <h3>Research Assistant</h3>
-          <h4>University of Tehran (UT)</h4>
-          <p>Leading research in Deep Generative Models, Flow Matching, DDPM Score-Based Diffusion, and Selective Amnesia Machine Unlearning in VAEs.</p>
+          <h4>Robust and Interpretable Machine Learning Lab (RIML)</h4>
+          <p>Supervised by Dr. Rohban &amp; Dr. Jafari. Conducted experiments on shortcut learning mitigation, inductive biases in neural networks, and task arithmetic.</p>
         </div>
 
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="5" data-tilt-scale="1.02">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
           <div class="card-glass"></div>
-          <div class="timeline-meta">2024 — Present</div>
-          <h3>Core Developer</h3>
-          <h4>Kaleido Distributed Engine</h4>
-          <p>Building a first-principles distributed LLM training engine optimizing tensor, pipeline, and data parallelism across multi-GPU environments.</p>
+          <div class="timeline-meta">Jul 2025 — Nov 2025</div>
+          <h3>Research Assistant</h3>
+          <h4>Tehran Institute for Advanced Studies (TeIAS)</h4>
+          <p>Full-time research focusing on quantitative machine learning research, structural optimization, and representation safety.</p>
+        </div>
+
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+          <div class="card-glass"></div>
+          <div class="timeline-meta">Jul 2023 — Dec 2023</div>
+          <h3>Django Software Engineer Intern</h3>
+          <h4>Quera</h4>
+          <p>Engineered production-grade web systems using Django, DRF, PostgreSQL, Celery, and Docker. Implemented OAuth permissions, ORM queries, caching, and CI/CD pipelines.</p>
         </div>
 
       </div>
     </section>
 
+    <!-- Teaching Assistantships Section -->
+    <section id="teaching" class="section">
+      <div class="section-header fade-in-up">
+        <h2>Academic <span class="gradient-text">Teaching Assistantships</span></h2>
+        <p>Mentoring students across University of Tehran &amp; Sharif University of Technology.</p>
+      </div>
+
+      <div class="ta-grid">
+        <div class="ta-card fade-in-up">
+          <div class="ta-badge">Sharif University</div>
+          <h3>Compiler Programming</h3>
+          <p>Supervising hybrid compiler construction labs and code generation tasks.</p>
+          <span class="ta-date">Oct 2025 — Present</span>
+        </div>
+
+        <div class="ta-card fade-in-up">
+          <div class="ta-badge">University of Tehran</div>
+          <h3>Machine Learning (M.Sc. Level)</h3>
+          <p>Course under Dr. Aboalghasemi &amp; Dr. Arrabi covering advanced statistical learning &amp; neural architectures.</p>
+          <span class="ta-date">Sep 2025 — Oct 2025</span>
+        </div>
+
+        <div class="ta-card fade-in-up">
+          <div class="ta-badge">University of Tehran</div>
+          <h3>Artificial Intelligence</h3>
+          <p>Under Prof. Yaghoob Zadeh &amp; Dr. Fadaei. Guiding students in search algorithms &amp; RL.</p>
+          <span class="ta-date">Oct 2025 — Apr 2026</span>
+        </div>
+
+        <div class="ta-card fade-in-up">
+          <div class="ta-badge">University of Tehran</div>
+          <h3>Advanced Programming</h3>
+          <p>Under Prof. Ramtin Khosravi. Teaching OOP principles, C++, and memory safety.</p>
+          <span class="ta-date">Sep 2024 — Feb 2026</span>
+        </div>
+
+        <div class="ta-card fade-in-up">
+          <div class="ta-badge">University of Tehran</div>
+          <h3>Fundamentals of Programming</h3>
+          <p>Under Prof. Mohammad Javad Dousti. Mentoring core C programming &amp; data structures.</p>
+          <span class="ta-date">Mar 2024 — Jul 2026</span>
+        </div>
+
+        <div class="ta-card fade-in-up">
+          <div class="ta-badge">University of Tehran</div>
+          <h3>Intro to Computing Systems</h3>
+          <p>Under Prof. Moradi &amp; Prof. Hashemi. Teaching assembly &amp; low-level computer architecture.</p>
+          <span class="ta-date">Sep 2024 — Jan 2025</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Projects Section -->
     <section id="projects" class="section">
       <div class="section-header fade-in-up">
-        <h2>Selected <span class="gradient-text">Projects</span></h2>
-        <p>Featured open-source research and engineering architectures.</p>
+        <h2>Featured <span class="gradient-text">Open Source Projects</span></h2>
+        <p>Systems engineering, LLMs, kernels, and machine learning software.</p>
       </div>
       
       <div class="bento-grid">
         
-        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item bento-wide fade-in-up" data-tilt data-tilt-max="3" data-tilt-glare data-tilt-max-glare="0.2">
+        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item bento-wide fade-in-up" data-tilt data-tilt-max="3">
           <div class="bento-inner">
-            <i class="fas fa-microchip bento-icon"></i>
-            <h3>LLM Reasoning & Alignment (GRPO)</h3>
-            <p>Group Relative Policy Optimization (GRPO) and Supervised Fine-Tuning strategies for small-scale math reasoning models.</p>
-            <div class="bento-tags"><span class="tag">GRPO</span><span class="tag">Transformers</span><span class="tag">PyTorch</span></div>
+            <div class="project-tag">LLM Alignment</div>
+            <h3>4B LLM Reasoning with GRPO &amp; SFT</h3>
+            <p>Fine-tuning 4B language models on GSM8k using Group Relative Policy Optimization (GRPO) and Supervised Fine-Tuning for complex mathematical reasoning.</p>
+            <div class="bento-tags"><span class="tag">GRPO</span><span class="tag">GSM8k</span><span class="tag">PyTorch</span><span class="tag">SFT</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/Kaleido" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+        <a href="https://github.com/tahamajs/Kaleido" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <i class="fas fa-server bento-icon"></i>
-            <h3>Kaleido Engine</h3>
-            <p>Distributed LLM training optimizing parallelism across GPU nodes.</p>
-            <div class="bento-tags"><span class="tag">CUDA</span><span class="tag">C++</span></div>
+            <div class="project-tag">Distributed Systems</div>
+            <h3>Kaleido LLM Engine</h3>
+            <p>First-principles distributed training framework supporting tensor, pipeline, and data parallelism across GPU nodes.</p>
+            <div class="bento-tags"><span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">Distributed</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+        <a href="https://github.com/tahamajs/Course-Selection-System_Project" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <i class="fas fa-brain bento-icon"></i>
-            <h3>Generative AI</h3>
-            <p>Continuous probability paths and Score-Based Diffusion (DDPM).</p>
-            <div class="bento-tags"><span class="tag">Flow Matching</span></div>
+            <div class="project-tag">Full-Stack Backend</div>
+            <h3>Course Selection System</h3>
+            <p>Enterprise university registration system built with Django REST Framework, PostgreSQL, Docker, MinIO object storage, and Nginx.</p>
+            <div class="bento-tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-tilt data-tilt-max="3" data-tilt-glare data-tilt-max-glare="0.2">
+        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item bento-wide fade-in-up" data-tilt data-tilt-max="3">
           <div class="bento-inner">
-            <i class="fas fa-terminal bento-icon"></i>
-            <h3>xv6 Kernel Architecture</h3>
-            <p>Developing custom process schedulers, memory management, and system calls in the xv6 Unix Operating System entirely in C.</p>
+            <div class="project-tag">Generative AI</div>
+            <h3>Deep Generative Models Suite</h3>
+            <p>Implementations of continuous probability paths, Flow Matching, Score-Based Diffusion (DDPM), and VAE selective amnesia machine unlearning.</p>
+            <div class="bento-tags"><span class="tag">Flow Matching</span><span class="tag">DDPM</span><span class="tag">Unlearning</span><span class="tag">VAEs</span></div>
+          </div>
+        </a>
+
+        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag">Kernel Programming</div>
+            <h3>xv6 Unix Kernel Architecture</h3>
+            <p>Custom process schedulers, virtual memory management, and system calls implemented inside the xv6 Unix kernel in C.</p>
             <div class="bento-tags"><span class="tag">C</span><span class="tag">Unix Kernel</span><span class="tag">OS</span></div>
           </div>
         </a>
 
-      </div>
-      
-      <div class="center-btn-wrapper fade-in-up">
-        <a href="https://github.com/tahamajs" target="_blank" class="secondary-btn">View All 140+ Repositories <i class="fas fa-external-link-alt"></i></a>
+        <a href="https://github.com/tahamajs/Turtix_Game" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag">Game Engine</div>
+            <h3>Turtix 2D Engine (SFML)</h3>
+            <p>Custom 2D platformer engine built in C++ featuring custom physics, dynamic level editor, particle effects, and OOP architecture.</p>
+            <div class="bento-tags"><span class="tag">C++</span><span class="tag">SFML</span><span class="tag">Game Dev</span></div>
+          </div>
+        </a>
+
       </div>
     </section>
 
+    <!-- Research Publications & Articles (Hoosha AI Substack) -->
+    <section id="publications" class="section">
+      <div class="section-header fade-in-up">
+        <h2>Research Papers &amp; <span class="gradient-text">Deep Dives</span></h2>
+        <p>Articles published on Hoosha AI analyzing cognitive scaling, consciousness, and AI alignment.</p>
+      </div>
+
+      <div class="articles-grid">
+        <div class="article-card fade-in-up">
+          <div class="article-tag">Cognitive Scaling</div>
+          <h3>The Cognitive Scaling Paradigm: Unifying Pre-Training &amp; Inference Algorithms</h3>
+          <p>Exploring how post-training reinforcement learning and inference-time search redefine traditional static pre-training scaling laws.</p>
+        </div>
+
+        <div class="article-card fade-in-up">
+          <div class="article-tag">Synthetic Consciousness</div>
+          <h3>Building Synthetic Consciousness with Integrated Information Theory &amp; GWT</h3>
+          <p>Mathematical framework for System-2 cognitive refinement, Global Workspace Theory, and consciousness verification in neural architectures.</p>
+        </div>
+
+        <div class="article-card fade-in-up">
+          <div class="article-tag">AI Safety</div>
+          <h3>Implementing Grounded Causal Verification to Prevent Epistemic Collapse</h3>
+          <p>Addressing the risks of recursive self-improvement in LLMs by introducing grounded causal verification mechanisms.</p>
+        </div>
+
+        <div class="article-card fade-in-up">
+          <div class="article-tag">Sub-Quadratic Attention</div>
+          <h3>The Post-Transformer Era: Deep Dive into Linear Attention &amp; LinRec</h3>
+          <p>Breaking the quadratic bottleneck in long-context models using sub-quadratic sequence architectures and linear transformers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="section">
+      <div class="section-header fade-in-up">
+        <h2>Certifications &amp; <span class="gradient-text">Specializations</span></h2>
+      </div>
+      <div class="cert-grid fade-in-up">
+        <div class="cert-card">
+          <i class="fas fa-certificate cert-icon"></i>
+          <div>
+            <h4>MLOps | Machine Learning Operations Specialization</h4>
+            <span>Duke University Pratt School of Engineering</span>
+          </div>
+        </div>
+        <div class="cert-card">
+          <i class="fas fa-certificate cert-icon"></i>
+          <div>
+            <h4>Data Analyst Career Guide &amp; Interview Prep</h4>
+            <span>IBM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
     <section id="contact" class="section contact-section fade-in-up">
       <div class="contact-glass">
-        <h2>Ready to innovate?</h2>
-        <p>I'm always open to discussing research collaborations and new opportunities.</p>
-        <a href="mailto:tahamajlesi@ut.ac.ir" class="primary-btn glow-btn">Get In Touch</a>
+        <h2>Let's Build The Future.</h2>
+        <p>Open for research collaborations, graduate studies discussions, and high-impact engineering projects.</p>
+        <div class="contact-buttons">
+          <a href="mailto:tahamajlesi@ut.ac.ir" class="primary-btn glow-btn">Send Email <i class="fas fa-paper-plane"></i></a>
+          <a href="https://huggingface.co/tahamajs" target="_blank" class="secondary-btn">Explore HuggingFace (105 Models)</a>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 Taha Majlesi. Engineered with passion and precision.</p>
+    <p>&copy; 2026 Mohammad Taha Majlesi. Designed &amp; Engineered with extreme precision.</p>
   </footer>
 
-  <!-- Vanilla Tilt JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
   <script src="script.js"></script>
 </body>
