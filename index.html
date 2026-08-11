@@ -6,11 +6,19 @@
   <meta name="description" content="Mohammad Taha Majlesi - AI Researcher & Systems Engineer. Co-Founder & AI Architect at Hoosha AI. University of Tehran & Sharif University.">
   <title>Taha Majlesi | AI Lab &amp; Systems Field Notes</title>
   
+  <!-- Defensive Global Polyfill for splitlines -->
+  <script>
+    if (!String.prototype.splitlines) {
+      String.prototype.splitlines = function() { return this.split(/?
+/); };
+    }
+  </script>
+
   <!-- Geist & Space Grotesk Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=60.0">
+  <link rel="stylesheet" href="style.css?v=70.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- KaTeX for LaTeX Math Formulas -->
