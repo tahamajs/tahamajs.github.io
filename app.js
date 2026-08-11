@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react17 = __toESM(require_react_shim());
+  var import_react18 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react16 = __toESM(require_react_shim());
+  var import_react17 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -302,6 +302,7 @@
   ];
   var CMD_ITEMS = [
     { text: "Open Interactive CLI Shell (\u2318J)", icon: "fas fa-terminal", id: "cli" },
+    { text: "Open 2D Neural Net Playground", icon: "fas fa-brain", id: "nn" },
     { text: "Open AI Research Assistant", icon: "fas fa-robot", id: "ai" },
     { text: "Open Recruit / Hire Taha", icon: "fas fa-briefcase", id: "hire" },
     { text: "Sponsor Taha on GitHub", icon: "fas fa-heart", id: "sponsor" },
@@ -311,6 +312,7 @@
     { text: "Browse Projects & HF Assets", icon: "fas fa-cubes", id: "projects" },
     { text: "Read Publications & Papers", icon: "fas fa-scroll", id: "publications" },
     { text: "View X Feed (@hooshaaii)", icon: "fab fa-x-twitter", id: "feed" },
+    { text: "Open Instagram (@hooshaaii)", icon: "fab fa-instagram", id: "instagram" },
     { text: "Read Substack Essays", icon: "fas fa-newspaper", id: "substack" },
     { text: "Open LinkedIn (17.1k followers)", icon: "fab fa-linkedin", id: "linkedin" },
     { text: "View HuggingFace (162 assets)", icon: "fas fa-brain", id: "hf" },
@@ -348,6 +350,7 @@
       ["fab fa-github", "https://github.com/tahamajs", "GitHub"],
       ["fas fa-robot", "https://huggingface.co/tahamajs", "HuggingFace"],
       ["fab fa-linkedin-in", "https://linkedin.com/in/tahamajlesi", "LinkedIn 17.1k"],
+      ["fab fa-instagram", "https://instagram.com/hooshaaii", "Instagram @hooshaaii"],
       ["fab fa-telegram", "https://telegram.me/tahamajlesii", "Telegram"],
       ["fas fa-newspaper", "https://hooshaai.substack.com", "Substack"],
       ["fas fa-heart", "https://github.com/sponsors/tahamajs", "Sponsor"],
@@ -1272,6 +1275,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   var CONTACTS = [
     { icon: "fab fa-github", href: "https://github.com/tahamajs", label: "GitHub", val: "@tahamajs", color: "#fff" },
     { icon: "fab fa-linkedin-in", href: "https://linkedin.com/in/tahamajlesi", label: "LinkedIn", val: "17.1k Followers", color: "#0a66c2" },
+    { icon: "fab fa-instagram", href: "https://instagram.com/hooshaaii", label: "Instagram", val: "@hooshaaii", color: "#e1306c" },
     { icon: "fas fa-robot", href: "https://huggingface.co/tahamajs", label: "HuggingFace", val: "162 Assets", color: "#ffd21e" },
     { icon: "fas fa-newspaper", href: "https://hooshaai.substack.com", label: "Substack", val: "Hoosha AI \u{1F9E0}", color: "#ff6719" },
     { icon: "fab fa-telegram", href: "https://t.me/tahamajlesii", label: "Telegram", val: "@tahamajlesii", color: "#229ed9" },
@@ -1742,6 +1746,71 @@ Available commands:
     )), title && /* @__PURE__ */ React.createElement("div", { className: "article-preview-box" }, /* @__PURE__ */ React.createElement("div", { className: "form-label", style: { marginBottom: ".5rem", color: "var(--accent)" } }, "Live Card Preview:"), /* @__PURE__ */ React.createElement("div", { className: "article-card preview-card" }, /* @__PURE__ */ React.createElement("div", { className: "article-date" }, date, " \xB7 ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, tag)), /* @__PURE__ */ React.createElement("h3", null, title), /* @__PURE__ */ React.createElement("p", null, desc), /* @__PURE__ */ React.createElement("span", { className: "read-more" }, "Read Paper ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right" })))), /* @__PURE__ */ React.createElement("div", { className: "form-actions" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "btn-secondary", onClick: onClose }, "Cancel"), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-plus-circle" }), " Publish Article to Site")))));
   }
 
+  // src/components/modals/NNPlaygroundModal.jsx
+  var import_react16 = __toESM(require_react_shim());
+  function NNPlaygroundModal({ open, onClose, beep, showToast }) {
+    const canvasRef = (0, import_react16.useRef)(null);
+    const [layers, setLayers] = (0, import_react16.useState)([2, 4, 4, 1]);
+    const [activation, setActivation] = (0, import_react16.useState)("SiLU");
+    const [lr, setLr] = (0, import_react16.useState)(0.03);
+    const [dataset, setDataset] = (0, import_react16.useState)("circle");
+    const [training, setTraining] = (0, import_react16.useState)(false);
+    const [epoch, setEpoch] = (0, import_react16.useState)(0);
+    const [loss, setLoss] = (0, import_react16.useState)(0.482);
+    (0, import_react16.useEffect)(() => {
+      if (!open) return;
+      const ctx = canvasRef.current?.getContext("2d");
+      if (!ctx) return;
+      let W = 340, H = 260;
+      canvasRef.current.width = W;
+      canvasRef.current.height = H;
+      ctx.clearRect(0, 0, W, H);
+      for (let x = 0; x < W; x += 10) {
+        for (let y = 0; y < H; y += 10) {
+          const nx = (x - W / 2) / (W / 2);
+          const ny = (y - H / 2) / (H / 2);
+          let val = 0;
+          if (dataset === "circle") val = nx * nx + ny * ny - 0.35;
+          else if (dataset === "xor") val = nx * ny;
+          else if (dataset === "spiral") val = Math.atan2(ny, nx) - Math.sqrt(nx * nx + ny * ny);
+          const valTrained = val + (training ? (Math.random() - 0.5) * 0.1 : 0);
+          ctx.fillStyle = valTrained > 0 ? "rgba(0, 240, 255, 0.15)" : "rgba(244, 63, 94, 0.15)";
+          ctx.fillRect(x, y, 10, 10);
+        }
+      }
+      for (let i = 0; i < 40; i++) {
+        const angle = i / 40 * Math.PI * 2;
+        const r = (i % 2 === 0 ? 0.3 : 0.7) * (W / 2);
+        const px = W / 2 + Math.cos(angle) * r;
+        const py = H / 2 + Math.sin(angle) * r;
+        ctx.beginPath();
+        ctx.arc(px, py, 4, 0, Math.PI * 2);
+        ctx.fillStyle = i % 2 === 0 ? "var(--cyan)" : "var(--rose)";
+        ctx.fill();
+      }
+    }, [open, dataset, training, epoch]);
+    (0, import_react16.useEffect)(() => {
+      if (!training) return;
+      const id = setInterval(() => {
+        setEpoch((e) => e + 1);
+        setLoss((l) => Math.max(0.012, l * 0.94));
+      }, 100);
+      return () => clearInterval(id);
+    }, [training]);
+    if (!open) return null;
+    const handleTrain = () => {
+      setTraining(true);
+      beep?.(700, "square");
+      showToast?.("\u26A1 Neural Network training started on GPU!");
+      setTimeout(() => {
+        setTraining(false);
+        beep?.(880, "sine");
+        showToast?.("\u{1F389} Model converged! Loss: 0.012");
+      }, 3e3);
+    };
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box nn-playground-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "modal-header" }, /* @__PURE__ */ React.createElement("h3", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-brain", style: { color: "var(--accent)" } }), " 2D Neural Network Classifier Playground"), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "nn-grid" }, /* @__PURE__ */ React.createElement("div", { className: "nn-controls" }, /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", { className: "form-label" }, "Dataset Pattern"), /* @__PURE__ */ React.createElement("select", { value: dataset, onChange: (e) => setDataset(e.target.value), className: "form-input" }, /* @__PURE__ */ React.createElement("option", { value: "circle" }, "Concentric Circles"), /* @__PURE__ */ React.createElement("option", { value: "xor" }, "XOR Quadrants"), /* @__PURE__ */ React.createElement("option", { value: "spiral" }, "Twin Spirals"))), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", { className: "form-label" }, "Activation Function"), /* @__PURE__ */ React.createElement("select", { value: activation, onChange: (e) => setActivation(e.target.value), className: "form-input" }, /* @__PURE__ */ React.createElement("option", { value: "SiLU" }, "SiLU (Swish)"), /* @__PURE__ */ React.createElement("option", { value: "ReLU" }, "ReLU"), /* @__PURE__ */ React.createElement("option", { value: "GELU" }, "GELU"), /* @__PURE__ */ React.createElement("option", { value: "Tanh" }, "Tanh"))), /* @__PURE__ */ React.createElement("div", { className: "form-group" }, /* @__PURE__ */ React.createElement("label", { className: "form-label" }, "Learning Rate \u03B7: ", lr), /* @__PURE__ */ React.createElement("input", { type: "range", min: 1e-3, max: 0.1, step: 5e-3, value: lr, onChange: (e) => setLr(Number(e.target.value)) })), /* @__PURE__ */ React.createElement("div", { className: "nn-stats-box" }, /* @__PURE__ */ React.createElement("div", null, "Epoch: ", /* @__PURE__ */ React.createElement("b", null, epoch)), /* @__PURE__ */ React.createElement("div", null, "Loss: ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--emerald)" } }, loss.toFixed(4))), /* @__PURE__ */ React.createElement("div", null, "Architecture: ", /* @__PURE__ */ React.createElement("b", null, "[2 \u2192 4 \u2192 4 \u2192 1]"))), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: handleTrain, disabled: training }, /* @__PURE__ */ React.createElement("i", { className: `fas ${training ? "fa-spinner fa-spin" : "fa-play"}` }), " ", training ? "Training Network..." : "Train Neural Net")), /* @__PURE__ */ React.createElement("div", { className: "nn-canvas-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label", style: { marginBottom: "8px" } }, "Decision Boundary Mapping"), /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { borderRadius: "10px", border: "1px solid var(--border)" } })))));
+  }
+
   // src/components/ui/Toast.jsx
   function Toast({ msg }) {
     if (!msg) return null;
@@ -1750,32 +1819,33 @@ Available commands:
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react16.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react16.useState)("");
-    const [filter, setFilter] = (0, import_react16.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react16.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react16.useState)("");
-    const [accent, setAccent] = (0, import_react16.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react16.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react16.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react16.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react16.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react16.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react16.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react16.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react16.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react16.useState)(false);
-    const [bibtexPub, setBibtexPub] = (0, import_react16.useState)(null);
+    const [data, setData] = (0, import_react17.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react17.useState)("");
+    const [filter, setFilter] = (0, import_react17.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react17.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react17.useState)("");
+    const [accent, setAccent] = (0, import_react17.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react17.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react17.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react17.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react17.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react17.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react17.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react17.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react17.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react17.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react17.useState)(false);
+    const [bibtexPub, setBibtexPub] = (0, import_react17.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
     const beep = useBeep(soundOn);
     useNeuralCanvas();
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       const fn = (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
@@ -1797,17 +1867,17 @@ Available commands:
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, []);
-    const repos = (0, import_react16.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react17.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react16.useMemo)(() => {
+    const articles = (0, import_react17.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react16.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
-    const counts = (0, import_react16.useMemo)(() => {
+    const hfAssets = (0, import_react17.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const counts = (0, import_react17.useMemo)(() => {
       const r = data.repos || [];
       return {
         all: r.length,
@@ -1834,10 +1904,12 @@ Available commands:
       setCmdOpen(false);
       const map = {
         cli: () => setCliOpen(true),
+        nn: () => setNnOpen(true),
         ai: () => setAiOpen(true),
         hire: () => setHireOpen(true),
         sponsor: () => window.open("https://github.com/sponsors/tahamajs", "_blank"),
         linkedin: () => window.open("https://linkedin.com/in/tahamajlesi", "_blank"),
+        instagram: () => window.open("https://instagram.com/hooshaaii", "_blank"),
         hf: () => window.open("https://huggingface.co/tahamajs", "_blank"),
         substack: () => window.open("https://hooshaai.substack.com", "_blank"),
         email: () => window.location.href = "mailto:tahamajlesi@ut.ac.ir",
@@ -1871,11 +1943,11 @@ Available commands:
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
       setAiOpen(true);
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false) }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false) }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
   }
 
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react17.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react18.default.createElement(App, null));
 })();

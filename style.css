@@ -563,3 +563,11 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .ctrl-group label{font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
 .ctrl-group select, .ctrl-group input[type="range"]{background:var(--bg2);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:.78rem;padding:.3rem .5rem;border-radius:6px;outline:none;}
 .sandbox-fullscreen-mode{position:fixed;inset:0;z-index:2000;background:var(--bg);padding:2rem;overflow-y:auto;}
+
+/* ── 2D Neural Network Classifier Playground Modal ── */
+.nn-playground-box{max-width:720px;width:90%;}
+.nn-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.2rem;}
+@media(max-width:700px){.nn-grid{grid-template-columns:1fr;}}
+.nn-controls{display:flex;flex-direction:column;gap:1rem;}
+.nn-stats-box{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:10px;padding:.8rem;font-size:.8rem;font-family:'JetBrains Mono',monospace;display:flex;flex-direction:column;gap:.3rem;}
+.nn-canvas-container{display:flex;flex-direction:column;align-items:center;}

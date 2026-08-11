@@ -60,6 +60,7 @@ export const CONSTELLATION = [
 
 export const CMD_ITEMS = [
   { text:'Open Interactive CLI Shell (⌘J)',    icon:'fas fa-terminal',        id:'cli' },
+  { text:'Open 2D Neural Net Playground',     icon:'fas fa-brain',           id:'nn' },
   { text:'Open AI Research Assistant',         icon:'fas fa-robot',           id:'ai' },
   { text:'Open Recruit / Hire Taha',            icon:'fas fa-briefcase',       id:'hire' },
   { text:'Sponsor Taha on GitHub',              icon:'fas fa-heart',           id:'sponsor' },
@@ -69,6 +70,7 @@ export const CMD_ITEMS = [
   { text:'Browse Projects & HF Assets',        icon:'fas fa-cubes',           id:'projects' },
   { text:'Read Publications & Papers',          icon:'fas fa-scroll',          id:'publications' },
   { text:'View X Feed (@hooshaaii)',           icon:'fab fa-x-twitter',       id:'feed' },
+  { text:'Open Instagram (@hooshaaii)',        icon:'fab fa-instagram',       id:'instagram' },
   { text:'Read Substack Essays',                icon:'fas fa-newspaper',       id:'substack' },
   { text:'Open LinkedIn (17.1k followers)',     icon:'fab fa-linkedin',        id:'linkedin' },
   { text:'View HuggingFace (162 assets)',       icon:'fas fa-brain',           id:'hf' },

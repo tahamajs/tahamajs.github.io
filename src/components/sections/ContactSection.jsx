@@ -5,6 +5,7 @@ import SectionHead from '../ui/SectionHead.jsx';
 const CONTACTS = [
   { icon: 'fab fa-github',        href: 'https://github.com/tahamajs',          label: 'GitHub',          val: '@tahamajs',         color: '#fff' },
   { icon: 'fab fa-linkedin-in',   href: 'https://linkedin.com/in/tahamajlesi',  label: 'LinkedIn',        val: '17.1k Followers',   color: '#0a66c2' },
+  { icon: 'fab fa-instagram',     href: 'https://instagram.com/hooshaaii',      label: 'Instagram',       val: '@hooshaaii',        color: '#e1306c' },
   { icon: 'fas fa-robot',         href: 'https://huggingface.co/tahamajs',      label: 'HuggingFace',     val: '162 Assets',        color: '#ffd21e' },
   { icon: 'fas fa-newspaper',     href: 'https://hooshaai.substack.com',        label: 'Substack',        val: 'Hoosha AI 🧠',       color: '#ff6719' },
   { icon: 'fab fa-telegram',      href: 'https://t.me/tahamajlesii',             label: 'Telegram',        val: '@tahamajlesii',     color: '#229ed9' },

@@ -27,6 +27,7 @@ import HireModal from './components/modals/HireModal.jsx';
 import CommandPalette from './components/modals/CommandPalette.jsx';
 import TerminalModal from './components/modals/TerminalModal.jsx';
 import ArticleCreatorModal from './components/modals/ArticleCreatorModal.jsx';
+import NNPlaygroundModal from './components/modals/NNPlaygroundModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -50,6 +51,7 @@ export default function App() {
   const [cmdOpen, setCmdOpen] = useState(false);
   const [hireOpen, setHireOpen] = useState(false);
   const [cliOpen, setCliOpen] = useState(false);
+  const [nnOpen, setNnOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [bibtexPub, setBibtexPub] = useState(null);
 
@@ -110,10 +112,12 @@ export default function App() {
     setCmdOpen(false);
     const map = {
       cli: () => setCliOpen(true),
+      nn: () => setNnOpen(true),
       ai: () => setAiOpen(true),
       hire: () => setHireOpen(true),
       sponsor: () => window.open('https://github.com/sponsors/tahamajs', '_blank'),
       linkedin: () => window.open('https://linkedin.com/in/tahamajlesi', '_blank'),
+      instagram: () => window.open('https://instagram.com/hooshaaii', '_blank'),
       hf: () => window.open('https://huggingface.co/tahamajs', '_blank'),
       substack: () => window.open('https://hooshaai.substack.com', '_blank'),
       email: () => window.location.href = 'mailto:tahamajlesi@ut.ac.ir',
@@ -190,6 +194,7 @@ export default function App() {
       <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} onCmd={handleCmd} />
       <TerminalModal open={cliOpen} onClose={() => setCliOpen(false)} beep={beep} />
       <ArticleCreatorModal open={articleModalOpen} onClose={() => setArticleModalOpen(false)} onAddArticle={handleAddArticle} beep={beep} showToast={showToast} />
+      <NNPlaygroundModal open={nnOpen} onClose={() => setNnOpen(false)} beep={beep} showToast={showToast} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>
