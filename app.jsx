@@ -11,7 +11,6 @@ function App() {
   const [aiModalOpen, setAiModalOpen] = useState(false);
   const [cmdModalOpen, setCmdModalOpen] = useState(false);
   const [hireModalOpen, setHireModalOpen] = useState(false);
-  const [selectedRepoModal, setSelectedRepoModal] = useState(null);
 
   // Chat state
   const [aiMessages, setAiMessages] = useState([
@@ -76,7 +75,6 @@ function App() {
         setCmdModalOpen(false);
         setAiModalOpen(false);
         setHireModalOpen(false);
-        setSelectedRepoModal(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -198,6 +196,14 @@ function App() {
     triggerToast('BibTeX citation copied to clipboard! 📄');
   };
 
+  const achievements = [
+    { icon: 'fa-trophy', title: 'Top 1% Global Commit Streak', desc: '12,787 verified commits in the past year across 143 open-source repositories.' },
+    { icon: 'fa-award', title: 'GitHub Developer Program Pro Member', desc: 'Recognized for prolific open-source contributions and active infrastructure tooling.' },
+    { icon: 'fa-cubes', title: '162 HuggingFace Open Science Assets', desc: 'Published 92 pre-trained model weights & 70 open synthetic evaluation datasets.' },
+    { icon: 'fa-university', title: 'Sharif & University of Tehran TA', desc: 'Supervised 500+ students across Compiler Construction, ML (M.Sc.), AI, and C++.' },
+    { icon: 'fa-newspaper', title: '20 Substack Research Publications', desc: 'Authored 20 deep-dive papers on Flow Matching, GRPO, IIT Consciousness, and Linear Attention.' }
+  ];
+
   return (
     <div>
       {/* Toast Notification */}
@@ -253,7 +259,7 @@ function App() {
           <div className="ai-chat-box" onClick={e => e.stopPropagation()}>
             <div className="ai-chat-header">
               <div className="ai-title-row">
-                <div className="ai-avatar-dot"><i class="fas fa-robot"></i></div>
+                <div className="ai-avatar-dot"><i className="fas fa-robot"></i></div>
                 <div>
                   <h3>Taha's AI Research Assistant 🧠</h3>
                   <span className="ai-subtitle">Ask about Hoosha AI research, Flow Matching, GRPO, or UT/Sharif courses</span>
@@ -298,7 +304,7 @@ function App() {
               <i className="fas fa-search"></i>
               <input
                 type="text"
-                placeholder="Type a command (e.g. 'recruit', 'resume', 'substack', 'huggingface')..."
+                placeholder="Type a command (e.g. 'recruit', 'achievements', 'resume', 'substack')..."
                 autoFocus
               />
               <span className="cmd-esc" onClick={() => setCmdModalOpen(false)}>ESC</span>
@@ -350,6 +356,7 @@ function App() {
           <div className="logo"><span className="gradient-text">Taha Majlesi</span>.</div>
           <div className="nav-links">
             <a href="#about">About</a>
+            <a href="#achievements">Achievements</a>
             <a href="#recruitment">Why Hire?</a>
             <a href="#publications">Publications</a>
             <a href="#architecture">Architecture</a>
@@ -418,6 +425,24 @@ function App() {
           <div className="stat-item"><span className="stat-number">17.1k</span><span className="stat-label">LinkedIn Community</span></div>
         </div>
 
+        {/* Honors & Key Achievements Section */}
+        <section id="achievements" className="section">
+          <div className="section-header fade-in-up">
+            <h2>Honors &amp; Key <span class="gradient-text">Achievements</span></h2>
+            <p>Major technical milestones, academic distinctions, and open-source impact.</p>
+          </div>
+
+          <div className="recruitment-grid fade-in-up">
+            {achievements.map((ach, idx) => (
+              <div key={idx} className="recruit-card">
+                <div className="recruit-icon"><i className={`fas ${ach.icon}`}></i></div>
+                <h3>{ach.title}</h3>
+                <p>{ach.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Why Hire Taha */}
         <section id="recruitment" className="section">
           <div className="section-header fade-in-up">
@@ -473,7 +498,7 @@ function App() {
             <div className="pub-card">
               <div className="pub-badge">Research Paper • 2026</div>
               <h3 className="pub-title"><a href="https://hooshaai.substack.com/p/implementing-grounded-causal-verification" target="_blank">Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems</a></h3>
-              <p class="pub-authors"><u>Mohammad Taha Majlesi</u>, Hoosha AI Lab</p>
+              <p className="pub-authors"><u>Mohammad Taha Majlesi</u>, Hoosha AI Lab</p>
               <p className="pub-venue">Frontiers in AI Alignment &amp; Reasoning 2026</p>
               <p className="pub-abstract">A formal mathematical framework introducing grounded causal verification to constrain self-improving LLMs, preventing recursive hallucination loops and epistemic degradation.</p>
               <div className="pub-links">
