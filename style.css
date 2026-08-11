@@ -1,10 +1,14 @@
 :root {
-  --bg-dark: #030305;
+  --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Geist', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+  
+  --bg-dark: #0d0f12;
   --text-light: #ffffff;
   --text-gray: #a1a1aa;
   --border-color: rgba(255, 255, 255, 0.08);
-  --glass-bg: rgba(15, 15, 20, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(18, 22, 30, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --cyan: #00f0ff;
   --purple: #8a2be2;
   --blue: #0047ff;
