@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mohammad Taha Majlesi - Co-Founder & Systems/AI Architect at Hoosha AI, Computer Engineering at University of Tehran & Sharif University.">
   <title>Mohammad Taha Majlesi | Co-Founder & Systems/AI Architect</title>
-  <link rel="stylesheet" href="style.css?v=17.0">
+  <link rel="stylesheet" href="style.css?v=21.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -30,6 +30,46 @@
   <!-- Back To Top Button -->
   <button id="back-to-top" class="back-to-top-btn" title="Back to top"><i class="fas fa-arrow-up"></i></button>
 
+  <!-- AI Avatar Assistant Floating Button -->
+  <button id="ai-chat-btn" class="ai-chat-fab" title="Ask Taha's AI Avatar">
+    <i class="fas fa-brain"></i>
+    <span class="ai-fab-label">Ask AI</span>
+  </button>
+
+  <!-- AI Avatar Assistant Modal -->
+  <div id="ai-chat-modal" class="modal-overlay">
+    <div class="ai-chat-box">
+      <div class="ai-chat-header">
+        <div class="ai-title-row">
+          <div class="ai-avatar-dot"><i class="fas fa-robot"></i></div>
+          <div>
+            <h3>Taha's AI Research Assistant 🧠</h3>
+            <span class="ai-subtitle">Ask anything about Hoosha AI, Flow Matching, GRPO, or UT/Sharif courses</span>
+          </div>
+        </div>
+        <span class="cmd-esc" id="close-ai-chat">ESC</span>
+      </div>
+
+      <div class="ai-chat-body" id="ai-chat-body">
+        <div class="chat-msg bot-msg">
+          👋 Hello! I am Taha Majlesi's AI assistant. Ask me about <b>Hoosha AI 🧠</b>, <b>Flow Matching</b>, <b>GRPO Fine-Tuning</b>, <b>Kaleido Engine</b>, or his <b>University of Tehran &amp; Sharif</b> coursework!
+        </div>
+      </div>
+
+      <div class="ai-quick-prompts">
+        <button class="quick-prompt-btn" data-query="What is Hoosha AI?">🧠 What is Hoosha AI?</button>
+        <button class="quick-prompt-btn" data-query="Tell me about Flow Matching & GRPO">🎨 Flow Matching &amp; GRPO</button>
+        <button class="quick-prompt-btn" data-query="What courses does Taha teach?">🎓 Sharif &amp; UT Teaching</button>
+        <button class="quick-prompt-btn" data-query="How can I contact Taha?">📧 Contact Info</button>
+      </div>
+
+      <div class="ai-chat-input-row">
+        <input type="text" id="ai-input" placeholder="Ask a question about research, models, background...">
+        <button id="ai-send-btn" class="primary-btn glow-btn send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <nav class="glass-nav">
     <div class="nav-container">
@@ -40,9 +80,11 @@
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#activity">Activity</a>
+        <a href="#architecture">Architecture</a>
         <a href="#experience">Experience</a>
         <a href="#teaching">Teaching</a>
         <a href="#projects">Ecosystem</a>
+        <a href="#models">HF Models</a>
         <a href="#substack">Substack 🧠</a>
         <a href="assets/resume.pdf" target="_blank" class="nav-resume-btn"><i class="fas fa-file-pdf"></i> Resume</a>
         <button id="cmd-k-trigger" class="cmd-k-btn"><i class="fas fa-search"></i> <span class="cmd-k-key">⌘K</span></button>
@@ -56,19 +98,22 @@
     <div class="cmd-palette-box">
       <div class="cmd-input-row">
         <i class="fas fa-search"></i>
-        <input type="text" id="cmd-input" placeholder="Type a command or section (e.g. 'resume', 'substack', 'telegram', 'svd', 'email')...">
+        <input type="text" id="cmd-input" placeholder="Type a command or section (e.g. 'ai assistant', 'resume', 'substack', 'huggingface', 'svd')...">
         <span class="cmd-esc">ESC</span>
       </div>
       <div class="cmd-results" id="cmd-results">
+        <div class="cmd-item" data-action="ai"><i class="fas fa-robot"></i> Open AI Research Assistant Chat</div>
         <div class="cmd-item" data-action="url" data-target="assets/resume.pdf"><i class="fas fa-file-pdf"></i> Download Official Resume (PDF)</div>
         <div class="cmd-item" data-action="url" data-target="https://hooshaai.substack.com"><i class="fas fa-newspaper"></i> Open Hoosha AI Substack Newsletter</div>
         <div class="cmd-item" data-action="url" data-target="https://telegram.me/tahamajlesii"><i class="fab fa-telegram"></i> Open Telegram (@tahamajlesii)</div>
         <div class="cmd-item" data-action="goto" data-target="#about"><i class="fas fa-user"></i> Go to About Section</div>
         <div class="cmd-item" data-action="goto" data-target="#skills"><i class="fas fa-microchip"></i> Go to Technical Skills Matrix</div>
+        <div class="cmd-item" data-action="goto" data-target="#architecture"><i class="fas fa-project-diagram"></i> Go to Mathematical Architecture</div>
         <div class="cmd-item" data-action="goto" data-target="#activity"><i class="fas fa-fire"></i> Go to Recent Activity &amp; 12.7k Commits</div>
         <div class="cmd-item" data-action="goto" data-target="#experience"><i class="fas fa-briefcase"></i> Go to Experience &amp; Hoosha AI</div>
         <div class="cmd-item" data-action="goto" data-target="#teaching"><i class="fas fa-chalkboard-teacher"></i> Go to Teaching Assistantships</div>
         <div class="cmd-item" data-action="goto" data-target="#projects"><i class="fas fa-layer-group"></i> Go to Open Source Ecosystem</div>
+        <div class="cmd-item" data-action="goto" data-target="#models"><i class="fas fa-cubes"></i> Go to Hugging Face Models Matrix (105 Models)</div>
         <div class="cmd-item" data-action="goto" data-target="#substack"><i class="fas fa-brain"></i> Go to Substack Deep Dives</div>
         <div class="cmd-item" data-action="url" data-target="https://github.com/tahamajs"><i class="fab fa-github"></i> Open GitHub Profile (521 Followers)</div>
         <div class="cmd-item" data-action="url" data-target="https://huggingface.co/tahamajs"><i class="fas fa-robot"></i> Open HuggingFace Models (105 Models)</div>
@@ -218,6 +263,30 @@
         <div class="skill-card">
           <div class="skill-info"><span>Backend Web Systems (Django / DRF / Docker)</span><span>94%</span></div>
           <div class="skill-bar"><div class="skill-fill" style="width: 94%;"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mathematical Architecture Pipeline Section -->
+    <section id="architecture" class="section">
+      <div class="section-header fade-in-up">
+        <h2>Mathematical <span class="gradient-text">Research Pipelines</span></h2>
+        <p>Mathematical formulations driving our generative AI &amp; post-training RL engines.</p>
+      </div>
+
+      <div class="arch-grid fade-in-up">
+        <div class="arch-card">
+          <div class="arch-badge">Flow Matching ODE</div>
+          <h3>Continuous Velocity Fields</h3>
+          <p>Continuous probability paths transforming noise $x_0 \sim p_0$ to target distributions $x_1 \sim p_1$ via linear vector fields $v_t(x_t) = x_1 - x_0$.</p>
+          <div class="arch-math">$$ \frac{dx_t}{dt} = v_t(x_t), \quad x_t = t x_1 + (1-t) x_0 $$</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-badge">Group Relative Policy Optimization (GRPO)</div>
+          <h3>4B LLM Mathematical Reasoning</h3>
+          <p>Policy optimization over output candidate groups $\{q_i\}_{i=1}^G$ without requiring a dedicated critic network, maximizing normalized advantage scores.</p>
+          <div class="arch-math">$$ \mathcal{J}_{\text{GRPO}}(\theta) = \mathbb{E}\left[ \sum_{i=1}^G \min\left( \frac{\pi_\theta(q_i)}{\pi_{\text{old}}(q_i)} \tilde{A}_i, \text{clip}(\dots)\tilde{A}_i \right) \right] $$</div>
         </div>
       </div>
     </section>
@@ -839,6 +908,32 @@
       </div>
     </section>
 
+    <!-- Hugging Face Models Spotlight Section -->
+    <section id="models" class="section">
+      <div class="section-header fade-in-up">
+        <h2>Hugging Face <span class="gradient-text">Models &amp; Datasets (105 Models)</span></h2>
+        <p>Pre-trained model weights, fine-tuned adapters, and open synthetic datasets published by Taha Majlesi.</p>
+      </div>
+
+      <div class="hf-models-grid fade-in-up">
+        <div class="hf-card">
+          <div class="hf-badge"><i class="fas fa-robot"></i> Vision-Language QLoRA</div>
+          <h3>tahamajs / paligemma-clevr-cogen-qlora</h3>
+          <p>QLoRA fine-tuned PaliGemma 3B vision-language model trained on CLEVR CoGen relational reasoning benchmarks.</p>
+          <div class="hf-code-line"><code>from transformers import AutoModelForVision2Seq</code></div>
+          <a href="https://huggingface.co/tahamajs/paligemma-clevr-cogen-qlora" target="_blank" class="hf-link">View Model on Hugging Face <i class="fas fa-external-link-alt"></i></a>
+        </div>
+
+        <div class="hf-card">
+          <div class="hf-badge"><i class="fas fa-database"></i> Synthetic Dataset</div>
+          <h3>tahamajs / consciousness-datasets</h3>
+          <p>Curated synthetic evaluation datasets measuring System-2 cognitive coherence and global workspace integration in LLMs.</p>
+          <div class="hf-code-line"><code>from datasets import load_dataset</code></div>
+          <a href="https://huggingface.co/tahamajs" target="_blank" class="hf-link">Browse 71 Datasets on HF <i class="fas fa-external-link-alt"></i></a>
+        </div>
+      </div>
+    </section>
+
     <!-- Substack Newsletter Embed & Deep Dives -->
     <section id="substack" class="section">
       <div class="section-header fade-in-up">
@@ -912,6 +1007,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=17.0"></script>
+  <script src="script.js?v=21.0"></script>
 </body>
 </html>

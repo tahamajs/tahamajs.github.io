@@ -196,7 +196,93 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(updateTehranClock, 1000);
   updateTehranClock();
 
-  // 5. Zero-Dependency 3D Card Tilt Effect
+  // 5. Interactive "Ask Taha's AI Avatar" Instant Assistant Widget
+  const aiChatBtn = document.getElementById('ai-chat-btn');
+  const aiChatModal = document.getElementById('ai-chat-modal');
+  const closeAiChat = document.getElementById('close-ai-chat');
+  const aiChatBody = document.getElementById('ai-chat-body');
+  const aiInput = document.getElementById('ai-input');
+  const aiSendBtn = document.getElementById('ai-send-btn');
+  const quickPrompts = document.querySelectorAll('.quick-prompt-btn');
+
+  function openAiModal() {
+    if (aiChatModal) {
+      playSciFiSound(750, 'sine');
+      aiChatModal.classList.add('active');
+      if (aiInput) aiInput.focus();
+    }
+  }
+
+  function closeAiModal() {
+    if (aiChatModal) aiChatModal.classList.remove('active');
+  }
+
+  if (aiChatBtn) aiChatBtn.addEventListener('click', openAiModal);
+  if (closeAiChat) closeAiChat.addEventListener('click', closeAiModal);
+  if (aiChatModal) {
+    aiChatModal.addEventListener('click', (e) => {
+      if (e.target === aiChatModal) closeAiModal();
+    });
+  }
+
+  function handleAiQuestion(q) {
+    if (!q || q.trim() === '') return;
+    const query = q.toLowerCase().trim();
+
+    // Append User Message
+    const uMsg = document.createElement('div');
+    uMsg.className = 'chat-msg user-msg';
+    uMsg.textContent = q;
+    aiChatBody.appendChild(uMsg);
+
+    if (aiInput) aiInput.value = '';
+    aiChatBody.scrollTop = aiChatBody.scrollHeight;
+
+    // Simulate Bot Thought & Reply
+    setTimeout(() => {
+      let reply = "I am Taha Majlesi's AI assistant. Taha is Co-Founder & Systems/AI Architect at Hoosha AI 🧠 and a Computer Engineering student at University of Tehran, specializing in Flow Matching, GRPO, and Distributed Systems.";
+
+      if (query.includes('hoosha')) {
+        reply = "🧠 **Hoosha AI** is an AI startup co-founded by Taha Majlesi, focusing on frontier ML research, continuous cognitive scaling, synthetic consciousness (IIT & GWT), and high-performance post-training RL pipelines. Check out articles at https://hooshaai.substack.com!";
+      } else if (query.includes('flow') || query.includes('grpo') || query.includes('research')) {
+        reply = "🎨 Taha's primary research centers on **Flow Matching** probability paths for generative modeling, **Group Relative Policy Optimization (GRPO)** for fine-tuning 4B LLMs on GSM8K math reasoning, and sub-quadratic linear attention architectures like LinRec & SVD attention!";
+      } else if (query.includes('teach') || query.includes('sharif') || query.includes('ut') || query.includes('course')) {
+        reply = "🎓 Taha is a cross-institutional Teaching Assistant for **Compiler Construction at Sharif University of Technology**, and has served as TA for **M.Sc. Machine Learning**, **Artificial Intelligence**, **Advanced Programming (C++)**, and **xv6 OS Lab** at the **University of Tehran**.";
+      } else if (query.includes('contact') || query.includes('email') || query.includes('telegram')) {
+        reply = "📧 You can reach Taha via primary email `tahamajlesi@ut.ac.ir`, secondary email `Tahamajlesice@gmail.com`, or directly on Telegram `@tahamajlesii`!";
+      } else if (query.includes('kaleido') || query.includes('cuda') || query.includes('system')) {
+        reply = "⚡ **Kaleido Engine** is Taha's first-principles distributed LLM training framework written in C++/PyTorch that jointly optimizes 4 dimensions of parallel GPU compute nodes.";
+      }
+
+      const bMsg = document.createElement('div');
+      bMsg.className = 'chat-msg bot-msg';
+      bMsg.innerHTML = reply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+      aiChatBody.appendChild(bMsg);
+      aiChatBody.scrollTop = aiChatBody.scrollHeight;
+      playSciFiSound(800, 'triangle');
+    }, 400);
+  }
+
+  if (aiSendBtn) {
+    aiSendBtn.addEventListener('click', () => {
+      if (aiInput) handleAiQuestion(aiInput.value);
+    });
+  }
+
+  if (aiInput) {
+    aiInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleAiQuestion(aiInput.value);
+    });
+  }
+
+  quickPrompts.forEach(p => {
+    p.addEventListener('click', () => {
+      const q = p.getAttribute('data-query');
+      handleAiQuestion(q);
+    });
+  });
+
+  // 6. Zero-Dependency 3D Card Tilt Effect
   const tiltElements = document.querySelectorAll('[data-tilt]');
   tiltElements.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -219,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 6. Category Filtering & Real-Time Search Logic
+  // 7. Category Filtering & Real-Time Search Logic
   const filterBtns = document.querySelectorAll('.filter-btn');
   const bentoItems = document.querySelectorAll('.bento-item');
   const searchInput = document.getElementById('repo-search');
@@ -261,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', filterProjects);
   }
 
-  // 7. Repo Quick Detail Modal Popup
+  // 8. Repo Quick Detail Modal Popup
   const repoModal = document.getElementById('repo-detail-modal');
   const modalTag = document.getElementById('modal-tag');
   const modalTitle = document.getElementById('modal-title');
@@ -303,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Command Palette Modal (Cmd + K / Ctrl + K)
+  // 9. Command Palette Modal (Cmd + K / Ctrl + K)
   const cmdModal = document.getElementById('cmd-palette-modal');
   const cmdTrigger = document.getElementById('cmd-k-trigger');
   const cmdInput = document.getElementById('cmd-input');
@@ -338,6 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') {
       closeCmdPalette();
       closeDetailModal();
+      closeAiModal();
     }
   });
 
@@ -352,7 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const action = item.getAttribute('data-action');
       const target = item.getAttribute('data-target');
 
-      if (action === 'goto') {
+      if (action === 'ai') {
+        closeCmdPalette();
+        openAiModal();
+      } else if (action === 'goto') {
         closeCmdPalette();
         const targetEl = document.querySelector(target);
         if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
@@ -367,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 9. Back To Top Button
+  // 10. Back To Top Button
   const backToTopBtn = document.getElementById('back-to-top');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 400) {
@@ -383,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 10. Theme Accent Switcher Widget
+  // 11. Theme Accent Switcher Widget
   const accentDots = document.querySelectorAll('.accent-dot');
   accentDots.forEach(dot => {
     dot.addEventListener('click', () => {

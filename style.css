@@ -30,6 +30,50 @@ body {
 /* Interactive Neural Canvas */
 #neural-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; pointer-events: none; }
 
+/* AI Assistant Floating Button */
+.ai-chat-fab { position: fixed; bottom: 2rem; left: 5.5rem; z-index: 999; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--cyan), var(--purple)); color: var(--bg-dark); border: none; padding: 0.7rem 1.4rem; border-radius: 99px; font-family: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 10px 25px rgba(0, 240, 255, 0.4); transition: transform 0.3s, box-shadow 0.3s; }
+.ai-chat-fab:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 15px 35px rgba(138, 43, 226, 0.6); }
+
+/* AI Assistant Modal Box */
+.ai-chat-box { width: 90%; max-width: 650px; background: rgba(15, 15, 18, 0.95); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.9); padding: 0; display: flex; flex-direction: column; max-height: 80vh; }
+.ai-chat-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.5); }
+.ai-title-row { display: flex; align-items: center; gap: 12px; }
+.ai-avatar-dot { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--cyan), var(--purple)); display: flex; align-items: center; justify-content: center; color: var(--bg-dark); font-size: 1.2rem; }
+.ai-chat-header h3 { font-size: 1.1rem; font-weight: 700; }
+.ai-subtitle { font-size: 0.75rem; color: var(--text-gray); display: block; }
+
+.ai-chat-body { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; max-height: 380px; }
+.chat-msg { max-width: 85%; padding: 0.9rem 1.2rem; border-radius: 16px; font-size: 0.95rem; line-height: 1.5; }
+.bot-msg { background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); color: var(--text-light); align-self: flex-start; border-bottom-left-radius: 4px; }
+.user-msg { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: var(--bg-dark); font-weight: 600; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+.ai-quick-prompts { display: flex; gap: 0.5rem; padding: 0.8rem 1.5rem; overflow-x: auto; border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.3); }
+.quick-prompt-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-gray); padding: 0.4rem 0.9rem; border-radius: 99px; font-family: inherit; font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.quick-prompt-btn:hover { background: rgba(255,255,255,0.12); color: var(--cyan); border-color: var(--cyan); }
+
+.ai-chat-input-row { display: flex; padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); gap: 10px; background: rgba(0,0,0,0.5); }
+.ai-chat-input-row input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 99px; padding: 0.8rem 1.2rem; color: white; outline: none; font-family: inherit; font-size: 0.95rem; }
+.ai-chat-input-row input:focus { border-color: var(--cyan); }
+.send-btn { padding: 0.8rem 1.4rem !important; font-size: 1rem !important; border-radius: 99px !important; }
+
+/* Mathematical Architecture Grid */
+.arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.8rem; }
+.arch-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2.2rem; backdrop-filter: blur(20px); }
+.arch-badge { display: inline-block; font-family: monospace; font-size: 0.8rem; color: var(--cyan); background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); padding: 0.3rem 0.9rem; border-radius: 99px; margin-bottom: 1rem; }
+.arch-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.6rem; }
+.arch-card p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 1.5rem; }
+.arch-math { background: #0d1117; padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); font-family: 'Fira Code', monospace; color: var(--cyan); font-size: 0.9rem; text-align: center; }
+
+/* Hugging Face Models Grid */
+.hf-models-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+.hf-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; backdrop-filter: blur(20px); }
+.hf-badge { font-family: monospace; font-size: 0.8rem; color: #ffd21e; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 6px; }
+.hf-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; font-family: monospace; }
+.hf-card p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 1.2rem; }
+.hf-code-line { background: #0d1117; padding: 0.6rem 1rem; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.8rem; color: #a1a1aa; margin-bottom: 1.2rem; }
+.hf-link { color: #ffd21e; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; }
+.hf-link:hover { text-decoration: underline; }
+
 /* Toast Notifications */
 .toast-container { position: fixed; top: 1.5rem; right: 1.5rem; z-index: 99999; display: flex; flex-direction: column; gap: 0.8rem; pointer-events: none; }
 .toast { background: rgba(18, 18, 20, 0.9); border: 1px solid var(--cyan); color: white; padding: 0.8rem 1.4rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 10px 30px rgba(0,240,255,0.3); backdrop-filter: blur(15px); pointer-events: auto; animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 2.7s forwards; }
@@ -50,7 +94,7 @@ body {
 .accent-dot:hover, .accent-dot.active { transform: scale(1.25); border-color: white; }
 
 /* Modals */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: flex-start; padding-top: 15vh; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(15px); z-index: 9999; display: flex; justify-content: center; align-items: flex-start; padding-top: 12vh; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
 .cmd-palette-box, .repo-modal-box { width: 90%; max-width: 600px; background: rgba(18, 18, 20, 0.95); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); padding: 2rem; }
@@ -122,13 +166,6 @@ body {
 .social-btn:hover { background: var(--text-light); color: var(--bg-dark); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(255,255,255,0.2); }
 .cursor { animation: blink 1s infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* Technical Skills Matrix */
-.skills-grid { display: flex; flex-direction: column; gap: 1.2rem; max-width: 800px; margin: 0 auto; }
-.skill-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 1.2rem 1.8rem; border-radius: 16px; backdrop-filter: blur(20px); }
-.skill-info { display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.6rem; }
-.skill-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
-.skill-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--purple)); border-radius: 99px; }
 
 /* Substack Subscribe Box */
 .substack-subscribe-box { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 3rem; max-width: 850px; margin: 0 auto 3rem auto; text-align: center; backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
@@ -259,4 +296,5 @@ footer p { color: var(--text-gray); font-size: 0.9rem; }
   .subtitle-line { font-size: 1.6rem; }
   .stats-bar { flex-direction: column; gap: 1.5rem; }
   .stat-divider { width: 80%; height: 1px; }
+  .ai-chat-fab { left: 1rem; bottom: 1rem; }
 }
