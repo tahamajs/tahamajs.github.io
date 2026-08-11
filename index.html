@@ -10,37 +10,125 @@
 </head>
 <body>
   
+  <!-- Glowing Background -->
   <div class="bg-glow"></div>
   <div class="bg-glow-2"></div>
+  
+  <!-- Custom Mouse Trailer -->
+  <div class="cursor-trailer"></div>
 
+  <!-- Navigation -->
   <nav>
     <div class="logo">Taha.</div>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
+  <!-- Hero Section -->
   <header id="home">
-    <div class="avatar-container reveal active">
-      <img src="https://github.com/tahamajs.png" alt="Taha Majlesi" class="avatar">
-    </div>
-    <h1 class="title reveal active">Taha Majlesi</h1>
-    <div class="code-badge reveal active">
-      &lt; AI Researcher &amp; Systems Engineer /&gt;
-    </div>
-    <p class="subtitle reveal active">
-      Bridging the gap between <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment</b> (GRPO, SFT), and <b>High-Performance Distributed Infrastructure</b>.
-    </p>
-    <div class="social-links reveal active">
-      <a href="https://github.com/tahamajs" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/tahamajlesi" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://x.com/hooshaaii" class="social-icon" target="_blank"><i class="fab fa-x-twitter"></i></a>
-      <a href="mailto:tahamajlesi@ut.ac.ir" class="social-icon"><i class="fas fa-envelope"></i></a>
+    <div class="hero-content">
+      <div class="avatar-container reveal active">
+        <img src="https://github.com/tahamajs.png" alt="Taha Majlesi" class="avatar">
+      </div>
+      <h1 class="title reveal active">Taha Majlesi</h1>
+      
+      <!-- Interactive Terminal -->
+      <div class="terminal-container reveal active">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">taha@ut-server: ~</span>
+        </div>
+        <div class="terminal-body">
+          <p><span class="prompt">$</span> ./whoami</p>
+          <p class="typewriter" id="typewriter-text"></p>
+        </div>
+      </div>
+
+      <p class="subtitle reveal active">
+        Bridging the gap between <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment</b> (GRPO, SFT), and <b>High-Performance Distributed Infrastructure</b>.
+      </p>
+      <div class="social-links reveal active">
+        <a href="https://github.com/tahamajs" class="social-icon" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/tahamajlesi" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://huggingface.co/tahamajs" class="social-icon" target="_blank"><i class="fas fa-robot"></i></a>
+        <a href="https://x.com/hooshaaii" class="social-icon" target="_blank"><i class="fab fa-x-twitter"></i></a>
+        <a href="mailto:tahamajlesi@ut.ac.ir" class="social-icon"><i class="fas fa-envelope"></i></a>
+      </div>
     </div>
   </header>
 
+  <!-- Experience & Education Timeline -->
+  <section id="experience" class="reveal">
+    <h2 class="section-title">Academic & Professional <span>Journey</span></h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Sharif University of Technology (SUT)</h3>
+          <span class="timeline-date">Advanced NLP & Language Models</span>
+          <p>Advanced coursework and research in sequence-to-sequence transformers, word embeddings, and robust NLP toolkits.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>University of Tehran (UT)</h3>
+          <span class="timeline-date">Research Assistant | Deep Generative Models</span>
+          <p>Leading research in Flow Matching, DDPM Score-Based Diffusion, and Selective Amnesia Machine Unlearning in VAEs.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Hoosha AI</h3>
+          <span class="timeline-date">Systems & AI Architect</span>
+          <p>Architecting the core backbone of high-performance ML models and deployment pipelines for intelligent systems.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Distributed Training Platform (Kaleido)</h3>
+          <span class="timeline-date">Core Developer</span>
+          <p>Building a first-principles distributed LLM training engine optimizing tensor, pipeline, and data parallelism across multi-GPU setups.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Grid -->
+  <section id="skills" class="reveal">
+    <h2 class="section-title">Technology <span>Stack</span></h2>
+    <div class="skills-container">
+      <div class="skill-category">
+        <h3>AI & Deep Learning</h3>
+        <div class="skill-icons">
+          <img src="https://skillicons.dev/icons?i=pytorch,tensorflow,py,opencv&theme=dark" alt="AI Stack">
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Systems & Backend</h3>
+        <div class="skill-icons">
+          <img src="https://skillicons.dev/icons?i=go,cpp,c,java,kotlin&theme=dark" alt="Backend Stack">
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Infrastructure & Cloud</h3>
+        <div class="skill-icons">
+          <img src="https://skillicons.dev/icons?i=docker,kubernetes,postgres,mongodb,redis,linux&theme=dark" alt="Infra Stack">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Section -->
   <section id="research" class="reveal">
     <h2 class="section-title">Core <span>Research</span> Domains</h2>
     <div class="grid">
@@ -90,6 +178,7 @@
     </div>
   </section>
 
+  <!-- Projects Section -->
   <section id="projects" class="reveal">
     <h2 class="section-title">Open Source <span>Arsenal</span></h2>
     <div class="repo-grid">
@@ -105,6 +194,46 @@
       <a href="https://github.com/tahamajs/AirMouse" target="_blank">
         <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=AirMouse&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
       </a>
+      <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=FineTuning-4B-LLM-GSM8k-GRPO-SFT&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
+      </a>
+      <a href="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" target="_blank">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=tahamajs&repo=Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic&theme=tokyonight&border_color=1E293B&background=0D1117&title_color=38BDF8&text_color=94A3B8&icon_color=38BDF8" alt="Repo" class="repo-card">
+      </a>
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="https://github.com/tahamajs" target="_blank" class="primary-btn">View All 140+ Projects on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="reveal">
+    <h2 class="section-title">Get In <span>Touch</span></h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Let's collaborate!</h3>
+        <p>I'm always open to discussing research collaborations, open-source projects, and new opportunities in AI & Distributed Systems.</p>
+        <ul class="contact-list">
+          <li><i class="fas fa-envelope"></i> tahamajlesi@ut.ac.ir</li>
+          <li><i class="fab fa-telegram"></i> @tahamajlesii</li>
+          <li><i class="fas fa-map-marker-alt"></i> Tehran, Iran</li>
+        </ul>
+      </div>
+      <div class="contact-form-card">
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent simulated!');">
+          <div class="form-group">
+            <input type="text" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="primary-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
     </div>
   </section>
 
