@@ -33,6 +33,8 @@ import PaperReaderModal from './components/modals/PaperReaderModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
+import { toggleWeatherAudio, stopWeatherAudio } from './utils/weatherAudio.js';
+
 export default function App() {
   // Global States
   const [data, setData] = useState({ repos: [], articles: [], hf: [], readmeHtml: '' });
@@ -41,7 +43,10 @@ export default function App() {
   const [hfFilter, setHfFilter] = useState('all');
   const [subSearch, setSubSearch] = useState('');
   
-  // UI States
+  // UI & Weather States
+  const [pageView, setPageView] = useState('all'); // 'all', 'home', 'lab', 'projects', 'papers', 'contact'
+  const [weatherMode, setWeatherMode] = useState('rain'); // 'rain', 'snow', 'matrix', 'stars'
+  const [weatherAudioOn, setWeatherAudioOn] = useState(false);
   const [accent, setAccent] = useState('cyan');
   const [mobileNav, setMobileNav] = useState(false);
   const [codeTab, setCodeTab] = useState('flow');
@@ -63,7 +68,14 @@ export default function App() {
   const time = useTehranClock();
   const gpuM = useGpuMetrics();
   const beep = useBeep(soundOn);
-  useNeuralCanvas(); // Background effects
+  useNeuralCanvas(weatherMode); // Atmospheric Weather Background
+
+  const handleToggleWeatherAudio = () => {
+    const active = toggleWeatherAudio(weatherMode, 0.15);
+    setWeatherAudioOn(active);
+    showToast(active ? `🌧️ ${weatherMode.toUpperCase()} Ambient Sound ON` : '🔇 Weather Audio OFF');
+    beep(700);
+  };
 
   // Data Fetching
   useEffect(() => {
@@ -196,9 +208,23 @@ export default function App() {
       {/* Floating Controls */}
       <div className="theme-switcher">
         <div className="theme-switcher-panel">
-          <button className={`ctrl-btn ${soundOn ? 'active' : ''}`} onClick={() => { setSoundOn(!soundOn); showToast(soundOn ? 'Sound Off 🔇' : 'Sound On 🔊'); beep(600); }} aria-label="Toggle Sound">
+          <button className={`ctrl-btn ${soundOn ? 'active' : ''}`} onClick={() => { setSoundOn(!soundOn); showToast(soundOn ? 'Sound Off 🔇' : 'UI Beeps On 🔊'); beep(600); }} title="Toggle UI Sound Beeps">
             <i className={`fas ${soundOn ? 'fa-volume-up' : 'fa-volume-mute'}`} />
           </button>
+          <button className={`ctrl-btn ${weatherAudioOn ? 'active' : ''}`} onClick={handleToggleWeatherAudio} title="Toggle Ambient Weather Rain Soundscape">
+            <i className={`fas ${weatherAudioOn ? 'fa-cloud-showers-heavy' : 'fa-cloud-sun'}`} style={{ color: weatherAudioOn ? 'var(--cyan)' : '' }} />
+          </button>
+          <div className="ctrl-divider" />
+          {[
+            ['rain', 'fa-cloud-rain', 'Cyber Rain'],
+            ['snow', 'fa-snowflake', 'Cyber Snow'],
+            ['matrix', 'fa-terminal', 'Matrix Rain'],
+            ['stars', 'fa-star', 'Constellation Stars']
+          ].map(([m, ic, title]) => (
+            <button key={m} className={`ctrl-btn ${weatherMode === m ? 'active' : ''}`} onClick={() => { setWeatherMode(m); showToast(`Weather: ${title} ✨`); beep(700); }} title={title}>
+              <i className={`fas ${ic}`} />
+            </button>
+          ))}
           <div className="ctrl-divider" />
           {['cyan', 'purple', 'emerald', 'rose'].map(c => (
             <div key={c} className={`accent-dot ${accent === c ? 'active' : ''}`} style={{ background: `var(--${c})` }} onClick={() => setAccentColor(c)} title={c} />

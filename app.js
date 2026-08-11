@@ -113,7 +113,7 @@
       }
     }, [soundOn]);
   }
-  function useNeuralCanvas() {
+  function useNeuralCanvas(mode = "rain") {
     (0, import_react.useEffect)(() => {
       const spot = document.getElementById("cursor-spotlight");
       const onMove = (e) => {
@@ -127,7 +127,7 @@
       if (!cvs) return;
       const ctx = cvs.getContext("2d", { alpha: true });
       let W = cvs.width = innerWidth, H = cvs.height = innerHeight;
-      const N = W > 700 ? 72 : 32;
+      const N = W > 700 ? 60 : 25;
       const pts = Array.from({ length: N }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
@@ -137,20 +137,7 @@
         a: Math.random(),
         da: (Math.random() * 0.02 + 4e-3) * (Math.random() < 0.5 ? 1 : -1)
       }));
-      const comets = [];
-      const spawn = () => comets.push({
-        x: Math.random() * W,
-        y: Math.random() * H * 0.4,
-        len: Math.random() * 90 + 40,
-        spd: Math.random() * 9 + 5,
-        ang: Math.PI / 4,
-        a: 1,
-        da: 0.015 + Math.random() * 0.015
-      });
-      const ct = setInterval(() => {
-        if (Math.random() < 0.7) spawn();
-      }, 2400);
-      const rain = Array.from({ length: W > 700 ? 45 : 20 }, () => ({
+      const rain = Array.from({ length: W > 700 ? 50 : 20 }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
         len: Math.random() * 25 + 15,
@@ -158,6 +145,16 @@
         opacity: Math.random() * 0.4 + 0.1
       }));
       const ripples = [];
+      const snow = Array.from({ length: W > 700 ? 65 : 30 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 3 + 1,
+        spd: Math.random() * 1 + 0.5,
+        sway: Math.random() * 1 - 0.5,
+        opacity: Math.random() * 0.7 + 0.3
+      }));
+      const chars = "01\u03BB\u222B\u2207\u2202\u03B8\u03C0\u03A3\u03A6\u03A8";
+      const matrixCols = Array.from({ length: Math.floor(W / 20) }, () => Math.random() * H);
       let raf, last = 0;
       const draw = (ts) => {
         if (ts - last < 16) {
@@ -192,53 +189,55 @@
           ctx.fillStyle = `rgba(0,240,255,${p.a * 0.7})`;
           ctx.fill();
         }
-        for (let i = 0; i < rain.length; i++) {
-          const r = rain[i];
-          ctx.beginPath();
-          ctx.moveTo(r.x, r.y);
-          ctx.lineTo(r.x, r.y + r.len);
-          ctx.strokeStyle = `rgba(0, 240, 255, ${r.opacity})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          r.y += r.spd;
-          if (r.y > H) {
-            if (Math.random() < 0.6) {
-              ripples.push({ x: r.x, y: H - 5, radius: 2, maxR: Math.random() * 20 + 10, alpha: 0.6 });
+        if (mode === "rain") {
+          for (let i = 0; i < rain.length; i++) {
+            const r = rain[i];
+            ctx.beginPath();
+            ctx.moveTo(r.x, r.y);
+            ctx.lineTo(r.x, r.y + r.len);
+            ctx.strokeStyle = `rgba(0, 240, 255, ${r.opacity})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            r.y += r.spd;
+            if (r.y > H) {
+              if (Math.random() < 0.6) ripples.push({ x: r.x, y: H - 5, radius: 2, maxR: Math.random() * 20 + 10, alpha: 0.6 });
+              r.y = -r.len;
+              r.x = Math.random() * W;
             }
-            r.y = -r.len;
-            r.x = Math.random() * W;
           }
-        }
-        for (let i = ripples.length - 1; i >= 0; i--) {
-          const rip = ripples[i];
-          ctx.beginPath();
-          ctx.ellipse(rip.x, rip.y, rip.radius, rip.radius * 0.4, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(138, 43, 226, ${rip.alpha})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          rip.radius += 0.8;
-          rip.alpha -= 0.02;
-          if (rip.alpha <= 0 || rip.radius >= rip.maxR) {
-            ripples.splice(i, 1);
+          for (let i = ripples.length - 1; i >= 0; i--) {
+            const rip = ripples[i];
+            ctx.beginPath();
+            ctx.ellipse(rip.x, rip.y, rip.radius, rip.radius * 0.4, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(138, 43, 226, ${rip.alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            rip.radius += 0.8;
+            rip.alpha -= 0.02;
+            if (rip.alpha <= 0 || rip.radius >= rip.maxR) ripples.splice(i, 1);
           }
-        }
-        for (let i = comets.length - 1; i >= 0; i--) {
-          const c = comets[i];
-          const ex = c.x + Math.cos(c.ang) * c.len, ey = c.y + Math.sin(c.ang) * c.len;
-          const g = ctx.createLinearGradient(c.x, c.y, ex, ey);
-          g.addColorStop(0, `rgba(255,255,255,${c.a})`);
-          g.addColorStop(0.4, `rgba(0,240,255,${c.a * 0.8})`);
-          g.addColorStop(1, "rgba(138,43,226,0)");
-          ctx.beginPath();
-          ctx.moveTo(c.x, c.y);
-          ctx.lineTo(ex, ey);
-          ctx.strokeStyle = g;
-          ctx.lineWidth = 2.5;
-          ctx.stroke();
-          c.x += Math.cos(c.ang) * c.spd;
-          c.y += Math.sin(c.ang) * c.spd;
-          c.a -= c.da;
-          if (c.a <= 0 || c.x > W || c.y > H) comets.splice(i, 1);
+        } else if (mode === "snow") {
+          for (let i = 0; i < snow.length; i++) {
+            const s = snow[i];
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+            ctx.fill();
+            s.y += s.spd;
+            s.x += Math.sin(s.y * 0.02) * s.sway;
+            if (s.y > H) {
+              s.y = -5;
+              s.x = Math.random() * W;
+            }
+          }
+        } else if (mode === "matrix") {
+          ctx.font = '14px "JetBrains Mono", monospace';
+          ctx.fillStyle = "rgba(16, 185, 129, 0.4)";
+          matrixCols.forEach((y, x) => {
+            const ch = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(ch, x * 20, y);
+            matrixCols[x] = y > H || Math.random() > 0.975 ? 0 : y + 16;
+          });
         }
         raf = requestAnimationFrame(draw);
       };
@@ -251,10 +250,9 @@
       return () => {
         window.removeEventListener("mousemove", onMove);
         window.removeEventListener("resize", onResize);
-        clearInterval(ct);
         cancelAnimationFrame(raf);
       };
-    }, []);
+    }, [mode]);
   }
 
   // src/components/layout/Navigation.jsx
@@ -280,14 +278,14 @@
     { id: "papers", label: "\u{1F4C4} Papers & Substack", icon: "fas fa-file-alt" },
     { id: "contact", label: "\u{1F4EC} Contact & Recruit", icon: "fas fa-paper-plane" }
   ];
-  function PageRouterBar({ pageView: pageView2, setPageView: setPageView2, beep }) {
+  function PageRouterBar({ pageView, setPageView, beep }) {
     return /* @__PURE__ */ React.createElement("div", { className: "page-router-bar" }, /* @__PURE__ */ React.createElement("div", { className: "page-router-inner" }, /* @__PURE__ */ React.createElement("span", { className: "page-router-label" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-layer-group", style: { color: "var(--accent)" } }), " Multi-Page Mode:"), /* @__PURE__ */ React.createElement("div", { className: "page-router-tabs" }, PAGES.map((p) => /* @__PURE__ */ React.createElement(
       "button",
       {
         key: p.id,
-        className: `page-router-tab ${pageView2 === p.id ? "active" : ""}`,
+        className: `page-router-tab ${pageView === p.id ? "active" : ""}`,
         onClick: () => {
-          setPageView2(p.id);
+          setPageView(p.id);
           beep?.(700);
           window.scrollTo(0, 0);
         }
@@ -1915,6 +1913,77 @@ Available commands:
     return /* @__PURE__ */ React.createElement("div", { className: "toast-wrap" }, /* @__PURE__ */ React.createElement("div", { className: "toast" }, msg));
   }
 
+  // src/utils/weatherAudio.js
+  var audioCtx = null;
+  var noiseNode = null;
+  var filterNode = null;
+  var gainNode = null;
+  var isPlaying = false;
+  function toggleWeatherAudio(mode = "rain", volume = 0.15) {
+    if (isPlaying) {
+      stopWeatherAudio();
+      return false;
+    } else {
+      startWeatherAudio(mode, volume);
+      return true;
+    }
+  }
+  function startWeatherAudio(mode = "rain", volume = 0.15) {
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      const bufferSize = audioCtx.sampleRate * 5;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.969 * b2 + white * 0.153852;
+        b3 = 0.8665 * b3 + white * 0.3104856;
+        b4 = 0.55 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.016898;
+        data[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+        data[i] *= 0.11;
+        b6 = white * 0.115926;
+      }
+      noiseNode = audioCtx.createBufferSource();
+      noiseNode.buffer = buffer;
+      noiseNode.loop = true;
+      filterNode = audioCtx.createBiquadFilter();
+      filterNode.type = mode === "snow" ? "lowpass" : "bandpass";
+      filterNode.frequency.setValueAtTime(mode === "snow" ? 400 : 900, audioCtx.currentTime);
+      gainNode = audioCtx.createGain();
+      gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+      noiseNode.connect(filterNode);
+      filterNode.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      noiseNode.start();
+      isPlaying = true;
+      return true;
+    } catch (err) {
+      console.warn("Web Audio Weather sound not available:", err);
+      return false;
+    }
+  }
+  function stopWeatherAudio() {
+    if (noiseNode) {
+      try {
+        noiseNode.stop();
+        noiseNode.disconnect();
+      } catch {
+      }
+      noiseNode = null;
+    }
+    isPlaying = false;
+    return false;
+  }
+
   // src/App.jsx
   function App() {
     const [data, setData] = (0, import_react18.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
@@ -1922,6 +1991,9 @@ Available commands:
     const [filter, setFilter] = (0, import_react18.useState)("all");
     const [hfFilter, setHfFilter] = (0, import_react18.useState)("all");
     const [subSearch, setSubSearch] = (0, import_react18.useState)("");
+    const [pageView, setPageView] = (0, import_react18.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react18.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react18.useState)(false);
     const [accent, setAccent] = (0, import_react18.useState)("cyan");
     const [mobileNav, setMobileNav] = (0, import_react18.useState)(false);
     const [codeTab, setCodeTab] = (0, import_react18.useState)("flow");
@@ -1939,7 +2011,13 @@ Available commands:
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
     const beep = useBeep(soundOn);
-    useNeuralCanvas();
+    useNeuralCanvas(weatherMode);
+    const handleToggleWeatherAudio = () => {
+      const active = toggleWeatherAudio(weatherMode, 0.15);
+      setWeatherAudioOn(active);
+      showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
+      beep(700);
+    };
     (0, import_react18.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
@@ -2056,9 +2134,18 @@ Available commands:
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
     }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
-      showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
+      showToast(soundOn ? "Sound Off \u{1F507}" : "UI Beeps On \u{1F50A}");
       beep(600);
-    }, "aria-label": "Toggle Sound" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${soundOn ? "fa-volume-up" : "fa-volume-mute"}` })), /* @__PURE__ */ React.createElement("div", { className: "ctrl-divider" }), ["cyan", "purple", "emerald", "rose"].map((c) => /* @__PURE__ */ React.createElement("div", { key: c, className: `accent-dot ${accent === c ? "active" : ""}`, style: { background: `var(--${c})` }, onClick: () => setAccentColor(c), title: c })))), /* @__PURE__ */ React.createElement("button", { className: "back-top-btn", onClick: () => {
+    }, title: "Toggle UI Sound Beeps" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${soundOn ? "fa-volume-up" : "fa-volume-mute"}` })), /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${weatherAudioOn ? "active" : ""}`, onClick: handleToggleWeatherAudio, title: "Toggle Ambient Weather Rain Soundscape" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${weatherAudioOn ? "fa-cloud-showers-heavy" : "fa-cloud-sun"}`, style: { color: weatherAudioOn ? "var(--cyan)" : "" } })), /* @__PURE__ */ React.createElement("div", { className: "ctrl-divider" }), [
+      ["rain", "fa-cloud-rain", "Cyber Rain"],
+      ["snow", "fa-snowflake", "Cyber Snow"],
+      ["matrix", "fa-terminal", "Matrix Rain"],
+      ["stars", "fa-star", "Constellation Stars"]
+    ].map(([m, ic, title]) => /* @__PURE__ */ React.createElement("button", { key: m, className: `ctrl-btn ${weatherMode === m ? "active" : ""}`, onClick: () => {
+      setWeatherMode(m);
+      showToast(`Weather: ${title} \u2728`);
+      beep(700);
+    }, title }, /* @__PURE__ */ React.createElement("i", { className: `fas ${ic}` }))), /* @__PURE__ */ React.createElement("div", { className: "ctrl-divider" }), ["cyan", "purple", "emerald", "rose"].map((c) => /* @__PURE__ */ React.createElement("div", { key: c, className: `accent-dot ${accent === c ? "active" : ""}`, style: { background: `var(--${c})` }, onClick: () => setAccentColor(c), title: c })))), /* @__PURE__ */ React.createElement("button", { className: "back-top-btn", onClick: () => {
       window.scrollTo(0, 0);
       beep?.();
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
