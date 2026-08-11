@@ -112,7 +112,49 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', filterProjects);
   }
 
-  // 4. Command Palette Modal (Cmd + K / Ctrl + K)
+  // 4. Repo Quick Detail Modal Popup
+  const repoModal = document.getElementById('repo-detail-modal');
+  const modalTag = document.getElementById('modal-tag');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalCloneCmd = document.getElementById('modal-clone-cmd');
+  const modalLink = document.getElementById('modal-link');
+  const closeRepoModal = document.getElementById('close-repo-modal');
+
+  bentoItems.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // If user clicked directly on link or meta keys
+      if (e.metaKey || e.ctrlKey) return;
+      
+      const name = card.getAttribute('data-name');
+      const url = card.getAttribute('data-url');
+      const desc = card.getAttribute('data-desc');
+      const tag = card.getAttribute('data-tag');
+
+      if (name && url && repoModal) {
+        e.preventDefault();
+        modalTag.innerHTML = tag || 'GitHub Repository';
+        modalTitle.textContent = name.replace(/_/g, ' ').replace(/-/g, ' ');
+        modalDesc.textContent = desc || '';
+        modalCloneCmd.textContent = `git clone ${url}.git`;
+        modalLink.setAttribute('href', url);
+        repoModal.classList.add('active');
+      }
+    });
+  });
+
+  function closeDetailModal() {
+    if (repoModal) repoModal.classList.remove('active');
+  }
+
+  if (closeRepoModal) closeRepoModal.addEventListener('click', closeDetailModal);
+  if (repoModal) {
+    repoModal.addEventListener('click', (e) => {
+      if (e.target === repoModal) closeDetailModal();
+    });
+  }
+
+  // 5. Command Palette Modal (Cmd + K / Ctrl + K)
   const cmdModal = document.getElementById('cmd-palette-modal');
   const cmdTrigger = document.getElementById('cmd-k-trigger');
   const cmdInput = document.getElementById('cmd-input');
@@ -145,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (e.key === 'Escape') {
       closeCmdPalette();
+      closeDetailModal();
     }
   });
 
@@ -174,7 +217,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. Theme Accent Switcher Widget
+  // 6. Back To Top Button
+  const backToTopBtn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      if (backToTopBtn) backToTopBtn.classList.add('visible');
+    } else {
+      if (backToTopBtn) backToTopBtn.classList.remove('visible');
+    }
+  });
+
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // 7. Theme Accent Switcher Widget
   const accentDots = document.querySelectorAll('.accent-dot');
   accentDots.forEach(dot => {
     dot.addEventListener('click', () => {
@@ -185,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 6. Scroll Reveal Observer
+  // 8. Scroll Reveal Observer
   const observerOptions = {
     threshold: 0.05,
     rootMargin: "0px 0px -20px 0px"

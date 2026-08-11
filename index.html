@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mohammad Taha Majlesi - Co-Founder & Systems/AI Architect at Hoosha AI, Computer Engineering at University of Tehran & Sharif University.">
   <title>Mohammad Taha Majlesi | Co-Founder & Systems/AI Architect</title>
-  <link rel="stylesheet" href="style.css?v=13.0">
+  <link rel="stylesheet" href="style.css?v=15.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -23,6 +23,9 @@
     <button class="accent-dot" data-color="emerald" title="Emerald Theme" style="background: #10b981;"></button>
     <button class="accent-dot" data-color="rose" title="Rose Gold Theme" style="background: #f43f5e;"></button>
   </div>
+
+  <!-- Back To Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" title="Back to top"><i class="fas fa-arrow-up"></i></button>
 
   <!-- Navigation -->
   <nav class="glass-nav">
@@ -65,6 +68,27 @@
         <div class="cmd-item" data-action="url" data-target="https://huggingface.co/tahamajs"><i class="fas fa-robot"></i> Open HuggingFace Models (105 Models)</div>
         <div class="cmd-item" data-action="copy" data-target="tahamajlesi@ut.ac.ir"><i class="fas fa-envelope"></i> Copy Primary Email (tahamajlesi@ut.ac.ir)</div>
         <div class="cmd-item" data-action="copy" data-target="Tahamajlesice@gmail.com"><i class="fas fa-envelope"></i> Copy Secondary Email (Tahamajlesice@gmail.com)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repo Quick Detail Modal -->
+  <div id="repo-detail-modal" class="modal-overlay">
+    <div class="repo-modal-box">
+      <div class="repo-modal-header">
+        <span id="modal-tag" class="project-tag"></span>
+        <span class="cmd-esc" id="close-repo-modal">ESC</span>
+      </div>
+      <h2 id="modal-title" class="modal-repo-title"></h2>
+      <p id="modal-desc" class="modal-repo-desc"></p>
+      
+      <div class="modal-code-box">
+        <span class="c-comment"># Clone Repository</span>
+        <p><span class="c-prompt">$</span> <span id="modal-clone-cmd"></span></p>
+      </div>
+
+      <div class="modal-actions">
+        <a id="modal-link" href="#" target="_blank" class="primary-btn glow-btn">Open on GitHub <i class="fas fa-external-link-alt"></i></a>
       </div>
     </div>
   </div>
@@ -310,18 +334,18 @@
 
       <!-- Filter Category Buttons -->
       <div class="filter-tabs fade-in-up">
-        <button class="filter-btn active" data-filter="all">All Projects</button>
-        <button class="filter-btn" data-filter="course">🎓 University Courses (UT &amp; Sharif)</button>
-        <button class="filter-btn" data-filter="ai">AI &amp; LLMs</button>
-        <button class="filter-btn" data-filter="systems">Systems &amp; Kernels</button>
-        <button class="filter-btn" data-filter="hf">Hugging Face Models</button>
-        <button class="filter-btn" data-filter="web">Full-Stack &amp; Games</button>
+        <button class="filter-btn active" data-filter="all">All Projects <span class="filter-count" id="count-all">44</span></button>
+        <button class="filter-btn" data-filter="course">🎓 University Courses <span class="filter-count" id="count-course">18</span></button>
+        <button class="filter-btn" data-filter="ai">AI &amp; LLMs <span class="filter-count" id="count-ai">16</span></button>
+        <button class="filter-btn" data-filter="systems">Systems &amp; Kernels <span class="filter-count" id="count-systems">6</span></button>
+        <button class="filter-btn" data-filter="hf">Hugging Face <span class="filter-count" id="count-hf">2</span></button>
+        <button class="filter-btn" data-filter="web">Software &amp; Web <span class="filter-count" id="count-web">2</span></button>
       </div>
       
       <div class="bento-grid" id="bento-grid">
 
         <!-- Repo: Deep_Generative_models_course -->
-        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Deep_Generative_models_course" data-url="https://github.com/tahamajs/Deep_Generative_models_course" data-desc="This repository collects lecture slides, assignments (CAs), code notebooks, reports, and reference papers used in the "Deep Generative Mo..." data-tag="🎓 UT: Deep Generative Models" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Deep Generative Models • ⭐ 21</div>
             <h3 class="repo-title">Deep Generative models course</h3>
@@ -331,7 +355,7 @@
         </a>
 
         <!-- Repo: Natural-Language-Processing-Projects -->
-        <a href="https://github.com/tahamajs/Natural-Language-Processing-Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Natural-Language-Processing-Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Natural-Language-Processing-Projects" data-url="https://github.com/tahamajs/Natural-Language-Processing-Projects" data-desc="This repository contains a collection of Natural Language Processing (NLP) projects completed as assignments for the NLP course at Sharif..." data-tag="🎓 Sharif: Natural Language Processing" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 Sharif: Natural Language Processing • ⭐ 8</div>
             <h3 class="repo-title">Natural Language Processing Projects</h3>
@@ -341,7 +365,7 @@
         </a>
 
         <!-- Repo: Computer_Network_Projects -->
-        <a href="https://github.com/tahamajs/Computer_Network_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Computer_Network_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Computer_Network_Projects" data-url="https://github.com/tahamajs/Computer_Network_Projects" data-desc="This repository is a comprehensive archive of Computer Networks course materials, including assignments, experiments, simulations, and re..." data-tag="🎓 UT: Computer Networks" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Computer Networks • ⭐ 3</div>
             <h3 class="repo-title">Computer Network Projects</h3>
@@ -351,7 +375,7 @@
         </a>
 
         <!-- Repo: DeepLearning_Assignments -->
-        <a href="https://github.com/tahamajs/DeepLearning_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/DeepLearning_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="DeepLearning_Assignments" data-url="https://github.com/tahamajs/DeepLearning_Assignments" data-desc="This repository contains comprehensive implementations of advanced deep learning concepts and models as part of the Neural Networks and D..." data-tag="🎓 UT: Deep Learning" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Deep Learning • ⭐ 2</div>
             <h3 class="repo-title">DeepLearning Assignments</h3>
@@ -361,7 +385,7 @@
         </a>
 
         <!-- Repo: Computer_Architecture_LAB -->
-        <a href="https://github.com/tahamajs/Computer_Architecture_LAB" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Computer_Architecture_LAB" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Computer_Architecture_LAB" data-url="https://github.com/tahamajs/Computer_Architecture_LAB" data-desc="This project contains a complete implementation of an ARM processor with Pipeline architecture." data-tag="🎓 UT: Computer Architecture" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Computer Architecture • ⭐ 2</div>
             <h3 class="repo-title">Computer Architecture LAB</h3>
@@ -371,7 +395,7 @@
         </a>
 
         <!-- Repo: Trustworthy_AI_Course_Assignments -->
-        <a href="https://github.com/tahamajs/Trustworthy_AI_Course_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Trustworthy_AI_Course_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Trustworthy_AI_Course_Assignments" data-url="https://github.com/tahamajs/Trustworthy_AI_Course_Assignments" data-desc="A collection of course assignments and supporting code for the "Trustworthy AI" class — organized, documented, and ready for development ..." data-tag="🎓 UT: Trustworthy AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Trustworthy AI • ⭐ 2</div>
             <h3 class="repo-title">Trustworthy AI Course Assignments</h3>
@@ -381,7 +405,7 @@
         </a>
 
         <!-- Repo: LLM_UT_FINAL_PROJECT -->
-        <a href="https://github.com/tahamajs/LLM_UT_FINAL_PROJECT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/LLM_UT_FINAL_PROJECT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="LLM_UT_FINAL_PROJECT" data-url="https://github.com/tahamajs/LLM_UT_FINAL_PROJECT" data-desc="Open-source repository focusing on advanced engineering & research." data-tag="🎓 UT: LLMs Final Project" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: LLMs Final Project • ⭐ 1</div>
             <h3 class="repo-title">LLM UT FINAL PROJECT</h3>
@@ -391,7 +415,7 @@
         </a>
 
         <!-- Repo: Data_Science_Cource_Assignments -->
-        <a href="https://github.com/tahamajs/Data_Science_Cource_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Data_Science_Cource_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Data_Science_Cource_Assignments" data-url="https://github.com/tahamajs/Data_Science_Cource_Assignments" data-desc="This repository contains all coursework, projects, and materials for the Data Science course at the University of Tehran. The course cove..." data-tag="🎓 UT: Data Science" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Data Science • ⭐ 2</div>
             <h3 class="repo-title">Data Science Cource Assignments</h3>
@@ -401,7 +425,7 @@
         </a>
 
         <!-- Repo: SE2_UT -->
-        <a href="https://github.com/tahamajs/SE2_UT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/SE2_UT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="SE2_UT" data-url="https://github.com/tahamajs/SE2_UT" data-desc="This repository contains the first assignment for the Software Engineering course, exploring two critical areas of modern software develo..." data-tag="🎓 UT: Software Engineering II" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Software Engineering II • ⭐ 2</div>
             <h3 class="repo-title">SE2 UT</h3>
@@ -411,7 +435,7 @@
         </a>
 
         <!-- Repo: Ethics_In_AI_Course -->
-        <a href="https://github.com/tahamajs/Ethics_In_AI_Course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Ethics_In_AI_Course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Ethics_In_AI_Course" data-url="https://github.com/tahamajs/Ethics_In_AI_Course" data-desc="This repository contains the complete set of AI Ethics course materials, organized by syllabus topic. Each topic folder is a self contain..." data-tag="🎓 UT: AI Ethics" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: AI Ethics • ⭐ 2</div>
             <h3 class="repo-title">Ethics In AI Course</h3>
@@ -421,7 +445,7 @@
         </a>
 
         <!-- Repo: Shortcut_Learning_in_Large-Scale_Models -->
-        <a href="https://github.com/tahamajs/Shortcut_Learning_in_Large-Scale_Models" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Shortcut_Learning_in_Large-Scale_Models" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Shortcut_Learning_in_Large-Scale_Models" data-url="https://github.com/tahamajs/Shortcut_Learning_in_Large-Scale_Models" data-desc="This repository provides a reproducible, modular pipeline for detecting and mitigating shortcut learning in language models." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 2</div>
             <h3 class="repo-title">Shortcut Learning in Large Scale Models</h3>
@@ -431,7 +455,7 @@
         </a>
 
         <!-- Repo: Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic -->
-        <a href="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" target="_blank" class="bento-item bento-wide fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" target="_blank" class="bento-item bento-wide fade-in-up" data-category="ai" data-name="Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" data-url="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" data-desc="This repository now includes a complete implementation scaffold in shortcut_patcher/ for:" data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 7</div>
             <h3 class="repo-title">Shortcut Learning Through the Lens of Task Arithmetic</h3>
@@ -441,7 +465,7 @@
         </a>
 
         <!-- Repo: AirMouse -->
-        <a href="https://github.com/tahamajs/AirMouse" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/AirMouse" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="AirMouse" data-url="https://github.com/tahamajs/AirMouse" data-desc="Air Mouse turns your Android smartphone into a wireless mouse using only the phone's built‑in sensors (accelerometer, gyroscope, magnetom..." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">AirMouse</h3>
@@ -451,7 +475,7 @@
         </a>
 
         <!-- Repo: Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3 -->
-        <a href="https://github.com/tahamajs/Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3" data-url="https://github.com/tahamajs/Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3" data-desc="This repository contains Homework 3 for the Deep Generative Models course at the University of Tehran . The assignment covers two major g..." data-tag="🎓 UT: Diffusion & Score Matching" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Diffusion & Score Matching • ⭐ 2</div>
             <h3 class="repo-title">Diffusion Models and ScoreLearning DeepGenModels HW3</h3>
@@ -461,7 +485,7 @@
         </a>
 
         <!-- Repo: machine_learning_course -->
-        <a href="https://github.com/tahamajs/machine_learning_course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/machine_learning_course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="machine_learning_course" data-url="https://github.com/tahamajs/machine_learning_course" data-desc="This repository contains machine learning assignments and a final project from the University of Tehran. The assignments cover regression..." data-tag="🎓 UT: Machine Learning" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Machine Learning • ⭐ 6</div>
             <h3 class="repo-title">machine learning course</h3>
@@ -471,7 +495,7 @@
         </a>
 
         <!-- Repo: Systems_2_in_AI__Course_Assignments -->
-        <a href="https://github.com/tahamajs/Systems_2_in_AI__Course_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Systems_2_in_AI__Course_Assignments" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Systems_2_in_AI__Course_Assignments" data-url="https://github.com/tahamajs/Systems_2_in_AI__Course_Assignments" data-desc="This repository contains a collection of advanced, hands-on assignments for the Systems 2 in AI course. Each folder under CAs/ is an inde..." data-tag="🎓 UT: Systems 2 in AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Systems 2 in AI • ⭐ 1</div>
             <h3 class="repo-title">Systems 2 in AI  Course Assignments</h3>
@@ -481,7 +505,7 @@
         </a>
 
         <!-- Repo: Deep_Reinforcement_Learning_SUT -->
-        <a href="https://github.com/tahamajs/Deep_Reinforcement_Learning_SUT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Deep_Reinforcement_Learning_SUT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Deep_Reinforcement_Learning_SUT" data-url="https://github.com/tahamajs/Deep_Reinforcement_Learning_SUT" data-desc="A comprehensive collection of Deep Reinforcement Learning assignments, solutions, and resources for the DRL course at Sharif University o..." data-tag="🎓 Sharif: Deep Reinforcement Learning" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 Sharif: Deep Reinforcement Learning • ⭐ 1</div>
             <h3 class="repo-title">Deep Reinforcement Learning SUT</h3>
@@ -491,7 +515,7 @@
         </a>
 
         <!-- Repo: Data_Science_Final_Project_Taxi_Demand_New_York -->
-        <a href="https://github.com/tahamajs/Data_Science_Final_Project_Taxi_Demand_New_York" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Data_Science_Final_Project_Taxi_Demand_New_York" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Data_Science_Final_Project_Taxi_Demand_New_York" data-url="https://github.com/tahamajs/Data_Science_Final_Project_Taxi_Demand_New_York" data-desc="This project represents a complete end-to-end data science solution for analyzing and predicting taxi demand in New York City. It demonst..." data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 0</div>
             <h3 class="repo-title">Data Science Final Project Taxi Demand New York</h3>
@@ -501,7 +525,7 @@
         </a>
 
         <!-- Repo: Unlearning_from_VAE -->
-        <a href="https://github.com/tahamajs/Unlearning_from_VAE" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Unlearning_from_VAE" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Unlearning_from_VAE" data-url="https://github.com/tahamajs/Unlearning_from_VAE" data-desc="This repository implements Selective Amnesia, a principled approach for machine unlearning in Conditional Variational Autoencoders (VAEs)..." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 0</div>
             <h3 class="repo-title">Unlearning from VAE</h3>
@@ -511,7 +535,7 @@
         </a>
 
         <!-- Repo: Turtix_Game -->
-        <a href="https://github.com/tahamajs/Turtix_Game" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Turtix_Game" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Turtix_Game" data-url="https://github.com/tahamajs/Turtix_Game" data-desc="Turtix Game is a C++ game developed using the SFML library. It offers an interactive gameplay experience where players control a turtle, ..." data-tag="🎓 UT: Advanced Programming Project" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Advanced Programming Project • ⭐ 4</div>
             <h3 class="repo-title">Turtix Game</h3>
@@ -521,7 +545,7 @@
         </a>
 
         <!-- Repo: Qwen3-VL-T -->
-        <a href="https://github.com/tahamajs/Qwen3-VL-T" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Qwen3-VL-T" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Qwen3-VL-T" data-url="https://github.com/tahamajs/Qwen3-VL-T" data-desc="Qwen3-VL is the multimodal large language model series developed by Qwen team, Alibaba Cloud." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 0</div>
             <h3 class="repo-title">Qwen3 VL T</h3>
@@ -531,7 +555,7 @@
         </a>
 
         <!-- Repo: Qwen3-Coder-T -->
-        <a href="https://github.com/tahamajs/Qwen3-Coder-T" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Qwen3-Coder-T" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Qwen3-Coder-T" data-url="https://github.com/tahamajs/Qwen3-Coder-T" data-desc="Qwen3-Coder is the code version of Qwen3, the large language model series developed by Qwen team, Alibaba Cloud." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 0</div>
             <h3 class="repo-title">Qwen3 Coder T</h3>
@@ -541,7 +565,7 @@
         </a>
 
         <!-- Repo: Speaker-ID-and-Gender-Classification -->
-        <a href="https://github.com/tahamajs/Speaker-ID-and-Gender-Classification" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Speaker-ID-and-Gender-Classification" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Speaker-ID-and-Gender-Classification" data-url="https://github.com/tahamajs/Speaker-ID-and-Gender-Classification" data-desc="This project focuses on utilizing machine learning algorithms to perform voice authentication and gender classification using audio featu..." data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 2</div>
             <h3 class="repo-title">Speaker ID and Gender Classification</h3>
@@ -551,7 +575,7 @@
         </a>
 
         <!-- Repo: Advanced_programming_Projects -->
-        <a href="https://github.com/tahamajs/Advanced_programming_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Advanced_programming_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="Advanced_programming_Projects" data-url="https://github.com/tahamajs/Advanced_programming_Projects" data-desc="This repository contains a collection of assignments for the Advanced Programming (APS02) course at the University of Tehran. The project..." data-tag="🎓 UT: Advanced Programming" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Advanced Programming • ⭐ 3</div>
             <h3 class="repo-title">Advanced programming Projects</h3>
@@ -561,7 +585,7 @@
         </a>
 
         <!-- Repo: Persian_instruct_dataset -->
-        <a href="https://github.com/tahamajs/Persian_instruct_dataset" target="_blank" class="bento-item bento-wide fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Persian_instruct_dataset" target="_blank" class="bento-item bento-wide fade-in-up" data-category="systems" data-name="Persian_instruct_dataset" data-url="https://github.com/tahamajs/Persian_instruct_dataset" data-desc="Open-source repository focusing on advanced engineering & research." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 4</div>
             <h3 class="repo-title">Persian instruct dataset</h3>
@@ -571,7 +595,7 @@
         </a>
 
         <!-- Repo: AI-CA1_-Agents_And_Search_Algorithms -->
-        <a href="https://github.com/tahamajs/AI-CA1_-Agents_And_Search_Algorithms" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/AI-CA1_-Agents_And_Search_Algorithms" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="AI-CA1_-Agents_And_Search_Algorithms" data-url="https://github.com/tahamajs/AI-CA1_-Agents_And_Search_Algorithms" data-desc="This repository contains solutions for AI-S03-A1 , which focuses on agents , search algorithms , and problem-solving in Artificial Intell..." data-tag="🎓 UT: Artificial Intelligence" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Artificial Intelligence • ⭐ 1</div>
             <h3 class="repo-title">AI CA1  Agents And Search Algorithms</h3>
@@ -581,7 +605,7 @@
         </a>
 
         <!-- Repo: xv6-Modified_OS_Lab_Projects -->
-        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item bento-wide fade-in-up" data-category="course" data-name="xv6-Modified_OS_Lab_Projects" data-url="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" data-desc="This repository contains a collection of Operating Systems lab assignments implemented using xv6, an educational Unix-like OS. The labs c..." data-tag="🎓 UT: Operating Systems Lab" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-graduation-cap"></i> 🎓 UT: Operating Systems Lab • ⭐ 2</div>
             <h3 class="repo-title">xv6 Modified OS Lab Projects</h3>
@@ -591,7 +615,7 @@
         </a>
 
         <!-- Repo: FineTuning-4B-LLM-GSM8k-GRPO-SFT -->
-        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="FineTuning-4B-LLM-GSM8k-GRPO-SFT" data-url="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" data-desc="Open-source repository focusing on advanced engineering & research." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 1</div>
             <h3 class="repo-title">FineTuning 4B LLM GSM8k GRPO SFT</h3>
@@ -601,7 +625,7 @@
         </a>
 
         <!-- Repo: Programming_Languages_and_Compiler_Theory_course -->
-        <a href="https://github.com/tahamajs/Programming_Languages_and_Compiler_Theory_course" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Programming_Languages_and_Compiler_Theory_course" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Programming_Languages_and_Compiler_Theory_course" data-url="https://github.com/tahamajs/Programming_Languages_and_Compiler_Theory_course" data-desc="This project implements a compiler for the SimpleLang programming language as part of the Programming Language Concepts (PLC) course. Thi..." data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 1</div>
             <h3 class="repo-title">Programming Languages and Compiler Theory course</h3>
@@ -611,7 +635,7 @@
         </a>
 
         <!-- Repo: Large_language_models_course -->
-        <a href="https://github.com/tahamajs/Large_language_models_course" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Large_language_models_course" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Large_language_models_course" data-url="https://github.com/tahamajs/Large_language_models_course" data-desc="This repository contains Jupyter notebooks for assignments in the Large Language Models (LLM) course. Each assignment explores different ..." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 1</div>
             <h3 class="repo-title">Large language models course</h3>
@@ -621,7 +645,7 @@
         </a>
 
         <!-- Repo: AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions -->
-        <a href="https://github.com/tahamajs/AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions" data-url="https://github.com/tahamajs/AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions" data-desc="This repository contains solutions for AI-S03-A3 , focusing on Clustering Algorithms, Feature Engineering, and Dimensionality Reduction ...." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">AI CA3  Clustering PCA Unsupervised Learning Solutions</h3>
@@ -631,7 +655,7 @@
         </a>
 
         <!-- Repo: Optimization_Methods_in_Machine_Learning_HW3 -->
-        <a href="https://github.com/tahamajs/Optimization_Methods_in_Machine_Learning_HW3" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Optimization_Methods_in_Machine_Learning_HW3" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Optimization_Methods_in_Machine_Learning_HW3" data-url="https://github.com/tahamajs/Optimization_Methods_in_Machine_Learning_HW3" data-desc="This assignment focuses on optimization algorithms in machine learning, including:  Line Search Algorithms Newton’s Method Quasi-Newton M..." data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 1</div>
             <h3 class="repo-title">Optimization Methods in Machine Learning HW3</h3>
@@ -641,7 +665,7 @@
         </a>
 
         <!-- Repo: AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models -->
-        <a href="https://github.com/tahamajs/AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models" data-url="https://github.com/tahamajs/AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models" data-desc="This repository contains solutions for AI-S03-A2 , which focuses on Bayesian Networks (Bayes Nets) and Hidden Markov Models (HMM) . The p..." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">AI CA2  Bayesian Networks HMM   Probabilistic Models</h3>
@@ -651,7 +675,7 @@
         </a>
 
         <!-- Repo: AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation -->
-        <a href="https://github.com/tahamajs/AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation" data-url="https://github.com/tahamajs/AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation" data-desc="This repository includes solutions for AI-S03-A4 (Artificial Intelligence - Assignment 4) and HW-4 (Homework 4) focused on Machine Learni..." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">AI CA4  Machine Learning Optimization   Model Evaluation</h3>
@@ -661,7 +685,7 @@
         </a>
 
         <!-- Repo: AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions -->
-        <a href="https://github.com/tahamajs/AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions" data-url="https://github.com/tahamajs/AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions" data-desc="This repository contains solutions for Artificial Intelligence - CA5 and HW5 assignments. These assignments cover essential AI concepts s..." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">AI CA5  Neural Networks Optimization   NLP Solutions</h3>
@@ -671,7 +695,7 @@
         </a>
 
         <!-- Repo: Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4 -->
-        <a href="https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4" data-url="https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4" data-desc="This repository contains Homework 4 for the Deep Generative Models course at the University of Tehran. The assignment covers cutting-edge..." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 1</div>
             <h3 class="repo-title">Vision Language Models and Flow Matching DeepGenModels HW4</h3>
@@ -681,7 +705,7 @@
         </a>
 
         <!-- Repo: Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2 -->
-        <a href="https://github.com/tahamajs/Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2" data-url="https://github.com/tahamajs/Flow_Based_Generative_Models_and_GANs_DeepGenModels_HW2" data-desc="This repository contains Homework 2 for the Deep Generative Models course at the University of Tehran. This assignment covers advanced ge..." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 1</div>
             <h3 class="repo-title">Flow Based Generative Models and GANs DeepGenModels HW2</h3>
@@ -691,7 +715,7 @@
         </a>
 
         <!-- Repo: Variational_Inference_and_Generative_Models_DeepGenModels_HW1 -->
-        <a href="https://github.com/tahamajs/Variational_Inference_and_Generative_Models_DeepGenModels_HW1" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Variational_Inference_and_Generative_Models_DeepGenModels_HW1" target="_blank" class="bento-item fade-in-up" data-category="ai" data-name="Variational_Inference_and_Generative_Models_DeepGenModels_HW1" data-url="https://github.com/tahamajs/Variational_Inference_and_Generative_Models_DeepGenModels_HW1" data-desc="This repository contains Homework 1 for the Deep Generative Models course at the University of Tehran. The homework consists of theoretic..." data-tag="Research & AI" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-brain"></i> Research & AI • ⭐ 1</div>
             <h3 class="repo-title">Variational Inference and Generative Models DeepGenModels HW1</h3>
@@ -701,7 +725,7 @@
         </a>
 
         <!-- Repo: Datastructure_And_Algorithm_Course -->
-        <a href="https://github.com/tahamajs/Datastructure_And_Algorithm_Course" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Datastructure_And_Algorithm_Course" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="Datastructure_And_Algorithm_Course" data-url="https://github.com/tahamajs/Datastructure_And_Algorithm_Course" data-desc="This repository contains lecture notes, homework assignments, and additional resources for the Data Structures and Algorithms course at t..." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">Datastructure And Algorithm Course</h3>
@@ -711,7 +735,7 @@
         </a>
 
         <!-- Repo: Artificial_Intelligence_Projects -->
-        <a href="https://github.com/tahamajs/Artificial_Intelligence_Projects" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Artificial_Intelligence_Projects" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="Artificial_Intelligence_Projects" data-url="https://github.com/tahamajs/Artificial_Intelligence_Projects" data-desc="This repository contains the coursework and assessments for the Artificial Intelligence course at the University of Tehran. Each folder r..." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 2</div>
             <h3 class="repo-title">Artificial Intelligence Projects</h3>
@@ -721,7 +745,7 @@
         </a>
 
         <!-- Repo: Computer_Architecture_Projects -->
-        <a href="https://github.com/tahamajs/Computer_Architecture_Projects" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Computer_Architecture_Projects" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Computer_Architecture_Projects" data-url="https://github.com/tahamajs/Computer_Architecture_Projects" data-desc="Computer Architecture Projects" data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 1</div>
             <h3 class="repo-title">Computer Architecture Projects</h3>
@@ -731,7 +755,7 @@
         </a>
 
         <!-- Repo: FormalLanguagesandAutomataTheory_Course -->
-        <a href="https://github.com/tahamajs/FormalLanguagesandAutomataTheory_Course" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/FormalLanguagesandAutomataTheory_Course" target="_blank" class="bento-item fade-in-up" data-category="systems" data-name="FormalLanguagesandAutomataTheory_Course" data-url="https://github.com/tahamajs/FormalLanguagesandAutomataTheory_Course" data-desc="Open-source repository focusing on advanced engineering & research." data-tag="Systems & Engines" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-server"></i> Systems & Engines • ⭐ 1</div>
             <h3 class="repo-title">FormalLanguagesandAutomataTheory Course</h3>
@@ -741,7 +765,7 @@
         </a>
 
         <!-- Repo: Course-Selection-System_Project -->
-        <a href="https://github.com/tahamajs/Course-Selection-System_Project" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Course-Selection-System_Project" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Course-Selection-System_Project" data-url="https://github.com/tahamajs/Course-Selection-System_Project" data-desc="Course Selection System" data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 3</div>
             <h3 class="repo-title">Course Selection System Project</h3>
@@ -751,7 +775,7 @@
         </a>
 
         <!-- Repo: Football_Fantesy_CPP_PH2 -->
-        <a href="https://github.com/tahamajs/Football_Fantesy_CPP_PH2" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="4">
+        <a href="https://github.com/tahamajs/Football_Fantesy_CPP_PH2" target="_blank" class="bento-item fade-in-up" data-category="web" data-name="Football_Fantesy_CPP_PH2" data-url="https://github.com/tahamajs/Football_Fantesy_CPP_PH2" data-desc="Fantasy Football Application Phase 2" data-tag="Software & Web" data-tilt data-tilt-max="4">
           <div class="bento-inner">
             <div class="project-tag"><i class="fas fa-code"></i> Software & Web • ⭐ 1</div>
             <h3 class="repo-title">Football Fantesy CPP PH2</h3>
@@ -825,6 +849,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=13.0"></script>
+  <script src="script.js?v=15.0"></script>
 </body>
 </html>
