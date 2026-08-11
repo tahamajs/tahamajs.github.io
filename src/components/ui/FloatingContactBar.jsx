@@ -1,6 +1,6 @@
 // src/components/ui/FloatingContactBar.jsx
 
-export default function FloatingContactBar({ onHire, onCopyEmail, beep, showToast }) {
+export default function FloatingContactBar({ onHire, onCopyEmail, onTelegramBot, beep, showToast }) {
   return (
     <div className="floating-contact-bar">
       <div className="floating-contact-inner">
@@ -12,9 +12,9 @@ export default function FloatingContactBar({ onHire, onCopyEmail, beep, showToas
           <i className="fas fa-envelope" /> <span>Copy Email</span>
         </button>
 
-        <a href="https://t.me/tahamajlesii" target="_blank" className="floating-contact-btn" onClick={() => beep?.()} title="Instant Telegram Chat">
-          <i className="fab fa-telegram-plane" /> <span>Telegram</span>
-        </a>
+        <button className="floating-contact-btn" onClick={() => { onTelegramBot?.(); beep?.(880); }} title="Subscribe to Telegram Bot Updates">
+          <i className="fab fa-telegram-plane" style={{ color: 'var(--cyan)' }} /> <span>Telegram Bot</span>
+        </button>
 
         <a href="https://instagram.com/hooshaaii" target="_blank" className="floating-contact-btn" onClick={() => beep?.()} title="Instagram @hooshaaii">
           <i className="fab fa-instagram" /> <span>Instagram</span>

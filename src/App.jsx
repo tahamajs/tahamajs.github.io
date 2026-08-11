@@ -37,6 +37,7 @@ import PaperReaderModal from './components/modals/PaperReaderModal.jsx';
 import CyberpunkGameModal from './components/modals/CyberpunkGameModal.jsx';
 import KeyboardShortcutsModal from './components/modals/KeyboardShortcutsModal.jsx';
 import AlgorithmGameModal from './components/modals/AlgorithmGameModal.jsx';
+import TelegramBotModal from './components/modals/TelegramBotModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -69,6 +70,7 @@ export default function App() {
   const [gameOpen, setGameOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [algoGameOpen, setAlgoGameOpen] = useState(false);
+  const [telegramOpen, setTelegramOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
@@ -187,7 +189,7 @@ export default function App() {
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
       <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
       <GameHUDHeader beep={beep} />
-      <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} beep={beep} showToast={showToast} />
+      <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} onTelegramBot={() => setTelegramOpen(true)} beep={beep} showToast={showToast} />
       
       <main style={{ paddingTop: '80px' }}>
         {(pageView === 'all' || pageView === 'home') && (
@@ -287,6 +289,7 @@ export default function App() {
       <CyberpunkGameModal open={gameOpen} onClose={() => setGameOpen(false)} showToast={showToast} beep={beep} />
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       <AlgorithmGameModal open={algoGameOpen} onClose={() => setAlgoGameOpen(false)} showToast={showToast} beep={beep} />
+      <TelegramBotModal open={telegramOpen} onClose={() => setTelegramOpen(false)} showToast={showToast} beep={beep} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>
