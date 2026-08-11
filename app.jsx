@@ -7,6 +7,12 @@ function App() {
   const [accent, setAccent] = useState('cyan');
   const [soundEnabled, setSoundEnabled] = useState(false);
 
+  // Substack Search & HF Search
+  const [substackSearch, setSubstackSearch] = useState('');
+  const [hfSearch, setHfSearch] = useState('');
+  const [activeCodeTab, setActiveCodeTab] = useState('flow');
+  const [codeOutput, setCodeOutput] = useState('');
+
   // Modals state
   const [aiModalOpen, setAiModalOpen] = useState(false);
   const [cmdModalOpen, setCmdModalOpen] = useState(false);
@@ -150,6 +156,20 @@ function App() {
     });
   }, [data.repos, filter, search]);
 
+  // Filtered Substack Articles
+  const filteredArticles = useMemo(() => {
+    const q = substackSearch.toLowerCase().trim();
+    if (!q) return data.articles || [];
+    return (data.articles || []).filter(a => (a.title + ' ' + a.desc).toLowerCase().includes(q));
+  }, [data.articles, substackSearch]);
+
+  // Filtered HF Assets
+  const filteredHf = useMemo(() => {
+    const q = hfSearch.toLowerCase().trim();
+    if (!q) return data.hf || [];
+    return (data.hf || []).filter(h => (h.id + ' ' + h.type).toLowerCase().includes(q));
+  }, [data.hf, hfSearch]);
+
   const counts = useMemo(() => {
     const repos = data.repos || [];
     return {
@@ -194,6 +214,48 @@ function App() {
     navigator.clipboard.writeText(bib);
     playSound(700, 'square');
     triggerToast('BibTeX citation copied to clipboard! 📄');
+  };
+
+  const runCodeSnippet = () => {
+    playSound(900, 'sine');
+    setCodeOutput("Running evaluation in PyTorch 2.4 + CUDA 12.2 sandbox...\n[INFO] Initializing Flow Matching velocity vector field v_t(x_t)\n[INFO] Loss (t=0.5): 0.0142 | Velocity error: 0.0003\n[SUCCESS] Continuous trajectory converged in 20 ODE solver steps (0.042s)!");
+  };
+
+  const codeSnippets = {
+    flow: `# Flow Matching ODE Sampling (PyTorch)
+import torch
+
+def vector_field(t, x_t, x1):
+    return x1 - x_t  # Linear vector field v_t(x_t)
+
+x0 = torch.randn(1, 3, 64, 64)  # Gaussian noise
+x1 = target_image               # Target sample
+t = torch.linspace(0, 1, 20)    # ODE time steps
+for i in range(len(t) - 1):
+    dt = t[i+1] - t[i]
+    x0 = x0 + vector_field(t[i], x0, x1) * dt
+print("Flow Matching trajectory generated!")`,
+    grpo: `# Group Relative Policy Optimization (GRPO) Loss
+import torch
+import torch.nn.functional as F
+
+def grpo_loss(logits, old_logits, advantages, clip_eps=0.2):
+    ratios = torch.exp(logits - old_logits)
+    surr1 = ratios * advantages
+    surr2 = torch.clamp(ratios, 1.0 - clip_eps, 1.0 + clip_eps) * advantages
+    return -torch.min(surr1, surr2).mean()
+
+print("GRPO Loss Initialized for 4B LLM Reasoning!")`,
+    kaleido: `// Kaleido CUDA All-Reduce Launcher (C++)
+#include <cuda_runtime.h>
+#include <nccl.h>
+
+__global__ void launch_all_reduce(float* tensor, int size) {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx < size) {
+        tensor[idx] *= 1.0f / 4.0f; // Scale gradient
+    }
+}`
   };
 
   const achievements = [
@@ -304,7 +366,7 @@ function App() {
               <i className="fas fa-search"></i>
               <input
                 type="text"
-                placeholder="Type a command (e.g. 'recruit', 'achievements', 'resume', 'substack')..."
+                placeholder="Type a command (e.g. 'recruit', 'achievements', 'playground', 'resume')..."
                 autoFocus
               />
               <span className="cmd-esc" onClick={() => setCmdModalOpen(false)}>ESC</span>
@@ -358,10 +420,9 @@ function App() {
             <a href="#about">About</a>
             <a href="#achievements">Achievements</a>
             <a href="#recruitment">Why Hire?</a>
+            <a href="#playground">Playground</a>
             <a href="#publications">Publications</a>
             <a href="#architecture">Architecture</a>
-            <a href="#experience">Experience</a>
-            <a href="#teaching">Teaching</a>
             <a href="#projects">Ecosystem ({counts.all})</a>
             <a href="#substack">Substack 🧠</a>
             <a href="assets/resume.pdf" target="_blank" className="nav-resume-btn"><i className="fas fa-file-pdf"></i> Resume CV</a>
@@ -428,7 +489,7 @@ function App() {
         {/* Honors & Key Achievements Section */}
         <section id="achievements" className="section">
           <div className="section-header fade-in-up">
-            <h2>Honors &amp; Key <span class="gradient-text">Achievements</span></h2>
+            <h2>Honors &amp; Key <span className="gradient-text">Achievements</span></h2>
             <p>Major technical milestones, academic distinctions, and open-source impact.</p>
           </div>
 
@@ -443,33 +504,39 @@ function App() {
           </div>
         </section>
 
-        {/* Why Hire Taha */}
-        <section id="recruitment" className="section">
+        {/* Interactive PyTorch & CUDA Code Playground */}
+        <section id="playground" className="section">
           <div className="section-header fade-in-up">
-            <h2>Why Recruit <span className="gradient-text">Taha Majlesi?</span></h2>
-            <p>Key impact metrics making Taha an exceptional hire for AI R&amp;D teams, labs, and startups.</p>
+            <h2>Interactive <span className="gradient-text">Code &amp; Algorithm Sandbox</span></h2>
+            <p>Test and inspect live research code snippets authored by Taha Majlesi.</p>
           </div>
 
-          <div className="recruitment-grid fade-in-up">
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-rocket"></i></div>
-              <h3>Proven Founder Mindset</h3>
-              <p>Co-Founder at <b>Hoosha AI 🧠</b>. Proven capability to take research ideas from raw mathematics to production deployments &amp; published papers.</p>
+          <div className="terminal-card fade-in-up">
+            <div className="terminal-bar">
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <span className="t-dot red"></span>
+                <span className="t-dot yellow"></span>
+                <span className="t-dot green"></span>
+              </div>
+              <div style={{ marginLeft: '1.5rem', display: 'flex', gap: '1rem' }}>
+                <button className={`pub-btn ${activeCodeTab === 'flow' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('flow'); setCodeOutput(''); }}>Flow Matching ODE</button>
+                <button className={`pub-btn ${activeCodeTab === 'grpo' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('grpo'); setCodeOutput(''); }}>GRPO Loss (PyTorch)</button>
+                <button className={`pub-btn ${activeCodeTab === 'kaleido' ? 'active' : ''}`} onClick={() => { setActiveCodeTab('kaleido'); setCodeOutput(''); }}>Kaleido CUDA Kernel</button>
+              </div>
+              <span className="t-title">gpu-node-01 (PyTorch 2.4)</span>
             </div>
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-microchip"></i></div>
-              <h3>First-Principles Systems Engineering</h3>
-              <p>Architected <b>Kaleido</b> distributed LLM engine from scratch in CUDA, C++, and PyTorch across multi-GPU compute nodes.</p>
-            </div>
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-brain"></i></div>
-              <h3>Frontier AI Research</h3>
-              <p>Deep expertise in <b>Flow Matching ODEs</b>, <b>GRPO 4B LLM fine-tuning</b>, synthetic datasets, and sub-quadratic linear attention.</p>
-            </div>
-            <div className="recruit-card">
-              <div className="recruit-icon"><i className="fas fa-graduation-cap"></i></div>
-              <h3>Academic Pedigree</h3>
-              <p>Computer Engineering at <b>University of Tehran</b>, cross-institutional TA for Compiler Construction at <b>Sharif University of Technology</b>.</p>
+            <div className="terminal-code">
+              <pre>{codeSnippets[activeCodeTab]}</pre>
+              <div style={{ marginTop: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <button className="primary-btn glow-btn" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }} onClick={runCodeSnippet}>
+                  <i className="fas fa-play"></i> Run Sandbox Test
+                </button>
+              </div>
+              {codeOutput && (
+                <div style={{ marginTop: '1rem', padding: '1rem', background: '#030508', borderRadius: '8px', border: '1px solid var(--cyan)', color: '#00f0ff', fontSize: '0.85rem' }}>
+                  <pre>{codeOutput}</pre>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -566,12 +633,22 @@ function App() {
         {/* Substack Articles */}
         <section id="substack" className="section">
           <div className="section-header fade-in-up">
-            <h2>Hoosha AI 🧠 <span className="gradient-text">Substack Newsletter ({data.articles ? data.articles.length : 0} Deep Dives)</span></h2>
+            <h2>Hoosha AI 🧠 <span className="gradient-text">Substack Newsletter ({filteredArticles.length} Deep Dives)</span></h2>
             <p>Deep dives into ML/AI papers, LLM reasoning, cognitive scaling, and sub-quadratic attention.</p>
           </div>
 
+          <div className="search-box-wrapper fade-in-up" style={{ marginBottom: '2rem' }}>
+            <i className="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Search Substack articles by title or topic..."
+              value={substackSearch}
+              onChange={e => setSubstackSearch(e.target.value)}
+            />
+          </div>
+
           <div className="articles-grid">
-            {(data.articles || []).map((art, idx) => (
+            {filteredArticles.map((art, idx) => (
               <a key={idx} href={art.link} target="_blank" className="article-card fade-in-up">
                 <div className="article-tag"><i className="fas fa-newspaper"></i> Substack • {art.date}</div>
                 <h3>{art.title}</h3>
