@@ -29,11 +29,11 @@
   ));
 
   // src/index.jsx
-  var import_react10 = __toESM(__require("react"));
+  var import_react14 = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
 
   // src/App.jsx
-  var import_react9 = __require("react");
+  var import_react13 = __require("react");
 
   // src/hooks/index.js
   var import_react = __require("react");
@@ -242,6 +242,16 @@
     { num: "17.1k+", label: "LinkedIn Followers" },
     { num: "20", label: "Research Papers" }
   ];
+  var ACHIEVEMENTS = [
+    { icon: "fa-users", val: "17.1k+", title: "LinkedIn Community", desc: "One of Iran's largest AI communities \u2014 weekly deep-dives on LLM alignment, GPU engineering, and distributed systems." },
+    { icon: "fa-code-commit", val: "12,787", title: "Commits (Past Year)", desc: "Top 1% globally for open-source contribution velocity across 143 public repositories and 44 showcased projects." },
+    { icon: "fa-robot", val: "162", title: "Hugging Face Assets", desc: "92 pre-trained model checkpoints + 70 synthetic evaluation datasets published openly on the HF Hub." },
+    { icon: "fa-newspaper", val: "20", title: "Research Papers", desc: "Deep-dive Substack papers on Flow Matching, GRPO, CUDA kernels, IIT consciousness, and sub-quadratic attention." },
+    { icon: "fa-graduation-cap", val: "500+", title: "Students Mentored", desc: "TA across 6 graduate / undergraduate courses at University of Tehran and Sharif University of Technology." },
+    { icon: "fa-microchip", val: "4D", title: "Kaleido CUDA Engine", desc: "First-principles distributed LLM training framework \u2014 data, tensor, sequence & pipeline parallelism on A100 clusters." },
+    { icon: "fa-flask", val: "\u221E", title: "Hoosha AI Co-Founder", desc: "Research startup bridging frontier ML (Flow Matching, GRPO) with IIT-based synthetic cognitive AI research." },
+    { icon: "fa-heart", val: "Open", title: "GitHub Sponsor", desc: "Support Taha's open-source work on CUDA engines, Persian LLMs, and AI research tooling via GitHub Sponsors." }
+  ];
   var SKILLS = [
     { cat: "Languages", items: ["Python", "C++ 20", "CUDA/C", "Kotlin", "Java", "JavaScript", "Verilog", "Bash"] },
     { cat: "ML / AI", items: ["PyTorch 2.x", "JAX/Flax", "HuggingFace", "DeepSpeed", "PEFT / QLoRA", "TRL / GRPO"] },
@@ -260,6 +270,16 @@
     { year: "2024", icon: "fa-graduation-cap", color: "#10b981", title: "TA @ UT \u2014 M.Sc. ML, AI, OS Lab, C++", desc: "Teaching Assistant for 4 simultaneous graduate/undergraduate courses at University of Tehran \u2014 300+ students mentored." },
     { year: "2024", icon: "fa-robot", color: "#f59e0b", title: "162 HuggingFace Assets Published", desc: "Reached 162 public HF assets: 92 pre-trained model checkpoints and 70 synthetic evaluation datasets with 1000+ total downloads." },
     { year: "2023", icon: "fa-graduation-cap", color: "#00f0ff", title: "Started CE at University of Tehran", desc: "Enrolled in Computer Engineering at University of Tehran \u2014 focus on systems architecture, AI research, and distributed computing." }
+  ];
+  var CONSTELLATION = [
+    { id: "core", label: "Taha Majlesi", type: "core", x: 50, y: 50, desc: "Co-Founder & AI Architect @ Hoosha AI | CE @ University of Tehran | TA @ Sharif University of Technology" },
+    { id: "hoosha", label: "Hoosha AI \u{1F9E0}", type: "startup", x: 24, y: 28, desc: "Frontier AI research startup: Flow Matching, GRPO post-training, IIT-based synthetic consciousness, distributed GPU systems." },
+    { id: "ut", label: "Univ. of Tehran", type: "academic", x: 75, y: 28, desc: "Primary CE degree. TA for M.Sc. ML, AI, OS Lab, Advanced Programming \u2014 mentoring 500+ students across 6 courses." },
+    { id: "sharif", label: "Sharif Univ.", type: "academic", x: 78, y: 72, desc: "Cross-institutional TA for Compiler Construction at Sharif University of Technology (2025\u2013present)." },
+    { id: "kaleido", label: "Kaleido Engine \u26A1", type: "system", x: 22, y: 72, desc: "From-scratch 4D-parallel distributed LLM training in CUDA 12.2/C++ targeting A100 SXM4 clusters." },
+    { id: "hf", label: "HuggingFace (162)", type: "science", x: 50, y: 16, desc: "92 pre-trained model weights & 70 synthetic datasets. Top: persian-instruct-200k (312 downloads)." },
+    { id: "sub", label: "Substack (20)", type: "research", x: 50, y: 84, desc: "20 technical deep-dives: Flow Matching ODEs, GRPO alignment, CUDA kernels, IIT consciousness, SVD linear attention." },
+    { id: "linkedin", label: "LinkedIn 17.1k", type: "startup", x: 12, y: 50, desc: "17,100+ followers \u2014 Iran's largest AI community. Weekly posts on LLM alignment and GPU engineering." }
   ];
   var CMD_ITEMS = [
     { text: "Open AI Research Assistant", icon: "fas fa-robot", id: "ai" },
@@ -331,9 +351,168 @@
     ))))), /* @__PURE__ */ React.createElement("div", { className: "stats-bar" }, STATS.map((s) => /* @__PURE__ */ React.createElement("div", { key: s.label, className: "stat-cell" }, /* @__PURE__ */ React.createElement("span", { className: "stat-num" }, s.num), /* @__PURE__ */ React.createElement("span", { className: "stat-lbl" }, s.label)))));
   }
 
+  // src/components/sections/AchievementsSection.jsx
+  var import_react3 = __require("react");
+
   // src/components/ui/SectionHead.jsx
   function SectionHead({ tag, title, sub }) {
     return /* @__PURE__ */ React.createElement("div", { className: "section-head" }, tag && /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, tag), /* @__PURE__ */ React.createElement("h2", { dangerouslySetInnerHTML: { __html: title } }), sub && /* @__PURE__ */ React.createElement("p", null, sub));
+  }
+
+  // src/components/sections/AchievementsSection.jsx
+  function CountUp({ target, running }) {
+    const [val, setVal] = (0, import_react3.useState)(0);
+    const isNum = !isNaN(parseInt(target));
+    const numeric = parseInt(target);
+    const suffix = isNum ? target.replace(numeric, "") : "";
+    (0, import_react3.useEffect)(() => {
+      if (!running || !isNum) return;
+      let start = 0;
+      const step = Math.ceil(numeric / 60);
+      const id = setInterval(() => {
+        start += step;
+        if (start >= numeric) {
+          setVal(numeric);
+          clearInterval(id);
+        } else setVal(start);
+      }, 16);
+      return () => clearInterval(id);
+    }, [running, numeric, isNum]);
+    if (!isNum) return /* @__PURE__ */ React.createElement("span", null, target);
+    return /* @__PURE__ */ React.createElement("span", null, val.toLocaleString(), suffix);
+  }
+  function AchievementsSection() {
+    const ref = (0, import_react3.useRef)(null);
+    const [visible, setVisible] = (0, import_react3.useState)(false);
+    (0, import_react3.useEffect)(() => {
+      const observer = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) setVisible(true);
+      }, { threshold: 0.2 });
+      if (ref.current) observer.observe(ref.current);
+      return () => observer.disconnect();
+    }, []);
+    return /* @__PURE__ */ React.createElement("section", { className: "section fade-up", ref }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Impact",
+        title: "By The Numbers",
+        sub: "Open-source velocity, research output, and community impact \u2014 measured."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "achv-grid" }, ACHIEVEMENTS.map((a, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "achv-card" }, /* @__PURE__ */ React.createElement("div", { className: "achv-icon-wrap" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${a.icon}` })), /* @__PURE__ */ React.createElement("div", { className: "achv-val" }, /* @__PURE__ */ React.createElement(CountUp, { target: a.val, running: visible })), /* @__PURE__ */ React.createElement("div", { className: "achv-title" }, a.title), /* @__PURE__ */ React.createElement("p", { className: "achv-desc" }, a.desc)))));
+  }
+
+  // src/components/sections/ConstellationSection.jsx
+  var import_react4 = __require("react");
+  var EDGES = [
+    ["core", "hoosha"],
+    ["core", "ut"],
+    ["core", "sharif"],
+    ["core", "kaleido"],
+    ["core", "hf"],
+    ["core", "sub"],
+    ["core", "linkedin"],
+    ["hoosha", "kaleido"],
+    ["hoosha", "sub"],
+    ["ut", "sharif"],
+    ["hf", "sub"]
+  ];
+  var TYPE_COLORS = {
+    core: "#00f0ff",
+    startup: "#8a2be2",
+    academic: "#10b981",
+    system: "#f59e0b",
+    science: "#60a5fa",
+    research: "#f43f5e"
+  };
+  function ConstellationSection({ beep }) {
+    const [active, setActive] = (0, import_react4.useState)(null);
+    const [dims, setDims] = (0, import_react4.useState)({ w: 700, h: 400 });
+    const ref = (0, import_react4.useRef)(null);
+    (0, import_react4.useEffect)(() => {
+      const update = () => {
+        if (ref.current) setDims({ w: ref.current.offsetWidth, h: ref.current.offsetHeight });
+      };
+      update();
+      window.addEventListener("resize", update);
+      return () => window.removeEventListener("resize", update);
+    }, []);
+    const getPos = (node) => ({
+      x: node.x / 100 * dims.w,
+      y: node.y / 100 * dims.h
+    });
+    const activeNode = CONSTELLATION.find((n) => n.id === active);
+    return /* @__PURE__ */ React.createElement("section", { id: "constellation", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Knowledge Graph",
+        title: "Research & Affiliation Constellation",
+        sub: "Click any node to explore Taha's research ecosystem, affiliations, and impact vectors."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "constellation-wrap", ref }, /* @__PURE__ */ React.createElement("svg", { width: "100%", height: "100%", style: { position: "absolute", inset: 0 } }, /* @__PURE__ */ React.createElement("defs", null, /* @__PURE__ */ React.createElement("filter", { id: "glow" }, /* @__PURE__ */ React.createElement("feGaussianBlur", { stdDeviation: "3", result: "coloredBlur" }), /* @__PURE__ */ React.createElement("feMerge", null, /* @__PURE__ */ React.createElement("feMergeNode", { in: "coloredBlur" }), /* @__PURE__ */ React.createElement("feMergeNode", { in: "SourceGraphic" })))), EDGES.map(([aId, bId], i) => {
+      const a = CONSTELLATION.find((n) => n.id === aId);
+      const b = CONSTELLATION.find((n) => n.id === bId);
+      const aPos = getPos(a);
+      const bPos = getPos(b);
+      const isActive = active === aId || active === bId;
+      return /* @__PURE__ */ React.createElement(
+        "line",
+        {
+          key: i,
+          x1: aPos.x,
+          y1: aPos.y,
+          x2: bPos.x,
+          y2: bPos.y,
+          stroke: isActive ? "#00f0ff" : "rgba(255,255,255,0.08)",
+          strokeWidth: isActive ? 1.5 : 0.8,
+          style: { transition: "all 0.3s" }
+        }
+      );
+    }), CONSTELLATION.map((node) => {
+      const { x, y } = getPos(node);
+      const color = TYPE_COLORS[node.type] || "#fff";
+      const isActive = active === node.id;
+      const isCore = node.id === "core";
+      const r = isCore ? 22 : isActive ? 16 : 11;
+      return /* @__PURE__ */ React.createElement(
+        "g",
+        {
+          key: node.id,
+          style: { cursor: "pointer" },
+          onClick: () => {
+            setActive(active === node.id ? null : node.id);
+            beep?.();
+          }
+        },
+        /* @__PURE__ */ React.createElement("circle", { cx: x, cy: y, r: r + 8, fill: "transparent" }),
+        /* @__PURE__ */ React.createElement(
+          "circle",
+          {
+            cx: x,
+            cy: y,
+            r,
+            fill: isActive || isCore ? color : "rgba(255,255,255,0.05)",
+            stroke: color,
+            strokeWidth: isActive ? 2.5 : 1.5,
+            filter: isActive || isCore ? "url(#glow)" : "",
+            style: { transition: "all 0.3s" }
+          }
+        ),
+        /* @__PURE__ */ React.createElement(
+          "text",
+          {
+            x,
+            y: y + r + 16,
+            textAnchor: "middle",
+            fill: isActive ? color : "#9ca3af",
+            fontSize: isCore ? 12 : 10,
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: isCore ? 700 : 500,
+            style: { transition: "all 0.3s" }
+          },
+          node.label
+        )
+      );
+    })), activeNode && /* @__PURE__ */ React.createElement("div", { className: "constellation-panel", style: { borderColor: TYPE_COLORS[activeNode.type] } }, /* @__PURE__ */ React.createElement("div", { style: { color: TYPE_COLORS[activeNode.type], fontSize: ".7rem", fontFamily: "monospace", textTransform: "uppercase", marginBottom: ".4rem" } }, activeNode.type), /* @__PURE__ */ React.createElement("h4", { style: { color: "#fff", marginBottom: ".5rem" } }, activeNode.label), /* @__PURE__ */ React.createElement("p", { style: { color: "#9ca3af", fontSize: ".85rem", lineHeight: 1.6 } }, activeNode.desc))));
   }
 
   // src/components/sections/TimelineSection.jsx
@@ -348,11 +527,11 @@
   }
 
   // src/components/sections/ContributionGraph.jsx
-  var import_react3 = __require("react");
+  var import_react5 = __require("react");
   function ContributionGraph() {
     const weeks = 52;
     const daysPerWeek = 7;
-    const grid = (0, import_react3.useMemo)(() => {
+    const grid = (0, import_react5.useMemo)(() => {
       const data = [];
       for (let w = 0; w < weeks; w++) {
         const week = [];
@@ -380,18 +559,80 @@
   }
 
   // src/components/sections/SkillsSection.jsx
+  var import_react6 = __require("react");
+  var PROFICIENCY = {
+    "Python": 97,
+    "C++ 20": 88,
+    "CUDA/C": 85,
+    "Kotlin": 70,
+    "Java": 75,
+    "JavaScript": 82,
+    "Verilog": 65,
+    "Bash": 80,
+    "PyTorch 2.x": 95,
+    "JAX/Flax": 78,
+    "HuggingFace": 95,
+    "DeepSpeed": 82,
+    "PEFT / QLoRA": 90,
+    "TRL / GRPO": 92,
+    "CUDA 12.2": 85,
+    "cuBLAS": 78,
+    "NCCL": 80,
+    "MPI": 72,
+    "Triton": 68,
+    "Nsight Compute": 75,
+    "Docker": 85,
+    "GitHub Actions": 90,
+    "FastAPI": 88,
+    "Django REST": 78,
+    "PostgreSQL": 75,
+    "Redis": 72,
+    "Flow Matching": 95,
+    "Diffusion SDEs": 88,
+    "RLHF/GRPO": 92,
+    "Linear Attention": 85,
+    "VAE Unlearning": 78,
+    "IIT \u03A6": 80,
+    "xv6 OS Kernel": 85,
+    "Pipelined ARM CPU": 78,
+    "Compilers (Flex/Bison)": 82,
+    "TCP/UDP Sockets": 88,
+    "Verilog RTL": 65
+  };
+  function AnimatedBar({ pct, running, color }) {
+    const [w, setW] = (0, import_react6.useState)(0);
+    (0, import_react6.useEffect)(() => {
+      if (running) setTimeout(() => setW(pct), 100);
+    }, [running, pct]);
+    return /* @__PURE__ */ React.createElement("div", { className: "skill-bar-bg" }, /* @__PURE__ */ React.createElement("div", { className: "skill-bar-fill", style: { width: `${w}%`, background: color, transition: "width 0.8s cubic-bezier(.4,0,.2,1)" } }));
+  }
+  var CAT_COLORS = ["#00f0ff", "#8a2be2", "#10b981", "#f59e0b", "#f43f5e", "#60a5fa"];
   function SkillsSection() {
-    return /* @__PURE__ */ React.createElement("section", { id: "skills", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
-      SectionHead,
+    const ref = (0, import_react6.useRef)(null);
+    const [visible, setVisible] = (0, import_react6.useState)(false);
+    const [activeTab, setActiveTab] = (0, import_react6.useState)(0);
+    (0, import_react6.useEffect)(() => {
+      const observer = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) setVisible(true);
+      }, { threshold: 0.1 });
+      if (ref.current) observer.observe(ref.current);
+      return () => observer.disconnect();
+    }, []);
+    const skill = SKILLS[activeTab];
+    return /* @__PURE__ */ React.createElement("section", { id: "skills", className: "section fade-up", ref }, /* @__PURE__ */ React.createElement(SectionHead, { tag: "Capabilities", title: "Technical Arsenal" }), /* @__PURE__ */ React.createElement("div", { className: "skills-tabs" }, SKILLS.map((s, i) => /* @__PURE__ */ React.createElement(
+      "button",
       {
-        tag: "Capabilities",
-        title: "Technical Arsenal"
-      }
-    ), /* @__PURE__ */ React.createElement("div", { className: "skills-grid" }, SKILLS.map((s, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "skill-card" }, /* @__PURE__ */ React.createElement("div", { className: "skill-cat" }, s.cat), /* @__PURE__ */ React.createElement("div", { className: "skill-tags" }, s.items.map((t) => /* @__PURE__ */ React.createElement("span", { key: t, className: "skill-tag" }, t)))))));
+        key: i,
+        className: `skills-tab-btn ${activeTab === i ? "active" : ""}`,
+        style: activeTab === i ? { borderColor: CAT_COLORS[i], color: CAT_COLORS[i] } : {},
+        onClick: () => setActiveTab(i)
+      },
+      s.cat
+    ))), /* @__PURE__ */ React.createElement("div", { className: "skills-bars-panel" }, skill.items.map((item, i) => /* @__PURE__ */ React.createElement("div", { key: item, className: "skill-bar-row", style: { animationDelay: `${i * 0.05}s` } }, /* @__PURE__ */ React.createElement("span", { className: "skill-bar-label" }, item), /* @__PURE__ */ React.createElement(AnimatedBar, { pct: PROFICIENCY[item] || 80, running: visible, color: CAT_COLORS[activeTab] }), /* @__PURE__ */ React.createElement("span", { className: "skill-bar-pct", style: { color: CAT_COLORS[activeTab] } }, PROFICIENCY[item] || 80, "%")))));
   }
 
   // src/components/sections/CodeSandboxSection.jsx
-  var import_react4 = __require("react");
+  var import_react7 = __require("react");
 
   // src/data/codeSnippets.js
   var CODE_TABS = {
@@ -563,8 +804,8 @@ class SVDLinearAttention(nn.Module):
 
   // src/components/sections/CodeSandboxSection.jsx
   function FlowMatchingVis({ playing }) {
-    const canvasRef = (0, import_react4.useRef)(null);
-    (0, import_react4.useEffect)(() => {
+    const canvasRef = (0, import_react7.useRef)(null);
+    (0, import_react7.useEffect)(() => {
       if (!playing) return;
       const ctx = canvasRef.current.getContext("2d");
       let W = 300, H = 200;
@@ -606,8 +847,8 @@ class SVDLinearAttention(nn.Module):
     return /* @__PURE__ */ React.createElement("div", { className: "vis-container" }, /* @__PURE__ */ React.createElement("div", { className: "vis-label" }, "Flow Trajectories (x\u2080 \u2192 x\u2081)"), /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { width: "100%", height: "200px" } }));
   }
   function GRPOVis({ playing }) {
-    const [step, setStep] = (0, import_react4.useState)(0);
-    (0, import_react4.useEffect)(() => {
+    const [step, setStep] = (0, import_react7.useState)(0);
+    (0, import_react7.useEffect)(() => {
       if (!playing) {
         setStep(0);
         return;
@@ -636,8 +877,8 @@ class SVDLinearAttention(nn.Module):
     } }, /* @__PURE__ */ React.createElement("div", { style: { flex: 1, background: "rgba(255,255,255,0.05)", padding: "4px 8px", borderRadius: "4px", fontFamily: "monospace", fontSize: "12px" } }, "Output ", r.id, ": ", r.text), step >= 2 && /* @__PURE__ */ React.createElement("div", { style: { width: "60px", height: "6px", background: "rgba(255,255,255,0.1)", borderRadius: "3px", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { width: `${r.val * 100}%`, height: "100%", background: r.color, transition: "width 0.5s" } })), step >= 3 && /* @__PURE__ */ React.createElement("div", { style: { fontSize: "11px", color: r.val > 0.5 ? "#10b981" : "#f43f5e", width: "40px", fontWeight: "bold" } }, r.val > 0.5 ? "+Adv" : "-Adv")))));
   }
   function CUDAReductionVis({ playing }) {
-    const [step, setStep] = (0, import_react4.useState)(0);
-    (0, import_react4.useEffect)(() => {
+    const [step, setStep] = (0, import_react7.useState)(0);
+    (0, import_react7.useEffect)(() => {
       if (!playing) {
         setStep(0);
         return;
@@ -658,8 +899,8 @@ class SVDLinearAttention(nn.Module):
   function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
     const tabs = Object.keys(CODE_TABS);
     const data = CODE_TABS[activeTab];
-    const [playing, setPlaying] = (0, import_react4.useState)(false);
-    (0, import_react4.useEffect)(() => {
+    const [playing, setPlaying] = (0, import_react7.useState)(false);
+    (0, import_react7.useEffect)(() => {
       setPlaying(false);
       setRunOutput("");
     }, [activeTab, setRunOutput]);
@@ -700,7 +941,7 @@ class SVDLinearAttention(nn.Module):
   }
 
   // src/components/sections/ProjectsSection.jsx
-  var import_react5 = __require("react");
+  var import_react8 = __require("react");
   function ProjectsSection({ repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }) {
     return /* @__PURE__ */ React.createElement("section", { id: "projects", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
@@ -888,13 +1129,57 @@ class SVDLinearAttention(nn.Module):
     ), /* @__PURE__ */ React.createElement("form", { className: "newsletter-form", action: "https://hooshaai.substack.com", target: "_blank", onSubmit: () => beep?.(800) }, /* @__PURE__ */ React.createElement("input", { type: "email", placeholder: "Enter your email address...", required: true, className: "newsletter-input" }), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary newsletter-btn" }, "Subscribe ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane", style: { marginLeft: "4px" } }))), /* @__PURE__ */ React.createElement("div", { className: "newsletter-meta" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" }), " No spam"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" }), " Highly technical"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" }), " Once a week"))), /* @__PURE__ */ React.createElement("div", { className: "newsletter-glow" })));
   }
 
+  // src/components/sections/ContactSection.jsx
+  var import_react9 = __require("react");
+  var CONTACTS = [
+    { icon: "fab fa-github", href: "https://github.com/tahamajs", label: "GitHub", val: "@tahamajs", color: "#fff" },
+    { icon: "fab fa-linkedin-in", href: "https://linkedin.com/in/tahamajlesi", label: "LinkedIn", val: "17.1k Followers", color: "#0a66c2" },
+    { icon: "fas fa-robot", href: "https://huggingface.co/tahamajs", label: "HuggingFace", val: "162 Assets", color: "#ffd21e" },
+    { icon: "fas fa-newspaper", href: "https://hooshaai.substack.com", label: "Substack", val: "Hoosha AI \u{1F9E0}", color: "#ff6719" },
+    { icon: "fab fa-telegram", href: "https://t.me/tahamajlesii", label: "Telegram", val: "@tahamajlesii", color: "#229ed9" },
+    { icon: "fas fa-envelope", href: "mailto:tahamajlesi@ut.ac.ir", label: "Email", val: "UT.ac.ir", color: "#10b981" },
+    { icon: "fas fa-heart", href: "https://github.com/sponsors/tahamajs", label: "Sponsor", val: "Fund the mission", color: "#ea4aaa" }
+  ];
+  function ContactSection({ onHire, beep }) {
+    const [copied, setCopied] = (0, import_react9.useState)(false);
+    const copyEmail = () => {
+      navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
+      setCopied(true);
+      beep?.(700, "square");
+      setTimeout(() => setCopied(false), 2e3);
+    };
+    return /* @__PURE__ */ React.createElement("section", { id: "contact", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Get In Touch",
+        title: "Open To Collaboration & Opportunities",
+        sub: "Whether you're a recruiter, researcher, or open-source contributor \u2014 I respond to every serious inquiry within 24 hours."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "contact-grid" }, /* @__PURE__ */ React.createElement("div", { className: "contact-ctas" }, /* @__PURE__ */ React.createElement("div", { className: "contact-cta-card primary-cta", onClick: () => {
+      onHire();
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h4", null, "Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("p", null, "Full-time, part-time, contract, or research collaboration")), /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.4 } })), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "contact-cta-card sponsor-cta", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h4", null, "Sponsor on GitHub"), /* @__PURE__ */ React.createElement("p", null, "Fund open-source CUDA engines, Persian LLMs & AI research")), /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.4 } })), /* @__PURE__ */ React.createElement("div", { className: "contact-email-row" }, /* @__PURE__ */ React.createElement("div", { className: "contact-email-display" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope", style: { color: "var(--accent)" } }), /* @__PURE__ */ React.createElement("span", null, "tahamajlesi@ut.ac.ir")), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary contact-copy", onClick: copyEmail }, /* @__PURE__ */ React.createElement("i", { className: `fas ${copied ? "fa-check" : "fa-copy"}` }), " ", copied ? "Copied!" : "Copy"))), /* @__PURE__ */ React.createElement("div", { className: "contact-socials" }, CONTACTS.map((c) => /* @__PURE__ */ React.createElement(
+      "a",
+      {
+        key: c.label,
+        href: c.href,
+        target: c.href.startsWith("mailto") ? "_self" : "_blank",
+        className: "contact-social-row",
+        onClick: () => beep?.()
+      },
+      /* @__PURE__ */ React.createElement("div", { className: "contact-social-icon", style: { background: `${c.color}18`, color: c.color, border: `1px solid ${c.color}30` } }, /* @__PURE__ */ React.createElement("i", { className: c.icon })),
+      /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "contact-social-label" }, c.label), /* @__PURE__ */ React.createElement("div", { className: "contact-social-val" }, c.val)),
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt", style: { marginLeft: "auto", opacity: 0.25, fontSize: ".7rem" } })
+    )))));
+  }
+
   // src/components/modals/AIChatModal.jsx
-  var import_react7 = __require("react");
+  var import_react11 = __require("react");
 
   // src/components/ui/Modal.jsx
-  var import_react6 = __require("react");
+  var import_react10 = __require("react");
   function Modal({ open, onClose, children, wide = false }) {
-    (0, import_react6.useEffect)(() => {
+    (0, import_react10.useEffect)(() => {
       if (open) document.body.style.overflow = "hidden";
       else document.body.style.overflow = "";
       return () => {
@@ -947,10 +1232,10 @@ class SVDLinearAttention(nn.Module):
     "How to hire Taha?"
   ];
   function AIChatModal({ open, onClose, beep, speak }) {
-    const [msgs, setMsgs] = (0, import_react7.useState)([
+    const [msgs, setMsgs] = (0, import_react11.useState)([
       { who: "bot", text: "\u{1F44B} I'm Taha's AI research assistant. Ask me about <b>Flow Matching</b>, <b>GRPO</b>, <b>Hoosha AI</b>, <b>Kaleido Engine</b>, <b>GitHub Sponsors</b>, or how to <b>hire Taha</b>!" }
     ]);
-    const [input, setInput] = (0, import_react7.useState)("");
+    const [input, setInput] = (0, import_react11.useState)("");
     const send = (q) => {
       if (!q?.trim()) return;
       setMsgs((p) => [...p, { who: "user", text: q.trim() }]);
@@ -1005,9 +1290,9 @@ class SVDLinearAttention(nn.Module):
   }
 
   // src/components/modals/CommandPalette.jsx
-  var import_react8 = __require("react");
+  var import_react12 = __require("react");
   function CommandPalette({ open, onClose, onCmd }) {
-    const [q, setQ] = (0, import_react8.useState)("");
+    const [q, setQ] = (0, import_react12.useState)("");
     if (!open) return null;
     const filtered = CMD_ITEMS.filter((i) => i.text.toLowerCase().includes(q.toLowerCase()));
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cmd-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-search" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), /* @__PURE__ */ React.createElement(
@@ -1045,30 +1330,30 @@ class SVDLinearAttention(nn.Module):
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react9.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react9.useState)("");
-    const [filter, setFilter] = (0, import_react9.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react9.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react9.useState)("");
-    const [accent, setAccent] = (0, import_react9.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react9.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react9.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react9.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react9.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react9.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react9.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react9.useState)(false);
-    const [bibtexPub, setBibtexPub] = (0, import_react9.useState)(null);
+    const [data, setData] = (0, import_react13.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react13.useState)("");
+    const [filter, setFilter] = (0, import_react13.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react13.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react13.useState)("");
+    const [accent, setAccent] = (0, import_react13.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react13.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react13.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react13.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react13.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react13.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react13.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react13.useState)(false);
+    const [bibtexPub, setBibtexPub] = (0, import_react13.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
     const beep = useBeep(soundOn);
     useNeuralCanvas();
-    (0, import_react9.useEffect)(() => {
+    (0, import_react13.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react9.useEffect)(() => {
+    (0, import_react13.useEffect)(() => {
       const fn = (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
@@ -1085,17 +1370,17 @@ class SVDLinearAttention(nn.Module):
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, []);
-    const repos = (0, import_react9.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react13.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react9.useMemo)(() => {
+    const articles = (0, import_react13.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react9.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
-    const counts = (0, import_react9.useMemo)(() => {
+    const hfAssets = (0, import_react13.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const counts = (0, import_react13.useMemo)(() => {
       const r = data.repos || [];
       return {
         all: r.length,
@@ -1134,7 +1419,7 @@ class SVDLinearAttention(nn.Module):
       }))();
     };
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
       beep(600);
@@ -1150,5 +1435,5 @@ class SVDLinearAttention(nn.Module):
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react10.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react14.default.createElement(App, null));
 })();

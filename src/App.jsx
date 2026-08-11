@@ -6,6 +6,8 @@ import Navigation from './components/layout/Navigation.jsx';
 import Footer from './components/layout/Footer.jsx';
 
 import HeroSection from './components/sections/HeroSection.jsx';
+import AchievementsSection from './components/sections/AchievementsSection.jsx';
+import ConstellationSection from './components/sections/ConstellationSection.jsx';
 import TimelineSection from './components/sections/TimelineSection.jsx';
 import ContributionGraph from './components/sections/ContributionGraph.jsx';
 import SkillsSection from './components/sections/SkillsSection.jsx';
@@ -15,6 +17,7 @@ import PublicationsSection from './components/sections/PublicationsSection.jsx';
 import SubstackSection from './components/sections/SubstackSection.jsx';
 import ReadmeSection from './components/sections/ReadmeSection.jsx';
 import NewsletterSection from './components/sections/NewsletterSection.jsx';
+import ContactSection from './components/sections/ContactSection.jsx';
 
 import AIChatModal from './components/modals/AIChatModal.jsx';
 import HireModal from './components/modals/HireModal.jsx';
@@ -116,14 +119,17 @@ export default function App() {
       
       <main>
         <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
+        <AchievementsSection />
         <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} beep={beep} />
+        <ConstellationSection beep={beep} />
         <ContributionGraph />
         <TimelineSection />
+        <SkillsSection />
         <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
         <PublicationsSection onCopyBib={setBibtexPub} beep={beep} />
         <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
         <NewsletterSection beep={beep} />
-        <SkillsSection />
+        <ContactSection onHire={() => setHireOpen(true)} beep={beep} />
         {data.readmeHtml && <ReadmeSection readmeHtml={data.readmeHtml} />}
       </main>
 
