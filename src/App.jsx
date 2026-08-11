@@ -18,6 +18,7 @@ import SubstackSection from './components/sections/SubstackSection.jsx';
 import ReadmeSection from './components/sections/ReadmeSection.jsx';
 import NewsletterSection from './components/sections/NewsletterSection.jsx';
 import ContactSection from './components/sections/ContactSection.jsx';
+import SocialFeedSection from './components/sections/SocialFeedSection.jsx';
 
 import AIChatModal from './components/modals/AIChatModal.jsx';
 import HireModal from './components/modals/HireModal.jsx';
@@ -127,6 +128,7 @@ export default function App() {
         <SkillsSection />
         <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
         <PublicationsSection onCopyBib={setBibtexPub} beep={beep} />
+        <SocialFeedSection beep={beep} />
         <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
         <NewsletterSection beep={beep} />
         <ContactSection onHire={() => setHireOpen(true)} beep={beep} />

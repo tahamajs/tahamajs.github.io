@@ -5,12 +5,13 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
-  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-  }) : x)(function(x) {
-    if (typeof require !== "undefined") return require.apply(this, arguments);
-    throw Error('Dynamic require of "' + x + '" is not supported');
-  });
+  var __commonJS = (cb, mod) => function __require() {
+    try {
+      return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    } catch (e) {
+      throw mod = 0, e;
+    }
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -28,15 +29,33 @@
     mod
   ));
 
+  // src/react-shim.js
+  var require_react_shim = __commonJS({
+    "src/react-shim.js"(exports, module) {
+      module.exports = window.React;
+    }
+  });
+
+  // src/react-dom-client-shim.js
+  var require_react_dom_client_shim = __commonJS({
+    "src/react-dom-client-shim.js"(exports, module) {
+      module.exports = {
+        createRoot: function(container) {
+          return window.ReactDOM.createRoot(container);
+        }
+      };
+    }
+  });
+
   // src/index.jsx
-  var import_react14 = __toESM(__require("react"));
-  var import_client = __require("react-dom/client");
+  var import_react14 = __toESM(require_react_shim());
+  var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react13 = __require("react");
+  var import_react13 = __toESM(require_react_shim());
 
   // src/hooks/index.js
-  var import_react = __require("react");
+  var import_react = __toESM(require_react_shim());
   function useToast() {
     const [msg, setMsg] = (0, import_react.useState)(null);
     const show = (0, import_react.useCallback)((m, ms = 2800) => {
@@ -201,7 +220,7 @@
   }
 
   // src/components/layout/Navigation.jsx
-  var import_react2 = __require("react");
+  var import_react2 = __toESM(require_react_shim());
   function Navigation({ mobileNav, setMobileNav, onHire, onCmd }) {
     (0, import_react2.useEffect)(() => {
       const fn = () => setMobileNav(false);
@@ -352,7 +371,7 @@
   }
 
   // src/components/sections/AchievementsSection.jsx
-  var import_react3 = __require("react");
+  var import_react3 = __toESM(require_react_shim());
 
   // src/components/ui/SectionHead.jsx
   function SectionHead({ tag, title, sub }) {
@@ -402,7 +421,7 @@
   }
 
   // src/components/sections/ConstellationSection.jsx
-  var import_react4 = __require("react");
+  var import_react4 = __toESM(require_react_shim());
   var EDGES = [
     ["core", "hoosha"],
     ["core", "ut"],
@@ -527,7 +546,7 @@
   }
 
   // src/components/sections/ContributionGraph.jsx
-  var import_react5 = __require("react");
+  var import_react5 = __toESM(require_react_shim());
   function ContributionGraph() {
     const weeks = 52;
     const daysPerWeek = 7;
@@ -559,7 +578,7 @@
   }
 
   // src/components/sections/SkillsSection.jsx
-  var import_react6 = __require("react");
+  var import_react6 = __toESM(require_react_shim());
   var PROFICIENCY = {
     "Python": 97,
     "C++ 20": 88,
@@ -632,7 +651,7 @@
   }
 
   // src/components/sections/CodeSandboxSection.jsx
-  var import_react7 = __require("react");
+  var import_react7 = __toESM(require_react_shim());
 
   // src/data/codeSnippets.js
   var CODE_TABS = {
@@ -941,7 +960,7 @@ class SVDLinearAttention(nn.Module):
   }
 
   // src/components/sections/ProjectsSection.jsx
-  var import_react8 = __require("react");
+  var import_react8 = __toESM(require_react_shim());
   function ProjectsSection({ repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }) {
     return /* @__PURE__ */ React.createElement("section", { id: "projects", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
@@ -1130,7 +1149,7 @@ class SVDLinearAttention(nn.Module):
   }
 
   // src/components/sections/ContactSection.jsx
-  var import_react9 = __require("react");
+  var import_react9 = __toESM(require_react_shim());
   var CONTACTS = [
     { icon: "fab fa-github", href: "https://github.com/tahamajs", label: "GitHub", val: "@tahamajs", color: "#fff" },
     { icon: "fab fa-linkedin-in", href: "https://linkedin.com/in/tahamajlesi", label: "LinkedIn", val: "17.1k Followers", color: "#0a66c2" },
@@ -1173,11 +1192,67 @@ class SVDLinearAttention(nn.Module):
     )))));
   }
 
+  // src/components/sections/SocialFeedSection.jsx
+  var TWEETS = [
+    {
+      author: "Hoosha AI \u{1F9E0}",
+      handle: "@hooshaaii",
+      avatar: "https://github.com/tahamajs.png",
+      date: "Aug 10, 2026",
+      text: "Unpacking Conditional Flow Matching (CFM): Why simulation-free continuous normalizing flows outperform standard diffusion SDEs in sample efficiency and ODE solver integration steps. \u{1F9F5} (1/8)",
+      stats: { retweets: "142", likes: "890", replies: "34" },
+      url: "https://x.com/hooshaaii",
+      tag: "Flow Matching"
+    },
+    {
+      author: "Hoosha AI \u{1F9E0}",
+      handle: "@hooshaaii",
+      avatar: "https://github.com/tahamajs.png",
+      date: "Aug 4, 2026",
+      text: "Deep-dive on GRPO (Group Relative Policy Optimization): Eliminating the PPO Critic network for 4B LLM math reasoning. How group-normalized rewards scale alignment training on constrained GPU clusters. \u{1F680}",
+      stats: { retweets: "215", likes: "1.2k", replies: "58" },
+      url: "https://x.com/hooshaaii",
+      tag: "GRPO Alignment"
+    },
+    {
+      author: "Mohammad Taha Majlesi",
+      handle: "@tahamajlesi",
+      avatar: "assets/avatar.jpg",
+      date: "Jul 28, 2026",
+      text: "Announcing Kaleido Engine v0.4 \u26A1 \u2014 First-principles 4D-parallel CUDA 12.2 / C++ distributed LLM training framework. Fused warp-level reduction kernels achieving near-peak 1.8 TB/s memory bandwidth on A100 SXM4.",
+      stats: { retweets: "310", likes: "1.8k", replies: "72" },
+      url: "https://x.com/hooshaaii",
+      tag: "CUDA Systems"
+    },
+    {
+      author: "Hoosha AI \u{1F9E0}",
+      handle: "@hooshaaii",
+      avatar: "https://github.com/tahamajs.png",
+      date: "Jul 15, 2026",
+      text: "Released 162 HuggingFace Assets! 92 pre-trained model weights + 70 synthetic evaluation datasets for Persian LLM benchmarks and sub-quadratic linear attention research. Open for the global community.",
+      stats: { retweets: "188", likes: "940", replies: "41" },
+      url: "https://huggingface.co/tahamajs",
+      tag: "Open Science"
+    }
+  ];
+  function SocialFeedSection({ beep }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "social-feed", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Research Dispatch & X Feed",
+        title: "Latest Updates from <b>@hooshaaii</b> \u{1F426}",
+        sub: "Follow live dispatches on Flow Matching, GRPO post-training, CUDA kernel optimization, and Hugging Face releases."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "tweets-grid" }, TWEETS.map((t, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: t.url, target: "_blank", className: "tweet-card", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("div", { className: "tweet-header" }, /* @__PURE__ */ React.createElement("img", { src: t.avatar, onError: (e) => {
+      e.target.src = "https://github.com/tahamajs.png";
+    }, alt: t.author, className: "tweet-avatar" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "tweet-author" }, t.author, " ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle tweet-badge" })), /* @__PURE__ */ React.createElement("div", { className: "tweet-handle" }, t.handle, " \xB7 ", t.date)), /* @__PURE__ */ React.createElement("span", { className: "tweet-tag" }, t.tag)), /* @__PURE__ */ React.createElement("p", { className: "tweet-body" }, t.text), /* @__PURE__ */ React.createElement("div", { className: "tweet-footer" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "far fa-comment" }), " ", t.stats.replies), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-retweet" }), " ", t.stats.retweets), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "far fa-heart" }), " ", t.stats.likes), /* @__PURE__ */ React.createElement("span", { style: { marginLeft: "auto", color: "var(--accent)" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-x-twitter" }), " View on X"))))));
+  }
+
   // src/components/modals/AIChatModal.jsx
-  var import_react11 = __require("react");
+  var import_react11 = __toESM(require_react_shim());
 
   // src/components/ui/Modal.jsx
-  var import_react10 = __require("react");
+  var import_react10 = __toESM(require_react_shim());
   function Modal({ open, onClose, children, wide = false }) {
     (0, import_react10.useEffect)(() => {
       if (open) document.body.style.overflow = "hidden";
@@ -1290,7 +1365,7 @@ class SVDLinearAttention(nn.Module):
   }
 
   // src/components/modals/CommandPalette.jsx
-  var import_react12 = __require("react");
+  var import_react12 = __toESM(require_react_shim());
   function CommandPalette({ open, onClose, onCmd }) {
     const [q, setQ] = (0, import_react12.useState)("");
     if (!open) return null;
@@ -1419,7 +1494,7 @@ class SVDLinearAttention(nn.Module):
       }))();
     };
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
       beep(600);
