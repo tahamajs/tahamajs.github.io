@@ -5,6 +5,7 @@ import { useToast, useTehranClock, useGpuMetrics, useBeep, useNeuralCanvas } fro
 import Navigation from './components/layout/Navigation.jsx';
 import PageRouterBar from './components/layout/PageRouterBar.jsx';
 import Footer from './components/layout/Footer.jsx';
+import FloatingContactBar from './components/ui/FloatingContactBar.jsx';
 
 import HeroSection from './components/sections/HeroSection.jsx';
 import AchievementsSection from './components/sections/AchievementsSection.jsx';
@@ -158,10 +159,16 @@ export default function App() {
     hfDatasets: hfAssets.filter(a => a.type === 'dataset').length,
   }), [repos, hfAssets]);
 
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('tahamajlesi@ut.ac.ir');
+    showToast('📋 Email (tahamajlesi@ut.ac.ir) copied to clipboard!');
+  };
+
   return (
     <>
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
       <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
+      <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} beep={beep} showToast={showToast} />
       
       <main style={{ paddingTop: '80px' }}>
         {(pageView === 'all' || pageView === 'home') && (

@@ -629,3 +629,14 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .arcade-overlay-screen{position:absolute;inset:1rem;background:rgba(3,7,18,0.92);backdrop-filter:blur(8px);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem;}
 .arcade-overlay-screen h2{font-size:1.6rem;color:var(--accent);margin-bottom:.5rem;font-family:'Space Grotesk',sans-serif;}
 .arcade-overlay-screen p{font-size:.85rem;color:var(--muted);max-width:320px;line-height:1.5;}
+
+/* ── Ultra-Smooth Micro-Interactions & Floating Contact Bar ── */
+.btn-primary, .btn-secondary, .pub-btn, .social-btn, .ctrl-btn, .page-router-tab, .floating-contact-btn{transition:transform .25s cubic-bezier(0.16, 1, 0.3, 1), background-color .25s ease, border-color .25s ease, box-shadow .25s ease;}
+.btn-primary:hover, .btn-secondary:hover, .pub-btn:hover, .social-btn:hover, .ctrl-btn:hover, .page-router-tab:hover, .floating-contact-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:var(--glow-sm);}
+.btn-primary:active, .btn-secondary:active, .pub-btn:active, .social-btn:active, .ctrl-btn:active, .page-router-tab:active, .floating-contact-btn:active{transform:scale(0.97);}
+
+.floating-contact-bar{position:fixed;bottom:24px;left:24px;z-index:997;}
+.floating-contact-inner{display:flex;gap:.5rem;background:rgba(3,7,18,0.85);backdrop-filter:blur(16px);border:1px solid var(--border);padding:.4rem;border-radius:30px;box-shadow:var(--glow-md);}
+.floating-contact-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:.78rem;padding:.4rem .9rem;border-radius:20px;display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
+.floating-contact-btn.primary{background:var(--accent);color:#000;font-weight:600;border:none;}
+@media(max-width:768px){.floating-contact-bar{display:none;}}
