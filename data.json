@@ -2,7 +2,7 @@
   "repos": [
     {
       "name": "Deep_Generative_models_course",
-      "title": "Deep Generative models course",
+      "title": "Deep Generative Models Course",
       "url": "https://github.com/tahamajs/Deep_Generative_models_course",
       "lang": "Jupyter Notebook",
       "stars": 21,
@@ -41,7 +41,7 @@
     },
     {
       "name": "DeepLearning_Assignments",
-      "title": "DeepLearning Assignments",
+      "title": "Deep Learning Assignments",
       "url": "https://github.com/tahamajs/DeepLearning_Assignments",
       "lang": "Jupyter Notebook",
       "stars": 2,
@@ -80,7 +80,7 @@
     },
     {
       "name": "LLM_UT_FINAL_PROJECT",
-      "title": "LLM UT FINAL PROJECT",
+      "title": "LLMs Final Project (University of Tehran)",
       "url": "https://github.com/tahamajs/LLM_UT_FINAL_PROJECT",
       "lang": "Jupyter Notebook",
       "stars": 1,
@@ -93,7 +93,7 @@
     },
     {
       "name": "Data_Science_Cource_Assignments",
-      "title": "Data Science Cource Assignments",
+      "title": "Data Science Course Assignments",
       "url": "https://github.com/tahamajs/Data_Science_Cource_Assignments",
       "lang": "Jupyter Notebook",
       "stars": 2,
@@ -171,7 +171,7 @@
     },
     {
       "name": "Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3",
-      "title": "Diffusion Models and ScoreLearning DeepGenModels HW3",
+      "title": "Diffusion & Score Matching Models",
       "url": "https://github.com/tahamajs/Diffusion_Models_and_ScoreLearning_DeepGenModels_HW3",
       "lang": "Jupyter Notebook",
       "stars": 2,
@@ -184,7 +184,7 @@
     },
     {
       "name": "machine_learning_course",
-      "title": "machine learning course",
+      "title": "Machine Learning Course",
       "url": "https://github.com/tahamajs/machine_learning_course",
       "lang": "Jupyter Notebook",
       "stars": 6,
@@ -197,7 +197,7 @@
     },
     {
       "name": "Systems_2_in_AI__Course_Assignments",
-      "title": "Systems 2 in AI  Course Assignments",
+      "title": "Systems 2 in AI Course Assignments",
       "url": "https://github.com/tahamajs/Systems_2_in_AI__Course_Assignments",
       "lang": "Jupyter Notebook",
       "stars": 1,
@@ -301,7 +301,7 @@
     },
     {
       "name": "Advanced_programming_Projects",
-      "title": "Advanced programming Projects",
+      "title": "Advanced Programming Projects",
       "url": "https://github.com/tahamajs/Advanced_programming_Projects",
       "lang": "C++",
       "stars": 3,
@@ -327,7 +327,7 @@
     },
     {
       "name": "AI-CA1_-Agents_And_Search_Algorithms",
-      "title": "AI CA1  Agents And Search Algorithms",
+      "title": "AI CA1: Agents & Search Algorithms",
       "url": "https://github.com/tahamajs/AI-CA1_-Agents_And_Search_Algorithms",
       "lang": "HTML",
       "stars": 1,
@@ -379,7 +379,7 @@
     },
     {
       "name": "Large_language_models_course",
-      "title": "Large language models course",
+      "title": "Large Language Models Course",
       "url": "https://github.com/tahamajs/Large_language_models_course",
       "lang": "Jupyter Notebook",
       "stars": 1,
@@ -392,7 +392,7 @@
     },
     {
       "name": "AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions",
-      "title": "AI CA3  Clustering PCA Unsupervised Learning Solutions",
+      "title": "AI CA3: Clustering & PCA Unsupervised Learning",
       "url": "https://github.com/tahamajs/AI-CA3_-Clustering_PCA_Unsupervised_Learning_Solutions",
       "lang": "HTML",
       "stars": 1,
@@ -418,7 +418,7 @@
     },
     {
       "name": "AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models",
-      "title": "AI CA2  Bayesian Networks HMM   Probabilistic Models",
+      "title": "AI CA2: Bayesian Networks & HMM Probabilistic Models",
       "url": "https://github.com/tahamajs/AI-CA2_-Bayesian_Networks_HMM_-_Probabilistic_Models",
       "lang": "Jupyter Notebook",
       "stars": 1,
@@ -431,7 +431,7 @@
     },
     {
       "name": "AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation",
-      "title": "AI CA4  Machine Learning Optimization   Model Evaluation",
+      "title": "AI CA4: Machine Learning Optimization & Model Evaluation",
       "url": "https://github.com/tahamajs/AI-CA4_-Machine_Learning_Optimization_-_Model_Evaluation",
       "lang": "Jupyter Notebook",
       "stars": 1,
@@ -444,7 +444,7 @@
     },
     {
       "name": "AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions",
-      "title": "AI CA5  Neural Networks Optimization   NLP Solutions",
+      "title": "AI CA5: Neural Networks & NLP Solutions",
       "url": "https://github.com/tahamajs/AI-CA5_-Neural_Networks_Optimization_-_NLP_Solutions",
       "lang": "Jupyter Notebook",
       "stars": 1,
@@ -561,7 +561,7 @@
     },
     {
       "name": "Football_Fantesy_CPP_PH2",
-      "title": "Football Fantesy CPP PH2",
+      "title": "Football Fantasy C++ Phase 2",
       "url": "https://github.com/tahamajs/Football_Fantesy_CPP_PH2",
       "lang": "C++",
       "stars": 1,
@@ -573,128 +573,7 @@
       "uni": ""
     }
   ],
-  "articles": [
-    {
-      "title": "Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI",
-      "link": "https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention",
-      "date": "Tue, 11 Aug 2026",
-      "desc": "Breaking the Quadratic Bottleneck in Recommender Systems and Bidirectional Modeling"
-    },
-    {
-      "title": "The Architecture of Boundaries",
-      "link": "https://hooshaai.substack.com/p/the-architecture-of-boundaries",
-      "date": "Tue, 11 Aug 2026",
-      "desc": "Navigating 2D Spintronics, Quasiconformal Geometry, and Infrared Kinematics"
-    },
-    {
-      "title": "The Post-Transformer Era",
-      "link": "https://hooshaai.substack.com/p/the-post-transformer-era",
-      "date": "Mon, 10 Aug 2026",
-      "desc": "A Deep Dive into Sub-Quadratic Sequence Models"
-    },
-    {
-      "title": "The Rise of Linear Attention in Bidirectional Modeling and Long-Term Recommenders",
-      "link": "https://hooshaai.substack.com/p/the-rise-of-linear-attention-in-bidirectional",
-      "date": "Mon, 10 Aug 2026",
-      "desc": "How LinRec and LION Are Rewriting the Rules for Sequences That Refuse to Stay Short"
-    },
-    {
-      "title": "Re-Engineering the Attention Engine",
-      "link": "https://hooshaai.substack.com/p/re-engineering-the-attention-engine",
-      "date": "Mon, 10 Aug 2026",
-      "desc": "Mathematical Frontiers in Sub-Quadratic Transformers"
-    },
-    {
-      "title": "Breaking the Quadratic Barrier",
-      "link": "https://hooshaai.substack.com/p/breaking-the-quadratic-barrier",
-      "date": "Mon, 10 Aug 2026",
-      "desc": "The Architectural Evolution of Linear Transformers and Infinite Context Models"
-    },
-    {
-      "title": "Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems",
-      "link": "https://hooshaai.substack.com/p/implementing-grounded-causal-verification",
-      "date": "Fri, 07 Aug 2026",
-      "desc": "The pursuit of recursive self-improvement in large language models relies on the fundamental premise that an artificial agent can autonomously eval..."
-    },
-    {
-      "title": "The Civilization Simulator: Why Recursive AI Needs an Evolutionary Verification Engine",
-      "link": "https://hooshaai.substack.com/p/the-civilization-simulator-why-recursive",
-      "date": "Fri, 07 Aug 2026",
-      "desc": "On the biological bottleneck, the flintknapping compiler, epistemic vigilance, and the grounded architecture of safe self-improvement."
-    },
-    {
-      "title": "Evaluation of Grounded Causal and Evolutionary Verification for Recursive Self-Improvement",
-      "link": "https://hooshaai.substack.com/p/evaluation-of-grounded-causal-and",
-      "date": "Fri, 07 Aug 2026",
-      "desc": "The ambition to architect a stable, non-degenerative loop for Recursive Self-Improvement (RSI) in artificial intelligence has historically been con..."
-    },
-    {
-      "title": "Why Biological Constraints Breed Universal Adaptation While Unconstrained AI Collapses",
-      "link": "https://hooshaai.substack.com/p/why-biological-constraints-breed",
-      "date": "Fri, 07 Aug 2026",
-      "desc": "On Working-Memory Bottlenecks, Symbol Grounding, and Why True Generalization Requires Embodied Causal Engines, Not Just Statistical Pattern Matching"
-    },
-    {
-      "title": "The Generalization Paradox: Why Biological Constraints Breed Universal Adaptation While Unconstrained AI Collapses",
-      "link": "https://hooshaai.substack.com/p/the-generalization-paradox-why-biological",
-      "date": "Fri, 07 Aug 2026",
-      "desc": "On Working Memory Bottlenecks, Symbol Grounding, and Why True Generalization Requires Embodied Causal Engines, Not Just Statistical Pattern Matching"
-    },
-    {
-      "title": "The True Paradigm: Symbolic Internalization, Not Just External Scaffolding",
-      "link": "https://hooshaai.substack.com/p/the-true-paradigm-symbolic-internalization",
-      "date": "Thu, 06 Aug 2026",
-      "desc": "Recent advances in LLM-based agents suggest that the core breakthrough in AI reasoning lies not in fusing neural nets with fixed symbolic rules, bu..."
-    },
-    {
-      "title": "The Cognitive Scaling Paradigm: Unifying Pre-Training, Inference Algorithms, and Post-Training Reinforcement Learning",
-      "link": "https://hooshaai.substack.com/p/the-cognitive-scaling-paradigm-unifying",
-      "date": "Mon, 03 Aug 2026",
-      "desc": "The trajectory of artificial intelligence development has irrevocably shifted from a regime dominated by static, pre-training data accumulation tow..."
-    },
-    {
-      "title": "Building AI that thinks before speaking",
-      "link": "https://hooshaai.substack.com/p/building-ai-that-thinks-before-speaking",
-      "date": "Mon, 03 Aug 2026",
-      "desc": ""
-    },
-    {
-      "title": "The ACWT Architecture",
-      "link": "https://hooshaai.substack.com/p/the-acwt-architecture",
-      "date": "Mon, 03 Aug 2026",
-      "desc": ""
-    },
-    {
-      "title": "Beyond Bigger Datasets",
-      "link": "https://hooshaai.substack.com/p/beyond-bigger-datasets",
-      "date": "Mon, 03 Aug 2026",
-      "desc": "How reinforcement learning, process supervision, and search are replacing bigger datasets as the path to smarter language models"
-    },
-    {
-      "title": "The Post-Training Frontier: Unified Frameworks for Reinforcement Learning, Process-Supervised Evaluation, and Test-Time Cognitive Scaling in Large Language Models",
-      "link": "https://hooshaai.substack.com/p/the-post-training-frontier-unified",
-      "date": "Mon, 03 Aug 2026",
-      "desc": "The trajectory of autoregressive language model development has historically been guided by empirical training-time scaling laws, which predict dow..."
-    },
-    {
-      "title": "Building Synthetic Consciousness with Integrated Information Theory, Global Workspace Theory, and System-2 Refinement",
-      "link": "https://hooshaai.substack.com/p/architecting-synthetic-consciousness",
-      "date": "Sat, 01 Aug 2026",
-      "desc": "Combining Integrated Information Theory, Global Workspace Theory, and System-2 refinement as inductive biases for transformer attention"
-    },
-    {
-      "title": "A Technical Report on the IIT-Attention Modulation (IIT-AM) Research Program: System Architecture, Benchmark Provenance, and Evaluation Results",
-      "link": "https://hooshaai.substack.com/p/a-technical-report-on-the-iit-attention",
-      "date": "Sat, 01 Aug 2026",
-      "desc": "Internal technical report, compiled from project artifacts (folder guide, benchmark provenance log, and result summaries) as of the most recent rec..."
-    },
-    {
-      "title": "Open-Ended Innovation: Closing the Vocabulary and Verifier Gaps",
-      "link": "https://hooshaai.substack.com/p/open-ended-innovation-closing-the",
-      "date": "Mon, 27 Jul 2026",
-      "desc": "Current AI excels at finding solutions within fixed frames, but truly creative innovation requires changing the frame itself &#8211; inventing new ..."
-    }
-  ],
+  "articles": [],
   "hf": [
     {
       "id": "tahamajs/my-paligemma-model",
