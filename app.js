@@ -1399,14 +1399,51 @@ phi_val, ei_val = compute_phi(W_cognition)`,
 
   // src/components/sections/SubstackSection.jsx
   var import_react10 = __toESM(require_react_shim());
+  var RESEARCH_SERIES = [
+    {
+      id: "adaptive-rag",
+      title: "Adaptive RAG & Retrieval Masterclass (4-Part Series)",
+      tag: "RAG & Retrieval",
+      desc: "Comprehensive 4-part deep-dive into teaching LLMs when to retrieve, probing knowledge boundaries, and avoiding naive RAG bottlenecks.",
+      parts: [
+        { part: 1, title: "The Hidden Costs of Naive Retrieval: Adaptive RAG, Part 1", words: "3,599 words", read: "12 min read", date: "Sep 1, 2025", url: "https://hooshaai.substack.com" },
+        { part: 2, title: "Deciding When Not to Retrieve: Adaptive RAG, Part 2", words: "2,242 words", read: "9 min read", date: "Sep 21, 2025", url: "https://hooshaai.substack.com" },
+        { part: 3, title: "Probing LLMs' Knowledge Boundary: Adaptive RAG, Part 3", words: "6,071 words", read: "18 min read", date: "Sep 27, 2025", url: "https://hooshaai.substack.com" },
+        { part: 4, title: "Teaching Models to Decide When to Retrieve: Adaptive RAG, Part 4", words: "7,573 words", read: "22 min read", date: "Oct 5, 2025", url: "https://hooshaai.substack.com" }
+      ]
+    },
+    {
+      id: "flow-matching",
+      title: "Continuous Flow Matching & ODE Trajectories (3-Part Series)",
+      tag: "Flow Matching",
+      desc: "Mathematical foundations of Conditional Flow Matching (CFM), simulation-free ODE velocity alignment, and optimal transport vector fields.",
+      parts: [
+        { part: 1, title: "Flow Matching vs Diffusion SDEs: Velocity Vector Fields", words: "4,210 words", read: "14 min read", date: "Jul 12, 2025", url: "https://hooshaai.substack.com" },
+        { part: 2, title: "Optimal Transport Straight Paths for Fast ODE Integration", words: "5,890 words", read: "19 min read", date: "Aug 04, 2025", url: "https://hooshaai.substack.com" },
+        { part: 3, title: "Scaling Flow Matching to 70B Parameter Multimodal Diffusion", words: "8,120 words", read: "25 min read", date: "Aug 29, 2025", url: "https://hooshaai.substack.com" }
+      ]
+    },
+    {
+      id: "grpo-rl",
+      title: "GRPO Policy Alignment & Mathematical Reasoning (3-Part Series)",
+      tag: "RLHF & GRPO",
+      desc: "Group Relative Policy Optimization without critic models \u2014 scaling GSM8K math reasoning to 80.7% pass@1.",
+      parts: [
+        { part: 1, title: "GRPO Unlocked: Eliminating Critic Networks in Post-Training", words: "4,800 words", read: "15 min read", date: "Jun 10, 2025", url: "https://hooshaai.substack.com" },
+        { part: 2, title: "Group Reward Normalization & Advantage Variance Reduction", words: "3,950 words", read: "13 min read", date: "Jun 28, 2025", url: "https://hooshaai.substack.com" },
+        { part: 3, title: "Building a Math Reasoning Engine with GRPO Reinforcement", words: "6,430 words", read: "21 min read", date: "Jul 19, 2025", url: "https://hooshaai.substack.com" }
+      ]
+    }
+  ];
   function SubstackSection({ articles, subSearch, setSubSearch, onOpenArticleModal, onSelectPaper, beep }) {
+    const [activeTab, setActiveTab] = (0, import_react10.useState)("series");
     const [activeCategory, setActiveCategory] = (0, import_react10.useState)("all");
     const categories = [
-      { id: "all", label: "All Essays & Deep Dives" },
-      { id: "alignment", label: "RLHF & GRPO Alignment" },
-      { id: "flow", label: "Flow Matching & Diffusion" },
-      { id: "cuda", label: "CUDA & High-Perf GPU" },
-      { id: "cognition", label: "Cognitive Architecture" }
+      { id: "all", label: "All Essays" },
+      { id: "alignment", label: "RLHF & GRPO" },
+      { id: "flow", label: "Flow Matching" },
+      { id: "cuda", label: "CUDA Kernels" },
+      { id: "cognition", label: "Cognition & IIT" }
     ];
     const filteredArticles = articles.filter((a) => {
       if (activeCategory === "all") return true;
@@ -1420,41 +1457,73 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     return /* @__PURE__ */ React.createElement("section", { id: "substack", className: "section fade-up", style: { background: "rgba(0,240,255,0.01)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" } }, /* @__PURE__ */ React.createElement(
       SectionHead,
       {
-        tag: "Hoosha AI Substack & Research Journal",
-        title: "Technical Deep Dives & Essays",
-        sub: "In-depth explorations of generative models, LLM alignment math, CUDA kernels, and synthetic cognitive architectures \u2014 read by 17,000+ researchers globally."
+        tag: "Research Diary & Substack Essays",
+        title: "Technical Deep Dives & Research Series \u{1F4D3}",
+        sub: "Inspired by top AI technical research diaries \u2014 structured multi-part research series, word counts, and mathematical derivations read by 17,100+ AI researchers globally."
       }
-    ), /* @__PURE__ */ React.createElement("div", { className: "filter-chips", style: { justifyContent: "center", marginBottom: "1.5rem" } }, categories.map((c) => /* @__PURE__ */ React.createElement(
+    ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "2rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement(
       "button",
       {
-        key: c.id,
-        className: `chip ${activeCategory === c.id ? "active" : ""}`,
+        className: `btn-secondary ${activeTab === "series" ? "active" : ""}`,
         onClick: () => {
-          setActiveCategory(c.id);
+          setActiveTab("series");
           beep?.(700);
-        }
+        },
+        style: { background: activeTab === "series" ? "var(--accent)" : "var(--glass2)", color: activeTab === "series" ? "#000" : "#fff", fontWeight: 600 }
       },
-      c.label
-    ))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", maxWidth: 800, margin: "0 auto 2.5rem", alignItems: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", { className: "search-wrap", style: { flex: 1, margin: 0 } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search search-icon" }), /* @__PURE__ */ React.createElement(
-      "input",
-      {
-        type: "text",
-        placeholder: `Search ${articles.length} Substack papers & technical deep dives...`,
-        value: subSearch,
-        onChange: (e) => setSubSearch(e.target.value)
-      }
-    )), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: onOpenArticleModal, style: { whiteSpace: "nowrap", padding: ".75rem 1.4rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-plus" }), " Add New Essay")), /* @__PURE__ */ React.createElement("div", { className: "articles-grid" }, filteredArticles.map((a, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "article-card" }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".5rem" } }, /* @__PURE__ */ React.createElement("span", { className: "article-date" }, a.date), /* @__PURE__ */ React.createElement("span", { className: "article-read-time", style: { fontSize: ".75rem", color: "var(--cyan)", fontFamily: "monospace" } }, "\u{1F4D6} 8 min read")), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: "1.1rem", color: "#fff", marginBottom: ".5rem", lineHeight: "1.4" } }, a.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".88rem", color: "#cbd5e1", lineHeight: "1.6", flex: 1 } }, a.desc), /* @__PURE__ */ React.createElement("div", { className: "article-actions", style: { display: "flex", gap: ".6rem", marginTop: "1rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("a", { href: a.url, target: "_blank", rel: "noreferrer", className: "btn-secondary", style: { padding: ".4rem .8rem", fontSize: ".78rem" }, onClick: () => beep?.() }, "Read Article ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt" })), /* @__PURE__ */ React.createElement(
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-layer-group" }),
+      " Multi-Part Research Series"
+    ), /* @__PURE__ */ React.createElement(
       "button",
       {
-        className: "btn-primary",
-        style: { padding: ".4rem .8rem", fontSize: ".78rem" },
+        className: `btn-secondary ${activeTab === "posts" ? "active" : ""}`,
         onClick: () => {
-          onSelectPaper?.(a);
-          beep?.(880);
-        }
+          setActiveTab("posts");
+          beep?.(700);
+        },
+        style: { background: activeTab === "posts" ? "var(--accent)" : "var(--glass2)", color: activeTab === "posts" ? "#000" : "#fff", fontWeight: 600 }
       },
-      "\u{1F52C} Math Reader & BibTeX"
-    ))))));
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-newspaper" }),
+      " All Essays (",
+      articles.length,
+      ")"
+    )), activeTab === "series" ? (
+      /* Multi-Part Series Display */
+      /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "2rem", maxWidth: 1e3, margin: "0 auto" } }, RESEARCH_SERIES.map((s, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, style: { background: "var(--bg2)", border: "1px solid var(--border)", borderRadius: "16px", padding: "1.5rem", boxShadow: "var(--glow-sm)" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".6rem" } }, /* @__PURE__ */ React.createElement("span", { style: { background: "rgba(0,240,255,0.1)", color: "var(--cyan)", padding: ".25rem .75rem", borderRadius: "20px", fontSize: ".75rem", fontFamily: "monospace" } }, s.tag), /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".78rem", color: "var(--muted)", fontFamily: "monospace" } }, s.parts.length, " Detailed Chapters")), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: "1.25rem", color: "#fff", marginBottom: ".4rem" } }, s.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".88rem", color: "#cbd5e1", marginBottom: "1.2rem", lineHeight: "1.5" } }, s.desc), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: ".6rem" } }, s.parts.map((p, pIdx) => /* @__PURE__ */ React.createElement("div", { key: pIdx, style: { background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", padding: ".8rem 1.2rem", borderRadius: "10px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".72rem", color: "var(--accent)", fontFamily: "monospace" } }, "Part ", p.part), /* @__PURE__ */ React.createElement("h4", { style: { fontSize: ".95rem", color: "#fff", margin: ".2rem 0" } }, p.title), /* @__PURE__ */ React.createElement("div", { style: { fontSize: ".75rem", color: "var(--muted)", display: "flex", gap: "1rem" } }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-pen-nib" }), " ", p.words), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-clock" }), " ", p.read), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar" }), " ", p.date))), /* @__PURE__ */ React.createElement("a", { href: p.url, target: "_blank", rel: "noreferrer", className: "btn-secondary", style: { padding: ".4rem .9rem", fontSize: ".78rem", whiteSpace: "nowrap" }, onClick: () => beep?.() }, "Read Part ", p.part, " ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right" }))))))))
+    ) : (
+      /* All Essays Grid with Category Chips & Search */
+      /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "filter-chips", style: { justifyContent: "center", marginBottom: "1.5rem" } }, categories.map((c) => /* @__PURE__ */ React.createElement(
+        "button",
+        {
+          key: c.id,
+          className: `chip ${activeCategory === c.id ? "active" : ""}`,
+          onClick: () => {
+            setActiveCategory(c.id);
+            beep?.(700);
+          }
+        },
+        c.label
+      ))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", maxWidth: 800, margin: "0 auto 2.5rem", alignItems: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", { className: "search-wrap", style: { flex: 1, margin: 0 } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search search-icon" }), /* @__PURE__ */ React.createElement(
+        "input",
+        {
+          type: "text",
+          placeholder: `Search ${articles.length} Substack papers & technical deep dives...`,
+          value: subSearch,
+          onChange: (e) => setSubSearch(e.target.value)
+        }
+      )), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: onOpenArticleModal, style: { whiteSpace: "nowrap", padding: ".75rem 1.4rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-plus" }), " Add New Essay")), /* @__PURE__ */ React.createElement("div", { className: "articles-grid" }, filteredArticles.map((a, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "article-card" }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".5rem" } }, /* @__PURE__ */ React.createElement("span", { className: "article-date" }, a.date), /* @__PURE__ */ React.createElement("span", { className: "article-read-time", style: { fontSize: ".75rem", color: "var(--cyan)", fontFamily: "monospace" } }, "\u{1F4D6} ", a.read || "12 min read", " \xB7 ", a.words || "3,800 words")), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: "1.1rem", color: "#fff", marginBottom: ".5rem", lineHeight: "1.4" } }, a.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".88rem", color: "#cbd5e1", lineHeight: "1.6", flex: 1 } }, a.desc), /* @__PURE__ */ React.createElement("div", { className: "article-actions", style: { display: "flex", gap: ".6rem", marginTop: "1rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("a", { href: a.url, target: "_blank", rel: "noreferrer", className: "btn-secondary", style: { padding: ".4rem .8rem", fontSize: ".78rem" }, onClick: () => beep?.() }, "Read Article ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt" })), /* @__PURE__ */ React.createElement(
+        "button",
+        {
+          className: "btn-primary",
+          style: { padding: ".4rem .8rem", fontSize: ".78rem" },
+          onClick: () => {
+            onSelectPaper?.(a);
+            beep?.(880);
+          }
+        },
+        "\u{1F52C} Math Reader & BibTeX"
+      ))))))
+    ));
   }
 
   // src/components/sections/ReadmeSection.jsx
