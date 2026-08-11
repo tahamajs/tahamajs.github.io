@@ -59,6 +59,7 @@ export const CONSTELLATION = [
 ];
 
 export const CMD_ITEMS = [
+  { text:'Open Interactive CLI Shell (⌘J)',    icon:'fas fa-terminal',        id:'cli' },
   { text:'Open AI Research Assistant',         icon:'fas fa-robot',           id:'ai' },
   { text:'Open Recruit / Hire Taha',            icon:'fas fa-briefcase',       id:'hire' },
   { text:'Sponsor Taha on GitHub',              icon:'fas fa-heart',           id:'sponsor' },

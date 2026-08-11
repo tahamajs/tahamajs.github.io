@@ -20,10 +20,12 @@ import NewsletterSection from './components/sections/NewsletterSection.jsx';
 import ContactSection from './components/sections/ContactSection.jsx';
 import SocialFeedSection from './components/sections/SocialFeedSection.jsx';
 import GpuTelemetrySection from './components/sections/GpuTelemetrySection.jsx';
+import BenchmarkSection from './components/sections/BenchmarkSection.jsx';
 
 import AIChatModal from './components/modals/AIChatModal.jsx';
 import HireModal from './components/modals/HireModal.jsx';
 import CommandPalette from './components/modals/CommandPalette.jsx';
+import TerminalModal from './components/modals/TerminalModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -46,6 +48,7 @@ export default function App() {
   const [aiOpen, setAiOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
   const [hireOpen, setHireOpen] = useState(false);
+  const [cliOpen, setCliOpen] = useState(false);
   const [bibtexPub, setBibtexPub] = useState(null);
 
   // Custom Hooks
@@ -60,11 +63,12 @@ export default function App() {
     fetch('data.json').then(r => r.json()).then(d => setData(d)).catch(() => {});
   }, []);
 
-  // Keyboard Shortcuts (⌘K)
+  // Keyboard Shortcuts (⌘K, ⌘J)
   useEffect(() => {
     const fn = e => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setCmdOpen(p => !p); }
-      if (e.key === 'Escape') { setCmdOpen(false); setAiOpen(false); setHireOpen(false); setBibtexPub(null); setMobileNav(false); }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'j') { e.preventDefault(); setCliOpen(p => !p); }
+      if (e.key === 'Escape') { setCmdOpen(false); setAiOpen(false); setHireOpen(false); setCliOpen(false); setBibtexPub(null); setMobileNav(false); }
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
@@ -103,6 +107,7 @@ export default function App() {
   const handleCmd = id => {
     setCmdOpen(false);
     const map = {
+      cli: () => setCliOpen(true),
       ai: () => setAiOpen(true),
       hire: () => setHireOpen(true),
       sponsor: () => window.open('https://github.com/sponsors/tahamajs', '_blank'),
@@ -132,6 +137,7 @@ export default function App() {
         <AchievementsSection />
         <GpuTelemetrySection />
         <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} beep={beep} />
+        <BenchmarkSection />
         <ConstellationSection beep={beep} />
         <ContributionGraph />
         <TimelineSection />
@@ -173,6 +179,7 @@ export default function App() {
       <AIChatModal open={aiOpen} onClose={() => setAiOpen(false)} beep={beep} speak={null} />
       <HireModal open={hireOpen} onClose={() => setHireOpen(false)} />
       <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} onCmd={handleCmd} />
+      <TerminalModal open={cliOpen} onClose={() => setCliOpen(false)} beep={beep} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

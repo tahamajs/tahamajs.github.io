@@ -512,3 +512,32 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .btn-github-follow{display:inline-flex;align-items:center;gap:.6rem;background:#24292e;color:#fff;border:1px solid rgba(255,255,255,0.2);padding:.8rem 1.6rem;border-radius:12px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .25s ease;box-shadow:0 4px 15px rgba(0,0,0,0.3);}
 .btn-github-follow:hover{background:#2f363d;border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,240,255,0.2);}
 .follow-count{background:rgba(255,255,255,0.15);padding:.15rem .5rem;border-radius:20px;font-size:.78rem;font-family:'JetBrains Mono',monospace;}
+
+/* ── Interactive CLI Terminal Modal ── */
+.cli-modal{width:90%;max-width:760px;background:#050914;border:1px solid var(--accent);border-radius:14px;overflow:hidden;box-shadow:var(--glow);animation:modalIn .3s ease;}
+.cli-header{display:flex;align-items:center;padding:.8rem 1.2rem;background:rgba(0,240,255,0.06);border-bottom:1px solid var(--border);}
+.cli-title{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);margin-left:1rem;margin-right:auto;}
+.cli-close{background:none;border:1px solid var(--border);color:var(--muted);padding:.2rem .6rem;border-radius:6px;font-size:.75rem;cursor:pointer;}
+.cli-body{padding:1.2rem;height:380px;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:.85rem;display:flex;flex-direction:column;gap:.6rem;line-height:1.6;}
+.cli-line pre{white-space:pre-wrap;font-family:inherit;}
+.cli-sys pre{color:var(--muted);}
+.cli-cmd pre{color:var(--cyan);font-weight:600;}
+.cli-res pre{color:#e2e8f0;}
+.cli-err pre{color:var(--rose);}
+.cli-input-line{display:flex;align-items:center;gap:.6rem;margin-top:.4rem;}
+.cli-prompt{color:var(--emerald);font-weight:600;}
+.cli-input{flex:1;background:none;border:none;outline:none;color:#fff;font-family:inherit;font-size:.85rem;}
+
+/* ── Systems Benchmarks Section ── */
+.benchmarks-container{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2.5rem;}
+@media(max-width:900px){.benchmarks-container{grid-template-columns:1fr;}}
+.benchmark-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:1.8rem;}
+.benchmark-card-title{font-size:1rem;color:#fff;margin-bottom:.3rem;}
+.benchmark-card-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem;font-family:'JetBrains Mono',monospace;}
+.benchmark-bars{display:flex;flex-direction:column;gap:1.2rem;}
+.benchmark-row{display:flex;flex-direction:column;gap:.4rem;}
+.benchmark-row.highlight .benchmark-label span:first-child{color:var(--accent);font-weight:600;}
+.benchmark-label{display:flex;justify-content:space-between;font-size:.82rem;color:#c9d1d9;}
+.benchmark-val{font-family:'JetBrains Mono',monospace;font-weight:700;}
+.benchmark-bar-bg{height:8px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+.benchmark-bar-fill{height:100%;border-radius:99px;transition:width 0.8s ease;}
