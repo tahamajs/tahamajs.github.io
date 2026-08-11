@@ -247,7 +247,7 @@ export default function App() {
       {/* Modals & Toasts */}
       <Toast msg={toast} />
       <AIChatModal open={aiOpen} onClose={() => setAiOpen(false)} beep={beep} speak={null} />
-      <HireModal open={hireOpen} onClose={() => setHireOpen(false)} />
+      <HireModal open={hireOpen} onClose={() => setHireOpen(false)} showToast={showToast} beep={beep} />
       <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} onCmd={handleCmd} />
       <TerminalModal open={cliOpen} onClose={() => setCliOpen(false)} beep={beep} />
       <ArticleCreatorModal open={articleModalOpen} onClose={() => setArticleModalOpen(false)} onAddArticle={handleAddArticle} beep={beep} showToast={showToast} />
