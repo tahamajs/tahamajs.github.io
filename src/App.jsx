@@ -32,6 +32,7 @@ import TerminalModal from './components/modals/TerminalModal.jsx';
 import ArticleCreatorModal from './components/modals/ArticleCreatorModal.jsx';
 import NNPlaygroundModal from './components/modals/NNPlaygroundModal.jsx';
 import PaperReaderModal from './components/modals/PaperReaderModal.jsx';
+import CyberpunkGameModal from './components/modals/CyberpunkGameModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -61,6 +62,7 @@ export default function App() {
   const [hireOpen, setHireOpen] = useState(false);
   const [cliOpen, setCliOpen] = useState(false);
   const [nnOpen, setNnOpen] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
   const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
@@ -229,6 +231,9 @@ export default function App() {
               <i className={`fas ${ic}`} />
             </button>
           ))}
+          <button className={`ctrl-btn ${gameOpen ? 'active' : ''}`} onClick={() => { setGameOpen(true); beep(880); }} title="Play Cyberpunk AI Arcade Game (Neural Defender)">
+            <i className="fas fa-gamepad" style={{ color: 'var(--accent)' }} />
+          </button>
           <div className="ctrl-divider" />
           {['cyan', 'purple', 'emerald', 'rose'].map(c => (
             <div key={c} className={`accent-dot ${accent === c ? 'active' : ''}`} style={{ background: `var(--${c})` }} onClick={() => setAccentColor(c)} title={c} />
@@ -253,6 +258,7 @@ export default function App() {
       <ArticleCreatorModal open={articleModalOpen} onClose={() => setArticleModalOpen(false)} onAddArticle={handleAddArticle} beep={beep} showToast={showToast} />
       <NNPlaygroundModal open={nnOpen} onClose={() => setNnOpen(false)} beep={beep} showToast={showToast} />
       <PaperReaderModal paper={selectedPaper} onClose={() => setSelectedPaper(null)} onCopyBib={copyBib} beep={beep} />
+      <CyberpunkGameModal open={gameOpen} onClose={() => setGameOpen(false)} showToast={showToast} beep={beep} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

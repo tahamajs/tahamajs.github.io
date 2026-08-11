@@ -621,3 +621,11 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .teaching-tag{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#e2e8f0;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;font-family:'JetBrains Mono',monospace;}
 .talk-date-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--cyan);background:rgba(0,240,255,0.08);padding:.2rem .6rem;border-radius:6px;width:max-content;}
 .talk-links, .teaching-actions{margin-top:auto;display:flex;gap:.8rem;}
+
+/* ── Cyberpunk Arcade Game Modal ── */
+.arcade-modal-box{max-width:520px;width:92%;background:#080d1a;border:2px solid var(--accent);border-radius:18px;box-shadow:var(--glow-lg);}
+.arcade-status-bar{display:flex;justify-row:space-between;justify-content:space-around;padding:.6rem 1rem;background:rgba(0,0,0,0.4);border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+.arcade-canvas-wrapper{position:relative;display:flex;justify-content:center;padding:1rem;}
+.arcade-overlay-screen{position:absolute;inset:1rem;background:rgba(3,7,18,0.92);backdrop-filter:blur(8px);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem;}
+.arcade-overlay-screen h2{font-size:1.6rem;color:var(--accent);margin-bottom:.5rem;font-family:'Space Grotesk',sans-serif;}
+.arcade-overlay-screen p{font-size:.85rem;color:var(--muted);max-width:320px;line-height:1.5;}

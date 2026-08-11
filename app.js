@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react20 = __toESM(require_react_shim());
+  var import_react21 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react19 = __toESM(require_react_shim());
+  var import_react20 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -2045,6 +2045,117 @@ Available commands:
 }`) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy Citation to Clipboard"))), /* @__PURE__ */ React.createElement("div", { className: "paper-reader-footer" }, /* @__PURE__ */ React.createElement("a", { href: paper.url || "https://hooshaai.substack.com", target: "_blank", className: "btn-primary" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt" }), " Read Full Paper on Substack"), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary", onClick: onClose }, "Close Reader"))));
   }
 
+  // src/components/modals/CyberpunkGameModal.jsx
+  var import_react19 = __toESM(require_react_shim());
+  function CyberpunkGameModal({ open, onClose, showToast, beep }) {
+    const canvasRef = (0, import_react19.useRef)(null);
+    const [score, setScore] = (0, import_react19.useState)(0);
+    const [level, setLevel] = (0, import_react19.useState)(1);
+    const [modelSize, setModelSize] = (0, import_react19.useState)("1B Params");
+    const [gameOver, setGameOver] = (0, import_react19.useState)(false);
+    const [gameStarted, setGameStarted] = (0, import_react19.useState)(false);
+    (0, import_react19.useEffect)(() => {
+      if (!open || !gameStarted || gameOver) return;
+      const cvs = canvasRef.current;
+      if (!cvs) return;
+      const ctx = cvs.getContext("2d");
+      let W = cvs.width = 460, H = cvs.height = 360;
+      let playerX = W / 2 - 20;
+      const playerW = 40, playerH = 14;
+      let scoreCount = 0;
+      let isDead = false;
+      const items = [];
+      const itemTypes = [
+        { text: "FlowMatching", color: "#00f0ff", points: 100, bad: false },
+        { text: "GRPO Loss", color: "#10b981", points: 150, bad: false },
+        { text: "CUDA Kernel", color: "#a78bfa", points: 200, bad: false },
+        { text: "OOM Error!", color: "#f43f5e", points: -1, bad: true },
+        { text: "NaN Spike", color: "#fbbf24", points: -1, bad: true }
+      ];
+      const onKey = (e) => {
+        if (e.key === "ArrowLeft" || e.key === "a") playerX = Math.max(0, playerX - 24);
+        if (e.key === "ArrowRight" || e.key === "d") playerX = Math.min(W - playerW, playerX + 24);
+      };
+      window.addEventListener("keydown", onKey);
+      const spawnInterval = setInterval(() => {
+        const type = itemTypes[Math.floor(Math.random() * itemTypes.length)];
+        items.push({
+          x: Math.random() * (W - 40) + 10,
+          y: -20,
+          spd: Math.random() * 2 + 2,
+          ...type
+        });
+      }, 600);
+      let raf;
+      const loop = () => {
+        if (isDead) return;
+        ctx.clearRect(0, 0, W, H);
+        ctx.strokeStyle = "rgba(0, 240, 255, 0.08)";
+        ctx.lineWidth = 1;
+        for (let x = 0; x < W; x += 20) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, H);
+          ctx.stroke();
+        }
+        ctx.fillStyle = "var(--accent)";
+        ctx.fillRect(playerX, H - 25, playerW, playerH);
+        ctx.fillStyle = "#fff";
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillText("\u{1F916} TAHA", playerX + 2, H - 14);
+        for (let i = items.length - 1; i >= 0; i--) {
+          const item = items[i];
+          item.y += item.spd;
+          ctx.fillStyle = item.color;
+          ctx.font = '11px "JetBrains Mono", monospace';
+          ctx.fillText(item.text, item.x, item.y);
+          if (item.y >= H - 35 && item.y <= H - 10 && item.x >= playerX - 20 && item.x <= playerX + playerW + 10) {
+            items.splice(i, 1);
+            if (item.bad) {
+              isDead = true;
+              setGameOver(true);
+              beep?.(300, "sawtooth");
+              showToast?.("\u{1F4A5} Model Crashed! OOM Error!");
+            } else {
+              scoreCount += item.points;
+              setScore(scoreCount);
+              beep?.(880, "sine");
+              if (scoreCount >= 2e3) {
+                setLevel(4);
+                setModelSize("70B MoE Params");
+              } else if (scoreCount >= 1e3) {
+                setLevel(3);
+                setModelSize("14B Params");
+              } else if (scoreCount >= 400) {
+                setLevel(2);
+                setModelSize("7B Params");
+              }
+            }
+          } else if (item.y > H) {
+            items.splice(i, 1);
+          }
+        }
+        if (!isDead) raf = requestAnimationFrame(loop);
+      };
+      raf = requestAnimationFrame(loop);
+      return () => {
+        window.removeEventListener("keydown", onKey);
+        clearInterval(spawnInterval);
+        cancelAnimationFrame(raf);
+      };
+    }, [open, gameStarted, gameOver]);
+    if (!open) return null;
+    const handleStart = () => {
+      setScore(0);
+      setLevel(1);
+      setModelSize("1B Params");
+      setGameOver(false);
+      setGameStarted(true);
+      beep?.(600);
+    };
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box arcade-modal-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "modal-header" }, /* @__PURE__ */ React.createElement("h3", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-gamepad", style: { color: "var(--accent)" } }), " Cyberpunk AI Arcade: Neural Defender"), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "arcade-status-bar" }, /* @__PURE__ */ React.createElement("div", null, "Score: ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--accent)" } }, score, " FLOPS")), /* @__PURE__ */ React.createElement("div", null, "Level: ", /* @__PURE__ */ React.createElement("b", null, "LVL ", level)), /* @__PURE__ */ React.createElement("div", null, "Model Size: ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--emerald)" } }, modelSize))), /* @__PURE__ */ React.createElement("div", { className: "arcade-canvas-wrapper" }, /* @__PURE__ */ React.createElement("canvas", { ref: canvasRef, style: { borderRadius: "10px", border: "1px solid var(--border)", background: "#030712" } }), (!gameStarted || gameOver) && /* @__PURE__ */ React.createElement("div", { className: "arcade-overlay-screen" }, /* @__PURE__ */ React.createElement("h2", null, gameOver ? "\u{1F4A5} GAME OVER" : "\u{1F47E} NEURAL DEFENDER"), /* @__PURE__ */ React.createElement("p", null, gameOver ? `Final Model Capacity: ${modelSize} (${score} FLOPS)` : "Use \u2B05\uFE0F Arrow Keys \u27A1\uFE0F to catch Gradient Tokens and avoid OOM Monsters!"), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: handleStart, style: { marginTop: "1rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play" }), " ", gameOver ? "Try Again" : "Start Arcade Game")))));
+  }
+
   // src/components/ui/Toast.jsx
   function Toast({ msg }) {
     if (!msg) return null;
@@ -2124,27 +2235,28 @@ Available commands:
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react19.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react19.useState)("");
-    const [filter, setFilter] = (0, import_react19.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react19.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react19.useState)("");
-    const [pageView, setPageView] = (0, import_react19.useState)("all");
-    const [weatherMode, setWeatherMode] = (0, import_react19.useState)("rain");
-    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react19.useState)(false);
-    const [accent, setAccent] = (0, import_react19.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react19.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react19.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react19.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react19.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react19.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react19.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react19.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react19.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react19.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react19.useState)(false);
-    const [selectedPaper, setSelectedPaper] = (0, import_react19.useState)(null);
-    const [bibtexPub, setBibtexPub] = (0, import_react19.useState)(null);
+    const [data, setData] = (0, import_react20.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react20.useState)("");
+    const [filter, setFilter] = (0, import_react20.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react20.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react20.useState)("");
+    const [pageView, setPageView] = (0, import_react20.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react20.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react20.useState)(false);
+    const [accent, setAccent] = (0, import_react20.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react20.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react20.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react20.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react20.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react20.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react20.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react20.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react20.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react20.useState)(false);
+    const [gameOpen, setGameOpen] = (0, import_react20.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react20.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react20.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react20.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
@@ -2156,11 +2268,11 @@ Available commands:
       showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
       beep(700);
     };
-    (0, import_react19.useEffect)(() => {
+    (0, import_react20.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react19.useEffect)(() => {
+    (0, import_react20.useEffect)(() => {
       const fn = (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
           e.preventDefault();
@@ -2182,16 +2294,16 @@ Available commands:
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, []);
-    const repos = (0, import_react19.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react20.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react19.useMemo)(() => {
+    const articles = (0, import_react20.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react19.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const hfAssets = (0, import_react20.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -2261,7 +2373,7 @@ Available commands:
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    const counts = (0, import_react19.useMemo)(() => ({
+    const counts = (0, import_react20.useMemo)(() => ({
       all: repos.length,
       course: repos.filter((r) => r.category === "course").length,
       ml: repos.filter((r) => r.category === "ml").length,
@@ -2283,17 +2395,20 @@ Available commands:
       setWeatherMode(m);
       showToast(`Weather: ${title} \u2728`);
       beep(700);
-    }, title }, /* @__PURE__ */ React.createElement("i", { className: `fas ${ic}` }))), /* @__PURE__ */ React.createElement("div", { className: "ctrl-divider" }), ["cyan", "purple", "emerald", "rose"].map((c) => /* @__PURE__ */ React.createElement("div", { key: c, className: `accent-dot ${accent === c ? "active" : ""}`, style: { background: `var(--${c})` }, onClick: () => setAccentColor(c), title: c })))), /* @__PURE__ */ React.createElement("button", { className: "back-top-btn", onClick: () => {
+    }, title }, /* @__PURE__ */ React.createElement("i", { className: `fas ${ic}` }))), /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${gameOpen ? "active" : ""}`, onClick: () => {
+      setGameOpen(true);
+      beep(880);
+    }, title: "Play Cyberpunk AI Arcade Game (Neural Defender)" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-gamepad", style: { color: "var(--accent)" } })), /* @__PURE__ */ React.createElement("div", { className: "ctrl-divider" }), ["cyan", "purple", "emerald", "rose"].map((c) => /* @__PURE__ */ React.createElement("div", { key: c, className: `accent-dot ${accent === c ? "active" : ""}`, style: { background: `var(--${c})` }, onClick: () => setAccentColor(c), title: c })))), /* @__PURE__ */ React.createElement("button", { className: "back-top-btn", onClick: () => {
       window.scrollTo(0, 0);
       beep?.();
     }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
       setAiOpen(true);
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(TerminalModal, { open: cliOpen, onClose: () => setCliOpen(false), beep }), /* @__PURE__ */ React.createElement(ArticleCreatorModal, { open: articleModalOpen, onClose: () => setArticleModalOpen(false), onAddArticle: handleAddArticle, beep, showToast }), /* @__PURE__ */ React.createElement(NNPlaygroundModal, { open: nnOpen, onClose: () => setNnOpen(false), beep, showToast }), /* @__PURE__ */ React.createElement(PaperReaderModal, { paper: selectedPaper, onClose: () => setSelectedPaper(null), onCopyBib: copyBib, beep }), /* @__PURE__ */ React.createElement(CyberpunkGameModal, { open: gameOpen, onClose: () => setGameOpen(false), showToast, beep }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
   }
 
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react20.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react21.default.createElement(App, null));
 })();
