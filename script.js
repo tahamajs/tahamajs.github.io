@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   typingEffect();
 
-  // 2. Built-in Zero-Dependency 3D Card Tilt Effect (No External CDNs required!)
+  // 2. Built-in Zero-Dependency 3D Card Tilt Effect
   const tiltElements = document.querySelectorAll('[data-tilt]');
   tiltElements.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const rotateX = ((y - centerY) / centerY) * -10;
-      const rotateY = ((x - centerX) / centerX) * 10;
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
       
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
     });
@@ -112,7 +112,80 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', filterProjects);
   }
 
-  // 4. Scroll Reveal Observer
+  // 4. Command Palette Modal (Cmd + K / Ctrl + K)
+  const cmdModal = document.getElementById('cmd-palette-modal');
+  const cmdTrigger = document.getElementById('cmd-k-trigger');
+  const cmdInput = document.getElementById('cmd-input');
+  const cmdItems = document.querySelectorAll('.cmd-item');
+
+  function openCmdPalette() {
+    if (cmdModal) {
+      cmdModal.classList.add('active');
+      if (cmdInput) {
+        cmdInput.value = '';
+        cmdInput.focus();
+      }
+    }
+  }
+
+  function closeCmdPalette() {
+    if (cmdModal) {
+      cmdModal.classList.remove('active');
+    }
+  }
+
+  if (cmdTrigger) {
+    cmdTrigger.addEventListener('click', openCmdPalette);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openCmdPalette();
+    }
+    if (e.key === 'Escape') {
+      closeCmdPalette();
+    }
+  });
+
+  if (cmdModal) {
+    cmdModal.addEventListener('click', (e) => {
+      if (e.target === cmdModal) closeCmdPalette();
+    });
+  }
+
+  cmdItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const action = item.getAttribute('data-action');
+      const target = item.getAttribute('data-target');
+
+      if (action === 'goto') {
+        closeCmdPalette();
+        const targetEl = document.querySelector(target);
+        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+      } else if (action === 'url') {
+        window.open(target, '_blank');
+        closeCmdPalette();
+      } else if (action === 'copy') {
+        navigator.clipboard.writeText(target);
+        alert(`Copied ${target} to clipboard!`);
+        closeCmdPalette();
+      }
+    });
+  });
+
+  // 5. Theme Accent Switcher Widget
+  const accentDots = document.querySelectorAll('.accent-dot');
+  accentDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      accentDots.forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+      const color = dot.getAttribute('data-color');
+      document.body.setAttribute('data-accent', color);
+    });
+  });
+
+  // 6. Scroll Reveal Observer
   const observerOptions = {
     threshold: 0.05,
     rootMargin: "0px 0px -20px 0px"

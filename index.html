@@ -5,17 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mohammad Taha Majlesi - Systems & AI Researcher, Computer Engineering at University of Tehran & Sharif University of Technology.">
   <title>Mohammad Taha Majlesi | Systems & AI Researcher</title>
-  <link rel="stylesheet" href="style.css?v=7.0">
+  <link rel="stylesheet" href="style.css?v=9.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-accent="cyan">
   
   <!-- Dynamic Background Orbs -->
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
-  <div class="noise-overlay"></div>
+
+  <!-- Accent Color Switcher Widget -->
+  <div class="theme-switcher">
+    <button class="accent-dot active" data-color="cyan" title="Cyan Theme" style="background: #00f0ff;"></button>
+    <button class="accent-dot" data-color="purple" title="Purple Theme" style="background: #8a2be2;"></button>
+    <button class="accent-dot" data-color="emerald" title="Emerald Theme" style="background: #10b981;"></button>
+    <button class="accent-dot" data-color="rose" title="Rose Gold Theme" style="background: #f43f5e;"></button>
+  </div>
 
   <!-- Navigation -->
   <nav class="glass-nav">
@@ -29,16 +36,38 @@
         <a href="#teaching">Teaching</a>
         <a href="#projects">Ecosystem</a>
         <a href="#publications">Research</a>
+        <button id="cmd-k-trigger" class="cmd-k-btn"><i class="fas fa-search"></i> <span class="cmd-k-key">⌘K</span></button>
         <a href="#contact" class="nav-btn">Contact</a>
       </div>
     </div>
   </nav>
 
+  <!-- Command Palette Modal -->
+  <div id="cmd-palette-modal" class="modal-overlay">
+    <div class="cmd-palette-box">
+      <div class="cmd-input-row">
+        <i class="fas fa-search"></i>
+        <input type="text" id="cmd-input" placeholder="Type a command or section (e.g. 'about', 'github', 'email')...">
+        <span class="cmd-esc">ESC</span>
+      </div>
+      <div class="cmd-results" id="cmd-results">
+        <div class="cmd-item" data-action="goto" data-target="#about"><i class="fas fa-user"></i> Go to About Section</div>
+        <div class="cmd-item" data-action="goto" data-target="#experience"><i class="fas fa-briefcase"></i> Go to Experience &amp; Labs</div>
+        <div class="cmd-item" data-action="goto" data-target="#teaching"><i class="fas fa-chalkboard-teacher"></i> Go to Teaching Assistantships</div>
+        <div class="cmd-item" data-action="goto" data-target="#projects"><i class="fas fa-layer-group"></i> Go to Open Source Ecosystem</div>
+        <div class="cmd-item" data-action="goto" data-target="#publications"><i class="fas fa-book-open"></i> Go to Research Papers</div>
+        <div class="cmd-item" data-action="url" data-target="https://github.com/tahamajs"><i class="fab fa-github"></i> Open GitHub Profile</div>
+        <div class="cmd-item" data-action="url" data-target="https://huggingface.co/tahamajs"><i class="fas fa-robot"></i> Open HuggingFace Models</div>
+        <div class="cmd-item" data-action="copy" data-target="tahamajlesi@ut.ac.ir"><i class="fas fa-envelope"></i> Copy Email Address</div>
+      </div>
+    </div>
+  </div>
+
   <main>
     <!-- Hero Section -->
     <section id="about" class="hero">
       <div class="hero-content fade-in-up">
-        <div class="avatar-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400">
+        <div class="avatar-wrapper" data-tilt data-tilt-max="15">
           <div class="avatar-glow-ring"></div>
           <img src="assets/avatar.jpg" onerror="this.onerror=null; this.src='https://github.com/tahamajs.png';" alt="Taha Majlesi" class="avatar-img">
         </div>
@@ -56,12 +85,15 @@
           Working at the intersection of <b>Deep Generative Modeling</b> (Flow Matching, VAEs), <b>LLM Alignment & Reasoning</b> (GRPO, SFT), and <b>High-Performance Distributed Infrastructure</b>.
         </p>
 
-        <div class="social-row">
-          <a href="https://github.com/tahamajs" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://huggingface.co/tahamajs" target="_blank" class="social-btn" title="Hugging Face"><i class="fas fa-robot"></i></a>
-          <a href="https://linkedin.com/in/tahamajlesi" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://x.com/hooshaaii" target="_blank" class="social-btn" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-          <a href="mailto:tahamajlesi@ut.ac.ir" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+        <div class="hero-actions-row">
+          <a href="#projects" class="primary-btn glow-btn">Explore Ecosystem</a>
+          <div class="social-row">
+            <a href="https://github.com/tahamajs" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://huggingface.co/tahamajs" target="_blank" class="social-btn" title="Hugging Face"><i class="fas fa-robot"></i></a>
+            <a href="https://linkedin.com/in/tahamajlesi" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://x.com/hooshaaii" target="_blank" class="social-btn" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+            <a href="mailto:tahamajlesi@ut.ac.ir" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+          </div>
         </div>
       </div>
     </section>
@@ -96,6 +128,25 @@
         <span>PyTorch</span> <span>•</span> <span>CUDA</span> <span>•</span> <span>Flow Matching</span> <span>•</span> <span>GRPO</span> <span>•</span> <span>C / C++</span> <span>•</span> <span>Go</span> <span>•</span> <span>Django / DRF</span> <span>•</span> <span>PostgreSQL</span> <span>•</span> <span>Docker</span> <span>•</span> <span>xv6 Kernel</span> <span>•</span> <span>Transformers</span> <span>•</span> <span>SFML</span> <span>•</span>
       </div>
     </div>
+
+    <!-- Quick Terminal Code Snippet Section -->
+    <section class="section terminal-snippet-section">
+      <div class="terminal-card fade-in-up">
+        <div class="terminal-bar">
+          <span class="t-dot red"></span>
+          <span class="t-dot yellow"></span>
+          <span class="t-dot green"></span>
+          <span class="t-title">taha@gpu-node:~ (bash)</span>
+        </div>
+        <div class="terminal-code">
+          <p><span class="c-comment"># Install Kaleido Distributed Training Engine</span></p>
+          <p><span class="c-prompt">$</span> pip install git+https://github.com/tahamajs/Kaleido.git</p>
+          <br/>
+          <p><span class="c-comment"># Run GRPO Fine-Tuning Script on 4B LLM</span></p>
+          <p><span class="c-prompt">$</span> python train_grpo.py --model_name "Qwen/Qwen2.5-Math-1.5B" --dataset "gsm8k"</p>
+        </div>
+      </div>
+    </section>
 
     <!-- Experience & Research Section -->
     <section id="experience" class="section">
@@ -395,6 +446,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=7.0"></script>
+  <script src="script.js?v=9.0"></script>
 </body>
 </html>
