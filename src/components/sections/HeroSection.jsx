@@ -9,7 +9,7 @@ export default function HeroSection({ time, onHire, onAI, onSponsor, setSearch, 
           {/* Avatar */}
           <div className="avatar-wrap">
             <div className="avatar-ring" /><div className="avatar-ring2" />
-            <img src="assets/avatar.jpg" onError={e=>{e.target.src='https://github.com/tahamajs.png';}}
+            <img src="assets/photo_2026-07-31 15.14.06.jpeg" onError={e=>{if(!e.target.dataset.triedAvatar){e.target.dataset.triedAvatar='true';e.target.src='assets/avatar.jpg';}else{e.target.src='https://github.com/tahamajs.png';}}}
               alt="Mohammad Taha Majlesi" className="avatar-img" />
           </div>
 
