@@ -26,6 +26,7 @@ import AIChatModal from './components/modals/AIChatModal.jsx';
 import HireModal from './components/modals/HireModal.jsx';
 import CommandPalette from './components/modals/CommandPalette.jsx';
 import TerminalModal from './components/modals/TerminalModal.jsx';
+import ArticleCreatorModal from './components/modals/ArticleCreatorModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
@@ -49,6 +50,7 @@ export default function App() {
   const [cmdOpen, setCmdOpen] = useState(false);
   const [hireOpen, setHireOpen] = useState(false);
   const [cliOpen, setCliOpen] = useState(false);
+  const [articleModalOpen, setArticleModalOpen] = useState(false);
   const [bibtexPub, setBibtexPub] = useState(null);
 
   // Custom Hooks
@@ -128,6 +130,13 @@ export default function App() {
     (map[id] || (() => {}))();
   };
 
+  const handleAddArticle = (newArticle) => {
+    setData(prev => ({
+      ...prev,
+      articles: [newArticle, ...(prev.articles || [])]
+    }));
+  };
+
   return (
     <>
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
@@ -145,7 +154,7 @@ export default function App() {
         <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
         <PublicationsSection onCopyBib={setBibtexPub} beep={beep} />
         <SocialFeedSection beep={beep} />
-        <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
+        <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} beep={beep} />
         <NewsletterSection beep={beep} />
         <ContactSection onHire={() => setHireOpen(true)} beep={beep} />
         {data.readmeHtml && <ReadmeSection readmeHtml={data.readmeHtml} />}
@@ -180,6 +189,7 @@ export default function App() {
       <HireModal open={hireOpen} onClose={() => setHireOpen(false)} />
       <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} onCmd={handleCmd} />
       <TerminalModal open={cliOpen} onClose={() => setCliOpen(false)} beep={beep} />
+      <ArticleCreatorModal open={articleModalOpen} onClose={() => setArticleModalOpen(false)} onAddArticle={handleAddArticle} beep={beep} showToast={showToast} />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>

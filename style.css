@@ -541,3 +541,16 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .benchmark-val{font-family:'JetBrains Mono',monospace;font-weight:700;}
 .benchmark-bar-bg{height:8px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
 .benchmark-bar-fill{height:100%;border-radius:99px;transition:width 0.8s ease;}
+
+/* ── Article Creator Modal ── */
+.article-creator-box{max-width:680px;width:90%;}
+.article-form{display:flex;flex-direction:column;gap:1.2rem;margin-top:1.2rem;}
+.form-group{display:flex;flex-direction:column;gap:.4rem;}
+.form-row{display:flex;gap:1rem;}
+.flex-1{flex:1;}
+.form-label{font-size:.8rem;font-weight:600;color:#c9d1d9;font-family:'Space Grotesk',sans-serif;}
+.form-input{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);color:#fff;font-size:.88rem;padding:.7rem 1rem;border-radius:10px;outline:none;font-family:inherit;transition:all .2s;}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 10px rgba(0,240,255,0.15);}
+.form-textarea{resize:vertical;min-height:90px;}
+.preview-card{background:rgba(0,240,255,0.03);border-color:rgba(0,240,255,0.2);margin-top:.4rem;}
+.form-actions{display:flex;justify-content:flex-end;gap:1rem;margin-top:.8rem;}
