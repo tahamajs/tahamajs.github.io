@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Mohammad Taha Majlesi - Co-Founder & Systems/AI Architect at Hoosha AI, Computer Engineering at University of Tehran & Sharif University.">
   <title>Mohammad Taha Majlesi | Co-Founder & Systems/AI Architect</title>
-  <link rel="stylesheet" href="style.css?v=16.0">
+  <link rel="stylesheet" href="style.css?v=17.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -43,7 +43,7 @@
         <a href="#experience">Experience</a>
         <a href="#teaching">Teaching</a>
         <a href="#projects">Ecosystem</a>
-        <a href="#publications">Research</a>
+        <a href="#substack">Substack 🧠</a>
         <a href="assets/resume.pdf" target="_blank" class="nav-resume-btn"><i class="fas fa-file-pdf"></i> Resume</a>
         <button id="cmd-k-trigger" class="cmd-k-btn"><i class="fas fa-search"></i> <span class="cmd-k-key">⌘K</span></button>
         <a href="#contact" class="nav-btn">Contact</a>
@@ -56,11 +56,12 @@
     <div class="cmd-palette-box">
       <div class="cmd-input-row">
         <i class="fas fa-search"></i>
-        <input type="text" id="cmd-input" placeholder="Type a command or section (e.g. 'resume', 'telegram', 'svd', 'email')...">
+        <input type="text" id="cmd-input" placeholder="Type a command or section (e.g. 'resume', 'substack', 'telegram', 'svd', 'email')...">
         <span class="cmd-esc">ESC</span>
       </div>
       <div class="cmd-results" id="cmd-results">
         <div class="cmd-item" data-action="url" data-target="assets/resume.pdf"><i class="fas fa-file-pdf"></i> Download Official Resume (PDF)</div>
+        <div class="cmd-item" data-action="url" data-target="https://hooshaai.substack.com"><i class="fas fa-newspaper"></i> Open Hoosha AI Substack Newsletter</div>
         <div class="cmd-item" data-action="url" data-target="https://telegram.me/tahamajlesii"><i class="fab fa-telegram"></i> Open Telegram (@tahamajlesii)</div>
         <div class="cmd-item" data-action="goto" data-target="#about"><i class="fas fa-user"></i> Go to About Section</div>
         <div class="cmd-item" data-action="goto" data-target="#skills"><i class="fas fa-microchip"></i> Go to Technical Skills Matrix</div>
@@ -68,7 +69,7 @@
         <div class="cmd-item" data-action="goto" data-target="#experience"><i class="fas fa-briefcase"></i> Go to Experience &amp; Hoosha AI</div>
         <div class="cmd-item" data-action="goto" data-target="#teaching"><i class="fas fa-chalkboard-teacher"></i> Go to Teaching Assistantships</div>
         <div class="cmd-item" data-action="goto" data-target="#projects"><i class="fas fa-layer-group"></i> Go to Open Source Ecosystem</div>
-        <div class="cmd-item" data-action="goto" data-target="#publications"><i class="fas fa-book-open"></i> Go to Research Papers</div>
+        <div class="cmd-item" data-action="goto" data-target="#substack"><i class="fas fa-brain"></i> Go to Substack Deep Dives</div>
         <div class="cmd-item" data-action="url" data-target="https://github.com/tahamajs"><i class="fab fa-github"></i> Open GitHub Profile (521 Followers)</div>
         <div class="cmd-item" data-action="url" data-target="https://huggingface.co/tahamajs"><i class="fas fa-robot"></i> Open HuggingFace Models (105 Models)</div>
         <div class="cmd-item" data-action="copy" data-target="tahamajlesi@ut.ac.ir"><i class="fas fa-envelope"></i> Copy Primary Email (tahamajlesi@ut.ac.ir)</div>
@@ -136,10 +137,11 @@
 
         <div class="hero-actions-row">
           <a href="assets/resume.pdf" target="_blank" class="primary-btn glow-btn"><i class="fas fa-file-pdf"></i> Download Resume</a>
-          <a href="#projects" class="secondary-btn">Explore Ecosystem</a>
+          <a href="https://hooshaai.substack.com" target="_blank" class="secondary-btn"><i class="fas fa-newspaper"></i> Read Substack 🧠</a>
           <div class="social-row">
             <a href="https://github.com/tahamajs" target="_blank" class="social-btn" title="GitHub (521 Followers)"><i class="fab fa-github"></i></a>
             <a href="https://huggingface.co/tahamajs" target="_blank" class="social-btn" title="Hugging Face (105 Models)"><i class="fas fa-robot"></i></a>
+            <a href="https://hooshaai.substack.com" target="_blank" class="social-btn" title="Substack Newsletter"><i class="fas fa-newspaper"></i></a>
             <a href="https://linkedin.com/in/tahamajlesi" target="_blank" class="social-btn" title="LinkedIn (17.1k Community)"><i class="fab fa-linkedin-in"></i></a>
             <a href="https://telegram.me/tahamajlesii" target="_blank" class="social-btn" title="Telegram (@tahamajlesii)"><i class="fab fa-telegram"></i></a>
             <a href="https://x.com/hooshaaii" target="_blank" class="social-btn" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
@@ -837,37 +839,53 @@
       </div>
     </section>
 
-    <!-- Research Publications & Articles (Hoosha AI Substack) -->
-    <section id="publications" class="section">
+    <!-- Substack Newsletter Embed & Deep Dives -->
+    <section id="substack" class="section">
       <div class="section-header fade-in-up">
-        <h2>Research Papers &amp; <span class="gradient-text">Deep Dives</span></h2>
-        <p>Articles published on Hoosha AI analyzing cognitive scaling, consciousness, and AI alignment.</p>
+        <h2>Hoosha AI 🧠 <span class="gradient-text">Substack Newsletter &amp; Deep Dives</span></h2>
+        <p>Deep dives into ML/AI papers, LLM reasoning, cognitive scaling, and sub-quadratic attention.</p>
+      </div>
+
+      <!-- Substack Subscribe Box Widget -->
+      <div class="substack-subscribe-box fade-in-up">
+        <div class="substack-badge">🧠 Official Substack Publication</div>
+        <h3>Subscribe to Hoosha AI 🧠</h3>
+        <p>Get high-impact ML/AI paper breakdowns, code walkthroughs, and research updates delivered straight to your inbox.</p>
+        
+        <form action="https://hooshaai.substack.com/subscribe" method="get" target="_blank" class="substack-form">
+          <input type="email" name="email" placeholder="Type your email..." required class="substack-input">
+          <button type="submit" class="primary-btn glow-btn substack-btn">Subscribe Now <i class="fas fa-paper-plane"></i></button>
+        </form>
       </div>
 
       <div class="articles-grid">
-        <div class="article-card fade-in-up">
-          <div class="article-tag">Cognitive Scaling</div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="article-card fade-in-up">
+          <div class="article-tag"><i class="fas fa-newspaper"></i> Substack Paper Breakdown</div>
           <h3>The Cognitive Scaling Paradigm: Unifying Pre-Training &amp; Inference Algorithms</h3>
           <p>Exploring how post-training reinforcement learning and inference-time search redefine traditional static pre-training scaling laws.</p>
-        </div>
+          <span class="read-more">Read on Substack <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="article-card fade-in-up">
-          <div class="article-tag">Synthetic Consciousness</div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="article-card fade-in-up">
+          <div class="article-tag"><i class="fas fa-newspaper"></i> Substack Deep Dive</div>
           <h3>Building Synthetic Consciousness with Integrated Information Theory &amp; GWT</h3>
           <p>Mathematical framework for System-2 cognitive refinement, Global Workspace Theory, and consciousness verification in neural architectures.</p>
-        </div>
+          <span class="read-more">Read on Substack <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="article-card fade-in-up">
-          <div class="article-tag">AI Safety</div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="article-card fade-in-up">
+          <div class="article-tag"><i class="fas fa-newspaper"></i> Substack AI Safety</div>
           <h3>Implementing Grounded Causal Verification to Prevent Epistemic Collapse</h3>
           <p>Addressing the risks of recursive self-improvement in LLMs by introducing grounded causal verification mechanisms.</p>
-        </div>
+          <span class="read-more">Read on Substack <i class="fas fa-arrow-right"></i></span>
+        </a>
 
-        <div class="article-card fade-in-up">
-          <div class="article-tag">Sub-Quadratic Attention</div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="article-card fade-in-up">
+          <div class="article-tag"><i class="fas fa-newspaper"></i> Substack Architecture</div>
           <h3>The Post-Transformer Era: Deep Dive into Linear Attention &amp; LinRec</h3>
           <p>Breaking the quadratic bottleneck in long-context models using sub-quadratic sequence architectures and linear transformers.</p>
-        </div>
+          <span class="read-more">Read on Substack <i class="fas fa-arrow-right"></i></span>
+        </a>
       </div>
     </section>
 
@@ -894,6 +912,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=16.0"></script>
+  <script src="script.js?v=17.0"></script>
 </body>
 </html>
