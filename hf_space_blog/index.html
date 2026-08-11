@@ -1,11 +1,10 @@
 ---
-title: Hoosha AI Technical Research Journal 🧠
-emoji: 🔬
-colorFrom: cyan
+title: Hoosha AI Technical Research Journal
+emoji: 🧠
+colorFrom: blue
 colorTo: purple
 sdk: static
 pinned: false
-license: mit
 ---
 
 <!DOCTYPE html>
@@ -54,8 +53,8 @@ license: mit
     code, pre { font-family: 'JetBrains Mono', monospace; }
 
     .header-box {
-      max-width: 900px;
-      margin: 0 auto 3rem;
+      max-width: 960px;
+      margin: 0 auto 2.5rem;
       text-align: center;
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -88,12 +87,35 @@ license: mit
     .sub {
       color: var(--muted);
       font-size: 1rem;
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
+    .search-box {
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: .75rem 1.2rem;
+      border-radius: 12px;
+      font-size: .9rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: var(--glow);
+    }
+
     .series-grid {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -118,19 +140,26 @@ license: mit
       align-items: center;
       gap: 1rem;
       flex-wrap: wrap;
+      transition: all .2s;
+    }
+
+    .chapter-item:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
     }
 
     .btn {
       background: linear-gradient(135deg, var(--cyan), var(--purple));
       color: #000;
       font-weight: 700;
-      padding: .5rem 1rem;
+      padding: .5rem 1.1rem;
       border-radius: 10px;
       text-decoration: none;
       font-size: .82rem;
       display: inline-flex;
       align-items: center;
       gap: .4rem;
+      white-space: nowrap;
     }
 
     .btn:hover { opacity: 0.9; }
@@ -142,14 +171,18 @@ license: mit
     <div class="badge"><i class="fas fa-brain"></i> HuggingFace Space: tahamajs/Blog</div>
     <h1 class="title">Hoosha AI — Substack &amp; Technical Research Journal</h1>
     <p class="sub">
-      Deep-dive AI engineering essays, multi-part research series, and mathematical derivations on Flow Matching ODEs, GRPO alignment, and CUDA kernels by Mohammad Taha Majlesi.
+      20 Deep-dive AI engineering essays, multi-part research series, and mathematical derivations on Flow Matching ODEs, GRPO alignment, and CUDA kernels by Mohammad Taha Majlesi.
     </p>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search 20 Substack research articles &amp; deep dives..." onkeyup="filterArticles()">
+    </div>
   </div>
 
-  <div class="series-grid">
+  <div class="series-grid" id="articlesContainer">
     <!-- Series 1 -->
-    <div class="series-card">
-      <div style="display:flex; justify-content:space-between; margin-bottom:.5rem;">
+    <div class="series-card article-entry">
+      <div style="display:flex; justify-space-between; margin-bottom:.5rem;">
         <span style="color:var(--cyan); font-family:monospace; font-size:.8rem;">📚 Multi-Part Series</span>
         <span style="color:var(--muted); font-size:.8rem;">4 Chapters</span>
       </div>
@@ -162,7 +195,7 @@ license: mit
         <div>
           <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 1</div>
           <h3 style="color:#fff; font-size:1rem;">The Hidden Costs of Naive Retrieval: Adaptive RAG, Part 1</h3>
-          <div style="color:var(--muted); font-size:.78rem;">📖 12 min read · 3,599 words</div>
+          <div style="color:var(--muted); font-size:.78rem;">📖 12 min read · 3,599 words · Sep 1, 2025</div>
         </div>
         <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
       </div>
@@ -171,7 +204,7 @@ license: mit
         <div>
           <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 2</div>
           <h3 style="color:#fff; font-size:1rem;">Deciding When Not to Retrieve: Adaptive RAG, Part 2</h3>
-          <div style="color:var(--muted); font-size:.78rem;">📖 9 min read · 2,242 words</div>
+          <div style="color:var(--muted); font-size:.78rem;">📖 9 min read · 2,242 words · Sep 21, 2025</div>
         </div>
         <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
       </div>
@@ -180,7 +213,7 @@ license: mit
         <div>
           <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 3</div>
           <h3 style="color:#fff; font-size:1rem;">Probing LLMs' Knowledge Boundary: Adaptive RAG, Part 3</h3>
-          <div style="color:var(--muted); font-size:.78rem;">📖 18 min read · 6,071 words</div>
+          <div style="color:var(--muted); font-size:.78rem;">📖 18 min read · 6,071 words · Sep 27, 2025</div>
         </div>
         <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
       </div>
@@ -189,14 +222,14 @@ license: mit
         <div>
           <div style="color:var(--cyan); font-size:.75rem; font-family:monospace;">Part 4</div>
           <h3 style="color:#fff; font-size:1rem;">Teaching Models to Decide When to Retrieve: Adaptive RAG, Part 4</h3>
-          <div style="color:var(--muted); font-size:.78rem;">📖 22 min read · 7,573 words</div>
+          <div style="color:var(--muted); font-size:.78rem;">📖 22 min read · 7,573 words · Oct 5, 2025</div>
         </div>
         <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
       </div>
     </div>
 
     <!-- Series 2 -->
-    <div class="series-card">
+    <div class="series-card article-entry">
       <div style="display:flex; justify-content:space-between; margin-bottom:.5rem;">
         <span style="color:var(--emerald); font-family:monospace; font-size:.8rem;">🌊 Flow Matching Series</span>
         <span style="color:var(--muted); font-size:.8rem;">3 Chapters</span>
@@ -210,7 +243,7 @@ license: mit
         <div>
           <div style="color:var(--emerald); font-size:.75rem; font-family:monospace;">Part 1</div>
           <h3 style="color:#fff; font-size:1rem;">Flow Matching vs Diffusion SDEs: Velocity Vector Fields</h3>
-          <div style="color:var(--muted); font-size:.78rem;">📖 14 min read · 4,210 words</div>
+          <div style="color:var(--muted); font-size:.78rem;">📖 14 min read · 4,210 words · Jul 12, 2025</div>
         </div>
         <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
       </div>
@@ -219,12 +252,36 @@ license: mit
         <div>
           <div style="color:var(--emerald); font-size:.75rem; font-family:monospace;">Part 2</div>
           <h3 style="color:#fff; font-size:1rem;">Optimal Transport Straight Paths for Fast ODE Integration</h3>
-          <div style="color:var(--muted); font-size:.78rem;">📖 19 min read · 5,890 words</div>
+          <div style="color:var(--muted); font-size:.78rem;">📖 19 min read · 5,890 words · Aug 4, 2025</div>
+        </div>
+        <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
+      </div>
+
+      <div class="chapter-item">
+        <div>
+          <div style="color:var(--emerald); font-size:.75rem; font-family:monospace;">Part 3</div>
+          <h3 style="color:#fff; font-size:1rem;">Scaling Flow Matching to 70B Parameter Multimodal Diffusion</h3>
+          <div style="color:var(--muted); font-size:.78rem;">📖 25 min read · 8,120 words · Aug 29, 2025</div>
         </div>
         <a href="https://hooshaai.substack.com" target="_blank" class="btn">Read on Substack ↗</a>
       </div>
     </div>
   </div>
+
+  <script>
+    function filterArticles() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.article-entry');
+      cards.forEach(card => {
+        const txt = card.innerText.toLowerCase();
+        if (txt.includes(q)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
 
   <footer style="text-align:center; margin-top:4rem; color:var(--muted); font-size:.85rem;">
     &copy; 2026 Mohammad Taha Majlesi · Hoosha AI Research Lab · HuggingFace Space <a href="https://huggingface.co/spaces/tahamajs/Blog" target="_blank" style="color:var(--cyan);">tahamajs/Blog</a>
