@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useToast, useTehranClock, useGpuMetrics, useBeep, useNeuralCanvas } from './hooks/index.js';
 
 import Navigation from './components/layout/Navigation.jsx';
+import PageRouterBar from './components/layout/PageRouterBar.jsx';
 import Footer from './components/layout/Footer.jsx';
 
 import HeroSection from './components/sections/HeroSection.jsx';
@@ -94,17 +95,6 @@ export default function App() {
 
   const hfAssets = useMemo(() => (data.hf || []).filter(h => hfFilter === 'all' || h.type === hfFilter), [data.hf, hfFilter]);
 
-  const counts = useMemo(() => {
-    const r = data.repos || [];
-    return {
-      all: r.length,
-      course: r.filter(x => x.cat === 'course').length,
-      ai: r.filter(x => x.cat === 'ai').length,
-      systems: r.filter(x => x.cat === 'systems').length,
-      web: r.filter(x => x.cat === 'web').length
-    };
-  }, [data.repos]);
-
   // Actions
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
   const setAccentColor = c => { setAccent(c); document.body.setAttribute('data-accent', c); beep(800); showToast(`Theme: ${c} ✨`); };
@@ -124,14 +114,14 @@ export default function App() {
       substack: () => window.open('https://hooshaai.substack.com', '_blank'),
       email: () => window.location.href = 'mailto:tahamajlesi@ut.ac.ir',
       resume: () => window.open('assets/resume.pdf', '_blank'),
-      telemetry: () => scrollTo('telemetry'),
-      sandbox: () => scrollTo('sandbox'),
-      constellation: () => scrollTo('constellation'),
-      projects: () => scrollTo('projects'),
-      publications: () => scrollTo('publications'),
-      feed: () => scrollTo('social-feed'),
-      experience: () => scrollTo('experience'),
-      contact: () => scrollTo('contact'),
+      telemetry: () => { setPageView('lab'); scrollTo('telemetry'); },
+      sandbox: () => { setPageView('lab'); scrollTo('sandbox'); },
+      constellation: () => { setPageView('projects'); scrollTo('constellation'); },
+      projects: () => { setPageView('projects'); scrollTo('projects'); },
+      publications: () => { setPageView('papers'); scrollTo('publications'); },
+      feed: () => { setPageView('papers'); scrollTo('social-feed'); },
+      experience: () => { setPageView('home'); scrollTo('experience'); },
+      contact: () => { setPageView('contact'); scrollTo('contact'); },
     };
     (map[id] || (() => {}))();
   };
@@ -143,26 +133,61 @@ export default function App() {
     }));
   };
 
+  const counts = useMemo(() => ({
+    all: repos.length,
+    course: repos.filter(r => r.category === 'course').length,
+    ml: repos.filter(r => r.category === 'ml').length,
+    systems: repos.filter(r => r.category === 'systems').length,
+    hfModels: hfAssets.filter(a => a.type === 'model').length,
+    hfDatasets: hfAssets.filter(a => a.type === 'dataset').length,
+  }), [repos, hfAssets]);
+
   return (
     <>
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
+      <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
       
-      <main>
-        <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
-        <AchievementsSection />
-        <GpuTelemetrySection />
-        <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} beep={beep} />
-        <BenchmarkSection />
-        <ConstellationSection beep={beep} />
-        <ContributionGraph />
-        <TimelineSection />
-        <SkillsSection />
-        <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
-        <PublicationsSection onCopyBib={setBibtexPub} onSelectPaper={setSelectedPaper} beep={beep} />
-        <SocialFeedSection beep={beep} />
-        <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} beep={beep} />
-        <NewsletterSection beep={beep} />
-        <ContactSection onHire={() => setHireOpen(true)} beep={beep} />
+      <main style={{ paddingTop: '80px' }}>
+        {(pageView === 'all' || pageView === 'home') && (
+          <>
+            <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
+            <AchievementsSection />
+            <TimelineSection />
+            <SkillsSection />
+          </>
+        )}
+
+        {(pageView === 'all' || pageView === 'lab') && (
+          <>
+            <GpuTelemetrySection />
+            <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} beep={beep} />
+            <BenchmarkSection />
+          </>
+        )}
+
+        {(pageView === 'all' || pageView === 'projects') && (
+          <>
+            <ConstellationSection beep={beep} />
+            <ContributionGraph />
+            <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
+          </>
+        )}
+
+        {(pageView === 'all' || pageView === 'papers') && (
+          <>
+            <PublicationsSection onCopyBib={setBibtexPub} onSelectPaper={setSelectedPaper} beep={beep} />
+            <SocialFeedSection beep={beep} />
+            <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} beep={beep} />
+          </>
+        )}
+
+        {(pageView === 'all' || pageView === 'contact') && (
+          <>
+            <NewsletterSection beep={beep} />
+            <ContactSection onHire={() => setHireOpen(true)} beep={beep} />
+          </>
+        )}
+
         {data.readmeHtml && <ReadmeSection readmeHtml={data.readmeHtml} />}
       </main>
 

@@ -271,6 +271,33 @@
     } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#24292e", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " Follow"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#ea4aaa", color: "#fff" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor")), /* @__PURE__ */ React.createElement("button", { className: "cmd-k-btn", onClick: onCmd }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), " ", /* @__PURE__ */ React.createElement("span", { className: "cmd-k-key" }, "\u2318K")), /* @__PURE__ */ React.createElement("button", { className: "mobile-nav-toggle", onClick: () => setMobileNav(!mobileNav) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${mobileNav ? "fa-times" : "fa-bars"}` }))));
   }
 
+  // src/components/layout/PageRouterBar.jsx
+  var PAGES = [
+    { id: "all", label: "\u{1F310} View All (Full Dashboard)", icon: "fas fa-globe" },
+    { id: "home", label: "\u{1F464} Overview & Bio", icon: "fas fa-user-circle" },
+    { id: "lab", label: "\u{1F9EA} Interactive AI Lab", icon: "fas fa-flask" },
+    { id: "projects", label: "\u{1F680} Projects & HF Models", icon: "fas fa-cubes" },
+    { id: "papers", label: "\u{1F4C4} Papers & Substack", icon: "fas fa-file-alt" },
+    { id: "contact", label: "\u{1F4EC} Contact & Recruit", icon: "fas fa-paper-plane" }
+  ];
+  function PageRouterBar({ pageView: pageView2, setPageView: setPageView2, beep }) {
+    return /* @__PURE__ */ React.createElement("div", { className: "page-router-bar" }, /* @__PURE__ */ React.createElement("div", { className: "page-router-inner" }, /* @__PURE__ */ React.createElement("span", { className: "page-router-label" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-layer-group", style: { color: "var(--accent)" } }), " Multi-Page Mode:"), /* @__PURE__ */ React.createElement("div", { className: "page-router-tabs" }, PAGES.map((p) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: p.id,
+        className: `page-router-tab ${pageView2 === p.id ? "active" : ""}`,
+        onClick: () => {
+          setPageView2(p.id);
+          beep?.(700);
+          window.scrollTo(0, 0);
+        }
+      },
+      /* @__PURE__ */ React.createElement("i", { className: p.icon }),
+      " ",
+      p.label
+    )))));
+  }
+
   // src/components/layout/Footer.jsx
   function Footer({ gpuM }) {
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("footer", { style: { textAlign: "center", padding: "4rem 1.5rem 8rem", borderTop: "1px solid var(--border)", background: "var(--bg2)" } }, /* @__PURE__ */ React.createElement("p", { style: { color: "var(--muted)", fontSize: ".85rem", marginBottom: "1rem" } }, "\xA9 ", (/* @__PURE__ */ new Date()).getFullYear(), " Mohammad Taha Majlesi. Open-Source AI Infrastructure."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank" }, "GitHub"), /* @__PURE__ */ React.createElement("a", { href: "https://huggingface.co/tahamajs", target: "_blank" }, "HuggingFace"), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank" }, "Hoosha AI"), /* @__PURE__ */ React.createElement("a", { href: "https://linkedin.com/in/tahamajlesi", target: "_blank" }, "LinkedIn"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", style: { color: "#ea4aaa" } }, "Sponsor"))), /* @__PURE__ */ React.createElement("div", { className: "gpu-bar" }, /* @__PURE__ */ React.createElement("div", { className: "gpu-dot" }), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Node: ", /* @__PURE__ */ React.createElement("b", null, "A100-SXM4-80GB")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "SM Util: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.util, "%")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "VRAM: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.vram, " GB"), " / 80.0"), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Bandwidth: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, "1.8 TB/s")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "TFLOPS: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.flops)), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Temp: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.temp, "\xB0C"))));
@@ -1949,16 +1976,6 @@ Available commands:
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
     const hfAssets = (0, import_react18.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
-    const counts = (0, import_react18.useMemo)(() => {
-      const r = data.repos || [];
-      return {
-        all: r.length,
-        course: r.filter((x) => x.cat === "course").length,
-        ai: r.filter((x) => x.cat === "ai").length,
-        systems: r.filter((x) => x.cat === "systems").length,
-        web: r.filter((x) => x.cat === "web").length
-      };
-    }, [data.repos]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -1986,14 +2003,38 @@ Available commands:
         substack: () => window.open("https://hooshaai.substack.com", "_blank"),
         email: () => window.location.href = "mailto:tahamajlesi@ut.ac.ir",
         resume: () => window.open("assets/resume.pdf", "_blank"),
-        telemetry: () => scrollTo("telemetry"),
-        sandbox: () => scrollTo("sandbox"),
-        constellation: () => scrollTo("constellation"),
-        projects: () => scrollTo("projects"),
-        publications: () => scrollTo("publications"),
-        feed: () => scrollTo("social-feed"),
-        experience: () => scrollTo("experience"),
-        contact: () => scrollTo("contact")
+        telemetry: () => {
+          setPageView("lab");
+          scrollTo("telemetry");
+        },
+        sandbox: () => {
+          setPageView("lab");
+          scrollTo("sandbox");
+        },
+        constellation: () => {
+          setPageView("projects");
+          scrollTo("constellation");
+        },
+        projects: () => {
+          setPageView("projects");
+          scrollTo("projects");
+        },
+        publications: () => {
+          setPageView("papers");
+          scrollTo("publications");
+        },
+        feed: () => {
+          setPageView("papers");
+          scrollTo("social-feed");
+        },
+        experience: () => {
+          setPageView("home");
+          scrollTo("experience");
+        },
+        contact: () => {
+          setPageView("contact");
+          scrollTo("contact");
+        }
       };
       (map[id] || (() => {
       }))();
@@ -2004,8 +2045,16 @@ Available commands:
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null), /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep }), /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep }), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    const counts = (0, import_react18.useMemo)(() => ({
+      all: repos.length,
+      course: repos.filter((r) => r.category === "course").length,
+      ml: repos.filter((r) => r.category === "ml").length,
+      systems: repos.filter((r) => r.category === "systems").length,
+      hfModels: hfAssets.filter((a) => a.type === "model").length,
+      hfDatasets: hfAssets.filter((a) => a.type === "dataset").length
+    }), [repos, hfAssets]);
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
       beep(600);

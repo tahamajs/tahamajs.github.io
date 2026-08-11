@@ -597,3 +597,12 @@ h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;marg
 .paper-metric-label{font-size:.75rem;color:var(--muted);margin-top:.2rem;}
 .paper-bibtex-block{background:rgba(0,0,0,0.5);border:1px solid var(--border);padding:1rem;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#e2e8f0;white-space:pre-wrap;}
 .paper-reader-footer{padding:1.2rem 1.8rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+
+/* ── Multi-Page Mode Router Bar ── */
+.page-router-bar{position:fixed;top:92px;left:0;right:0;z-index:998;background:rgba(3,7,18,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:.4rem 0;}
+.page-router-inner{max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:1rem;overflow-x:auto;}
+.page-router-label{font-size:.75rem;font-weight:600;color:#fff;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
+.page-router-tabs{display:flex;gap:.4rem;align-items:center;}
+.page-router-tab{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:var(--muted);font-size:.78rem;padding:.35rem .75rem;border-radius:8px;cursor:pointer;white-space:nowrap;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem;}
+.page-router-tab:hover{color:#fff;background:rgba(0,240,255,0.08);border-color:var(--accent);}
+.page-router-tab.active{background:var(--glass2);border-color:var(--accent);color:var(--accent);font-weight:600;box-shadow:var(--glow-sm);}
