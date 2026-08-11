@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react27 = __toESM(require_react_shim());
+  var import_react28 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react26 = __toESM(require_react_shim());
+  var import_react27 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -337,7 +337,7 @@
 
   // src/components/layout/Footer.jsx
   function Footer({ gpuM }) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("footer", { style: { textAlign: "center", padding: "4rem 1.5rem 8rem", borderTop: "1px solid var(--border)", background: "var(--bg2)" } }, /* @__PURE__ */ React.createElement("p", { style: { color: "var(--muted)", fontSize: ".85rem", marginBottom: "1rem" } }, "\xA9 ", (/* @__PURE__ */ new Date()).getFullYear(), " Mohammad Taha Majlesi. Open-Source AI Infrastructure."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank" }, "GitHub"), /* @__PURE__ */ React.createElement("a", { href: "https://huggingface.co/tahamajs", target: "_blank" }, "HuggingFace"), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank" }, "Hoosha AI"), /* @__PURE__ */ React.createElement("a", { href: "https://linkedin.com/in/tahamajlesi", target: "_blank" }, "LinkedIn"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", style: { color: "#ea4aaa" } }, "Sponsor"))), /* @__PURE__ */ React.createElement("div", { className: "gpu-bar" }, /* @__PURE__ */ React.createElement("div", { className: "gpu-dot" }), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Node: ", /* @__PURE__ */ React.createElement("b", null, "A100-SXM4-80GB")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "SM Util: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.util, "%")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "VRAM: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.vram, " GB"), " / 80.0"), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Bandwidth: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, "1.8 TB/s")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "TFLOPS: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.flops)), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Temp: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.temp, "\xB0C"))));
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("footer", { style: { textAlign: "center", padding: "4rem 1.5rem 8rem", borderTop: "1px solid var(--border)", background: "var(--bg2)" } }, /* @__PURE__ */ React.createElement("p", { style: { color: "var(--muted)", fontSize: ".88rem", marginBottom: "1.2rem", lineHeight: "1.6" } }, "\xA9 ", (/* @__PURE__ */ new Date()).getFullYear(), " Mohammad Taha Majlesi. Open-Source AI Infrastructure & Frontier Research."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1.4rem", justifyContent: "center", flexWrap: "wrap", fontSize: ".88rem" } }, /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank", rel: "noreferrer", style: { color: "#fff" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " GitHub (@tahamajs)"), /* @__PURE__ */ React.createElement("a", { href: "https://huggingface.co/tahamajs", target: "_blank", rel: "noreferrer", style: { color: "#ffd21e" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " HuggingFace (162 Assets)"), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank", rel: "noreferrer", style: { color: "#ff6719" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-newspaper" }), " Hoosha AI Substack"), /* @__PURE__ */ React.createElement("a", { href: "https://linkedin.com/in/tahamajlesi", target: "_blank", rel: "noreferrer", style: { color: "#0a66c2" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-linkedin" }), " LinkedIn (17.1k)"), /* @__PURE__ */ React.createElement("a", { href: "https://instagram.com/hooshaaii", target: "_blank", rel: "noreferrer", style: { color: "#e1306c" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-instagram" }), " Instagram (@hooshaaii)"), /* @__PURE__ */ React.createElement("a", { href: "https://t.me/tahamajlesii", target: "_blank", rel: "noreferrer", style: { color: "#229ed9" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-telegram" }), " Telegram (@tahamajlesii)"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", rel: "noreferrer", style: { color: "#ea4aaa", fontWeight: 600 } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor Research"))), /* @__PURE__ */ React.createElement("div", { className: "gpu-bar" }, /* @__PURE__ */ React.createElement("div", { className: "gpu-dot" }), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Node: ", /* @__PURE__ */ React.createElement("b", null, "A100-SXM4-80GB")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "SM Util: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.util, "%")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "VRAM: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.vram, " GB"), " / 80.0"), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Bandwidth: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, "1.8 TB/s")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "TFLOPS: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.flops)), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Temp: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.temp, "\xB0C"))));
   }
 
   // src/components/ui/FloatingContactBar.jsx
@@ -1463,31 +1463,52 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/sections/NewsletterSection.jsx
-  function NewsletterSection({ beep }) {
-    return /* @__PURE__ */ React.createElement("section", { className: "section fade-up" }, /* @__PURE__ */ React.createElement("div", { className: "newsletter-card" }, /* @__PURE__ */ React.createElement("div", { className: "newsletter-content" }, /* @__PURE__ */ React.createElement(
+  var import_react11 = __toESM(require_react_shim());
+  function NewsletterSection({ beep, showToast }) {
+    const [email, setEmail] = (0, import_react11.useState)("");
+    const [subscribed, setSubscribed] = (0, import_react11.useState)(false);
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (!email) return;
+      beep?.(880, "sine");
+      setSubscribed(true);
+      showToast?.(`\u{1F4E7} Subscribed ${email} to Hoosha AI Substack! Check your inbox.`);
+    };
+    return /* @__PURE__ */ React.createElement("section", { id: "newsletter", className: "section fade-up", style: { background: "rgba(0,240,255,0.01)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" } }, /* @__PURE__ */ React.createElement(
       SectionHead,
       {
         tag: "Join 17,100+ Readers",
-        title: "Get Deep-Dive AI Engineering Essays",
-        sub: "Subscribe to Hoosha AI's Substack. I write detailed breakdowns on scaling LLMs, custom CUDA kernels, and mathematics behind Flow Matching and GRPO."
+        title: "Get Deep-Dive AI Engineering Essays \u{1F9E0}",
+        sub: "Subscribe to Hoosha AI's Substack. I write detailed mathematical breakdowns on scaling LLMs, custom CUDA kernels, Flow Matching ODEs, and GRPO reinforcement learning."
       }
-    ), /* @__PURE__ */ React.createElement("form", { className: "newsletter-form", action: "https://hooshaai.substack.com", target: "_blank", onSubmit: () => beep?.(800) }, /* @__PURE__ */ React.createElement("input", { type: "email", placeholder: "Enter your email address...", required: true, className: "newsletter-input" }), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary newsletter-btn" }, "Subscribe ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane", style: { marginLeft: "4px" } }))), /* @__PURE__ */ React.createElement("div", { className: "newsletter-meta" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" }), " No spam"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" }), " Highly technical"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check-circle" }), " Once a week"))), /* @__PURE__ */ React.createElement("div", { className: "newsletter-glow" })));
+    ), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 640, margin: "0 auto", textAlign: "center" } }, !subscribed ? /* @__PURE__ */ React.createElement("form", { onSubmit: handleSubmit, className: "newsletter-form", style: { display: "flex", gap: ".8rem", flexWrap: "wrap", justifyContent: "center" } }, /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "email",
+        required: true,
+        placeholder: "Enter your email address (e.g. researcher@mit.edu)...",
+        value: email,
+        onChange: (e) => setEmail(e.target.value),
+        className: "form-input",
+        style: { flex: 1, minWidth: 280 }
+      }
+    ), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary", style: { padding: ".75rem 1.6rem", whiteSpace: "nowrap" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane" }), " Subscribe Now")) : /* @__PURE__ */ React.createElement("div", { className: "telegram-success-box", style: { margin: "0 auto" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope-open-text", style: { fontSize: "2rem", color: "var(--emerald)", marginBottom: ".4rem" } }), /* @__PURE__ */ React.createElement("h3", null, "Welcome to Hoosha AI Journal!"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".85rem", color: "var(--muted)", marginTop: ".3rem" } }, "Subscription confirmed for ", /* @__PURE__ */ React.createElement("b", null, email), ". You will receive weekly deep-dives directly in your inbox.")), /* @__PURE__ */ React.createElement("div", { className: "newsletter-badges", style: { display: "flex", justifyContent: "center", gap: "1.5rem", marginTop: "1.5rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".8rem", color: "var(--muted)", fontFamily: "monospace" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-shield-alt", style: { color: "var(--emerald)" } }), " No spam"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".8rem", color: "var(--muted)", fontFamily: "monospace" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-code", style: { color: "var(--accent)" } }), " Highly technical"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".8rem", color: "var(--muted)", fontFamily: "monospace" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt", style: { color: "var(--cyan)" } }), " Once a week"))));
   }
 
   // src/components/sections/ContactSection.jsx
-  var import_react11 = __toESM(require_react_shim());
+  var import_react12 = __toESM(require_react_shim());
   var CONTACTS = [
     { icon: "fab fa-github", href: "https://github.com/tahamajs", label: "GitHub", val: "@tahamajs", color: "#fff" },
     { icon: "fab fa-linkedin-in", href: "https://linkedin.com/in/tahamajlesi", label: "LinkedIn", val: "17.1k Followers", color: "#0a66c2" },
     { icon: "fab fa-instagram", href: "https://instagram.com/hooshaaii", label: "Instagram", val: "@hooshaaii", color: "#e1306c" },
     { icon: "fas fa-robot", href: "https://huggingface.co/tahamajs", label: "HuggingFace", val: "162 Assets", color: "#ffd21e" },
     { icon: "fas fa-newspaper", href: "https://hooshaai.substack.com", label: "Substack", val: "Hoosha AI \u{1F9E0}", color: "#ff6719" },
-    { icon: "fab fa-telegram", href: "https://t.me/tahamajlesii", label: "Telegram", val: "@tahamajlesii", color: "#229ed9" },
+    { icon: "fab fa-telegram-plane", href: "https://t.me/tahamajlesii", label: "Telegram", val: "@tahamajlesii", color: "#229ed9" },
     { icon: "fas fa-envelope", href: "mailto:tahamajlesi@ut.ac.ir", label: "Email", val: "UT.ac.ir", color: "#10b981" },
     { icon: "fas fa-heart", href: "https://github.com/sponsors/tahamajs", label: "Sponsor", val: "Fund the mission", color: "#ea4aaa" }
   ];
   function ContactSection({ onHire, beep }) {
-    const [copied, setCopied] = (0, import_react11.useState)(false);
+    const [copied, setCopied] = (0, import_react12.useState)(false);
     const copyEmail = () => {
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       setCopied(true);
@@ -1504,19 +1525,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     ), /* @__PURE__ */ React.createElement("div", { className: "contact-grid" }, /* @__PURE__ */ React.createElement("div", { className: "contact-ctas" }, /* @__PURE__ */ React.createElement("div", { className: "contact-cta-card primary-cta", onClick: () => {
       onHire();
       beep?.();
-    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h4", null, "Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("p", null, "Full-time, part-time, contract, or research collaboration")), /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.4 } })), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "contact-cta-card sponsor-cta", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h4", null, "Sponsor on GitHub"), /* @__PURE__ */ React.createElement("p", null, "Fund open-source CUDA engines, Persian LLMs & AI research")), /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.4 } })), /* @__PURE__ */ React.createElement("div", { className: "contact-email-row" }, /* @__PURE__ */ React.createElement("div", { className: "contact-email-display" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope", style: { color: "var(--accent)" } }), /* @__PURE__ */ React.createElement("span", null, "tahamajlesi@ut.ac.ir")), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary contact-copy", onClick: copyEmail }, /* @__PURE__ */ React.createElement("i", { className: `fas ${copied ? "fa-check" : "fa-copy"}` }), " ", copied ? "Copied!" : "Copy"))), /* @__PURE__ */ React.createElement("div", { className: "contact-socials" }, CONTACTS.map((c) => /* @__PURE__ */ React.createElement(
-      "a",
-      {
-        key: c.label,
-        href: c.href,
-        target: c.href.startsWith("mailto") ? "_self" : "_blank",
-        className: "contact-social-row",
-        onClick: () => beep?.()
-      },
-      /* @__PURE__ */ React.createElement("div", { className: "contact-social-icon", style: { background: `${c.color}18`, color: c.color, border: `1px solid ${c.color}30` } }, /* @__PURE__ */ React.createElement("i", { className: c.icon })),
-      /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "contact-social-label" }, c.label), /* @__PURE__ */ React.createElement("div", { className: "contact-social-val" }, c.val)),
-      /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt", style: { marginLeft: "auto", opacity: 0.25, fontSize: ".7rem" } })
-    )))));
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h4", null, "Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("p", null, "Full-time, part-time, contract, or research collaboration")), /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.6 } })), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", rel: "noreferrer", className: "contact-cta-card sponsor-cta", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h4", null, "Sponsor on GitHub"), /* @__PURE__ */ React.createElement("p", null, "Fund open-source CUDA engines, Persian LLMs & AI research")), /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.6 } })), /* @__PURE__ */ React.createElement("div", { className: "contact-email-row" }, /* @__PURE__ */ React.createElement("div", { className: "contact-email-display" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope", style: { color: "var(--accent)" } }), /* @__PURE__ */ React.createElement("span", null, "tahamajlesi@ut.ac.ir")), /* @__PURE__ */ React.createElement("button", { className: "btn-secondary contact-copy", onClick: copyEmail }, copied ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-check", style: { color: "var(--emerald)" } }), " Copied!") : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy")))), /* @__PURE__ */ React.createElement("div", { className: "contact-social-grid" }, CONTACTS.map((c, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: c.href, target: "_blank", rel: "noreferrer", className: "contact-card", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("div", { className: "contact-icon", style: { color: c.color } }, /* @__PURE__ */ React.createElement("i", { className: c.icon })), /* @__PURE__ */ React.createElement("div", { className: "contact-info" }, /* @__PURE__ */ React.createElement("span", { className: "contact-label" }, c.label), /* @__PURE__ */ React.createElement("span", { className: "contact-val" }, c.val)))))));
   }
 
   // src/components/sections/SocialFeedSection.jsx
@@ -1576,14 +1585,14 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/sections/GpuTelemetrySection.jsx
-  var import_react12 = __toESM(require_react_shim());
+  var import_react13 = __toESM(require_react_shim());
   function GpuTelemetrySection() {
-    const [history, setHistory] = (0, import_react12.useState)(() => Array(20).fill(70));
-    const [flopsHist, setFlopsHist] = (0, import_react12.useState)(() => Array(20).fill(312));
-    const [vram, setVram] = (0, import_react12.useState)(68.4);
-    const [temp, setTemp] = (0, import_react12.useState)(62);
-    const [drlReward, setDrlReward] = (0, import_react12.useState)(482);
-    (0, import_react12.useEffect)(() => {
+    const [history, setHistory] = (0, import_react13.useState)(() => Array(20).fill(70));
+    const [flopsHist, setFlopsHist] = (0, import_react13.useState)(() => Array(20).fill(312));
+    const [vram, setVram] = (0, import_react13.useState)(68.4);
+    const [temp, setTemp] = (0, import_react13.useState)(62);
+    const [drlReward, setDrlReward] = (0, import_react13.useState)(482);
+    (0, import_react13.useEffect)(() => {
       const id = setInterval(() => {
         const util = Math.floor(65 + Math.random() * 32);
         const fl = Math.floor(300 + Math.random() * 25);
@@ -1738,12 +1747,12 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/modals/AIChatModal.jsx
-  var import_react14 = __toESM(require_react_shim());
+  var import_react15 = __toESM(require_react_shim());
 
   // src/components/ui/Modal.jsx
-  var import_react13 = __toESM(require_react_shim());
+  var import_react14 = __toESM(require_react_shim());
   function Modal({ open, onClose, children, wide = false }) {
-    (0, import_react13.useEffect)(() => {
+    (0, import_react14.useEffect)(() => {
       if (open) document.body.style.overflow = "hidden";
       else document.body.style.overflow = "";
       return () => {
@@ -1796,10 +1805,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     "How to hire Taha?"
   ];
   function AIChatModal({ open, onClose, beep, speak }) {
-    const [msgs, setMsgs] = (0, import_react14.useState)([
+    const [msgs, setMsgs] = (0, import_react15.useState)([
       { who: "bot", text: "\u{1F44B} I'm Taha's AI research assistant. Ask me about <b>Flow Matching</b>, <b>GRPO</b>, <b>Hoosha AI</b>, <b>Kaleido Engine</b>, <b>GitHub Sponsors</b>, or how to <b>hire Taha</b>!" }
     ]);
-    const [input, setInput] = (0, import_react14.useState)("");
+    const [input, setInput] = (0, import_react15.useState)("");
     const send = (q) => {
       if (!q?.trim()) return;
       setMsgs((p) => [...p, { who: "user", text: q.trim() }]);
@@ -1832,7 +1841,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/modals/HireModal.jsx
-  var import_react15 = __toESM(require_react_shim());
+  var import_react16 = __toESM(require_react_shim());
   var TEMPLATES = [
     { icon: "fa-building", label: "Senior AI / Systems Engineer Role", subj: "Senior AI Engineering Role" },
     { icon: "fa-graduation-cap", label: "Ph.D. & Academic Research Collaboration", subj: "PhD Research Collaboration" },
@@ -1840,10 +1849,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     { icon: "fa-heart", label: "Sponsor Open-Source AI Work", subj: "GitHub Sponsor Inquiry", href: "https://github.com/sponsors/tahamajs" }
   ];
   function HireModal({ open, onClose, showToast, beep }) {
-    const [name, setName] = (0, import_react15.useState)("");
-    const [email, setEmail] = (0, import_react15.useState)("");
-    const [msg, setMsg] = (0, import_react15.useState)("");
-    const [copied, setCopied] = (0, import_react15.useState)(false);
+    const [name, setName] = (0, import_react16.useState)("");
+    const [email, setEmail] = (0, import_react16.useState)("");
+    const [msg, setMsg] = (0, import_react16.useState)("");
+    const [copied, setCopied] = (0, import_react16.useState)(false);
     const handleCopyEmail = () => {
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       setCopied(true);
@@ -1907,9 +1916,9 @@ ${msg}`)}`;
   }
 
   // src/components/modals/CommandPalette.jsx
-  var import_react16 = __toESM(require_react_shim());
+  var import_react17 = __toESM(require_react_shim());
   function CommandPalette({ open, onClose, onCmd }) {
-    const [q, setQ] = (0, import_react16.useState)("");
+    const [q, setQ] = (0, import_react17.useState)("");
     if (!open) return null;
     const filtered = CMD_ITEMS.filter((i) => i.text.toLowerCase().includes(q.toLowerCase()));
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cmd-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-search" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), /* @__PURE__ */ React.createElement(
@@ -1940,7 +1949,7 @@ ${msg}`)}`;
   }
 
   // src/components/modals/TerminalModal.jsx
-  var import_react17 = __toESM(require_react_shim());
+  var import_react18 = __toESM(require_react_shim());
   var HELP_TEXT = `
 Available commands:
   help        - Show this help menu
@@ -1955,13 +1964,13 @@ Available commands:
   date        - Output current time in Tehran (UTC+3:30)
 `;
   function TerminalModal({ open, onClose, beep }) {
-    const [history, setHistory] = (0, import_react17.useState)([
+    const [history, setHistory] = (0, import_react18.useState)([
       { type: "sys", text: "Hoosha AI Terminal Shell [v2.4.0-release]" },
       { type: "sys", text: 'Type "help" to list available commands.' }
     ]);
-    const [input, setInput] = (0, import_react17.useState)("");
-    const bottomRef = (0, import_react17.useRef)(null);
-    (0, import_react17.useEffect)(() => {
+    const [input, setInput] = (0, import_react18.useState)("");
+    const bottomRef = (0, import_react18.useRef)(null);
+    (0, import_react18.useEffect)(() => {
       if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [history, open]);
     if (!open) return null;
@@ -2025,13 +2034,13 @@ Available commands:
   }
 
   // src/components/modals/ArticleCreatorModal.jsx
-  var import_react18 = __toESM(require_react_shim());
+  var import_react19 = __toESM(require_react_shim());
   function ArticleCreatorModal({ open, onClose, onAddArticle, beep, showToast }) {
-    const [title, setTitle] = (0, import_react18.useState)("");
-    const [desc, setDesc] = (0, import_react18.useState)("");
-    const [url, setUrl] = (0, import_react18.useState)("https://hooshaai.substack.com/p/");
-    const [date, setDate] = (0, import_react18.useState)((/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
-    const [tag, setTag] = (0, import_react18.useState)("Flow Matching");
+    const [title, setTitle] = (0, import_react19.useState)("");
+    const [desc, setDesc] = (0, import_react19.useState)("");
+    const [url, setUrl] = (0, import_react19.useState)("https://hooshaai.substack.com/p/");
+    const [date, setDate] = (0, import_react19.useState)((/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
+    const [tag, setTag] = (0, import_react19.useState)("Flow Matching");
     if (!open) return null;
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -2092,17 +2101,17 @@ Available commands:
   }
 
   // src/components/modals/NNPlaygroundModal.jsx
-  var import_react19 = __toESM(require_react_shim());
+  var import_react20 = __toESM(require_react_shim());
   function NNPlaygroundModal({ open, onClose, beep, showToast }) {
-    const canvasRef = (0, import_react19.useRef)(null);
-    const [layers, setLayers] = (0, import_react19.useState)([2, 4, 4, 1]);
-    const [activation, setActivation] = (0, import_react19.useState)("SiLU");
-    const [lr, setLr] = (0, import_react19.useState)(0.03);
-    const [dataset, setDataset] = (0, import_react19.useState)("circle");
-    const [training, setTraining] = (0, import_react19.useState)(false);
-    const [epoch, setEpoch] = (0, import_react19.useState)(0);
-    const [loss, setLoss] = (0, import_react19.useState)(0.482);
-    (0, import_react19.useEffect)(() => {
+    const canvasRef = (0, import_react20.useRef)(null);
+    const [layers, setLayers] = (0, import_react20.useState)([2, 4, 4, 1]);
+    const [activation, setActivation] = (0, import_react20.useState)("SiLU");
+    const [lr, setLr] = (0, import_react20.useState)(0.03);
+    const [dataset, setDataset] = (0, import_react20.useState)("circle");
+    const [training, setTraining] = (0, import_react20.useState)(false);
+    const [epoch, setEpoch] = (0, import_react20.useState)(0);
+    const [loss, setLoss] = (0, import_react20.useState)(0.482);
+    (0, import_react20.useEffect)(() => {
       if (!open) return;
       const ctx = canvasRef.current?.getContext("2d");
       if (!ctx) return;
@@ -2134,7 +2143,7 @@ Available commands:
         ctx.fill();
       }
     }, [open, dataset, training, epoch]);
-    (0, import_react19.useEffect)(() => {
+    (0, import_react20.useEffect)(() => {
       if (!training) return;
       const id = setInterval(() => {
         setEpoch((e) => e + 1);
@@ -2157,9 +2166,9 @@ Available commands:
   }
 
   // src/components/modals/PaperReaderModal.jsx
-  var import_react20 = __toESM(require_react_shim());
+  var import_react21 = __toESM(require_react_shim());
   function PaperReaderModal({ paper, onClose, onCopyBib, beep }) {
-    const [tab, setTab] = (0, import_react20.useState)("abstract");
+    const [tab, setTab] = (0, import_react21.useState)("abstract");
     if (!paper) return null;
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "modal-box paper-reader-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "paper-reader-header" }, /* @__PURE__ */ React.createElement("div", { className: "paper-tag-badge" }, paper.tag || "AI Research Paper"), /* @__PURE__ */ React.createElement("h2", { className: "paper-title" }, paper.title), /* @__PURE__ */ React.createElement("div", { className: "paper-meta" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-user-edit" }), " Mohammad Taha Majlesi, Hoosha AI Research Team"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt" }), " ", paper.date || "2026"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-book" }), " ", paper.venue || "Hoosha AI Technical Report Series")), /* @__PURE__ */ React.createElement("button", { className: "modal-close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" }))), /* @__PURE__ */ React.createElement("div", { className: "paper-reader-tabs" }, /* @__PURE__ */ React.createElement("button", { className: `paper-tab ${tab === "abstract" ? "active" : ""}`, onClick: () => {
       setTab("abstract");
@@ -2187,15 +2196,15 @@ Available commands:
   }
 
   // src/components/modals/CyberpunkGameModal.jsx
-  var import_react21 = __toESM(require_react_shim());
+  var import_react22 = __toESM(require_react_shim());
   function CyberpunkGameModal({ open, onClose, showToast, beep }) {
-    const canvasRef = (0, import_react21.useRef)(null);
-    const [score, setScore] = (0, import_react21.useState)(0);
-    const [level, setLevel] = (0, import_react21.useState)(1);
-    const [modelSize, setModelSize] = (0, import_react21.useState)("1B Params");
-    const [gameOver, setGameOver] = (0, import_react21.useState)(false);
-    const [gameStarted, setGameStarted] = (0, import_react21.useState)(false);
-    (0, import_react21.useEffect)(() => {
+    const canvasRef = (0, import_react22.useRef)(null);
+    const [score, setScore] = (0, import_react22.useState)(0);
+    const [level, setLevel] = (0, import_react22.useState)(1);
+    const [modelSize, setModelSize] = (0, import_react22.useState)("1B Params");
+    const [gameOver, setGameOver] = (0, import_react22.useState)(false);
+    const [gameStarted, setGameStarted] = (0, import_react22.useState)(false);
+    (0, import_react22.useEffect)(() => {
       if (!open || !gameStarted || gameOver) return;
       const cvs = canvasRef.current;
       if (!cvs) return;
@@ -2315,7 +2324,7 @@ Available commands:
   }
 
   // src/components/modals/AlgorithmGameModal.jsx
-  var import_react22 = __toESM(require_react_shim());
+  var import_react23 = __toESM(require_react_shim());
   var ALGO_LEVELS = [
     {
       id: "flow",
@@ -2385,10 +2394,10 @@ Available commands:
     }
   ];
   function AlgorithmGameModal({ open, onClose, showToast, beep }) {
-    const [levelIdx, setLevelIdx] = (0, import_react22.useState)(0);
-    const [selectedOpt, setSelectedOpt] = (0, import_react22.useState)(null);
-    const [answered, setAnswered] = (0, import_react22.useState)(false);
-    const [score, setScore] = (0, import_react22.useState)(0);
+    const [levelIdx, setLevelIdx] = (0, import_react23.useState)(0);
+    const [selectedOpt, setSelectedOpt] = (0, import_react23.useState)(null);
+    const [answered, setAnswered] = (0, import_react23.useState)(false);
+    const [score, setScore] = (0, import_react23.useState)(0);
     if (!open) return null;
     const currentLevel = ALGO_LEVELS[levelIdx];
     const handleSelect = (optIdx) => {
@@ -2438,11 +2447,11 @@ Available commands:
   }
 
   // src/components/modals/TelegramBotModal.jsx
-  var import_react23 = __toESM(require_react_shim());
+  var import_react24 = __toESM(require_react_shim());
   function TelegramBotModal({ open, onClose, showToast, beep }) {
-    const [telegramHandle, setTelegramHandle] = (0, import_react23.useState)("");
-    const [subscribed, setSubscribed] = (0, import_react23.useState)(false);
-    const [topic, setTopic] = (0, import_react23.useState)("all");
+    const [telegramHandle, setTelegramHandle] = (0, import_react24.useState)("");
+    const [subscribed, setSubscribed] = (0, import_react24.useState)(false);
+    const [topic, setTopic] = (0, import_react24.useState)("all");
     if (!open) return null;
     const handleSubscribe = (e) => {
       e.preventDefault();
@@ -2477,7 +2486,7 @@ Available commands:
   }
 
   // src/components/modals/BookingModal.jsx
-  var import_react24 = __toESM(require_react_shim());
+  var import_react25 = __toESM(require_react_shim());
   var TIMESLOTS = [
     "09:00 AM IRST (UTC+3:30)",
     "11:30 AM IRST (UTC+3:30)",
@@ -2493,13 +2502,13 @@ Available commands:
     "\u{1F4A1} 1-on-1 Technical Mentorship & Guidance"
   ];
   function BookingModal({ open, onClose, showToast, beep }) {
-    const [selectedDate, setSelectedDate] = (0, import_react24.useState)("");
-    const [selectedTime, setSelectedTime] = (0, import_react24.useState)(TIMESLOTS[0]);
-    const [meetingType, setMeetingType] = (0, import_react24.useState)(TYPES[0]);
-    const [name, setName] = (0, import_react24.useState)("");
-    const [email, setEmail] = (0, import_react24.useState)("");
-    const [notes, setNotes] = (0, import_react24.useState)("");
-    const [confirmed, setConfirmed] = (0, import_react24.useState)(false);
+    const [selectedDate, setSelectedDate] = (0, import_react25.useState)("");
+    const [selectedTime, setSelectedTime] = (0, import_react25.useState)(TIMESLOTS[0]);
+    const [meetingType, setMeetingType] = (0, import_react25.useState)(TYPES[0]);
+    const [name, setName] = (0, import_react25.useState)("");
+    const [email, setEmail] = (0, import_react25.useState)("");
+    const [notes, setNotes] = (0, import_react25.useState)("");
+    const [confirmed, setConfirmed] = (0, import_react25.useState)(false);
     if (!open) return null;
     const handleBook = (e) => {
       e.preventDefault();
@@ -2567,11 +2576,11 @@ ${name}`);
   }
 
   // src/components/modals/AuthModal.jsx
-  var import_react25 = __toESM(require_react_shim());
+  var import_react26 = __toESM(require_react_shim());
   function AuthModal({ open, onClose, onLogin, showToast, beep }) {
-    const [email, setEmail] = (0, import_react25.useState)("");
-    const [name, setName] = (0, import_react25.useState)("");
-    const [role, setRole] = (0, import_react25.useState)("Researcher");
+    const [email, setEmail] = (0, import_react26.useState)("");
+    const [name, setName] = (0, import_react26.useState)("");
+    const [role, setRole] = (0, import_react26.useState)("Researcher");
     if (!open) return null;
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -2689,34 +2698,34 @@ ${name}`);
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react26.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react26.useState)("");
-    const [filter, setFilter] = (0, import_react26.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react26.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react26.useState)("");
-    const [userProfile, setUserProfile] = (0, import_react26.useState)(null);
-    const [pageView, setPageView] = (0, import_react26.useState)("all");
-    const [weatherMode, setWeatherMode] = (0, import_react26.useState)("rain");
-    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react26.useState)(false);
-    const [accent, setAccent] = (0, import_react26.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react26.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react26.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react26.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react26.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react26.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react26.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react26.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react26.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react26.useState)(false);
-    const [gameOpen, setGameOpen] = (0, import_react26.useState)(false);
-    const [shortcutsOpen, setShortcutsOpen] = (0, import_react26.useState)(false);
-    const [algoGameOpen, setAlgoGameOpen] = (0, import_react26.useState)(false);
-    const [telegramOpen, setTelegramOpen] = (0, import_react26.useState)(false);
-    const [bookingOpen, setBookingOpen] = (0, import_react26.useState)(false);
-    const [authOpen, setAuthOpen] = (0, import_react26.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react26.useState)(false);
-    const [selectedPaper, setSelectedPaper] = (0, import_react26.useState)(null);
-    const [bibtexPub, setBibtexPub] = (0, import_react26.useState)(null);
+    const [data, setData] = (0, import_react27.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react27.useState)("");
+    const [filter, setFilter] = (0, import_react27.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react27.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react27.useState)("");
+    const [userProfile, setUserProfile] = (0, import_react27.useState)(null);
+    const [pageView, setPageView] = (0, import_react27.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react27.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react27.useState)(false);
+    const [accent, setAccent] = (0, import_react27.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react27.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react27.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react27.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react27.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react27.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react27.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react27.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react27.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react27.useState)(false);
+    const [gameOpen, setGameOpen] = (0, import_react27.useState)(false);
+    const [shortcutsOpen, setShortcutsOpen] = (0, import_react27.useState)(false);
+    const [algoGameOpen, setAlgoGameOpen] = (0, import_react27.useState)(false);
+    const [telegramOpen, setTelegramOpen] = (0, import_react27.useState)(false);
+    const [bookingOpen, setBookingOpen] = (0, import_react27.useState)(false);
+    const [authOpen, setAuthOpen] = (0, import_react27.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react27.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react27.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react27.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
@@ -2728,11 +2737,11 @@ ${name}`);
       showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
       beep(700);
     };
-    (0, import_react26.useEffect)(() => {
+    (0, import_react27.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react26.useEffect)(() => {
+    (0, import_react27.useEffect)(() => {
       const fn = (e) => {
         if (["input", "textarea", "select"].includes(document.activeElement?.tagName?.toLowerCase())) return;
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -2769,16 +2778,16 @@ ${name}`);
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, [weatherMode]);
-    const repos = (0, import_react26.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react27.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react26.useMemo)(() => {
+    const articles = (0, import_react27.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react26.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
+    const hfAssets = (0, import_react27.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -2848,7 +2857,7 @@ ${name}`);
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    const counts = (0, import_react26.useMemo)(() => ({
+    const counts = (0, import_react27.useMemo)(() => ({
       all: repos.length,
       course: repos.filter((r) => r.category === "course").length,
       ml: repos.filter((r) => r.category === "ml").length,
@@ -2889,5 +2898,5 @@ ${name}`);
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react27.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react28.default.createElement(App, null));
 })();

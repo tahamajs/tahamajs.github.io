@@ -8,7 +8,7 @@ const CONTACTS = [
   { icon: 'fab fa-instagram',     href: 'https://instagram.com/hooshaaii',      label: 'Instagram',       val: '@hooshaaii',        color: '#e1306c' },
   { icon: 'fas fa-robot',         href: 'https://huggingface.co/tahamajs',      label: 'HuggingFace',     val: '162 Assets',        color: '#ffd21e' },
   { icon: 'fas fa-newspaper',     href: 'https://hooshaai.substack.com',        label: 'Substack',        val: 'Hoosha AI 🧠',       color: '#ff6719' },
-  { icon: 'fab fa-telegram',      href: 'https://t.me/tahamajlesii',             label: 'Telegram',        val: '@tahamajlesii',     color: '#229ed9' },
+  { icon: 'fab fa-telegram-plane',href: 'https://t.me/tahamajlesii',             label: 'Telegram',        val: '@tahamajlesii',     color: '#229ed9' },
   { icon: 'fas fa-envelope',      href: 'mailto:tahamajlesi@ut.ac.ir',          label: 'Email',           val: 'UT.ac.ir',          color: '#10b981' },
   { icon: 'fas fa-heart',         href: 'https://github.com/sponsors/tahamajs', label: 'Sponsor',         val: 'Fund the mission',   color: '#ea4aaa' },
 ];
@@ -32,7 +32,7 @@ export default function ContactSection({ onHire, beep }) {
       />
 
       <div className="contact-grid">
-        {/* Left: CTA Cards */}
+        {/* Left: Action CTA Cards */}
         <div className="contact-ctas">
           <div className="contact-cta-card primary-cta" onClick={() => { onHire(); beep?.(); }}>
             <i className="fas fa-briefcase" />
@@ -40,16 +40,16 @@ export default function ContactSection({ onHire, beep }) {
               <h4>Recruit / Hire Taha</h4>
               <p>Full-time, part-time, contract, or research collaboration</p>
             </div>
-            <i className="fas fa-arrow-right" style={{ marginLeft: 'auto', opacity: .4 }} />
+            <i className="fas fa-arrow-right" style={{ marginLeft: 'auto', opacity: .6 }} />
           </div>
 
-          <a href="https://github.com/sponsors/tahamajs" target="_blank" className="contact-cta-card sponsor-cta" onClick={() => beep?.()}>
+          <a href="https://github.com/sponsors/tahamajs" target="_blank" rel="noreferrer" className="contact-cta-card sponsor-cta" onClick={() => beep?.()}>
             <i className="fas fa-heart" />
             <div>
               <h4>Sponsor on GitHub</h4>
               <p>Fund open-source CUDA engines, Persian LLMs &amp; AI research</p>
             </div>
-            <i className="fas fa-arrow-right" style={{ marginLeft: 'auto', opacity: .4 }} />
+            <i className="fas fa-arrow-right" style={{ marginLeft: 'auto', opacity: .6 }} />
           </a>
 
           <div className="contact-email-row">
@@ -58,24 +58,22 @@ export default function ContactSection({ onHire, beep }) {
               <span>tahamajlesi@ut.ac.ir</span>
             </div>
             <button className="btn-secondary contact-copy" onClick={copyEmail}>
-              <i className={`fas ${copied ? 'fa-check' : 'fa-copy'}`} /> {copied ? 'Copied!' : 'Copy'}
+              {copied ? <><i className="fas fa-check" style={{ color: 'var(--emerald)' }} /> Copied!</> : <><i className="fas fa-copy" /> Copy</>}
             </button>
           </div>
         </div>
 
-        {/* Right: Social Links */}
-        <div className="contact-socials">
-          {CONTACTS.map(c => (
-            <a key={c.label} href={c.href} target={c.href.startsWith('mailto') ? '_self' : '_blank'}
-              className="contact-social-row" onClick={() => beep?.()}>
-              <div className="contact-social-icon" style={{ background: `${c.color}18`, color: c.color, border: `1px solid ${c.color}30` }}>
+        {/* Right: Social & Account Cards */}
+        <div className="contact-social-grid">
+          {CONTACTS.map((c, i) => (
+            <a key={i} href={c.href} target="_blank" rel="noreferrer" className="contact-card" onClick={() => beep?.()}>
+              <div className="contact-icon" style={{ color: c.color }}>
                 <i className={c.icon} />
               </div>
-              <div>
-                <div className="contact-social-label">{c.label}</div>
-                <div className="contact-social-val">{c.val}</div>
+              <div className="contact-info">
+                <span className="contact-label">{c.label}</span>
+                <span className="contact-val">{c.val}</span>
               </div>
-              <i className="fas fa-external-link-alt" style={{ marginLeft: 'auto', opacity: .25, fontSize: '.7rem' }} />
             </a>
           ))}
         </div>

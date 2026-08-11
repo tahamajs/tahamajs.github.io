@@ -4,15 +4,31 @@ export default function Footer({ gpuM }) {
   return (
     <>
       <footer style={{ textAlign: 'center', padding: '4rem 1.5rem 8rem', borderTop: '1px solid var(--border)', background: 'var(--bg2)' }}>
-        <p style={{ color: 'var(--muted)', fontSize: '.85rem', marginBottom: '1rem' }}>
-          &copy; {new Date().getFullYear()} Mohammad Taha Majlesi. Open-Source AI Infrastructure.
+        <p style={{ color: 'var(--muted)', fontSize: '.88rem', marginBottom: '1.2rem', lineHeight: '1.6' }}>
+          &copy; {new Date().getFullYear()} Mohammad Taha Majlesi. Open-Source AI Infrastructure &amp; Frontier Research.
         </p>
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="https://github.com/tahamajs" target="_blank">GitHub</a>
-          <a href="https://huggingface.co/tahamajs" target="_blank">HuggingFace</a>
-          <a href="https://hooshaai.substack.com" target="_blank">Hoosha AI</a>
-          <a href="https://linkedin.com/in/tahamajlesi" target="_blank">LinkedIn</a>
-          <a href="https://github.com/sponsors/tahamajs" target="_blank" style={{ color: '#ea4aaa' }}>Sponsor</a>
+        <div style={{ display: 'flex', gap: '1.4rem', justifyContent: 'center', flexWrap: 'wrap', fontSize: '.88rem' }}>
+          <a href="https://github.com/tahamajs" target="_blank" rel="noreferrer" style={{ color: '#fff' }}>
+            <i className="fab fa-github" /> GitHub (@tahamajs)
+          </a>
+          <a href="https://huggingface.co/tahamajs" target="_blank" rel="noreferrer" style={{ color: '#ffd21e' }}>
+            <i className="fas fa-robot" /> HuggingFace (162 Assets)
+          </a>
+          <a href="https://hooshaai.substack.com" target="_blank" rel="noreferrer" style={{ color: '#ff6719' }}>
+            <i className="fas fa-newspaper" /> Hoosha AI Substack
+          </a>
+          <a href="https://linkedin.com/in/tahamajlesi" target="_blank" rel="noreferrer" style={{ color: '#0a66c2' }}>
+            <i className="fab fa-linkedin" /> LinkedIn (17.1k)
+          </a>
+          <a href="https://instagram.com/hooshaaii" target="_blank" rel="noreferrer" style={{ color: '#e1306c' }}>
+            <i className="fab fa-instagram" /> Instagram (@hooshaaii)
+          </a>
+          <a href="https://t.me/tahamajlesii" target="_blank" rel="noreferrer" style={{ color: '#229ed9' }}>
+            <i className="fab fa-telegram" /> Telegram (@tahamajlesii)
+          </a>
+          <a href="https://github.com/sponsors/tahamajs" target="_blank" rel="noreferrer" style={{ color: '#ea4aaa', fontWeight: 600 }}>
+            <i className="fas fa-heart" /> Sponsor Research
+          </a>
         </div>
       </footer>
 
