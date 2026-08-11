@@ -1,585 +1,1012 @@
-const { useState, useEffect, useMemo, useRef } = React;
-function App() {
-  const [data, setData] = useState({ repos: [], articles: [], hf: [] });
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
-  const [accent, setAccent] = useState("cyan");
-  const [soundEnabled, setSoundEnabled] = useState(false);
-  const [speechEnabled, setSpeechEnabled] = useState(false);
-  const [viewMode, setViewMode] = useState("bento");
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [gpuMetrics, setGpuMetrics] = useState({ flops: 312, vram: 68.4, latency: 1.2 });
-  const [substackSearch, setSubstackSearch] = useState("");
-  const [hfFilter, setHfFilter] = useState("all");
-  const [activeCodeTab, setActiveCodeTab] = useState("flow");
-  const [codeOutput, setCodeOutput] = useState("");
-  const [cmdQuery, setCmdQuery] = useState("");
-  const [aiModalOpen, setAiModalOpen] = useState(false);
-  const [cmdModalOpen, setCmdModalOpen] = useState(false);
-  const [hireModalOpen, setHireModalOpen] = useState(false);
-  const [activeConstellationNode, setActiveConstellationNode] = useState(null);
-  const [aiMessages, setAiMessages] = useState([
-    { sender: "bot", text: "\u{1F44B} Welcome! I am Taha Majlesi's AI assistant. Ask me about <b>Hoosha AI \u{1F9E0}</b> research publications, <b>Flow Matching</b> ODEs, <b>GRPO Reasoning</b>, <b>17.1k LinkedIn Community</b>, or his <b>University of Tehran & Sharif</b> coursework!" }
-  ]);
-  const [aiInputText, setAiInputText] = useState("");
-  const [tehranTime, setTehranTime] = useState("--:--:-- AM");
-  const [toastMsg, setToastMsg] = useState(null);
-  const audioCtxRef = useRef(null);
-  const playSound = (freq = 440, type = "sine") => {
-    if (!soundEnabled) return;
-    try {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      const osc = audioCtxRef.current.createOscillator();
-      const gain = audioCtxRef.current.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, audioCtxRef.current.currentTime);
-      gain.gain.setValueAtTime(0.02, audioCtxRef.current.currentTime);
-      gain.gain.exponentialRampToValueAtTime(1e-4, audioCtxRef.current.currentTime + 0.15);
-      osc.connect(gain);
-      gain.connect(audioCtxRef.current.destination);
-      osc.start();
-      osc.stop(audioCtxRef.current.currentTime + 0.15);
-    } catch (e) {
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined") return require.apply(this, arguments);
+    throw Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
     }
+    return to;
   };
-  const speakText = (text) => {
-    if (!speechEnabled || !("speechSynthesis" in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const clean = text.replace(/<[^>]+>/g, "").replace(/\*/g, "");
-      const utt = new SpeechSynthesisUtterance(clean);
-      utt.rate = 1;
-      window.speechSynthesis.speak(utt);
-    } catch (e) {
-    }
-  };
-  const triggerToast = (msg) => {
-    setToastMsg(msg);
-    setTimeout(() => setToastMsg(null), 3e3);
-  };
-  useEffect(() => {
-    fetch("data.json").then((res) => res.json()).then((d) => setData(d)).catch(() => {
-    });
-  }, []);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setGpuMetrics({
-        flops: (310 + Math.random() * 15).toFixed(1),
-        vram: (67.5 + Math.random() * 2.5).toFixed(1),
-        latency: (1.1 + Math.random() * 0.3).toFixed(2)
-      });
-    }, 2e3);
-    return () => clearInterval(timer);
-  }, []);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const options = { timeZone: "Asia/Tehran", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true };
-      setTehranTime(new Intl.DateTimeFormat("en-US", options).format(/* @__PURE__ */ new Date()));
-    }, 1e3);
-    return () => clearInterval(timer);
-  }, []);
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setCmdModalOpen((prev) => !prev);
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // src/index.jsx
+  var import_react9 = __toESM(__require("react"));
+  var import_client = __require("react-dom/client");
+
+  // src/App.jsx
+  var import_react8 = __require("react");
+
+  // src/hooks/index.js
+  var import_react = __require("react");
+  function useToast() {
+    const [msg, setMsg] = (0, import_react.useState)(null);
+    const show = (0, import_react.useCallback)((m, ms = 2800) => {
+      setMsg(m);
+      setTimeout(() => setMsg(null), ms);
+    }, []);
+    return [msg, show];
+  }
+  function useTehranClock() {
+    const [time, setTime] = (0, import_react.useState)("--:--:--");
+    (0, import_react.useEffect)(() => {
+      const fmt = () => new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Tehran",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      }).format(/* @__PURE__ */ new Date());
+      setTime(fmt());
+      const id = setInterval(() => setTime(fmt()), 1e3);
+      return () => clearInterval(id);
+    }, []);
+    return time;
+  }
+  function useGpuMetrics() {
+    const [m, setM] = (0, import_react.useState)({ flops: "312.0", vram: "68.4", lat: "1.20", temp: "52", util: "96" });
+    (0, import_react.useEffect)(() => {
+      const id = setInterval(() => setM({
+        flops: (308 + Math.random() * 8).toFixed(1),
+        vram: (67 + Math.random() * 3).toFixed(1),
+        lat: (1.1 + Math.random() * 0.25).toFixed(2),
+        temp: String(50 + (Math.random() * 6 | 0)),
+        util: String(93 + (Math.random() * 5 | 0))
+      }), 1800);
+      return () => clearInterval(id);
+    }, []);
+    return m;
+  }
+  function useBeep(soundOn) {
+    const ctx = (0, import_react.useRef)(null);
+    return (0, import_react.useCallback)((freq = 440, type = "sine", vol = 0.03) => {
+      if (!soundOn) return;
+      try {
+        if (!ctx.current) ctx.current = new (window.AudioContext || window.webkitAudioContext)();
+        const c = ctx.current, osc = c.createOscillator(), g = c.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        g.gain.setValueAtTime(vol, c.currentTime);
+        g.gain.exponentialRampToValueAtTime(1e-4, c.currentTime + 0.18);
+        osc.connect(g);
+        g.connect(c.destination);
+        osc.start();
+        osc.stop(c.currentTime + 0.18);
+      } catch (_) {
       }
-      if (e.key === "Escape") {
-        setCmdModalOpen(false);
-        setAiModalOpen(false);
-        setHireModalOpen(false);
-        setActiveConstellationNode(null);
-        setMobileNavOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-  const constellationNodes = [
-    { id: "core", label: "Mohammad Taha Majlesi", type: "core", x: 50, y: 50, desc: "Co-Founder & AI Architect @ Hoosha AI \u{1F9E0} | CE @ UT & TA @ Sharif" },
-    { id: "hoosha", label: "Hoosha AI \u{1F9E0}", type: "startup", x: 25, y: 30, desc: "Frontier AI Startup co-founded by Taha. Focus on cognitive scaling, GRPO & IIT consciousness." },
-    { id: "ut", label: "University of Tehran", type: "academic", x: 75, y: 30, desc: "Primary CE degree institution & Research Assistant for M.Sc. ML, AI & Operating Systems." },
-    { id: "sharif", label: "Sharif University", type: "academic", x: 80, y: 70, desc: "Cross-institutional Teaching Assistant for Compiler Construction." },
-    { id: "kaleido", label: "Kaleido Engine \u26A1", type: "system", x: 20, y: 70, desc: "First-principles distributed CUDA/C++ LLM engine jointly optimizing 4D parallel compute." },
-    { id: "hf", label: "Hugging Face (162)", type: "open_science", x: 50, y: 20, desc: "92 pre-trained model weights & 70 open synthetic evaluation datasets." },
-    { icon: "fa-newspaper", id: "substack", label: "Substack (20 Papers)", type: "research", x: 50, y: 80, desc: "20 published deep-dive research reports on Flow Matching & Linear Attention." }
-  ];
-  useEffect(() => {
-    const spotlight = document.getElementById("cursor-spotlight");
-    const handleMouseMove = (e) => {
-      if (spotlight) {
-        spotlight.style.left = `${e.clientX}px`;
-        spotlight.style.top = `${e.clientY}px`;
-      }
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    const canvas = document.getElementById("neural-canvas");
-    if (canvas) {
-      const ctx = canvas.getContext("2d", { alpha: true });
-      let w = canvas.width = window.innerWidth;
-      let h = canvas.height = window.innerHeight;
-      const starCount = w > 700 ? 55 : 25;
-      const stars = Array.from({ length: starCount }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        radius: Math.random() * 1.8 + 0.8,
-        alpha: Math.random(),
-        alphaSpeed: (Math.random() * 0.02 + 5e-3) * (Math.random() < 0.5 ? 1 : -1)
-      }));
-      const shootingStars = [];
-      const createShootingStar = () => {
-        shootingStars.push({
-          x: Math.random() * w,
-          y: Math.random() * (h * 0.4),
-          length: Math.random() * 70 + 40,
-          speed: Math.random() * 7 + 6,
-          angle: 45 * (Math.PI / 180),
-          alpha: 1,
-          decay: Math.random() * 0.02 + 0.015
-        });
+    }, [soundOn]);
+  }
+  function useNeuralCanvas() {
+    (0, import_react.useEffect)(() => {
+      const spot = document.getElementById("cursor-spotlight");
+      const onMove = (e) => {
+        if (spot) {
+          spot.style.left = e.clientX + "px";
+          spot.style.top = e.clientY + "px";
+        }
       };
-      const shootingInterval = setInterval(() => {
-        if (Math.random() < 0.7) createShootingStar();
-      }, 3e3);
-      let animId;
-      let lastTime = performance.now();
-      const render = (now) => {
-        if (now - lastTime < 16) {
-          animId = requestAnimationFrame(render);
+      window.addEventListener("mousemove", onMove);
+      const cvs = document.getElementById("neural-canvas");
+      if (!cvs) return;
+      const ctx = cvs.getContext("2d", { alpha: true });
+      let W = cvs.width = innerWidth, H = cvs.height = innerHeight;
+      const N = W > 700 ? 72 : 32;
+      const pts = Array.from({ length: N }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        r: Math.random() * 1.8 + 0.5,
+        a: Math.random(),
+        da: (Math.random() * 0.02 + 4e-3) * (Math.random() < 0.5 ? 1 : -1)
+      }));
+      const comets = [];
+      const spawn = () => comets.push({
+        x: Math.random() * W,
+        y: Math.random() * H * 0.4,
+        len: Math.random() * 90 + 40,
+        spd: Math.random() * 9 + 5,
+        ang: Math.PI / 4,
+        a: 1,
+        da: 0.015 + Math.random() * 0.015
+      });
+      const ct = setInterval(() => {
+        if (Math.random() < 0.7) spawn();
+      }, 2400);
+      let raf, last = 0;
+      const draw = (ts) => {
+        if (ts - last < 16) {
+          raf = requestAnimationFrame(draw);
           return;
         }
-        lastTime = now;
-        ctx.clearRect(0, 0, w, h);
-        for (let a = 0; a < stars.length; a++) {
-          for (let b = a + 1; b < stars.length; b++) {
-            const dx = stars[a].x - stars[b].x;
-            const dy = stars[a].y - stars[b].y;
-            const distSq = dx * dx + dy * dy;
-            if (distSq < 12e3) {
-              const dist = Math.sqrt(distSq);
+        last = ts;
+        ctx.clearRect(0, 0, W, H);
+        for (let i = 0; i < pts.length; i++) {
+          for (let j = i + 1; j < pts.length; j++) {
+            const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d2 = dx * dx + dy * dy;
+            if (d2 < 14e3) {
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 110)})`;
-              ctx.lineWidth = 0.6;
-              ctx.moveTo(stars[a].x, stars[a].y);
-              ctx.lineTo(stars[b].x, stars[b].y);
+              ctx.strokeStyle = `rgba(0,240,255,${0.12 * (1 - Math.sqrt(d2) / 118)})`;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(pts[i].x, pts[i].y);
+              ctx.lineTo(pts[j].x, pts[j].y);
               ctx.stroke();
             }
           }
-          stars[a].x += stars[a].vx;
-          stars[a].y += stars[a].vy;
-          if (stars[a].x < 0) stars[a].x = w;
-          if (stars[a].x > w) stars[a].x = 0;
-          if (stars[a].y < 0) stars[a].y = h;
-          if (stars[a].y > h) stars[a].y = 0;
-          stars[a].alpha += stars[a].alphaSpeed;
-          if (stars[a].alpha <= 0.2 || stars[a].alpha >= 1) stars[a].alphaSpeed *= -1;
+          const p = pts[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = W;
+          if (p.x > W) p.x = 0;
+          if (p.y < 0) p.y = H;
+          if (p.y > H) p.y = 0;
+          p.a += p.da;
+          if (p.a < 0.15 || p.a > 1) p.da *= -1;
           ctx.beginPath();
-          ctx.arc(stars[a].x, stars[a].y, stars[a].radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(0, 240, 255, ${stars[a].alpha * 0.8})`;
+          ctx.arc(p.x, p.y, p.r, 0, 6.283);
+          ctx.fillStyle = `rgba(0,240,255,${p.a * 0.7})`;
           ctx.fill();
         }
-        for (let i = shootingStars.length - 1; i >= 0; i--) {
-          const ss = shootingStars[i];
-          const endX = ss.x + Math.cos(ss.angle) * ss.length;
-          const endY = ss.y + Math.sin(ss.angle) * ss.length;
-          const grad = ctx.createLinearGradient(ss.x, ss.y, endX, endY);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${ss.alpha})`);
-          grad.addColorStop(0.3, `rgba(0, 240, 255, ${ss.alpha * 0.8})`);
-          grad.addColorStop(1, "rgba(138, 43, 226, 0)");
+        for (let i = comets.length - 1; i >= 0; i--) {
+          const c = comets[i];
+          const ex = c.x + Math.cos(c.ang) * c.len, ey = c.y + Math.sin(c.ang) * c.len;
+          const g = ctx.createLinearGradient(c.x, c.y, ex, ey);
+          g.addColorStop(0, `rgba(255,255,255,${c.a})`);
+          g.addColorStop(0.4, `rgba(0,240,255,${c.a * 0.8})`);
+          g.addColorStop(1, "rgba(138,43,226,0)");
           ctx.beginPath();
-          ctx.moveTo(ss.x, ss.y);
-          ctx.lineTo(endX, endY);
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = 2.2;
+          ctx.moveTo(c.x, c.y);
+          ctx.lineTo(ex, ey);
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 2.5;
           ctx.stroke();
-          ss.x += Math.cos(ss.angle) * ss.speed;
-          ss.y += Math.sin(ss.angle) * ss.speed;
-          ss.alpha -= ss.decay;
-          if (ss.alpha <= 0 || ss.x > w || ss.y > h) {
-            shootingStars.splice(i, 1);
-          }
+          c.x += Math.cos(c.ang) * c.spd;
+          c.y += Math.sin(c.ang) * c.spd;
+          c.a -= c.da;
+          if (c.a <= 0 || c.x > W || c.y > H) comets.splice(i, 1);
         }
-        animId = requestAnimationFrame(render);
+        raf = requestAnimationFrame(draw);
       };
-      animId = requestAnimationFrame(render);
+      raf = requestAnimationFrame(draw);
+      const onResize = () => {
+        W = cvs.width = innerWidth;
+        H = cvs.height = innerHeight;
+      };
+      window.addEventListener("resize", onResize);
       return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-        clearInterval(shootingInterval);
-        cancelAnimationFrame(animId);
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("resize", onResize);
+        clearInterval(ct);
+        cancelAnimationFrame(raf);
       };
-    }
-  }, []);
-  const filteredRepos = useMemo(() => {
-    return (data.repos || []).filter((r) => {
-      const matchesCat = filter === "all" || r.cat === filter;
-      const q = search.toLowerCase().trim();
-      const matchesSearch = !q || (r.name + " " + r.desc + " " + r.lang + " " + r.tag).toLowerCase().includes(q);
-      return matchesCat && matchesSearch;
-    });
-  }, [data.repos, filter, search]);
-  const filteredArticles = useMemo(() => {
-    const q = substackSearch.toLowerCase().trim();
-    if (!q) return data.articles || [];
-    return (data.articles || []).filter((a) => (a.title + " " + a.desc).toLowerCase().includes(q));
-  }, [data.articles, substackSearch]);
-  const filteredHf = useMemo(() => {
-    return (data.hf || []).filter((h) => {
-      if (hfFilter === "all") return true;
-      return h.type === hfFilter;
-    });
-  }, [data.hf, hfFilter]);
-  const counts = useMemo(() => {
-    const repos = data.repos || [];
-    return {
-      all: repos.length,
-      course: repos.filter((r) => r.cat === "course").length,
-      ai: repos.filter((r) => r.cat === "ai").length,
-      systems: repos.filter((r) => r.cat === "systems").length,
-      hf: repos.filter((r) => r.cat === "hf").length,
-      web: repos.filter((r) => r.cat === "web").length
-    };
-  }, [data.repos]);
-  const handleAiQuestion = (q) => {
-    if (!q || !q.trim()) return;
-    const userQ = q.trim();
-    setAiMessages((prev) => [...prev, { sender: "user", text: userQ }]);
-    setAiInputText("");
-    setTimeout(() => {
-      const lower = userQ.toLowerCase();
-      let reply = "I am Taha Majlesi's AI assistant. Taha is Co-Founder & Systems/AI Architect at Hoosha AI \u{1F9E0} with a community of over 17,100 LinkedIn followers, specializing in Flow Matching, GRPO, and Distributed Systems.";
-      if (lower.includes("linkedin") || lower.includes("follower")) {
-        reply = "\u{1F4BC} Taha Majlesi has built a strong community of over **17,100+ followers** on LinkedIn (https://linkedin.com/in/tahamajlesi), sharing insights on AI systems, Flow Matching, and distributed GPU training!";
-      } else if (lower.includes("hoosha")) {
-        reply = "\u{1F9E0} **Hoosha AI** is an AI research startup co-founded by Taha Majlesi, focusing on frontier ML research, continuous cognitive scaling, synthetic consciousness (IIT & GWT), and high-performance post-training RL pipelines. Check out articles at https://hooshaai.substack.com!";
-      } else if (lower.includes("flow") || lower.includes("grpo") || lower.includes("research")) {
-        reply = "\u{1F3A8} Taha's primary research centers on **Flow Matching** probability paths for generative modeling, **Group Relative Policy Optimization (GRPO)** for fine-tuning 4B LLMs on GSM8K math reasoning, and sub-quadratic linear attention architectures like LinRec & SVD attention!";
-      } else if (lower.includes("teach") || lower.includes("sharif") || lower.includes("ut") || lower.includes("course")) {
-        reply = "\u{1F393} Taha is a cross-institutional Teaching Assistant for **Compiler Construction at Sharif University of Technology**, and has served as TA for **M.Sc. Machine Learning**, **Artificial Intelligence**, **Advanced Programming (C++)**, and **xv6 OS Lab** at the **University of Tehran**.";
-      } else if (lower.includes("contact") || lower.includes("email") || lower.includes("telegram")) {
-        reply = "\u{1F4E7} You can reach Taha via primary email `tahamajlesi@ut.ac.ir`, secondary email `Tahamajlesice@gmail.com`, or directly on Telegram `@tahamajlesii`!";
-      } else if (lower.includes("kaleido") || lower.includes("cuda") || lower.includes("system")) {
-        reply = "\u26A1 **Kaleido Engine** is Taha's first-principles distributed LLM training framework written in C++/PyTorch that jointly optimizes 4 dimensions of parallel GPU compute nodes.";
-      }
-      setAiMessages((prev) => [...prev, { sender: "bot", text: reply }]);
-      playSound(800, "triangle");
-      speakText(reply);
-    }, 400);
-  };
-  const copyBibtex = (bib) => {
-    navigator.clipboard.writeText(bib);
-    playSound(700, "square");
-    triggerToast("BibTeX citation copied to clipboard! \u{1F4C4}");
-  };
-  const runCodeSnippet = () => {
-    playSound(900, "sine");
-    setCodeOutput("Running evaluation in PyTorch 2.4 + CUDA 12.2 sandbox...\n[INFO] Initializing Flow Matching velocity vector field v_t(x_t)\n[INFO] Loss (t=0.5): 0.0142 | Velocity error: 0.0003\n[SUCCESS] Continuous trajectory converged in 20 ODE solver steps (0.042s)!");
-  };
-  const codeSnippets = {
-    flow: `# Flow Matching ODE Sampling (PyTorch)
-import torch
+    }, []);
+  }
 
-def vector_field(t, x_t, x1):
-    return x1 - x_t  # Linear vector field v_t(x_t)
+  // src/components/layout/Navigation.jsx
+  var import_react2 = __require("react");
+  function Navigation({ mobileNav, setMobileNav, onHire, onCmd }) {
+    (0, import_react2.useEffect)(() => {
+      const fn = () => setMobileNav(false);
+      window.addEventListener("scroll", fn, { passive: true });
+      return () => window.removeEventListener("scroll", fn);
+    }, [setMobileNav]);
+    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, "/"), " Hoosha AI"), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Systems & Models"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Publications"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Essays"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
+      setMobileNav(false);
+      onHire();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#ea4aaa", color: "#fff" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor")), /* @__PURE__ */ React.createElement("button", { className: "cmd-k-btn", onClick: onCmd }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), " ", /* @__PURE__ */ React.createElement("span", { className: "cmd-k-key" }, "\u2318K")), /* @__PURE__ */ React.createElement("button", { className: "mobile-nav-toggle", onClick: () => setMobileNav(!mobileNav) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${mobileNav ? "fa-times" : "fa-bars"}` }))));
+  }
 
-x0 = torch.randn(1, 3, 64, 64)  # Gaussian noise
-x1 = target_image               # Target sample
-t = torch.linspace(0, 1, 20)    # ODE time steps
-for i in range(len(t) - 1):
-    dt = t[i+1] - t[i]
-    x0 = x0 + vector_field(t[i], x0, x1) * dt
-print("Flow Matching trajectory generated!")`,
-    grpo: `# Group Relative Policy Optimization (GRPO) Loss
-import torch
-import torch.nn.functional as F
+  // src/components/layout/Footer.jsx
+  function Footer({ gpuM }) {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("footer", { style: { textAlign: "center", padding: "4rem 1.5rem 8rem", borderTop: "1px solid var(--border)", background: "var(--bg2)" } }, /* @__PURE__ */ React.createElement("p", { style: { color: "var(--muted)", fontSize: ".85rem", marginBottom: "1rem" } }, "\xA9 ", (/* @__PURE__ */ new Date()).getFullYear(), " Mohammad Taha Majlesi. Open-Source AI Infrastructure."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank" }, "GitHub"), /* @__PURE__ */ React.createElement("a", { href: "https://huggingface.co/tahamajs", target: "_blank" }, "HuggingFace"), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank" }, "Hoosha AI"), /* @__PURE__ */ React.createElement("a", { href: "https://linkedin.com/in/tahamajlesi", target: "_blank" }, "LinkedIn"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", style: { color: "#ea4aaa" } }, "Sponsor"))), /* @__PURE__ */ React.createElement("div", { className: "gpu-bar" }, /* @__PURE__ */ React.createElement("div", { className: "gpu-dot" }), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Node: ", /* @__PURE__ */ React.createElement("b", null, "A100-SXM4-80GB")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "SM Util: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.util, "%")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "VRAM: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.vram, " GB"), " / 80.0"), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Bandwidth: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, "1.8 TB/s")), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "TFLOPS: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.flops)), /* @__PURE__ */ React.createElement("div", { className: "gpu-item" }, "Temp: ", /* @__PURE__ */ React.createElement("span", { className: "gpu-val" }, gpuM.temp, "\xB0C"))));
+  }
 
-def grpo_loss(logits, old_logits, advantages, clip_eps=0.2):
-    ratios = torch.exp(logits - old_logits)
-    surr1 = ratios * advantages
-    surr2 = torch.clamp(ratios, 1.0 - clip_eps, 1.0 + clip_eps) * advantages
-    return -torch.min(surr1, surr2).mean()
-
-print("GRPO Loss Initialized for 4B LLM Reasoning!")`,
-    kaleido: `// Kaleido CUDA All-Reduce Launcher (C++)
-#include <cuda_runtime.h>
-#include <nccl.h>
-
-__global__ void launch_all_reduce(float* tensor, int size) {
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    if (idx < size) {
-        tensor[idx] *= 1.0f / 4.0f; // Scale gradient
-    }
-}`
-  };
-  const researchTags = [
+  // src/data/constants.js
+  var TAGS = [
     "Flow Matching ODEs",
     "GRPO Alignment",
-    "Score Diffusion",
+    "Score-Based Diffusion",
     "Task Arithmetic",
     "CUDA GPU Kernels",
     "Linear Attention",
     "Integrated Information Theory",
     "PaliGemma QLoRA",
     "xv6 OS Kernel",
-    "Django REST Framework"
+    "Persian LLMs",
+    "Kaleido Engine",
+    "SVD Attention"
   ];
-  const achievements = [
-    { icon: "fa-users", title: "17.1k+ LinkedIn Community", desc: "Over 17,100+ followers & connections on LinkedIn actively engaging with AI research content." },
-    { icon: "fa-trophy", title: "Top 1% Global Commit Streak", desc: "12,787 verified commits in the past year across 143 open-source repositories." },
-    { icon: "fa-award", title: "GitHub Developer Program Pro Member", desc: "Recognized for prolific open-source contributions and active infrastructure tooling." },
-    { icon: "fa-cubes", title: "162 HuggingFace Open Science Assets", desc: "Published 92 pre-trained model weights & 70 open synthetic evaluation datasets." },
-    { icon: "fa-university", title: "Sharif & University of Tehran TA", desc: "Supervised 500+ students across Compiler Construction, ML (M.Sc.), AI, and C++." },
-    { icon: "fa-newspaper", title: "20 Substack Research Publications", desc: "Authored 20 deep-dive papers on Flow Matching, GRPO, IIT Consciousness, and Linear Attention." }
+  var STATS = [
+    { num: "12,787", label: "Commits (Past Year)" },
+    { num: "143", label: "GitHub Repositories" },
+    { num: "92/70", label: "HF Models / Datasets" },
+    { num: "521", label: "GitHub Followers" },
+    { num: "17.1k+", label: "LinkedIn Followers" },
+    { num: "20", label: "Research Papers" }
   ];
-  const cmdItems = [
-    { text: "Toggle 3D Constellation Network Mode", icon: "fas fa-project-diagram", action: () => {
-      setCmdModalOpen(false);
-      setViewMode((prev) => prev === "bento" ? "constellation" : "bento");
-    } },
-    { text: "Open LinkedIn Profile (17.1k Followers)", icon: "fab fa-linkedin", action: () => window.open("https://linkedin.com/in/tahamajlesi", "_blank") },
-    { text: "Open Direct Recruitment & Hire Modal", icon: "fas fa-briefcase", action: () => {
-      setCmdModalOpen(false);
-      setHireModalOpen(true);
-    } },
-    { text: "Open AI Research Assistant Chat", icon: "fas fa-robot", action: () => {
-      setCmdModalOpen(false);
-      setAiModalOpen(true);
-    } },
-    { text: "Download Official Resume (PDF)", icon: "fas fa-file-pdf", action: () => window.open("assets/resume.pdf", "_blank") },
-    { text: "Open Hoosha AI Substack Newsletter", icon: "fas fa-newspaper", action: () => window.open("https://hooshaai.substack.com", "_blank") }
+  var SKILLS = [
+    { cat: "Languages", items: ["Python", "C++ 20", "CUDA/C", "Kotlin", "Java", "JavaScript", "Verilog", "Bash"] },
+    { cat: "ML / AI", items: ["PyTorch 2.x", "JAX/Flax", "HuggingFace", "DeepSpeed", "PEFT / QLoRA", "TRL / GRPO"] },
+    { cat: "GPU Systems", items: ["CUDA 12.2", "cuBLAS", "NCCL", "MPI", "Triton", "Nsight Compute"] },
+    { cat: "Infra & DevOps", items: ["Docker", "GitHub Actions", "FastAPI", "Django REST", "PostgreSQL", "Redis"] },
+    { cat: "Research Topics", items: ["Flow Matching", "Diffusion SDEs", "RLHF/GRPO", "Linear Attention", "VAE Unlearning", "IIT \u03A6"] },
+    { cat: "Systems CS", items: ["xv6 OS Kernel", "Pipelined ARM CPU", "Compilers (Flex/Bison)", "TCP/UDP Sockets", "Verilog RTL"] }
   ];
-  return /* @__PURE__ */ React.createElement("div", null, toastMsg && /* @__PURE__ */ React.createElement("div", { className: "toast-container", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("div", { className: "toast" }, toastMsg)), /* @__PURE__ */ React.createElement("div", { className: "gpu-telemetry-bar" }, /* @__PURE__ */ React.createElement("span", { className: "gpu-dot", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("span", { className: "gpu-item" }, /* @__PURE__ */ React.createElement("b", null, "CUDA:"), " 0,1,2,3 (A100 SXM4)"), /* @__PURE__ */ React.createElement("span", { className: "gpu-item" }, /* @__PURE__ */ React.createElement("b", null, "FLOPS:"), " ", gpuMetrics.flops, " TFLOPS"), /* @__PURE__ */ React.createElement("span", { className: "gpu-item" }, /* @__PURE__ */ React.createElement("b", null, "VRAM:"), " ", gpuMetrics.vram, " GB / 80 GB"), /* @__PURE__ */ React.createElement("span", { className: "gpu-item" }, /* @__PURE__ */ React.createElement("b", null, "LATENCY:"), " ", gpuMetrics.latency, " ms"), /* @__PURE__ */ React.createElement("span", { className: "gpu-item" }, /* @__PURE__ */ React.createElement("b", null, "TEHRAN:"), " ", tehranTime)), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: `sound-toggle-btn ${viewMode === "constellation" ? "active" : ""}`,
-      "aria-label": "Toggle Novel 3D Constellation Mode",
-      onClick: () => {
-        const next = viewMode === "bento" ? "constellation" : "bento";
-        setViewMode(next);
-        playSound(900, "triangle");
-        triggerToast(next === "constellation" ? "Activated Interactive 3D Constellation Graph! \u{1F578}\uFE0F" : "Switched to Bento Matrix Grid! \u{1F39B}\uFE0F");
-      },
-      title: "Toggle Novel 3D Constellation Mode"
-    },
-    /* @__PURE__ */ React.createElement("i", { className: viewMode === "bento" ? "fas fa-project-diagram" : "fas fa-th-large", "aria-hidden": "true" })
-  ), /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: `sound-toggle-btn ${soundEnabled ? "active" : ""}`,
-      "aria-label": "Toggle Sci-Fi SFX Audio",
-      onClick: () => {
-        setSoundEnabled(!soundEnabled);
-        triggerToast(soundEnabled ? "Sound Muted \u{1F507}" : "Sci-Fi Sound FX Enabled! \u{1F50A}");
-      },
-      title: "Toggle Sci-Fi SFX"
-    },
-    /* @__PURE__ */ React.createElement("i", { className: "fas fa-volume-up", "aria-hidden": "true" })
-  ), /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: `sound-toggle-btn ${speechEnabled ? "active" : ""}`,
-      "aria-label": "Toggle AI Speech Voice",
-      onClick: () => {
-        setSpeechEnabled(!speechEnabled);
-        triggerToast(speechEnabled ? "AI Voice Disabled \u{1F507}" : "AI Voice Enabled! \u{1F5E3}\uFE0F");
-      },
-      title: "Toggle AI Speech Voice"
-    },
-    /* @__PURE__ */ React.createElement("i", { className: "fas fa-microphone", "aria-hidden": "true" })
-  ), /* @__PURE__ */ React.createElement("div", { className: "switcher-divider" }), ["cyan", "purple", "emerald", "rose"].map((c) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: c,
-      className: `accent-dot ${accent === c ? "active" : ""}`,
-      "aria-label": `Switch theme color to ${c}`,
-      onClick: () => {
-        setAccent(c);
-        document.body.setAttribute("data-accent", c);
-        playSound(800, "sine");
-        triggerToast(`Switched theme to ${c.toUpperCase()} \u2728`);
-      },
-      style: { background: c === "cyan" ? "#00f0ff" : c === "purple" ? "#8a2be2" : c === "emerald" ? "#10b981" : "#f43f5e" },
-      title: `${c} theme`
-    }
-  ))), /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: "back-to-top-btn visible",
-      "aria-label": "Scroll back to top of page",
-      onClick: () => window.scrollTo({ top: 0, behavior: "smooth" })
-    },
-    /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-up", "aria-hidden": "true" })
-  ), /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: "ai-chat-fab",
-      "aria-label": "Open AI Research Assistant Chat Dialog",
-      onClick: () => {
-        setAiModalOpen(true);
-        playSound(750, "sine");
+  var TIMELINE = [
+    { year: "2026", icon: "fa-rocket", color: "#00f0ff", title: "Co-Founded Hoosha AI \u{1F9E0}", desc: "Launched AI research startup focused on Flow Matching generation, GRPO post-training, and IIT-based synthetic cognition." },
+    { year: "2026", icon: "fa-newspaper", color: "#8a2be2", title: "20 Substack Research Papers Published", desc: "Deep-dive technical papers on Flow Matching ODEs, GRPO, CUDA kernels, IIT consciousness theory, and SVD linear attention." },
+    { year: "2026", icon: "fa-users", color: "#10b981", title: "17,100+ LinkedIn Community", desc: "Built one of Iran's largest AI communities through consistent research content, open-source tooling, and GPU engineering posts." },
+    { year: "2025", icon: "fa-graduation-cap", color: "#f59e0b", title: "TA @ Sharif \u2014 Compiler Construction", desc: "Teaching Assistant for Compiler Construction at Sharif University of Technology, supervising 200+ students on lexers and parsers." },
+    { year: "2025", icon: "fa-microchip", color: "#00f0ff", title: "Built Kaleido Engine \u26A1 (4D CUDA Parallel)", desc: "From-scratch distributed LLM training framework in CUDA 12.2/C++ \u2014 data, tensor, sequence, and pipeline parallelism on A100 SXM4." },
+    { year: "2025", icon: "fa-brain", color: "#8a2be2", title: "GRPO GSM8K: 80.7% (+18% rel. over SFT)", desc: "Fine-tuned 4B LLM with custom GRPO pipeline: clipped surrogate objective + KL regularisation on 8\xD7A100, achieving 80.7% pass@1." },
+    { year: "2024", icon: "fa-graduation-cap", color: "#10b981", title: "TA @ UT \u2014 M.Sc. ML, AI, OS Lab, C++", desc: "Teaching Assistant for 4 simultaneous graduate/undergraduate courses at University of Tehran \u2014 300+ students mentored." },
+    { year: "2024", icon: "fa-robot", color: "#f59e0b", title: "162 HuggingFace Assets Published", desc: "Reached 162 public HF assets: 92 pre-trained model checkpoints and 70 synthetic evaluation datasets with 1000+ total downloads." },
+    { year: "2023", icon: "fa-graduation-cap", color: "#00f0ff", title: "Started CE at University of Tehran", desc: "Enrolled in Computer Engineering at University of Tehran \u2014 focus on systems architecture, AI research, and distributed computing." }
+  ];
+  var CMD_ITEMS = [
+    { text: "Open AI Research Assistant", icon: "fas fa-robot", id: "ai" },
+    { text: "Open Recruit / Hire Taha", icon: "fas fa-briefcase", id: "hire" },
+    { text: "Sponsor Taha on GitHub", icon: "fas fa-heart", id: "sponsor" },
+    { text: "Toggle Constellation / Bento view", icon: "fas fa-project-diagram", id: "view" },
+    { text: "Open LinkedIn (17.1k followers)", icon: "fab fa-linkedin", id: "linkedin" },
+    { text: "View HuggingFace (162 assets)", icon: "fas fa-robot", id: "hf" },
+    { text: "Read Hoosha AI Substack", icon: "fas fa-newspaper", id: "substack" },
+    { text: "Email Taha directly", icon: "fas fa-envelope", id: "email" },
+    { text: "Download Resume PDF", icon: "fas fa-file-pdf", id: "resume" }
+  ];
+
+  // src/components/sections/HeroSection.jsx
+  function HeroSection({ time, onHire, onAI, onSponsor, setSearch, scrollTo, beep }) {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("section", { id: "about", className: "hero" }, /* @__PURE__ */ React.createElement("div", { className: "hero-inner fade-up" }, /* @__PURE__ */ React.createElement("div", { className: "avatar-wrap" }, /* @__PURE__ */ React.createElement("div", { className: "avatar-ring" }), /* @__PURE__ */ React.createElement("div", { className: "avatar-ring2" }), /* @__PURE__ */ React.createElement(
+      "img",
+      {
+        src: "assets/avatar.jpg",
+        onError: (e) => {
+          e.target.src = "https://github.com/tahamajs.png";
+        },
+        alt: "Mohammad Taha Majlesi",
+        className: "avatar-img"
       }
-    },
-    /* @__PURE__ */ React.createElement("i", { className: "fas fa-brain", "aria-hidden": "true" }),
-    /* @__PURE__ */ React.createElement("span", { className: "ai-fab-label" }, "Ask AI Assistant")
-  ), aiModalOpen && /* @__PURE__ */ React.createElement("div", { className: "modal-overlay active", onClick: () => setAiModalOpen(false) }, /* @__PURE__ */ React.createElement("div", { className: "ai-chat-box", role: "dialog", "aria-modal": "true", "aria-labelledby": "ai-modal-heading", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "ai-chat-header" }, /* @__PURE__ */ React.createElement("div", { className: "ai-title-row" }, /* @__PURE__ */ React.createElement("div", { className: "ai-avatar-dot", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h3", { id: "ai-modal-heading" }, "Taha's AI Research Assistant \u{1F9E0}"), /* @__PURE__ */ React.createElement("span", { className: "ai-subtitle" }, "Ask about Hoosha AI research, Flow Matching, GRPO, or UT/Sharif courses"))), /* @__PURE__ */ React.createElement("button", { className: "cmd-esc", "aria-label": "Close AI Assistant dialog", onClick: () => setAiModalOpen(false) }, "ESC")), /* @__PURE__ */ React.createElement("div", { className: "ai-chat-body" }, aiMessages.map((m, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, className: `chat-msg ${m.sender}-msg`, dangerouslySetInnerHTML: { __html: m.text.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") } }))), /* @__PURE__ */ React.createElement("div", { className: "ai-quick-prompts" }, ["Tell me about LinkedIn 17.1k followers", "What is Hoosha AI?", "Tell me about Flow Matching & GRPO", "What courses does Taha teach?"].map((q, i) => /* @__PURE__ */ React.createElement("button", { key: i, className: "quick-prompt-btn", onClick: () => handleAiQuestion(q) }, q))), /* @__PURE__ */ React.createElement("div", { className: "ai-chat-input-row" }, /* @__PURE__ */ React.createElement(
-    "input",
-    {
-      type: "text",
-      "aria-label": "Ask AI Assistant a question",
-      placeholder: "Ask a question about research papers, systems, background...",
-      value: aiInputText,
-      onChange: (e) => setAiInputText(e.target.value),
-      onKeyDown: (e) => e.key === "Enter" && handleAiQuestion(aiInputText)
-    }
-  ), /* @__PURE__ */ React.createElement("button", { className: "primary-btn glow-btn send-btn", "aria-label": "Send Question", onClick: () => handleAiQuestion(aiInputText) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane", "aria-hidden": "true" }))))), cmdModalOpen && /* @__PURE__ */ React.createElement("div", { className: "modal-overlay active", onClick: () => setCmdModalOpen(false) }, /* @__PURE__ */ React.createElement("div", { className: "cmd-palette-box", role: "dialog", "aria-modal": "true", "aria-labelledby": "cmd-modal-heading", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-input-row" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
-    "input",
-    {
-      type: "text",
-      "aria-label": "Filter command actions",
-      placeholder: "Type a command (e.g. 'recruit', 'linkedin', 'constellation', 'resume')...",
-      value: cmdQuery,
-      onChange: (e) => setCmdQuery(e.target.value),
-      autoFocus: true
-    }
-  ), /* @__PURE__ */ React.createElement("button", { className: "cmd-esc", "aria-label": "Close Command Palette", onClick: () => setCmdModalOpen(false) }, "ESC")), /* @__PURE__ */ React.createElement("div", { className: "cmd-results" }, cmdItems.filter((item) => item.text.toLowerCase().includes(cmdQuery.toLowerCase())).map((item, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "cmd-item", role: "button", tabIndex: 0, onClick: item.action, onKeyDown: (e) => (e.key === "Enter" || e.key === " ") && item.action() }, /* @__PURE__ */ React.createElement("i", { className: item.icon, "aria-hidden": "true" }), " ", item.text))))), hireModalOpen && /* @__PURE__ */ React.createElement("div", { className: "modal-overlay active", onClick: () => setHireModalOpen(false) }, /* @__PURE__ */ React.createElement("div", { className: "repo-modal-box", role: "dialog", "aria-modal": "true", "aria-labelledby": "hire-modal-heading", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "repo-modal-header" }, /* @__PURE__ */ React.createElement("span", { className: "project-tag" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase", "aria-hidden": "true" }), " Direct Recruitment & Collaboration"), /* @__PURE__ */ React.createElement("button", { className: "cmd-esc", "aria-label": "Close Recruitment dialog", onClick: () => setHireModalOpen(false) }, "ESC")), /* @__PURE__ */ React.createElement("h2", { id: "hire-modal-heading", className: "modal-repo-title" }, "Recruit / Collaborate with Taha \u{1F680}"), /* @__PURE__ */ React.createElement("p", { className: "modal-repo-desc" }, "Select a quick email template to contact Taha Majlesi directly for Senior AI Engineer roles, Research Scientist positions, Ph.D. opportunities, or R&D advisory:"), /* @__PURE__ */ React.createElement("div", { className: "template-box" }, /* @__PURE__ */ React.createElement("div", { className: "template-item", role: "button", tabIndex: 0, onClick: () => window.location.href = "mailto:tahamajlesi@ut.ac.ir?subject=Senior%20AI%20Engineering%20Role" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-building", "aria-hidden": "true" }), " ", /* @__PURE__ */ React.createElement("b", null, "Industry Senior AI / Systems Engineer Role"), /* @__PURE__ */ React.createElement("p", null, "Request interview for AI Architecture, Distributed Training, or LLM Post-Training position.")), /* @__PURE__ */ React.createElement("div", { className: "template-item", role: "button", tabIndex: 0, onClick: () => window.location.href = "mailto:tahamajlesi@ut.ac.ir?subject=Ph.D.%20Research%20Opportunity" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-graduation-cap", "aria-hidden": "true" }), " ", /* @__PURE__ */ React.createElement("b", null, "Ph.D. & Academic Research Collaboration"), /* @__PURE__ */ React.createElement("p", null, "Discuss graduate research, lab collaborations, or paper co-authorship."))), /* @__PURE__ */ React.createElement("div", { className: "modal-actions", style: { marginTop: "1.5rem" } }, /* @__PURE__ */ React.createElement("a", { href: "mailto:tahamajlesi@ut.ac.ir", className: "primary-btn glow-btn" }, "Send Direct Email ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "https://telegram.me/tahamajlesii", target: "_blank", className: "secondary-btn" }, "Telegram Chat ", /* @__PURE__ */ React.createElement("i", { className: "fab fa-telegram", "aria-hidden": "true" }))))), /* @__PURE__ */ React.createElement("nav", { className: "glass-nav", "aria-label": "Main Navigation" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Taha Majlesi"), "."), /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      className: "mobile-nav-toggle",
-      "aria-label": "Toggle Mobile Navigation Menu",
-      "aria-expanded": mobileNavOpen,
-      onClick: () => setMobileNavOpen(!mobileNavOpen)
-    },
-    /* @__PURE__ */ React.createElement("i", { className: mobileNavOpen ? "fas fa-times" : "fas fa-bars", "aria-hidden": "true" })
-  ), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNavOpen ? "mobile-open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNavOpen(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#achievements", onClick: () => setMobileNavOpen(false) }, "Achievements"), /* @__PURE__ */ React.createElement("a", { href: "#recruitment", onClick: () => setMobileNavOpen(false) }, "Why Hire?"), /* @__PURE__ */ React.createElement("a", { href: "#playground", onClick: () => setMobileNavOpen(false) }, "Playground"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNavOpen(false) }, "Publications"), /* @__PURE__ */ React.createElement("a", { href: "#architecture", onClick: () => setMobileNavOpen(false) }, "Architecture"), /* @__PURE__ */ React.createElement("a", { href: "#models", onClick: () => setMobileNavOpen(false) }, "HF Models (162)"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNavOpen(false) }, "Ecosystem (", counts.all, ")"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNavOpen(false) }, "Substack \u{1F9E0}"), /* @__PURE__ */ React.createElement("button", { className: "nav-resume-btn", style: { background: viewMode === "constellation" ? "var(--cyan)" : "transparent", color: viewMode === "constellation" ? "#000" : "var(--cyan)" }, onClick: () => {
-    setViewMode((prev) => prev === "bento" ? "constellation" : "bento");
-    setMobileNavOpen(false);
-  } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-project-diagram", "aria-hidden": "true" }), " ", viewMode === "bento" ? "Constellation Graph" : "Bento Grid"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
-    setHireModalOpen(true);
-    setMobileNavOpen(false);
-  } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase", "aria-hidden": "true" }), " Recruit Taha"), /* @__PURE__ */ React.createElement("button", { className: "cmd-k-btn", onClick: () => {
-    setCmdModalOpen(true);
-    setMobileNavOpen(false);
-  } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search", "aria-hidden": "true" }), " ", /* @__PURE__ */ React.createElement("span", { className: "cmd-k-key" }, "\u2318K"))))), /* @__PURE__ */ React.createElement("main", null, viewMode === "constellation" ? /* @__PURE__ */ React.createElement("section", { className: "section", style: { paddingTop: "8rem", minHeight: "85vh" } }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Interactive ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Neural Constellation Graph")), /* @__PURE__ */ React.createElement("p", null, "Click any node in Taha Majlesi's interconnected research & engineering universe.")), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", width: "100%", height: "550px", background: "rgba(5,7,12,0.8)", borderRadius: "20px", border: "1px solid rgba(0,240,255,0.2)", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("svg", { style: { position: "absolute", width: "100%", height: "100%" } }, constellationNodes.slice(1).map((n) => /* @__PURE__ */ React.createElement(
-    "line",
-    {
-      key: n.id,
-      x1: "50%",
-      y1: "50%",
-      x2: `${n.x}%`,
-      y2: `${n.y}%`,
-      stroke: "rgba(0, 240, 255, 0.4)",
-      strokeWidth: "2",
-      strokeDasharray: "5,5"
-    }
-  ))), constellationNodes.map((n) => /* @__PURE__ */ React.createElement(
-    "div",
-    {
-      key: n.id,
-      role: "button",
-      tabIndex: 0,
-      "aria-label": `Select constellation node ${n.label}`,
-      onClick: () => {
-        setActiveConstellationNode(n);
-        playSound(850, "sine");
+    )), /* @__PURE__ */ React.createElement("div", { className: "hero-badge" }, /* @__PURE__ */ React.createElement("span", { className: "dot" }), "Co-Founder & AI Architect @ Hoosha AI \u{1F9E0} \xB7 University of Tehran"), /* @__PURE__ */ React.createElement("div", { className: "hero-clock" }, "Tehran: ", /* @__PURE__ */ React.createElement("b", null, time), " (UTC +3:30) \xA0\xB7\xA0", /* @__PURE__ */ React.createElement("span", { className: "status-green" }, "\u2B24 Open to Roles & Collaboration")), /* @__PURE__ */ React.createElement("h1", { className: "hero-title" }, "Mohammad Taha Majlesi", /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "AI Systems Engineer & Researcher")), /* @__PURE__ */ React.createElement("p", { className: "hero-subtitle" }, "Building scalable AI systems and distributed GPU infrastructure. Co-Founder of ", /* @__PURE__ */ React.createElement("b", null, "Hoosha AI \u{1F9E0}"), " \xB7 ", /* @__PURE__ */ React.createElement("b", null, "17.1k+ LinkedIn community"), " \xB7 CE student at ", /* @__PURE__ */ React.createElement("b", null, "University of Tehran"), " \xB7 TA at ", /* @__PURE__ */ React.createElement("b", null, "Sharif University"), ". Research focus: ", /* @__PURE__ */ React.createElement("b", null, "Flow Matching"), ", ", /* @__PURE__ */ React.createElement("b", null, "GRPO alignment"), ", ", /* @__PURE__ */ React.createElement("b", null, "CUDA/C++ engines"), ", and ", /* @__PURE__ */ React.createElement("b", null, "sub-quadratic attention"), "."), /* @__PURE__ */ React.createElement("div", { className: "tag-cloud" }, TAGS.map((tag) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: tag,
+        className: "tag-pill",
+        onClick: () => {
+          setSearch(tag);
+          scrollTo("projects");
+          beep?.(700);
+        }
       },
-      onKeyDown: (e) => (e.key === "Enter" || e.key === " ") && setActiveConstellationNode(n),
-      style: {
-        position: "absolute",
-        left: `${n.x}%`,
-        top: `${n.y}%`,
-        transform: "translate(-50%, -50%)",
-        cursor: "pointer",
-        background: n.type === "core" ? "var(--cyan)" : "rgba(15, 23, 42, 0.9)",
-        color: n.type === "core" ? "#000" : "#fff",
-        border: "2px solid var(--cyan)",
-        borderRadius: "30px",
-        padding: "0.6rem 1.4rem",
-        fontWeight: "700",
-        fontSize: n.type === "core" ? "1.1rem" : "0.9rem",
-        boxShadow: "0 0 20px rgba(0, 240, 255, 0.5)",
-        transition: "all 0.3s ease"
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-tag", style: { fontSize: ".6rem" } }),
+      " ",
+      tag
+    ))), /* @__PURE__ */ React.createElement("div", { className: "hero-actions" }, /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: onHire }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement(
+      "a",
+      {
+        href: "https://github.com/sponsors/tahamajs",
+        target: "_blank",
+        className: "btn-sponsor",
+        onClick: () => beep?.(880, "triangle")
+      },
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }),
+      " Sponsor on GitHub"
+    ), /* @__PURE__ */ React.createElement("a", { href: "assets/resume.pdf", target: "_blank", className: "btn-secondary" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-pdf" }), " Resume PDF"), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank", className: "btn-secondary" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-newspaper" }), " Substack")), /* @__PURE__ */ React.createElement("div", { className: "social-row" }, [
+      ["fab fa-github", "https://github.com/tahamajs", "GitHub"],
+      ["fas fa-robot", "https://huggingface.co/tahamajs", "HuggingFace"],
+      ["fab fa-linkedin-in", "https://linkedin.com/in/tahamajlesi", "LinkedIn 17.1k"],
+      ["fab fa-telegram", "https://telegram.me/tahamajlesii", "Telegram"],
+      ["fas fa-newspaper", "https://hooshaai.substack.com", "Substack"],
+      ["fas fa-heart", "https://github.com/sponsors/tahamajs", "Sponsor"],
+      ["fas fa-envelope", "mailto:tahamajlesi@ut.ac.ir", "Email"]
+    ].map(([ic, href, lbl]) => /* @__PURE__ */ React.createElement(
+      "a",
+      {
+        key: lbl,
+        href,
+        target: href.startsWith("mailto") ? "_self" : "_blank",
+        className: `social-btn${lbl === "Sponsor" ? " social-sponsor" : ""}`,
+        "aria-label": lbl,
+        title: lbl
+      },
+      /* @__PURE__ */ React.createElement("i", { className: ic })
+    ))))), /* @__PURE__ */ React.createElement("div", { className: "stats-bar" }, STATS.map((s) => /* @__PURE__ */ React.createElement("div", { key: s.label, className: "stat-cell" }, /* @__PURE__ */ React.createElement("span", { className: "stat-num" }, s.num), /* @__PURE__ */ React.createElement("span", { className: "stat-lbl" }, s.label)))));
+  }
+
+  // src/components/ui/SectionHead.jsx
+  function SectionHead({ tag, title, sub }) {
+    return /* @__PURE__ */ React.createElement("div", { className: "section-head" }, tag && /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, tag), /* @__PURE__ */ React.createElement("h2", { dangerouslySetInnerHTML: { __html: title } }), sub && /* @__PURE__ */ React.createElement("p", null, sub));
+  }
+
+  // src/components/sections/TimelineSection.jsx
+  function TimelineSection() {
+    return /* @__PURE__ */ React.createElement("section", { id: "experience", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Trajectory",
+        title: "Experience & Milestones"
       }
-    },
-    /* @__PURE__ */ React.createElement("i", { className: `fas ${n.type === "core" ? "fa-brain" : n.type === "startup" ? "fa-rocket" : n.type === "academic" ? "fa-graduation-cap" : "fa-server"}`, "aria-hidden": "true", style: { marginRight: "8px" } }),
-    n.label
-  )), activeConstellationNode && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", bottom: "20px", left: "50%", transform: "translateX(-50%)", width: "90%", maxWidth: "600px", background: "rgba(10,15,25,0.95)", border: "1px solid var(--cyan)", borderRadius: "16px", padding: "1.5rem", backdropFilter: "blur(10px)" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center" } }, /* @__PURE__ */ React.createElement("h3", { style: { margin: 0, color: "var(--cyan)" } }, activeConstellationNode.label), /* @__PURE__ */ React.createElement("button", { style: { background: "none", border: "none", color: "#fff", cursor: "pointer" }, "aria-label": "Close details", onClick: () => setActiveConstellationNode(null) }, "\u2715")), /* @__PURE__ */ React.createElement("p", { style: { marginTop: "0.5rem", fontSize: "0.9rem", color: "#94a3b8" } }, activeConstellationNode.desc)))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("section", { id: "about", className: "hero" }, /* @__PURE__ */ React.createElement("div", { className: "hero-content fade-in-up" }, /* @__PURE__ */ React.createElement("div", { className: "avatar-wrapper" }, /* @__PURE__ */ React.createElement("div", { className: "avatar-glow-ring", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("img", { src: "assets/avatar.jpg?v=22.0", onError: (e) => {
-    e.target.src = "https://github.com/tahamajs.png";
-  }, alt: "Mohammad Taha Majlesi Headshot", className: "avatar-img" })), /* @__PURE__ */ React.createElement("div", { className: "badge-pill" }, /* @__PURE__ */ React.createElement("span", { className: "pulse-dot", "aria-hidden": "true" }), " Co-Founder & Systems/AI Architect @ Hoosha AI \u{1F9E0} | University of Tehran"), /* @__PURE__ */ React.createElement("div", { className: "live-clock-badge" }, /* @__PURE__ */ React.createElement("i", { className: "far fa-clock", "aria-hidden": "true" }), " Tehran Local Time: ", /* @__PURE__ */ React.createElement("span", null, tehranTime), " (UTC +3:30) \u2022 ", /* @__PURE__ */ React.createElement("span", { className: "status-green" }, "Available for R&D & Recruiting")), /* @__PURE__ */ React.createElement("h1", { className: "hero-title" }, "Mohammad Taha Majlesi", /* @__PURE__ */ React.createElement("br", null), /* @__PURE__ */ React.createElement("span", { className: "subtitle-line" }, "Building ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Scalable AI Systems & Distributed Engines"))), /* @__PURE__ */ React.createElement("p", { className: "hero-subtitle" }, "AI Researcher & Systems Engineer. Co-Founder of ", /* @__PURE__ */ React.createElement("b", null, "Hoosha AI \u{1F9E0}"), " with a ", /* @__PURE__ */ React.createElement("b", null, "17.1k+ LinkedIn Community"), ". Computer Engineering at ", /* @__PURE__ */ React.createElement("b", null, "University of Tehran"), " and Teaching Assistant at ", /* @__PURE__ */ React.createElement("b", null, "Sharif University of Technology"), ". Specializing in ", /* @__PURE__ */ React.createElement("b", null, "Deep Generative Modeling"), " (Flow Matching, VAEs), ", /* @__PURE__ */ React.createElement("b", null, "LLM Alignment & Reasoning"), " (GRPO, SFT), and ", /* @__PURE__ */ React.createElement("b", null, "Distributed GPU Infrastructure"), "."), /* @__PURE__ */ React.createElement("div", { className: "org-badges", style: { marginBottom: "1.5rem" } }, researchTags.map((tag) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: tag,
-      className: "org-badge",
-      style: { cursor: "pointer", border: "1px solid var(--cyan)" },
-      onClick: () => {
-        setSearch(tag);
-        const el = document.getElementById("projects");
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-        triggerToast(`Filtering repos by "${tag}"! \u{1F50D}`);
+    ), /* @__PURE__ */ React.createElement("div", { className: "timeline" }, TIMELINE.map((t, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "tl-item" }, /* @__PURE__ */ React.createElement("div", { className: "tl-empty" }), /* @__PURE__ */ React.createElement("div", { className: "tl-dot", style: { borderColor: t.color, color: t.color } }, /* @__PURE__ */ React.createElement("i", { className: `fas ${t.icon}` })), /* @__PURE__ */ React.createElement("div", { className: "tl-content" }, /* @__PURE__ */ React.createElement("div", { className: "tl-year" }, t.year), /* @__PURE__ */ React.createElement("h4", null, t.title), /* @__PURE__ */ React.createElement("p", null, t.desc))))));
+  }
+
+  // src/components/sections/SkillsSection.jsx
+  function SkillsSection() {
+    return /* @__PURE__ */ React.createElement("section", { id: "skills", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Capabilities",
+        title: "Technical Arsenal"
       }
+    ), /* @__PURE__ */ React.createElement("div", { className: "skills-grid" }, SKILLS.map((s, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "skill-card" }, /* @__PURE__ */ React.createElement("div", { className: "skill-cat" }, s.cat), /* @__PURE__ */ React.createElement("div", { className: "skill-tags" }, s.items.map((t) => /* @__PURE__ */ React.createElement("span", { key: t, className: "skill-tag" }, t)))))));
+  }
+
+  // src/components/sections/CodeSandboxSection.jsx
+  var import_react3 = __require("react");
+
+  // src/data/codeSnippets.js
+  var CODE_TABS = {
+    flow: {
+      label: "Flow Matching ODE",
+      code: `# Conditional Flow Matching \u2014 linear velocity field sampler
+# Lipman et al. 2022 / Liu et al. 2022 \u2014 implemented by Taha Majlesi
+import torch, torch.nn as nn
+
+class VelocityField(nn.Module):
+    """Learnable v\u03B8(t, x): maps (noisy sample, time) \u2192 velocity"""
+    def __init__(self, d=256, h=512):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(d + 1, h), nn.SiLU(),
+            nn.Linear(h, h),     nn.SiLU(),
+            nn.Linear(h, h),     nn.SiLU(),
+            nn.Linear(h, d)
+        )
+    def forward(self, x, t):
+        t_ = t.view(-1,1).expand(x.shape[0], 1)
+        return self.net(torch.cat([x, t_], dim=-1))
+
+def cfm_loss(model, x1, sigma=0.001):
+    """CFM objective: E[\u2016v\u03B8(xt,t) \u2212 (x1\u2212x0)\u2016\xB2]"""
+    x0 = torch.randn_like(x1)
+    t  = torch.rand(x1.shape[0], device=x1.device)
+    xt = (1 - t[:,None]) * x0 + t[:,None] * x1  # linear interp
+    xt = xt + sigma * torch.randn_like(xt)
+    return ((model(xt, t) - (x1 - x0)) ** 2).mean()
+
+@torch.no_grad()
+def sample(model, shape, steps=20):
+    x, dt = torch.randn(shape), 1.0 / steps
+    for i in range(steps):
+        t = torch.full((shape[0],), i * dt)
+        x = x + model(x, t) * dt   # Euler-Maruyama
+    return x`,
+      output: `[INIT]  VelocityField  params=1,182,976  device=cuda:0 (A100-SXM4-80GB)
+[TRAIN] step=100   loss=0.2813  \u2016vt\u2016=0.82  lr=1e-4
+[TRAIN] step=500   loss=0.0941  \u2016vt\u2016=0.41  lr=8e-5
+[TRAIN] step=1000  loss=0.0312  \u2016vt\u2016=0.19  lr=5e-5
+[SAMPLE] 64 samples \u2014 steps=20 \u2014 38ms on CUDA:0
+[EVAL]   FID-10k = 4.21  (DDPM baseline = 9.87)  \u2193 57.4%
+[SUCCESS] Flow Matching trajectory converged \u2713`
     },
-    /* @__PURE__ */ React.createElement("i", { className: "fas fa-tag", "aria-hidden": "true" }),
-    " ",
-    tag
-  ))), /* @__PURE__ */ React.createElement("div", { className: "hero-actions-row" }, /* @__PURE__ */ React.createElement("button", { className: "primary-btn glow-btn hire-hero-btn", onClick: () => setHireModalOpen(true) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase", "aria-hidden": "true" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("a", { href: "assets/resume.pdf", target: "_blank", className: "secondary-btn" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-pdf", "aria-hidden": "true" }), " Download Resume CV"), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank", className: "secondary-btn substack-btn" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-newspaper", "aria-hidden": "true" }), " Read Substack \u{1F9E0}"), /* @__PURE__ */ React.createElement("div", { className: "social-row" }, /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank", className: "social-btn", "aria-label": "GitHub Profile (521 Followers)", title: "GitHub (521 Followers)" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "https://huggingface.co/tahamajs", target: "_blank", className: "social-btn", "aria-label": "Hugging Face Profile (162 Assets)", title: "Hugging Face (162 Assets)" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com", target: "_blank", className: "social-btn", "aria-label": "Substack Newsletter", title: "Substack Newsletter" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-newspaper", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "https://linkedin.com/in/tahamajlesi", target: "_blank", className: "social-btn", "aria-label": "LinkedIn Profile (17.1k Followers)", title: "LinkedIn (17.1k+ Followers & Community)" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-linkedin-in", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "https://telegram.me/tahamajlesii", target: "_blank", className: "social-btn", "aria-label": "Telegram Chat", title: "Telegram (@tahamajlesii)" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-telegram", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "https://x.com/hooshaaii", target: "_blank", className: "social-btn", "aria-label": "X Twitter Profile", title: "X (Twitter)" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-x-twitter", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("a", { href: "mailto:tahamajlesi@ut.ac.ir", className: "social-btn", "aria-label": "Email Taha Majlesi", title: "Email" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope", "aria-hidden": "true" })))))), /* @__PURE__ */ React.createElement("div", { className: "stats-bar fade-in-up" }, /* @__PURE__ */ React.createElement("div", { className: "stat-item" }, /* @__PURE__ */ React.createElement("span", { className: "stat-number" }, "12,787"), /* @__PURE__ */ React.createElement("span", { className: "stat-label" }, "Commits (Past Year)")), /* @__PURE__ */ React.createElement("div", { className: "stat-divider" }), /* @__PURE__ */ React.createElement("div", { className: "stat-item" }, /* @__PURE__ */ React.createElement("span", { className: "stat-number" }, "143"), /* @__PURE__ */ React.createElement("span", { className: "stat-label" }, "GitHub Repositories")), /* @__PURE__ */ React.createElement("div", { className: "stat-divider" }), /* @__PURE__ */ React.createElement("div", { className: "stat-item" }, /* @__PURE__ */ React.createElement("span", { className: "stat-number" }, "92 / 70"), /* @__PURE__ */ React.createElement("span", { className: "stat-label" }, "HF Models & Datasets")), /* @__PURE__ */ React.createElement("div", { className: "stat-divider" }), /* @__PURE__ */ React.createElement("div", { className: "stat-item" }, /* @__PURE__ */ React.createElement("span", { className: "stat-number" }, "521"), /* @__PURE__ */ React.createElement("span", { className: "stat-label" }, "GitHub Followers")), /* @__PURE__ */ React.createElement("div", { className: "stat-divider" }), /* @__PURE__ */ React.createElement("div", { className: "stat-item" }, /* @__PURE__ */ React.createElement("span", { className: "stat-number" }, "17.1k+"), /* @__PURE__ */ React.createElement("span", { className: "stat-label" }, "LinkedIn Followers"))), /* @__PURE__ */ React.createElement("section", { id: "achievements", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Honors & Key ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Achievements")), /* @__PURE__ */ React.createElement("p", null, "Major technical milestones, academic distinctions, and open-source impact.")), /* @__PURE__ */ React.createElement("div", { className: "recruitment-grid fade-in-up" }, achievements.map((ach, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, className: "recruit-card" }, /* @__PURE__ */ React.createElement("div", { className: "recruit-icon" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${ach.icon}`, "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("h3", null, ach.title), /* @__PURE__ */ React.createElement("p", null, ach.desc))))), /* @__PURE__ */ React.createElement("section", { id: "recruitment", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Why Recruit ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Taha Majlesi?")), /* @__PURE__ */ React.createElement("p", null, "Key impact metrics making Taha an exceptional hire for AI R&D teams, labs, and startups.")), /* @__PURE__ */ React.createElement("div", { className: "recruitment-grid fade-in-up" }, /* @__PURE__ */ React.createElement("div", { className: "recruit-card" }, /* @__PURE__ */ React.createElement("div", { className: "recruit-icon" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-rocket", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("h3", null, "Proven Founder Mindset"), /* @__PURE__ */ React.createElement("p", null, "Co-Founder at ", /* @__PURE__ */ React.createElement("b", null, "Hoosha AI \u{1F9E0}"), ". Proven capability to take research ideas from raw mathematics to production deployments & published papers.")), /* @__PURE__ */ React.createElement("div", { className: "recruit-card" }, /* @__PURE__ */ React.createElement("div", { className: "recruit-icon" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-microchip", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("h3", null, "First-Principles Systems Engineering"), /* @__PURE__ */ React.createElement("p", null, "Architected ", /* @__PURE__ */ React.createElement("b", null, "Kaleido"), " distributed LLM engine from scratch in CUDA, C++, and PyTorch across multi-GPU compute nodes.")), /* @__PURE__ */ React.createElement("div", { className: "recruit-card" }, /* @__PURE__ */ React.createElement("div", { className: "recruit-icon" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-brain", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("h3", null, "Frontier AI Research"), /* @__PURE__ */ React.createElement("p", null, "Deep expertise in ", /* @__PURE__ */ React.createElement("b", null, "Flow Matching ODEs"), ", ", /* @__PURE__ */ React.createElement("b", null, "GRPO 4B LLM fine-tuning"), ", synthetic datasets, and sub-quadratic linear attention.")), /* @__PURE__ */ React.createElement("div", { className: "recruit-card" }, /* @__PURE__ */ React.createElement("div", { className: "recruit-icon" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-graduation-cap", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("h3", null, "Academic & Social Pedigree"), /* @__PURE__ */ React.createElement("p", null, "Computer Engineering at ", /* @__PURE__ */ React.createElement("b", null, "University of Tehran"), ", TA at ", /* @__PURE__ */ React.createElement("b", null, "Sharif University of Technology"), ", reaching ", /* @__PURE__ */ React.createElement("b", null, "17.1k+ LinkedIn Followers"), ".")))), /* @__PURE__ */ React.createElement("section", { id: "playground", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Interactive ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Code & Algorithm Sandbox")), /* @__PURE__ */ React.createElement("p", null, "Test and inspect live research code snippets authored by Taha Majlesi.")), /* @__PURE__ */ React.createElement("div", { className: "terminal-card fade-in-up" }, /* @__PURE__ */ React.createElement("div", { className: "terminal-bar" }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "8px" } }, /* @__PURE__ */ React.createElement("span", { className: "t-dot red", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("span", { className: "t-dot yellow", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("span", { className: "t-dot green", "aria-hidden": "true" })), /* @__PURE__ */ React.createElement("div", { style: { marginLeft: "1.5rem", display: "flex", gap: "1rem" } }, /* @__PURE__ */ React.createElement("button", { className: `pub-btn ${activeCodeTab === "flow" ? "active" : ""}`, onClick: () => {
-    setActiveCodeTab("flow");
-    setCodeOutput("");
-  } }, "Flow Matching ODE"), /* @__PURE__ */ React.createElement("button", { className: `pub-btn ${activeCodeTab === "grpo" ? "active" : ""}`, onClick: () => {
-    setActiveCodeTab("grpo");
-    setCodeOutput("");
-  } }, "GRPO Loss (PyTorch)"), /* @__PURE__ */ React.createElement("button", { className: `pub-btn ${activeCodeTab === "kaleido" ? "active" : ""}`, onClick: () => {
-    setActiveCodeTab("kaleido");
-    setCodeOutput("");
-  } }, "Kaleido CUDA Kernel")), /* @__PURE__ */ React.createElement("span", { className: "t-title" }, "gpu-node-01 (PyTorch 2.4)")), /* @__PURE__ */ React.createElement("div", { className: "terminal-code" }, /* @__PURE__ */ React.createElement("pre", null, codeSnippets[activeCodeTab]), /* @__PURE__ */ React.createElement("div", { style: { marginTop: "1.5rem", display: "flex", gap: "1rem", alignItems: "center" } }, /* @__PURE__ */ React.createElement("button", { className: "primary-btn glow-btn", style: { padding: "0.5rem 1.5rem", fontSize: "0.9rem" }, onClick: runCodeSnippet }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play", "aria-hidden": "true" }), " Run Sandbox Test")), codeOutput && /* @__PURE__ */ React.createElement("div", { style: { marginTop: "1rem", padding: "1rem", background: "#030508", borderRadius: "8px", border: "1px solid var(--cyan)", color: "#00f0ff", fontSize: "0.85rem" } }, /* @__PURE__ */ React.createElement("pre", null, codeOutput))))), /* @__PURE__ */ React.createElement("section", { id: "publications", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Selected Research ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Publications & Reports")), /* @__PURE__ */ React.createElement("p", null, "Preprints, technical reports, and research papers authored by Taha Majlesi & Hoosha AI.")), /* @__PURE__ */ React.createElement("div", { className: "publications-list fade-in-up" }, /* @__PURE__ */ React.createElement("div", { className: "pub-card" }, /* @__PURE__ */ React.createElement("div", { className: "pub-badge" }, "Technical Report \u2022 2026"), /* @__PURE__ */ React.createElement("h3", { className: "pub-title" }, /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention", target: "_blank" }, "Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI")), /* @__PURE__ */ React.createElement("p", { className: "pub-authors" }, /* @__PURE__ */ React.createElement("u", null, "Mohammad Taha Majlesi"), ", Hoosha AI Research Team"), /* @__PURE__ */ React.createElement("p", { className: "pub-venue" }, "Hoosha AI Technical Report Series & Open Paper 2026"), /* @__PURE__ */ React.createElement("p", { className: "pub-abstract" }, "We investigate sub-quadratic linear attention mechanisms (LinRec, SVD Attention) for scaling transformer architectures across long-context sequence modeling tasks without incurring $O(N^2)$ memory overhead."), /* @__PURE__ */ React.createElement("div", { className: "pub-links" }, /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention", target: "_blank", className: "pub-btn" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-alt", "aria-hidden": "true" }), " Article"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs/SVD_linear_Attention", target: "_blank", className: "pub-btn" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github", "aria-hidden": "true" }), " Code"), /* @__PURE__ */ React.createElement("button", { className: "pub-btn bibtex-btn", onClick: () => copyBibtex("@article{majlesi2026linear, title={Scaling Transformers: How Linear Attention is Reshaping Cross-Task AI}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Technical Reports}, year={2026}}") }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-quote-right", "aria-hidden": "true" }), " BibTeX"))), /* @__PURE__ */ React.createElement("div", { className: "pub-card" }, /* @__PURE__ */ React.createElement("div", { className: "pub-badge" }, "Research Paper \u2022 2026"), /* @__PURE__ */ React.createElement("h3", { className: "pub-title" }, /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com/p/implementing-grounded-causal-verification", target: "_blank" }, "Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems")), /* @__PURE__ */ React.createElement("p", { className: "pub-authors" }, /* @__PURE__ */ React.createElement("u", null, "Mohammad Taha Majlesi"), ", Hoosha AI Lab"), /* @__PURE__ */ React.createElement("p", { className: "pub-venue" }, "Frontiers in AI Alignment & Reasoning 2026"), /* @__PURE__ */ React.createElement("p", { className: "pub-abstract" }, "A formal mathematical framework introducing grounded causal verification to constrain self-improving LLMs, preventing recursive hallucination loops and epistemic degradation."), /* @__PURE__ */ React.createElement("div", { className: "pub-links" }, /* @__PURE__ */ React.createElement("a", { href: "https://hooshaai.substack.com/p/implementing-grounded-causal-verification", target: "_blank", className: "pub-btn" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-alt", "aria-hidden": "true" }), " Article"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/Hooshaai/consciousness_in_LLMs", target: "_blank", className: "pub-btn" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github", "aria-hidden": "true" }), " Code"), /* @__PURE__ */ React.createElement("button", { className: "pub-btn bibtex-btn", onClick: () => copyBibtex("@article{majlesi2026causal, title={Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse}, author={Majlesi, Mohammad Taha}, journal={Hoosha AI Research}, year={2026}}") }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-quote-right", "aria-hidden": "true" }), " BibTeX"))))), /* @__PURE__ */ React.createElement("section", { id: "models", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Hugging Face ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Models & Datasets (", filteredHf.length, " Assets)")), /* @__PURE__ */ React.createElement("p", null, "Pre-trained model weights, fine-tuned adapters, and open synthetic datasets published by Taha Majlesi.")), /* @__PURE__ */ React.createElement("div", { className: "filter-tabs fade-in-up", style: { marginBottom: "2rem" } }, [
-    { id: "all", label: "All HF Assets (162)" },
-    { id: "model", label: "\u{1F916} Models (92)" },
-    { id: "dataset", label: "\u{1F4CA} Datasets (70)" }
-  ].map((tab) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: tab.id,
-      className: `filter-btn ${hfFilter === tab.id ? "active" : ""}`,
-      onClick: () => setHfFilter(tab.id)
+    grpo: {
+      label: "GRPO Alignment",
+      code: `# Group Relative Policy Optimisation (GRPO)
+# Achieved 80.7% GSM8K pass@1 (+18% vs SFT) \u2014 Taha Majlesi / Hoosha AI
+import torch, torch.nn.functional as F
+
+def compute_rewards(responses, ground_truths):
+    """Binary math correctness + LaTeX format reward."""
+    rewards = []
+    for resp, gt in zip(responses, ground_truths):
+        correct  = float(gt.strip() in resp)
+        fmt_ok   = float("\\\\boxed{" in resp)
+        rewards.append(0.8 * correct + 0.2 * fmt_ok)
+    return torch.tensor(rewards)
+
+def grpo_loss(model, ref_model, input_ids, rewards,
+              clip_eps=0.20, kl_coeff=0.04, G=8):
+    """
+    GRPO: group-normalised clipped surrogate + KL penalty.
+    G = rollouts per prompt (group size).
+    """
+    with torch.no_grad():
+        ref_lp = ref_model(input_ids).log_softmax(-1)
+    lp    = model(input_ids).log_softmax(-1)
+    ratio = (lp - ref_lp).exp()
+
+    # Group-relative advantage normalisation
+    adv   = rewards - rewards.view(-1, G).mean(1, keepdim=True).repeat_interleave(G)
+    adv   = adv / (rewards.view(-1,G).std(1).repeat_interleave(G) + 1e-8)
+
+    surr  = torch.min(ratio * adv,
+                      torch.clamp(ratio, 1-clip_eps, 1+clip_eps) * adv)
+    kl    = F.kl_div(lp, ref_lp.exp(), reduction='batchmean')
+    return -surr.mean() + kl_coeff * kl`,
+      output: `[CONFIG] model=Qwen2.5-4B  G=8  lr=1e-5  clip=0.20  kl_coeff=0.04  8\xD7A100
+[EPOCH 1/3] step=120  loss=1.842  reward=0.421  kl=0.038  GSM8K=42.1%
+[EPOCH 2/3] step=240  loss=1.311  reward=0.631  kl=0.019  GSM8K=63.1%
+[EPOCH 3/3] step=360  loss=0.994  reward=0.807  kl=0.011  GSM8K=80.7%
+[EVAL]  GSM8K pass@1 = 80.7%   SFT baseline = 68.4%   \u0394 = +18.0% rel.
+[SUCCESS] GRPO fine-tuning complete \u2014 checkpoint pushed to HF Hub \u2713`
     },
-    tab.label
-  ))), /* @__PURE__ */ React.createElement("div", { className: "hf-models-grid fade-in-up" }, filteredHf.map((hf, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "hf-card" }, /* @__PURE__ */ React.createElement("div", { className: "hf-badge" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${hf.type === "model" ? "fa-robot" : "fa-database"}`, "aria-hidden": "true" }), " ", hf.type.toUpperCase(), " \u2022 \u2764\uFE0F ", hf.likes, " \u2022 \u{1F4E5} ", hf.downloads), /* @__PURE__ */ React.createElement("h3", null, hf.id), /* @__PURE__ */ React.createElement("p", null, "Pre-trained open science release published on Hugging Face Hub."), /* @__PURE__ */ React.createElement("div", { className: "hf-code-line" }, /* @__PURE__ */ React.createElement("code", null, String(hf.code || "").split("\n")[0])), /* @__PURE__ */ React.createElement("a", { href: hf.url, target: "_blank", className: "hf-link" }, "View Asset on Hugging Face ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-external-link-alt", "aria-hidden": "true" })))))), /* @__PURE__ */ React.createElement("section", { id: "projects", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Interactive ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Repository Ecosystem (", counts.all, " Repos)")), /* @__PURE__ */ React.createElement("p", null, "Live search and filter through all 143 repositories, Hugging Face models, and engineering projects.")), /* @__PURE__ */ React.createElement("div", { className: "search-box-wrapper fade-in-up" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search search-icon", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
-    "input",
-    {
-      type: "text",
-      "aria-label": "Live search across repositories",
-      placeholder: "Live search across 143 repos, languages (PyTorch, C++, CUDA, Django)...",
-      value: search,
-      onChange: (e) => setSearch(e.target.value)
-    }
-  )), /* @__PURE__ */ React.createElement("div", { className: "filter-tabs fade-in-up" }, [
-    { id: "all", label: "All Projects", count: counts.all },
-    { id: "course", label: "\u{1F393} University Courses", count: counts.course },
-    { id: "ai", label: "AI & LLMs", count: counts.ai },
-    { id: "systems", label: "Systems & Kernels", count: counts.systems },
-    { id: "hf", label: "Hugging Face", count: counts.hf },
-    { id: "web", label: "Software & Web", count: counts.web }
-  ].map((tab) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: tab.id,
-      className: `filter-btn ${filter === tab.id ? "active" : ""}`,
-      onClick: () => setFilter(tab.id)
-    },
-    tab.label,
-    " ",
-    /* @__PURE__ */ React.createElement("span", { className: "filter-count" }, tab.count)
-  ))), /* @__PURE__ */ React.createElement("div", { className: "bento-grid" }, filteredRepos.map((r, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: r.url, target: "_blank", className: `bento-item ${r.isCourse || r.stars >= 4 ? "bento-wide" : ""}` }, /* @__PURE__ */ React.createElement("div", { className: "bento-inner" }, /* @__PURE__ */ React.createElement("div", { className: "project-tag" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${r.icon}`, "aria-hidden": "true" }), " ", r.tag, " \u2022 \u2B50 ", r.stars), /* @__PURE__ */ React.createElement("h3", { className: "repo-title" }, r.title), /* @__PURE__ */ React.createElement("p", { className: "repo-desc" }, r.desc), /* @__PURE__ */ React.createElement("div", { className: "bento-tags" }, /* @__PURE__ */ React.createElement("span", { className: "tag" }, r.lang), r.isCourse && /* @__PURE__ */ React.createElement("span", { className: "tag" }, r.uni, " Course"))))))), /* @__PURE__ */ React.createElement("section", { id: "substack", className: "section" }, /* @__PURE__ */ React.createElement("div", { className: "section-header fade-in-up" }, /* @__PURE__ */ React.createElement("h2", null, "Hoosha AI \u{1F9E0} ", /* @__PURE__ */ React.createElement("span", { className: "gradient-text" }, "Substack Newsletter (", filteredArticles.length, " Deep Dives)")), /* @__PURE__ */ React.createElement("p", null, "Deep dives into ML/AI papers, LLM reasoning, cognitive scaling, and sub-quadratic attention.")), /* @__PURE__ */ React.createElement("div", { className: "search-box-wrapper fade-in-up", style: { marginBottom: "2rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search search-icon", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement(
-    "input",
-    {
-      type: "text",
-      "aria-label": "Search Substack articles",
-      placeholder: "Search Substack articles by title or topic...",
-      value: substackSearch,
-      onChange: (e) => setSubstackSearch(e.target.value)
-    }
-  )), /* @__PURE__ */ React.createElement("div", { className: "articles-grid" }, filteredArticles.map((art, idx) => /* @__PURE__ */ React.createElement("a", { key: idx, href: art.link, target: "_blank", className: "article-card fade-in-up" }, /* @__PURE__ */ React.createElement("div", { className: "article-tag" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-newspaper", "aria-hidden": "true" }), " Substack \u2022 ", art.date), /* @__PURE__ */ React.createElement("h3", null, art.title), /* @__PURE__ */ React.createElement("p", null, art.desc), /* @__PURE__ */ React.createElement("span", { className: "read-more" }, "Read Full Deep Dive ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", "aria-hidden": "true" })))))))), /* @__PURE__ */ React.createElement("footer", null, /* @__PURE__ */ React.createElement("p", null, "\xA9 2026 Mohammad Taha Majlesi. Co-Founder @ Hoosha AI. Built with React 18 & extreme precision.")));
+    cuda: {
+      label: "Kaleido CUDA Kernel",
+      code: `// Kaleido Engine \u2014 fused warp all-reduce + FP16 gradient scaling
+// CUDA 12.2  sm_80 (A100 SXM4 80GB)  \u2014 Taha Majlesi / Hoosha AI
+#include <cuda_runtime.h>
+#include <cuda_fp16.h>
+#define WARP 32
+
+__device__ __forceinline__ float warp_sum(float v) {
+    #pragma unroll
+    for (int d = WARP/2; d > 0; d >>= 1)
+        v += __shfl_xor_sync(0xFFFFFFFF, v, d);
+    return v;
 }
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(/* @__PURE__ */ React.createElement(App, null));
+
+__global__ void fused_allreduce_scale_fp16(
+    __half* __restrict__ g,   // FP16 gradient buffer
+    float*  __restrict__ acc, // FP32 accumulator
+    const int n, const float scale
+) {
+    const int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    if (idx >= n) return;
+
+    // 1. FP16 \u2192 FP32, warp reduce
+    float v = warp_sum(__half2float(g[idx])) * scale;
+
+    // 2. Atomically accumulate in FP32
+    if ((threadIdx.x & (WARP-1)) == 0)
+        atomicAdd(acc + idx, v);
+    __syncthreads();
+
+    // 3. Write FP32 result back as FP16
+    if (idx < n) g[idx] = __float2half(acc[idx]);
+}
+// fused_allreduce_scale_fp16<<<(n+255)/256, 256>>>(g, acc, n, 1.0f/4)`,
+      output: `[KALEIDO] Device 0: A100-SXM4-80GB  sm_80  CUDA 12.2  Driver 535.86
+[KERNEL]  fused_allreduce_scale_fp16  n=134,217,728  scale=0.250
+[PERF]    Elapsed: 1.24 ms   Bandwidth: 1.82 TB/s   SM Util: 96.2%
+[NCCL]    Ring all-reduce  4\xD7GPU  512 MB  3.71 ms  (vs 5.9ms unfused)
+[MEM]     VRAM: 68.4 / 80.0 GB   Fragmentation: 2.1%   Alloc-peak: 71.3 GB
+[SUCCESS] Gradient sync complete \u2014 pipeline parallel step 142 \u2713`
+    },
+    svd: {
+      label: "SVD Linear Attention",
+      code: `# SVD Linear Attention \u2014 O(N\xB7r) vs O(N\xB2) softmax
+# 94% quality, 6\xD7 less memory on 4k-token sequences \u2014 Taha Majlesi
+import torch, torch.nn as nn, torch.nn.functional as F
+
+class SVDLinearAttention(nn.Module):
+    def __init__(self, d=512, heads=8, rank=64):
+        super().__init__()
+        self.h, self.r, self.dh = heads, rank, d // heads
+        self.Wq = nn.Linear(d, d, bias=False)
+        self.Wk = nn.Linear(d, d, bias=False)
+        self.Wv = nn.Linear(d, d, bias=False)
+        self.Wo = nn.Linear(d, d, bias=False)
+        # Low-rank SVD projection: A \u2248 U \xB7 diag(S) \xB7 V\u1D40
+        self.U  = nn.Parameter(torch.randn(heads, self.dh, rank) * 0.02)
+        self.S  = nn.Parameter(torch.ones(heads, rank))
+        self.Vt = nn.Parameter(torch.randn(heads, rank, self.dh) * 0.02)
+
+    def forward(self, x):
+        B, N, D = x.shape
+        def reshape(t): return t.view(B,N,self.h,self.dh).transpose(1,2)
+        Q, K, V = reshape(self.Wq(x)), reshape(self.Wk(x)), reshape(self.Wv(x))
+        # Feature map: \u03C6(x) = ELU(x @ U) \xB7 S   (low-rank projection)
+        S_ = self.S.unsqueeze(0).unsqueeze(2)          # (1,h,1,r)
+        phi_Q = F.elu(Q @ self.U) * S_
+        phi_K = F.elu(K @ self.U) * S_
+        # Linear attention: O(N\xB7r) \u2014 no N\xB2 matrix materialized
+        KV  = phi_K.transpose(-2,-1) @ V               # (B,h,r,dh)
+        out = phi_Q @ KV / (phi_Q.sum(-1, keepdim=True) + 1e-6)
+        return self.Wo(out.transpose(1,2).reshape(B, N, D))`,
+      output: `[BENCH]  N=4096  d=512  heads=8  rank=64  batch=16  device=cuda:0
+[MEM]    SVD-Attn: 1.23 GB     Full-Attn: 7.81 GB     Savings: 6.35\xD7
+[SPEED]  SVD-Attn: 8.4 ms      Full-Attn: 51.2 ms     Speedup: 6.10\xD7
+[QUAL]   BLEU-4: 28.4 (SVD) vs 30.2 (Full)  Retention: 94.0%
+[PARAMS] Rank-64 adds 0.8M params vs 0 for full-attention (negligible)
+[SUCCESS] SVD Linear Attention benchmark complete \u2713`
+    }
+  };
+
+  // src/components/sections/CodeSandboxSection.jsx
+  function CodeSandboxSection({ activeTab, setActiveTab, runOutput, setRunOutput, beep }) {
+    const tabs = Object.keys(CODE_TABS);
+    const data = CODE_TABS[activeTab];
+    const handleRun = () => {
+      setRunOutput("");
+      beep?.(600, "square");
+      let idx = 0;
+      const lines = data.output.split("\n");
+      const timer = setInterval(() => {
+        setRunOutput((p) => p + (p ? "\n" : "") + lines[idx]);
+        idx++;
+        if (idx >= lines.length) {
+          clearInterval(timer);
+          beep?.(880, "sine", 0.05);
+        }
+      }, 150);
+    };
+    return /* @__PURE__ */ React.createElement("section", { id: "sandbox", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Interactive Lab",
+        title: "Interactive <b>AI Research Sandbox</b> \u{1F9EA}",
+        sub: "Explore and execute core implementations of Flow Matching ODEs, GRPO alignment, and CUDA kernels directly in the browser. Learn how these frontier architectures are built from first principles."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "terminal" }, /* @__PURE__ */ React.createElement("div", { className: "t-bar" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("div", { className: "t-tabs" }, tabs.map((k) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: k,
+        className: `t-tab ${activeTab === k ? "active" : ""}`,
+        onClick: () => {
+          setActiveTab(k);
+          setRunOutput("");
+          beep?.();
+        }
+      },
+      CODE_TABS[k].label
+    ))), /* @__PURE__ */ React.createElement("div", { className: "t-label" }, "~/hoosha-ai/research/", activeTab, ".", activeTab === "cuda" ? "cu" : "py")), /* @__PURE__ */ React.createElement("div", { className: "t-body" }, /* @__PURE__ */ React.createElement("div", { className: "t-code" }, data.code), /* @__PURE__ */ React.createElement("button", { className: "t-run-btn", onClick: handleRun }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-play" }), " Execute Simulation"), runOutput && /* @__PURE__ */ React.createElement("div", { className: "t-output" }, runOutput), /* @__PURE__ */ React.createElement("div", { className: "sandbox-tutorial" }, /* @__PURE__ */ React.createElement("h4", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-graduation-cap" }), " Deep Dive Learning"), activeTab === "flow" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Conditional Flow Matching (CFM)"), " provides a simulation-free approach to training Continuous Normalizing Flows. Unlike Diffusion models that rely on SDEs with complex noise schedules, CFM directly regresses a vector field ", /* @__PURE__ */ React.createElement("i", null, "v_\u03B8(t, x)"), " pointing from a noise distribution ", /* @__PURE__ */ React.createElement("i", null, "x\u2080 ~ N(0, I)"), " to the data distribution ", /* @__PURE__ */ React.createElement("i", null, "x\u2081 ~ q(x\u2081)"), ". This allows for straight paths, requiring far fewer integration steps (e.g., 20) during inference using simple ODE solvers like Euler."), activeTab === "grpo" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Group Relative Policy Optimization (GRPO)"), " eliminates the need for an external Critic network used in PPO. Instead of estimating value functions, GRPO samples a ", /* @__PURE__ */ React.createElement("i", null, "group"), " of ", /* @__PURE__ */ React.createElement("i", null, "G"), " responses for a prompt, scores them via a Reward Model, and normalizes the rewards within that specific group to compute advantages. This massively reduces VRAM overhead, enabling RLHF/alignment training of large models like Qwen-4B on constrained clusters."), activeTab === "cuda" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Fused CUDA Kernels"), " are critical for distributed LLM training. The ", /* @__PURE__ */ React.createElement("code", null, "fused_allreduce_scale_fp16"), " kernel above bypasses expensive global memory round-trips by performing gradient scaling (dividing by world size) and warp-level reductions directly in registers and shared memory before atomic accumulation. This achieves near-theoretical peak bandwidth on A100 SXM4 architecture."), activeTab === "svd" && /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("b", null, "Linear Attention"), " solves the ", /* @__PURE__ */ React.createElement("i", null, "O(N\xB2)"), " sequence length bottleneck of standard Transformer attention. By applying the kernel trick ", /* @__PURE__ */ React.createElement("i", null, "exp(q \xB7 k) \u2248 \u03C6(q)^T \u03C6(k)"), " (where ", /* @__PURE__ */ React.createElement("i", null, "\u03C6"), " represents a low-rank SVD projection), we can change the computation order from ", /* @__PURE__ */ React.createElement("i", null, "(Q K^T) V"), " to ", /* @__PURE__ */ React.createElement("i", null, "Q (K^T V)"), ". This reduces computational complexity and memory usage to ", /* @__PURE__ */ React.createElement("i", null, "O(N \xB7 r)"), ", making infinite-context LLMs possible.")))));
+  }
+
+  // src/components/sections/ProjectsSection.jsx
+  var import_react4 = __require("react");
+  function ProjectsSection({ repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "projects", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Engineering Hub",
+        title: "Open-Source Infrastructure & AI Models",
+        sub: "A curated selection of 143 total repositories and 162 HuggingFace assets (1000+ downloads), spanning CUDA systems, Flow Matching, and Persian LLMs."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "search-wrap", style: { marginTop: "2.5rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search search-icon" }), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "text",
+        placeholder: "Search repositories (e.g., 'Kaleido', 'CUDA', 'Flow Matching')...",
+        value: search,
+        onChange: (e) => setSearch(e.target.value)
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "filter-tabs" }, /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${filter === "all" ? "active" : ""}`, onClick: () => {
+      setFilter("all");
+      beep?.(600);
+    } }, "All Projects (", counts.all, ")"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${filter === "course" ? "active" : ""}`, onClick: () => {
+      setFilter("course");
+      beep?.(600);
+    } }, "University AI Labs (", counts.course, ")"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${filter === "ai" ? "active" : ""}`, onClick: () => {
+      setFilter("ai");
+      beep?.(600);
+    } }, "ML & Generative AI (", counts.ai, ")"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${filter === "systems" ? "active" : ""}`, onClick: () => {
+      setFilter("systems");
+      beep?.(600);
+    } }, "Systems & CUDA (", counts.systems, ")")), /* @__PURE__ */ React.createElement("div", { className: "bento" }, repos.map((r, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: r.url, target: "_blank", className: `bento-card ${r.star ? "bento-wide" : ""}` }, r.star && /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", top: ".8rem", right: ".8rem", color: "var(--emerald)" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-star" }), " Featured"), /* @__PURE__ */ React.createElement("div", { className: "bento-tag" }, /* @__PURE__ */ React.createElement("i", { className: r.cat === "ai" ? "fas fa-brain" : r.cat === "systems" ? "fas fa-microchip" : "fas fa-book" }), r.tag), /* @__PURE__ */ React.createElement("h3", { className: "bento-title" }, r.name), /* @__PURE__ */ React.createElement("p", { className: "bento-desc" }, r.desc), /* @__PURE__ */ React.createElement("div", { className: "bento-footer" }, /* @__PURE__ */ React.createElement("span", { className: "bento-pill", style: { color: "#00f0ff", borderColor: "#00f0ff" } }, r.lang), r.lib?.split(",").map((l) => /* @__PURE__ */ React.createElement("span", { key: l, className: "bento-pill" }, l.trim()))))), repos.length === 0 && /* @__PURE__ */ React.createElement("div", { style: { gridColumn: "1/-1", textAlign: "center", padding: "3rem", color: "var(--muted)" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search", style: { fontSize: "2rem", marginBottom: "1rem", opacity: 0.5 } }), /* @__PURE__ */ React.createElement("br", null), 'No repositories found matching "', search, '"')), /* @__PURE__ */ React.createElement("h3", { style: { marginTop: "5rem", marginBottom: "1.5rem", color: "#fff", fontSize: "1.5rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot", style: { color: "var(--accent)" } }), " Hugging Face Assets (162 total)"), /* @__PURE__ */ React.createElement("div", { className: "filter-tabs" }, /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "all" ? "active" : ""}`, onClick: () => {
+      setHfFilter("all");
+      beep?.();
+    } }, "All Assets"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "Model" ? "active" : ""}`, onClick: () => {
+      setHfFilter("Model");
+      beep?.();
+    } }, "Models (92)"), /* @__PURE__ */ React.createElement("button", { className: `filter-btn ${hfFilter === "Dataset" ? "active" : ""}`, onClick: () => {
+      setHfFilter("Dataset");
+      beep?.();
+    } }, "Datasets (70)")), /* @__PURE__ */ React.createElement("div", { className: "hf-grid" }, hfAssets.map((h, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: h.url, target: "_blank", className: "hf-card" }, /* @__PURE__ */ React.createElement("div", { className: "hf-type", style: {
+      color: h.type === "Model" ? "#60a5fa" : "#a78bfa",
+      background: h.type === "Model" ? "rgba(96,165,250,0.08)" : "rgba(167,139,250,0.08)",
+      borderColor: h.type === "Model" ? "rgba(96,165,250,0.15)" : "rgba(167,139,250,0.15)"
+    } }, /* @__PURE__ */ React.createElement("i", { className: h.type === "Model" ? "fas fa-cube" : "fas fa-database" }), h.type), /* @__PURE__ */ React.createElement("div", { className: "hf-id" }, h.id), /* @__PURE__ */ React.createElement("div", { className: "hf-meta" }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-download" }), " ", h.dls), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " ", h.likes), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("i", { className: "fas fa-clock" }), " ", h.upd)), h.code && /* @__PURE__ */ React.createElement("div", { className: "hf-code" }, h.code)))));
+  }
+
+  // src/data/publications.js
+  var PUBLICATIONS = [
+    {
+      year: "2026",
+      badge: "Technical Report",
+      title: "Scaling Transformers: How Linear Attention Is Reshaping Cross-Task AI",
+      authors: "Mohammad Taha Majlesi \xB7 Hoosha AI Research Team",
+      venue: "Hoosha AI Technical Report Series \u2014 July 2026",
+      abstract: "Sub-quadratic linear attention (SVD-Attention) achieves 94% quality vs full O(N\xB2) softmax attention at 6\xD7 less memory on 4k-token sequences. Full CUDA kernel profiling on A100 SXM4 included.",
+      link: "https://hooshaai.substack.com/p/scaling-transformers-how-linear-attention",
+      code: "https://github.com/tahamajs/SVD_linear_Attention",
+      bib: `@techreport{majlesi2026linear,
+  title       = {Scaling Transformers: How Linear Attention Is Reshaping Cross-Task AI},
+  author      = {Majlesi, Mohammad Taha},
+  year        = {2026},
+  institution = {Hoosha AI Research}
+}`
+    },
+    {
+      year: "2026",
+      badge: "Research Paper",
+      title: "Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI",
+      authors: "Mohammad Taha Majlesi \xB7 Hoosha AI Lab",
+      venue: "Hoosha AI Research \u2014 June 2026",
+      abstract: "Formal mathematical framework using grounded causal verification to constrain self-improving LLMs, preventing recursive hallucination loops and epistemic degradation without capability loss.",
+      link: "https://hooshaai.substack.com/p/implementing-grounded-causal-verification",
+      code: "https://github.com/Hooshaai/consciousness_in_LLMs",
+      bib: `@article{majlesi2026causal,
+  title   = {Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse},
+  author  = {Majlesi, Mohammad Taha},
+  year    = {2026},
+  journal = {Hoosha AI Research}
+}`
+    },
+    {
+      year: "2026",
+      badge: "Technical Report",
+      title: "GRPO Unlocked: Building a Math-Reasoning LLM from First Principles",
+      authors: "Mohammad Taha Majlesi \xB7 Hoosha AI Lab",
+      venue: "Hoosha AI Technical Report \u2014 May 2026",
+      abstract: "Full GRPO implementation for GSM8K math reasoning: custom reward model, clipped surrogate objective, KL schedule \u2014 achieving 80.7% pass@1 on a 4B LLM (+18% relative over SFT on 8\xD7A100).",
+      link: "https://hooshaai.substack.com/p/grpo-unlocked-building-a-math-reasoning",
+      code: "https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT",
+      bib: `@techreport{majlesi2026grpo,
+  title       = {GRPO Unlocked: Building a Math-Reasoning LLM from First Principles},
+  author      = {Majlesi, Mohammad Taha},
+  year        = {2026},
+  institution = {Hoosha AI Research}
+}`
+    },
+    {
+      year: "2025",
+      badge: "Course Research Project",
+      title: "Vision Language Models and Flow Matching for Open-Vocabulary Generation",
+      authors: "Mohammad Taha Majlesi",
+      venue: "Deep Generative Models Course \u2014 University of Tehran, HW4, 2025",
+      abstract: "PaliGemma QLoRA fine-tuning + conditional Flow Matching synthesis. 3\xD7 FID improvement vs DDPM (4.21 vs 9.87) on MSCOCO using 20 ODE steps.",
+      link: "https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4",
+      code: "https://github.com/tahamajs/Vision_Language_Models_and_Flow_Matching_DeepGenModels_HW4",
+      bib: `@misc{majlesi2025vlm,
+  title  = {Vision Language Models and Flow Matching for Open-Vocabulary Generation},
+  author = {Majlesi, Mohammad Taha},
+  year   = {2025},
+  note   = {Deep Generative Models Course, University of Tehran}
+}`
+    },
+    {
+      year: "2025",
+      badge: "Research Paper",
+      title: "Shortcut Learning Through the Lens of Task Arithmetic",
+      authors: "Mohammad Taha Majlesi \xB7 Hoosha AI Research",
+      venue: "Hoosha AI Research \u2014 2025",
+      abstract: "Task Arithmetic (weight-space interpolation) surgically removes shortcut features from fine-tuned transformers without full retraining \u2014 reducing spurious correlations by 71% on NLI benchmarks.",
+      link: "https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic",
+      code: "https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic",
+      bib: `@article{majlesi2025shortcut,
+  title   = {Shortcut Learning Through the Lens of Task Arithmetic},
+  author  = {Majlesi, Mohammad Taha},
+  year    = {2025},
+  journal = {Hoosha AI Research}
+}`
+    }
+  ];
+
+  // src/components/sections/PublicationsSection.jsx
+  function PublicationsSection({ onCopyBib, beep }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "publications", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Research Output",
+        title: "Papers & Technical Reports",
+        sub: "Deep-dives on generative models, mathematical alignment, and GPU engineering published on Hoosha AI."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "pub-list" }, PUBLICATIONS.map((p, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "pub-card" }, /* @__PURE__ */ React.createElement("div", { className: "pub-badge" }, p.badge, " \xB7 ", p.year), /* @__PURE__ */ React.createElement("h3", { className: "pub-title" }, /* @__PURE__ */ React.createElement("a", { href: p.link, target: "_blank" }, p.title)), /* @__PURE__ */ React.createElement("div", { className: "pub-meta" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-users" }), " ", p.authors, " \xA0\xA0|\xA0\xA0 ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-university" }), " ", p.venue), /* @__PURE__ */ React.createElement("p", { className: "pub-abstract" }, p.abstract), /* @__PURE__ */ React.createElement("div", { className: "pub-links" }, /* @__PURE__ */ React.createElement("a", { href: p.link, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-file-pdf" }), " Read Paper"), p.code && /* @__PURE__ */ React.createElement("a", { href: p.code, target: "_blank", className: "pub-btn", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " View Code"), /* @__PURE__ */ React.createElement("button", { className: "pub-btn", onClick: () => {
+      onCopyBib(p.bib);
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-quote-right" }), " Cite (BibTeX)"))))));
+  }
+
+  // src/components/sections/SubstackSection.jsx
+  function SubstackSection({ articles, subSearch, setSubSearch, beep }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "substack", className: "section fade-up", style: { background: "rgba(0,240,255,0.01)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" } }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Hoosha AI Substack",
+        title: "Technical Deep Dives & Essays",
+        sub: "In-depth explorations of generative models, LLM alignment math, and distributed systems \u2014 read by researchers globally."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "search-wrap", style: { maxWidth: 600, margin: "0 auto 2.5rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search search-icon" }), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "text",
+        placeholder: "Search 20 Substack papers...",
+        value: subSearch,
+        onChange: (e) => setSubSearch(e.target.value)
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "articles-grid" }, articles.map((a, i) => /* @__PURE__ */ React.createElement("a", { key: i, href: a.url, target: "_blank", className: "article-card", onClick: () => beep?.() }, /* @__PURE__ */ React.createElement("div", { className: "article-date" }, a.date), /* @__PURE__ */ React.createElement("h3", null, a.title), /* @__PURE__ */ React.createElement("p", null, a.desc), /* @__PURE__ */ React.createElement("span", { className: "read-more" }, "Read Paper ", /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right" }))))));
+  }
+
+  // src/components/sections/ReadmeSection.jsx
+  function ReadmeSection({ readmeHtml }) {
+    return /* @__PURE__ */ React.createElement("section", { id: "readme", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Documentation",
+        title: "GitHub Profile README",
+        sub: "The source of truth for my current projects, tech stack, and GitHub stats."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "readme-preview" }, /* @__PURE__ */ React.createElement("div", { className: "readme-preview-bar" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-markdown", style: { color: "var(--muted)" } }), /* @__PURE__ */ React.createElement("span", null, "tahamajs / README.md"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank", style: { marginLeft: "auto", color: "var(--accent)", fontSize: ".78rem" } }, "View on GitHub \u2197")), /* @__PURE__ */ React.createElement("div", { className: "readme-content", dangerouslySetInnerHTML: { __html: readmeHtml } })));
+  }
+
+  // src/components/modals/AIChatModal.jsx
+  var import_react6 = __require("react");
+
+  // src/components/ui/Modal.jsx
+  var import_react5 = __require("react");
+  function Modal({ open, onClose, children, wide = false }) {
+    (0, import_react5.useEffect)(() => {
+      if (open) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }, [open]);
+    if (!open) return null;
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        className: `modal-box${wide ? " modal-wide" : ""}`,
+        onClick: (e) => e.stopPropagation()
+      },
+      /* @__PURE__ */ React.createElement("button", { className: "modal-close", "aria-label": "Close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" })),
+      children
+    ));
+  }
+
+  // src/components/modals/AIChatModal.jsx
+  var RESPONSES = {
+    linkedin: "\u{1F4BC} Taha's LinkedIn has <b>17,100+ followers</b> \u2014 one of Iran's largest AI communities. He posts weekly deep-dives on LLM alignment, CUDA engineering, and distributed training.",
+    hoosha: "\u{1F9E0} <b>Hoosha AI</b> is Taha's research startup on cognitive AI: Flow Matching generative models, GRPO post-training, and IIT-based synthetic consciousness. <a href='https://hooshaai.substack.com' target='_blank'>hooshaai.substack.com</a>",
+    flow: "\u{1F3A8} <b>Conditional Flow Matching</b> learns velocity field v\u03B8(t,x) so integrating from x\u2080~N(0,I) lands on data x\u2081 via an ODE. No SDE noise during inference, 20 steps, FID 4.21 vs 9.87 for DDPM.",
+    grpo: "\u{1F4D0} <b>GRPO</b> (Group Relative Policy Optimisation) fine-tunes LLMs for math with group-normalised advantage + clipped surrogate + KL penalty. Taha hit <b>80.7% GSM8K pass@1</b> (+18% vs SFT) on a 4B model with 8\xD7A100.",
+    kaleido: "\u26A1 <b>Kaleido Engine</b> is Taha's first-principles 4D-parallel CUDA/C++ LLM training framework \u2014 fused FP16 all-reduce, ring attention, tensor+pipeline+sequence+data parallelism on A100 SXM4 clusters.",
+    svd: "\u{1F52C} <b>SVD Linear Attention</b>: Taha's rank-r factorisation of full softmax attention \u2014 6\xD7 less memory, 6.1\xD7 faster, 94% quality retained (BLEU-4: 28.4 vs 30.2) on 4k-token sequences.",
+    ta: "\u{1F393} Taha is TA at <b>Sharif University</b> (Compiler Construction) and <b>University of Tehran</b> (M.Sc. ML, AI, Advanced C++, OS Lab) \u2014 mentoring <b>500+ students</b> across 6 simultaneous courses.",
+    sponsor: "\u{1F496} You can <b>sponsor Taha's open-source work</b> on GitHub Sponsors! His projects include Kaleido Engine, Persian LLMs, SVD Attention, and AI research tooling. <a href='https://github.com/sponsors/tahamajs' target='_blank'>github.com/sponsors/tahamajs</a>",
+    contact: "\u{1F4E7} Email: <a href='mailto:tahamajlesi@ut.ac.ir'>tahamajlesi@ut.ac.ir</a> | Telegram: <a href='https://telegram.me/tahamajlesii'>@tahamajlesii</a> | LinkedIn: <a href='https://linkedin.com/in/tahamajlesi'>tahamajlesi</a>"
+  };
+  function classify(q) {
+    const lo = q.toLowerCase();
+    if (lo.includes("sponsor") || lo.includes("fund") || lo.includes("donate")) return "sponsor";
+    if (lo.includes("linkedin") || lo.includes("follower")) return "linkedin";
+    if (lo.includes("hoosha")) return "hoosha";
+    if (lo.includes("flow") || lo.includes("ode")) return "flow";
+    if (lo.includes("grpo") || lo.includes("gsm") || lo.includes("rlhf")) return "grpo";
+    if (lo.includes("kaleido") || lo.includes("cuda") || lo.includes("kernel")) return "kaleido";
+    if (lo.includes("svd") || lo.includes("linear attention")) return "svd";
+    if (lo.includes("ta") || lo.includes("teach") || lo.includes("sharif")) return "ta";
+    if (lo.includes("email") || lo.includes("contact") || lo.includes("hire")) return "contact";
+    return null;
+  }
+  var QUICK = [
+    "What is Hoosha AI?",
+    "Explain Flow Matching",
+    "GRPO on GSM8K",
+    "Sponsor Taha \u{1F496}",
+    "Kaleido CUDA Engine",
+    "How to hire Taha?"
+  ];
+  function AIChatModal({ open, onClose, beep, speak }) {
+    const [msgs, setMsgs] = (0, import_react6.useState)([
+      { who: "bot", text: "\u{1F44B} I'm Taha's AI research assistant. Ask me about <b>Flow Matching</b>, <b>GRPO</b>, <b>Hoosha AI</b>, <b>Kaleido Engine</b>, <b>GitHub Sponsors</b>, or how to <b>hire Taha</b>!" }
+    ]);
+    const [input, setInput] = (0, import_react6.useState)("");
+    const send = (q) => {
+      if (!q?.trim()) return;
+      setMsgs((p) => [...p, { who: "user", text: q.trim() }]);
+      setInput("");
+      const key = classify(q);
+      const r = key ? RESPONSES[key] : "I'm Taha's AI assistant \u{1F916} \u2014 ask about Flow Matching, GRPO, Kaleido Engine, GitHub Sponsors, or his 17.1k LinkedIn community!";
+      setTimeout(() => {
+        setMsgs((p) => [...p, { who: "bot", text: r }]);
+        beep?.(810, "triangle");
+        speak?.(r);
+      }, 340);
+    };
+    return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "ai-header" }, /* @__PURE__ */ React.createElement("div", { className: "ai-avatar" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h3", null, "Taha's AI Research Assistant \u{1F9E0}"), /* @__PURE__ */ React.createElement("p", null, "Ask about research, Hoosha AI, Kaleido, Sponsors, or how to hire Taha"))), /* @__PURE__ */ React.createElement("div", { className: "chat-body" }, msgs.map((m, i) => /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        key: i,
+        className: `chat-msg ${m.who}`,
+        dangerouslySetInnerHTML: { __html: m.text }
+      }
+    ))), /* @__PURE__ */ React.createElement("div", { className: "quick-prompts" }, QUICK.map((q) => /* @__PURE__ */ React.createElement("button", { key: q, className: "qp-btn", onClick: () => send(q) }, q))), /* @__PURE__ */ React.createElement("div", { className: "chat-input-row" }, /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "text",
+        placeholder: "Ask anything about Taha's research\u2026",
+        value: input,
+        onChange: (e) => setInput(e.target.value),
+        onKeyDown: (e) => e.key === "Enter" && send(input)
+      }
+    ), /* @__PURE__ */ React.createElement("button", { className: "btn-send", "aria-label": "Send", onClick: () => send(input) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane" }))));
+  }
+
+  // src/components/modals/HireModal.jsx
+  var TEMPLATES = [
+    { icon: "fa-building", label: "Senior AI / Systems Engineer Role", subj: "Senior%20AI%20Engineering%20Role" },
+    { icon: "fa-graduation-cap", label: "Ph.D. & Academic Research Collaboration", subj: "PhD%20Research%20Collaboration" },
+    { icon: "fa-lightbulb", label: "Open-Source & R&D Partnership", subj: "Open-Source%20Collaboration" },
+    { icon: "fa-heart", label: "Sponsor Taha's Open-Source Work", subj: "GitHub%20Sponsor%20Inquiry", href: "https://github.com/sponsors/tahamajs" }
+  ];
+  function HireModal({ open, onClose }) {
+    return /* @__PURE__ */ React.createElement(Modal, { open, onClose }, /* @__PURE__ */ React.createElement("div", { className: "section-tag" }, "\u{1F4BC} Direct Recruitment"), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", marginBottom: ".5rem" } }, "Recruit / Collaborate with Taha \u{1F680}"), /* @__PURE__ */ React.createElement("p", { style: { color: "var(--muted)", fontSize: ".88rem", marginBottom: "1.5rem" } }, "Taha is open to ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--text)" } }, "Senior AI / ML Engineer"), ",", " ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--text)" } }, "Research Scientist"), ", and", " ", /* @__PURE__ */ React.createElement("b", { style: { color: "var(--text)" } }, "Ph.D."), " opportunities, plus AI advisory, open-source collaboration, and GitHub Sponsorship."), /* @__PURE__ */ React.createElement("div", { className: "hire-tmpl" }, TEMPLATES.map((t, i) => /* @__PURE__ */ React.createElement(
+      "a",
+      {
+        key: i,
+        className: "hire-tmpl-item",
+        href: t.href || `mailto:tahamajlesi@ut.ac.ir?subject=${t.subj}`,
+        target: t.href ? "_blank" : "_self"
+      },
+      /* @__PURE__ */ React.createElement("i", { className: `fas ${t.icon}` }),
+      /* @__PURE__ */ React.createElement("b", null, t.label),
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.4, fontSize: ".75rem" } })
+    ))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: ".75rem", flexWrap: "wrap", marginTop: "1.5rem" } }, /* @__PURE__ */ React.createElement("a", { href: "mailto:tahamajlesi@ut.ac.ir", className: "btn-primary" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope" }), " Email Taha"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "btn-secondary", style: { borderColor: "#ea4aaa", color: "#ea4aaa" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor on GitHub"), /* @__PURE__ */ React.createElement("a", { href: "https://telegram.me/tahamajlesii", target: "_blank", className: "btn-secondary" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-telegram" }), " Telegram"), /* @__PURE__ */ React.createElement("a", { href: "https://linkedin.com/in/tahamajlesi", target: "_blank", className: "btn-secondary" }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-linkedin" }), " LinkedIn")));
+  }
+
+  // src/components/modals/CommandPalette.jsx
+  var import_react7 = __require("react");
+  function CommandPalette({ open, onClose, onCmd }) {
+    const [q, setQ] = (0, import_react7.useState)("");
+    if (!open) return null;
+    const filtered = CMD_ITEMS.filter((i) => i.text.toLowerCase().includes(q.toLowerCase()));
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cmd-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-search" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        autoFocus: true,
+        placeholder: "Search commands, sections, links\u2026",
+        value: q,
+        onChange: (e) => setQ(e.target.value)
+      }
+    ), /* @__PURE__ */ React.createElement("button", { style: { background: "none", border: "1px solid var(--border)", color: "var(--muted)", padding: ".2rem .5rem", borderRadius: 5, fontSize: ".72rem", cursor: "pointer" }, onClick: onClose }, "ESC")), /* @__PURE__ */ React.createElement("div", { className: "cmd-results" }, filtered.map((it, i) => /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        key: i,
+        className: "cmd-item",
+        role: "button",
+        tabIndex: 0,
+        onClick: () => {
+          onCmd(it.id);
+          onClose();
+        },
+        onKeyDown: (e) => (e.key === "Enter" || e.key === " ") && (onCmd(it.id), onClose())
+      },
+      /* @__PURE__ */ React.createElement("i", { className: it.icon }),
+      it.text,
+      /* @__PURE__ */ React.createElement("i", { className: "fas fa-arrow-right", style: { marginLeft: "auto", opacity: 0.25, fontSize: ".7rem" } })
+    ))), /* @__PURE__ */ React.createElement("div", { style: { padding: ".5rem 1.2rem", borderTop: "1px solid var(--border)", display: "flex", gap: "1rem", fontSize: ".7rem", color: "var(--muted)" } }, /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("kbd", { style: { background: "var(--glass2)", border: "1px solid var(--border)", padding: ".1rem .4rem", borderRadius: 4 } }, "\u2191\u2193"), " Navigate"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("kbd", { style: { background: "var(--glass2)", border: "1px solid var(--border)", padding: ".1rem .4rem", borderRadius: 4 } }, "\u21B5"), " Select"), /* @__PURE__ */ React.createElement("span", null, /* @__PURE__ */ React.createElement("kbd", { style: { background: "var(--glass2)", border: "1px solid var(--border)", padding: ".1rem .4rem", borderRadius: 4 } }, "ESC"), " Close"))));
+  }
+
+  // src/components/ui/Toast.jsx
+  function Toast({ msg }) {
+    if (!msg) return null;
+    return /* @__PURE__ */ React.createElement("div", { className: "toast-wrap" }, /* @__PURE__ */ React.createElement("div", { className: "toast" }, msg));
+  }
+
+  // src/App.jsx
+  function App() {
+    const [data, setData] = (0, import_react8.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react8.useState)("");
+    const [filter, setFilter] = (0, import_react8.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react8.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react8.useState)("");
+    const [accent, setAccent] = (0, import_react8.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react8.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react8.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react8.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react8.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react8.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react8.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react8.useState)(false);
+    const [bibtexPub, setBibtexPub] = (0, import_react8.useState)(null);
+    const [toast, showToast] = useToast();
+    const time = useTehranClock();
+    const gpuM = useGpuMetrics();
+    const beep = useBeep(soundOn);
+    useNeuralCanvas();
+    (0, import_react8.useEffect)(() => {
+      fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
+      });
+    }, []);
+    (0, import_react8.useEffect)(() => {
+      const fn = (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+          e.preventDefault();
+          setCmdOpen((p) => !p);
+        }
+        if (e.key === "Escape") {
+          setCmdOpen(false);
+          setAiOpen(false);
+          setHireOpen(false);
+          setBibtexPub(null);
+          setMobileNav(false);
+        }
+      };
+      window.addEventListener("keydown", fn);
+      return () => window.removeEventListener("keydown", fn);
+    }, []);
+    const repos = (0, import_react8.useMemo)(() => (data.repos || []).filter((r) => {
+      const ok = filter === "all" || r.cat === filter;
+      const q = search.trim().toLowerCase();
+      return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
+    }), [data.repos, filter, search]);
+    const articles = (0, import_react8.useMemo)(() => {
+      const q = subSearch.trim().toLowerCase();
+      return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
+    }, [data.articles, subSearch]);
+    const hfAssets = (0, import_react8.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type === hfFilter), [data.hf, hfFilter]);
+    const counts = (0, import_react8.useMemo)(() => {
+      const r = data.repos || [];
+      return {
+        all: r.length,
+        course: r.filter((x) => x.cat === "course").length,
+        ai: r.filter((x) => x.cat === "ai").length,
+        systems: r.filter((x) => x.cat === "systems").length,
+        web: r.filter((x) => x.cat === "web").length
+      };
+    }, [data.repos]);
+    const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
+    const setAccentColor = (c) => {
+      setAccent(c);
+      document.body.setAttribute("data-accent", c);
+      beep(800);
+      showToast(`Theme: ${c} \u2728`);
+    };
+    const copyBib = (bib) => {
+      navigator.clipboard.writeText(bib);
+      beep(700, "square");
+      showToast("\u{1F4C4} BibTeX copied!");
+      setBibtexPub(null);
+    };
+    const handleCmd = (id) => {
+      setCmdOpen(false);
+      const map = {
+        ai: () => setAiOpen(true),
+        hire: () => setHireOpen(true),
+        sponsor: () => window.open("https://github.com/sponsors/tahamajs", "_blank"),
+        linkedin: () => window.open("https://linkedin.com/in/tahamajlesi", "_blank"),
+        hf: () => window.open("https://huggingface.co/tahamajs", "_blank"),
+        substack: () => window.open("https://hooshaai.substack.com", "_blank"),
+        email: () => window.location.href = "mailto:tahamajlesi@ut.ac.ir",
+        resume: () => window.open("assets/resume.pdf", "_blank")
+      };
+      (map[id] || (() => {
+      }))();
+    };
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement("main", null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, beep }), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, beep }), /* @__PURE__ */ React.createElement(SkillsSection, null), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+      setSoundOn(!soundOn);
+      showToast(soundOn ? "Sound Off \u{1F507}" : "Sound On \u{1F50A}");
+      beep(600);
+    }, "aria-label": "Toggle Sound" }, /* @__PURE__ */ React.createElement("i", { className: `fas ${soundOn ? "fa-volume-up" : "fa-volume-mute"}` })), /* @__PURE__ */ React.createElement("div", { className: "ctrl-divider" }), ["cyan", "purple", "emerald", "rose"].map((c) => /* @__PURE__ */ React.createElement("div", { key: c, className: `accent-dot ${accent === c ? "active" : ""}`, style: { background: `var(--${c})` }, onClick: () => setAccentColor(c), title: c })))), /* @__PURE__ */ React.createElement("button", { className: "back-top-btn", onClick: () => {
+      window.scrollTo(0, 0);
+      beep?.();
+    }, "aria-label": "Back to top" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-up" })), /* @__PURE__ */ React.createElement("button", { className: "ai-fab", onClick: () => {
+      setAiOpen(true);
+      beep?.();
+    } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-robot" }), " ", /* @__PURE__ */ React.createElement("span", null, "Ask AI")), /* @__PURE__ */ React.createElement(Toast, { msg: toast }), /* @__PURE__ */ React.createElement(AIChatModal, { open: aiOpen, onClose: () => setAiOpen(false), beep, speak: null }), /* @__PURE__ */ React.createElement(HireModal, { open: hireOpen, onClose: () => setHireOpen(false) }), /* @__PURE__ */ React.createElement(CommandPalette, { open: cmdOpen, onClose: () => setCmdOpen(false), onCmd: handleCmd }), /* @__PURE__ */ React.createElement(Modal, { open: !!bibtexPub, onClose: () => setBibtexPub(null) }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#fff", marginBottom: "1rem" } }, "Cite Document"), /* @__PURE__ */ React.createElement("div", { className: "bib-box" }, bibtexPub), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", style: { marginTop: "1rem", width: "100%", justifyContent: "center" }, onClick: () => copyBib(bibtexPub) }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-copy" }), " Copy to Clipboard")));
+  }
+
+  // src/index.jsx
+  var rootElement = document.getElementById("root");
+  var root = (0, import_client.createRoot)(rootElement);
+  root.render(/* @__PURE__ */ import_react9.default.createElement(App, null));
+})();
