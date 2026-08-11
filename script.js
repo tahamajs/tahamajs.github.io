@@ -49,6 +49,27 @@ document.addEventListener('DOMContentLoaded', () => {
   
   typingEffect();
 
+  // Category Filtering Logic for Repos Ecosystem
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const bentoItems = document.querySelectorAll('.bento-item[data-category]');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      bentoItems.forEach(item => {
+        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+          item.classList.remove('hide');
+        } else {
+          item.classList.add('hide');
+        }
+      });
+    });
+  });
+
   // Scroll Reveal Observer
   const observerOptions = {
     threshold: 0.1,

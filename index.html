@@ -11,7 +11,7 @@
 </head>
 <body>
   
-  <!-- Dynamic Glowing Orbs & Background FX -->
+  <!-- Dynamic Background Orbs -->
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
@@ -27,8 +27,8 @@
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#teaching">Teaching</a>
-        <a href="#projects">Projects</a>
-        <a href="#publications">Research & Writing</a>
+        <a href="#projects">All Repos &amp; Work</a>
+        <a href="#publications">Research</a>
         <a href="#contact" class="nav-btn">Contact</a>
       </div>
     </div>
@@ -38,7 +38,7 @@
     <!-- Hero Section -->
     <section id="about" class="hero">
       <div class="hero-content fade-in-up">
-        <div class="avatar-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.4">
+        <div class="avatar-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400">
           <div class="avatar-glow-ring"></div>
           <img src="https://github.com/tahamajs.png" alt="Taha Majlesi" class="avatar-img">
         </div>
@@ -105,16 +105,15 @@
       </div>
       
       <div class="timeline-container">
-        
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3">
           <div class="card-glass"></div>
           <div class="timeline-meta">2023 — Present</div>
           <h3>Systems &amp; AI Architect</h3>
           <h4>Hoosha AI 🧠</h4>
-          <p>Architecting high-performance ML models, deep dives into post-training RL, continuous cognitive scaling, and sub-quadratic attention mechanisms. Authoring research articles on frontier AI topics.</p>
+          <p>Architecting high-performance ML models, post-training RL, continuous cognitive scaling, and sub-quadratic attention mechanisms. Authoring research articles on frontier AI topics.</p>
         </div>
 
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3">
           <div class="card-glass"></div>
           <div class="timeline-meta">Jun 2025 — Oct 2025</div>
           <h3>Research Assistant</h3>
@@ -122,7 +121,7 @@
           <p>Supervised by Dr. Rohban &amp; Dr. Jafari. Conducted experiments on shortcut learning mitigation, inductive biases in neural networks, and task arithmetic.</p>
         </div>
 
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3">
           <div class="card-glass"></div>
           <div class="timeline-meta">Jul 2025 — Nov 2025</div>
           <h3>Research Assistant</h3>
@@ -130,18 +129,17 @@
           <p>Full-time research focusing on quantitative machine learning research, structural optimization, and representation safety.</p>
         </div>
 
-        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400">
+        <div class="timeline-card fade-in-up" data-tilt data-tilt-max="3">
           <div class="card-glass"></div>
           <div class="timeline-meta">Jul 2023 — Dec 2023</div>
           <h3>Django Software Engineer Intern</h3>
           <h4>Quera</h4>
           <p>Engineered production-grade web systems using Django, DRF, PostgreSQL, Celery, and Docker. Implemented OAuth permissions, ORM queries, caching, and CI/CD pipelines.</p>
         </div>
-
       </div>
     </section>
 
-    <!-- Teaching Assistantships Section -->
+    <!-- Academic Teaching Assistantships -->
     <section id="teaching" class="section">
       <div class="section-header fade-in-up">
         <h2>Academic <span class="gradient-text">Teaching Assistantships</span></h2>
@@ -193,69 +191,129 @@
       </div>
     </section>
 
-    <!-- Bento Projects Section -->
+    <!-- Interactive Filterable Works & Repositories Gallery -->
     <section id="projects" class="section">
       <div class="section-header fade-in-up">
-        <h2>Featured <span class="gradient-text">Open Source Projects</span></h2>
-        <p>Systems engineering, LLMs, kernels, and machine learning software.</p>
+        <h2>Complete <span class="gradient-text">Works &amp; Repository Ecosystem</span></h2>
+        <p>Filter through my open-source repositories, HuggingFace models, and engineering projects.</p>
+      </div>
+
+      <!-- Filter Category Buttons -->
+      <div class="filter-tabs fade-in-up">
+        <button class="filter-btn active" data-filter="all">All (16+ Showcased)</button>
+        <button class="filter-btn" data-filter="ai">AI &amp; LLMs</button>
+        <button class="filter-btn" data-filter="systems">Systems &amp; Kernels</button>
+        <button class="filter-btn" data-filter="hf">Hugging Face Models</button>
+        <button class="filter-btn" data-filter="web">Full-Stack &amp; Games</button>
       </div>
       
       <div class="bento-grid">
         
-        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item bento-wide fade-in-up" data-tilt data-tilt-max="3">
+        <!-- Repo 1 -->
+        <a href="https://github.com/tahamajs/FineTuning-4B-LLM-GSM8k-GRPO-SFT" target="_blank" class="bento-item bento-wide fade-in-up" data-category="ai" data-tilt data-tilt-max="3">
           <div class="bento-inner">
-            <div class="project-tag">LLM Alignment</div>
+            <div class="project-tag"><i class="fas fa-brain"></i> LLM Alignment</div>
             <h3>4B LLM Reasoning with GRPO &amp; SFT</h3>
             <p>Fine-tuning 4B language models on GSM8k using Group Relative Policy Optimization (GRPO) and Supervised Fine-Tuning for complex mathematical reasoning.</p>
             <div class="bento-tags"><span class="tag">GRPO</span><span class="tag">GSM8k</span><span class="tag">PyTorch</span><span class="tag">SFT</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/Kaleido" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
+        <!-- Repo 2 -->
+        <a href="https://github.com/tahamajs/Kaleido" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <div class="project-tag">Distributed Systems</div>
+            <div class="project-tag"><i class="fas fa-server"></i> Distributed Systems</div>
             <h3>Kaleido LLM Engine</h3>
             <p>First-principles distributed training framework supporting tensor, pipeline, and data parallelism across GPU nodes.</p>
             <div class="bento-tags"><span class="tag">CUDA</span><span class="tag">C++</span><span class="tag">Distributed</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/Course-Selection-System_Project" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
+        <!-- Repo 3 -->
+        <a href="https://huggingface.co/tahamajs/paligemma-clevr-cogen-qlora" target="_blank" class="bento-item fade-in-up" data-category="hf" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <div class="project-tag">Full-Stack Backend</div>
-            <h3>Course Selection System</h3>
-            <p>Enterprise university registration system built with Django REST Framework, PostgreSQL, Docker, MinIO object storage, and Nginx.</p>
-            <div class="bento-tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span></div>
+            <div class="project-tag"><i class="fas fa-robot"></i> Hugging Face Model</div>
+            <h3>PaliGemma CLEVR VQA (QLoRA)</h3>
+            <p>Fine-tuned PaliGemma Vision-Language model for CLEVR visual question answering using QLoRA quantisation.</p>
+            <div class="bento-tags"><span class="tag">PaliGemma</span><span class="tag">VQA</span><span class="tag">QLoRA</span><span class="tag">HuggingFace</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item bento-wide fade-in-up" data-tilt data-tilt-max="3">
+        <!-- Repo 4 -->
+        <a href="https://github.com/tahamajs/Deep_Generative_models_course" target="_blank" class="bento-item bento-wide fade-in-up" data-category="ai" data-tilt data-tilt-max="3">
           <div class="bento-inner">
-            <div class="project-tag">Generative AI</div>
+            <div class="project-tag"><i class="fas fa-atom"></i> Generative AI</div>
             <h3>Deep Generative Models Suite</h3>
             <p>Implementations of continuous probability paths, Flow Matching, Score-Based Diffusion (DDPM), and VAE selective amnesia machine unlearning.</p>
             <div class="bento-tags"><span class="tag">Flow Matching</span><span class="tag">DDPM</span><span class="tag">Unlearning</span><span class="tag">VAEs</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
+        <!-- Repo 5 -->
+        <a href="https://github.com/tahamajs/xv6-Modified_OS_Lab_Projects" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <div class="project-tag">Kernel Programming</div>
-            <h3>xv6 Unix Kernel Architecture</h3>
+            <div class="project-tag"><i class="fas fa-terminal"></i> Kernel OS</div>
+            <h3>xv6 Unix Kernel Schedulers</h3>
             <p>Custom process schedulers, virtual memory management, and system calls implemented inside the xv6 Unix kernel in C.</p>
             <div class="bento-tags"><span class="tag">C</span><span class="tag">Unix Kernel</span><span class="tag">OS</span></div>
           </div>
         </a>
 
-        <a href="https://github.com/tahamajs/Turtix_Game" target="_blank" class="bento-item fade-in-up" data-tilt data-tilt-max="5">
+        <!-- Repo 6 -->
+        <a href="https://github.com/tahamajs/Shortcut_Learning_Through_the_Lens_of_Task_Arithmetic" target="_blank" class="bento-item fade-in-up" data-category="ai" data-tilt data-tilt-max="5">
           <div class="bento-inner">
-            <div class="project-tag">Game Engine</div>
-            <h3>Turtix 2D Engine (SFML)</h3>
-            <p>Custom 2D platformer engine built in C++ featuring custom physics, dynamic level editor, particle effects, and OOP architecture.</p>
-            <div class="bento-tags"><span class="tag">C++</span><span class="tag">SFML</span><span class="tag">Game Dev</span></div>
+            <div class="project-tag"><i class="fas fa-flask"></i> Research Code</div>
+            <h3>Shortcut Learning &amp; Task Arithmetic</h3>
+            <p>Investigating inductive biases and shortcut learning mitigation in deep networks using task arithmetic vector spaces.</p>
+            <div class="bento-tags"><span class="tag">Task Arithmetic</span><span class="tag">RIML Lab</span><span class="tag">PyTorch</span></div>
           </div>
         </a>
 
+        <!-- Repo 7 -->
+        <a href="https://github.com/tahamajs/Course-Selection-System_Project" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag"><i class="fas fa-code"></i> Full-Stack</div>
+            <h3>University Course Selection System</h3>
+            <p>Enterprise academic management system built with Django REST, PostgreSQL, Docker Compose, MinIO storage, and Nginx reverse proxy.</p>
+            <div class="bento-tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Docker</span><span class="tag">PostgreSQL</span></div>
+          </div>
+        </a>
+
+        <!-- Repo 8 -->
+        <a href="https://github.com/tahamajs/Turtix_Game" target="_blank" class="bento-item fade-in-up" data-category="web" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag"><i class="fas fa-gamepad"></i> Game Dev</div>
+            <h3>Turtix 2D Platformer Engine</h3>
+            <p>Custom 2D platformer engine built in C++ using SFML featuring particle effects, physics, and custom map editor.</p>
+            <div class="bento-tags"><span class="tag">C++</span><span class="tag">SFML</span><span class="tag">Game Engine</span></div>
+          </div>
+        </a>
+
+        <!-- Repo 9 -->
+        <a href="https://huggingface.co/datasets/tahamajs/consciousness-datasets" target="_blank" class="bento-item fade-in-up" data-category="hf" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag"><i class="fas fa-database"></i> Hugging Face Dataset</div>
+            <h3>Synthetic Consciousness Dataset</h3>
+            <p>Curated dataset supporting Integrated Information Theory (IIT) and Global Workspace Theory cognitive evaluation.</p>
+            <div class="bento-tags"><span class="tag">HuggingFace</span><span class="tag">IIT</span><span class="tag">Dataset</span></div>
+          </div>
+        </a>
+
+        <!-- Repo 10 -->
+        <a href="https://github.com/tahamajs/AirMouse" target="_blank" class="bento-item fade-in-up" data-category="systems" data-tilt data-tilt-max="5">
+          <div class="bento-inner">
+            <div class="project-tag"><i class="fas fa-hand-pointer"></i> Computer Vision</div>
+            <h3>AirMouse Gesture Controller</h3>
+            <p>Real-time computer vision system controlling OS pointer movements using hand gesture detection and OpenCV.</p>
+            <div class="bento-tags"><span class="tag">OpenCV</span><span class="tag">Python</span><span class="tag">Gestures</span></div>
+          </div>
+        </a>
+
+      </div>
+      
+      <div class="center-btn-wrapper fade-in-up">
+        <a href="https://github.com/tahamajs?tab=repositories" target="_blank" class="primary-btn glow-btn">Browse All 140+ Repos on GitHub <i class="fas fa-arrow-right"></i></a>
+        <a href="https://huggingface.co/tahamajs" target="_blank" class="secondary-btn" style="margin-left: 1rem;">Explore 105 HF Models <i class="fas fa-robot"></i></a>
       </div>
     </section>
 
@@ -293,29 +351,6 @@
       </div>
     </section>
 
-    <!-- Certifications Section -->
-    <section class="section">
-      <div class="section-header fade-in-up">
-        <h2>Certifications &amp; <span class="gradient-text">Specializations</span></h2>
-      </div>
-      <div class="cert-grid fade-in-up">
-        <div class="cert-card">
-          <i class="fas fa-certificate cert-icon"></i>
-          <div>
-            <h4>MLOps | Machine Learning Operations Specialization</h4>
-            <span>Duke University Pratt School of Engineering</span>
-          </div>
-        </div>
-        <div class="cert-card">
-          <i class="fas fa-certificate cert-icon"></i>
-          <div>
-            <h4>Data Analyst Career Guide &amp; Interview Prep</h4>
-            <span>IBM</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="section contact-section fade-in-up">
       <div class="contact-glass">
@@ -323,7 +358,7 @@
         <p>Open for research collaborations, graduate studies discussions, and high-impact engineering projects.</p>
         <div class="contact-buttons">
           <a href="mailto:tahamajlesi@ut.ac.ir" class="primary-btn glow-btn">Send Email <i class="fas fa-paper-plane"></i></a>
-          <a href="https://huggingface.co/tahamajs" target="_blank" class="secondary-btn">Explore HuggingFace (105 Models)</a>
+          <a href="https://huggingface.co/tahamajs" target="_blank" class="secondary-btn">HuggingFace (105 Models)</a>
         </div>
       </div>
     </section>
@@ -334,6 +369,6 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-  <script src="script.js?v=5.0"></script>
+  <script src="script.js?v=6.0"></script>
 </body>
 </html>
