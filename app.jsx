@@ -808,7 +808,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                     <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`}></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
                     <h3>{hf.id}</h3>
                     <p>Pre-trained open science release published on Hugging Face Hub.</p>
-                    <div className="hf-code-line"><code>{hf.code.splitlines()[0]}</code></div>
+                    <div className="hf-code-line"><code>{(hf.code || '').split('\n')[0]}</code></div>
                     <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt"></i></a>
                   </div>
                 ))}

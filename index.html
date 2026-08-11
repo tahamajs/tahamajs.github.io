@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=40.0">
+  <link rel="stylesheet" href="style.css?v=41.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- KaTeX for LaTeX Math Formulas -->
@@ -855,7 +855,7 @@ __global__ void launch_all_reduce(float* tensor, int size) {
                     <div className="hf-badge"><i className={`fas ${hf.type === 'model' ? 'fa-robot' : 'fa-database'}`}></i> {hf.type.toUpperCase()} • ❤️ {hf.likes} • 📥 {hf.downloads}</div>
                     <h3>{hf.id}</h3>
                     <p>Pre-trained open science release published on Hugging Face Hub.</p>
-                    <div className="hf-code-line"><code>{hf.code.splitlines()[0]}</code></div>
+                    <div className="hf-code-line"><code>{(hf.code || '').split('\n')[0]}</code></div>
                     <a href={hf.url} target="_blank" className="hf-link">View Asset on Hugging Face <i className="fas fa-external-link-alt"></i></a>
                   </div>
                 ))}
