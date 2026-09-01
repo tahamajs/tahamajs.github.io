@@ -177,8 +177,9 @@ main{position:relative;z-index:10;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(0,240,255,0.04) 0%,transparent 70%);pointer-events:none;}
 
 /* avatar */
-.avatar-wrap{position:relative;margin-bottom:2rem;display:inline-block;}
-.avatar-img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid rgba(0,240,255,0.4);box-shadow:0 0 0 8px rgba(0,240,255,0.05),0 0 40px rgba(0,240,255,0.2);position:relative;z-index:2;}
+.avatar-wrap{position:relative;margin-bottom:2.2rem;display:inline-block;}
+.avatar-img{width:140px;height:140px;border-radius:50%;object-fit:cover;object-position:center;border:3px solid rgba(0,240,255,0.45);box-shadow:0 0 0 8px rgba(0,240,255,0.06),0 0 35px rgba(0,240,255,0.25),0 12px 30px rgba(0,0,0,0.5);position:relative;z-index:2;transition:all .3s ease;image-rendering:-webkit-optimize-contrast;}
+.avatar-wrap:hover .avatar-img{transform:scale(1.04);border-color:var(--cyan);box-shadow:0 0 0 10px rgba(0,240,255,0.12),0 0 45px rgba(0,240,255,0.4),0 16px 36px rgba(0,0,0,0.6);}
 .avatar-ring{position:absolute;inset:-10px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent);border-right-color:var(--purple);animation:spin 4s linear infinite;z-index:1;}
 .avatar-ring2{position:absolute;inset:-20px;border-radius:50%;border:1px solid transparent;border-bottom-color:rgba(0,240,255,0.3);animation:spin 7s linear infinite reverse;z-index:1;}
 @keyframes spin{to{transform:rotate(360deg)}}
