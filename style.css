@@ -191,8 +191,21 @@ main{position:relative;z-index:10;}
 .status-green{color:var(--emerald);font-weight:600;}
 
 h1.hero-title{font-size:clamp(2.2rem,6vw,4.2rem);color:#fff;line-height:1.1;margin-bottom:1.2rem;letter-spacing:-.02em;}
-.hero-subtitle{font-size:clamp(.95rem,2vw,1.1rem);color:var(--muted);max-width:720px;margin:0 auto 2rem;line-height:1.7;}
+
+.hero-focus-rotator{display:inline-flex;align-items:center;gap:.75rem;background:rgba(0,240,255,0.04);border:1px solid var(--border);border-radius:30px;padding:.45rem 1.2rem;margin-bottom:1.5rem;cursor:pointer;transition:all .25s ease;backdrop-filter:blur(8px);}
+.hero-focus-rotator:hover{background:rgba(0,240,255,0.08);border-color:var(--accent);box-shadow:var(--glow-sm);transform:translateY(-1px);}
+.focus-rotator-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace;font-weight:700;}
+.focus-rotator-val{font-size:.85rem;color:var(--accent);font-weight:600;display:flex;align-items:center;gap:.4rem;}
+
+.hero-subtitle{font-size:clamp(.95rem,2vw,1.1rem);color:var(--muted);max-width:720px;margin:0 auto 1.5rem;line-height:1.7;}
 .hero-subtitle b{color:var(--text);}
+
+.hero-cli-bar{display:inline-flex;align-items:center;gap:.8rem;background:rgba(3,7,18,0.85);border:1px solid rgba(0,240,255,0.25);border-radius:12px;padding:.45rem 1rem;margin-bottom:2rem;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 20px rgba(0,0,0,0.4);font-family:'JetBrains Mono',monospace;}
+.hero-cli-bar:hover{border-color:var(--accent);box-shadow:var(--glow-sm);transform:translateY(-2px);}
+.cli-bar-prompt{color:var(--emerald);font-weight:700;font-size:.9rem;}
+.cli-bar-cmd{color:#fff;font-size:.85rem;font-weight:600;}
+.cli-bar-copy{background:rgba(0,240,255,0.1);border:1px solid rgba(0,240,255,0.2);color:var(--accent);font-size:.75rem;padding:.2rem .6rem;border-radius:6px;display:flex;align-items:center;gap:.4rem;cursor:pointer;transition:all .2s;}
+.hero-cli-bar:hover .cli-bar-copy{background:var(--accent);color:#000;}
 
 .tag-cloud{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2.5rem;}
 .tag-pill{background:rgba(0,240,255,0.05);border:1px solid rgba(0,240,255,0.15);color:var(--muted);font-size:.75rem;padding:.3rem .85rem;border-radius:100px;cursor:pointer;transition:all .2s;font-weight:500;}
