@@ -25,7 +25,7 @@ const TWEETS = [
   {
     author: 'Mohammad Taha Majlesi',
     handle: '@tahamajlesi',
-    avatar: 'assets/avatar.jpg',
+    avatar: '1786635321419.png',
     date: 'Jul 28, 2026',
     text: 'Announcing Kaleido Engine v0.4 ⚡ — First-principles 4D-parallel CUDA 12.2 / C++ distributed LLM training framework. Fused warp-level reduction kernels achieving near-peak 1.8 TB/s memory bandwidth on A100 SXM4.',
     stats: { retweets: '310', likes: '1.8k', replies: '72' },

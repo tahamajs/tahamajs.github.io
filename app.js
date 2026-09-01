@@ -482,9 +482,17 @@
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("section", { id: "about", className: "hero" }, /* @__PURE__ */ React.createElement("div", { className: "hero-inner fade-up" }, /* @__PURE__ */ React.createElement("div", { className: "avatar-wrap" }, /* @__PURE__ */ React.createElement("div", { className: "avatar-ring" }), /* @__PURE__ */ React.createElement("div", { className: "avatar-ring2" }), /* @__PURE__ */ React.createElement(
       "img",
       {
-        src: "assets/avatar.jpg",
+        src: "1786635321419.png",
         onError: (e) => {
-          e.target.src = "https://github.com/tahamajs.png";
+          if (!e.target.dataset.triedAssets) {
+            e.target.dataset.triedAssets = "true";
+            e.target.src = "assets/1786635321419.png";
+          } else if (!e.target.dataset.triedAvatar) {
+            e.target.dataset.triedAvatar = "true";
+            e.target.src = "assets/avatar.jpg";
+          } else {
+            e.target.src = "https://github.com/tahamajs.png";
+          }
         },
         alt: "Mohammad Taha Majlesi",
         className: "avatar-img"
@@ -1630,7 +1638,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     {
       author: "Mohammad Taha Majlesi",
       handle: "@tahamajlesi",
-      avatar: "assets/avatar.jpg",
+      avatar: "1786635321419.png",
       date: "Jul 28, 2026",
       text: "Announcing Kaleido Engine v0.4 \u26A1 \u2014 First-principles 4D-parallel CUDA 12.2 / C++ distributed LLM training framework. Fused warp-level reduction kernels achieving near-peak 1.8 TB/s memory bandwidth on A100 SXM4.",
       stats: { retweets: "310", likes: "1.8k", replies: "72" },
