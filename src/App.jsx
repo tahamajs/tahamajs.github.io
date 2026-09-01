@@ -193,11 +193,11 @@ export default function App() {
   return (
     <>
       <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
-      <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
       <GameHUDHeader beep={beep} />
       <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} onTelegramBot={() => setTelegramOpen(true)} onBookCall={() => setBookingOpen(true)} onAuth={() => setAuthOpen(true)} userProfile={userProfile} beep={beep} showToast={showToast} />
       
-      <main style={{ paddingTop: '80px' }}>
+      <main style={{ paddingTop: '95px' }}>
+        <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
         {(pageView === 'all' || pageView === 'home') && (
           <>
             <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
