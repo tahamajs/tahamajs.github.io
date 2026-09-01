@@ -1616,7 +1616,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       category: "Portraits",
       location: "Tehran, Iran",
       tag: "Profile & AI Architect",
-      desc: "Co-Founder & AI Architect at Hoosha AI. Leading research across Flow Matching, GRPO, and CUDA systems.",
+      specs: "Studio Portrait \xB7 AI Systems",
+      desc: "Co-Founder & AI Architect at Hoosha AI. Conducting frontier research in Flow Matching, GRPO alignment, and first-principles distributed GPU systems.",
       aspect: "tall"
     },
     {
@@ -1624,9 +1625,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       src: "assets/photos/photo_7980.jpg",
       title: "GPU Cluster & Systems Lab",
       category: "Research & Lab",
-      location: "AI Research Lab",
+      location: "AI Systems Lab",
       tag: "Hardware & Infrastructure",
-      desc: "Deep work sessions on distributed GPU infrastructure and 4D-parallel CUDA kernels.",
+      specs: "A100 SXM4 Cluster \xB7 4D Parallelism",
+      desc: "Deep work sessions profiling CUDA memory bandwidth, fused all-reduce kernels, and high-throughput training topologies.",
       aspect: "wide"
     },
     {
@@ -1636,7 +1638,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       category: "Academic & Talks",
       location: "University of Tehran & Sharif",
       tag: "Teaching & Mentoring",
-      desc: "Teaching Assistant sessions for Compiler Construction, M.Sc. Machine Learning, and Operating Systems.",
+      specs: "Compiler Lab & M.Sc. ML",
+      desc: "Mentoring over 500+ university students across Compiler Construction, Advanced C++, Machine Learning, and Operating Systems.",
       aspect: "standard"
     },
     {
@@ -1646,7 +1649,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       category: "Research & Lab",
       location: "Hoosha AI Headquarters",
       tag: "Research & Architecture",
-      desc: "Brainstorming continuous normalizing flows and group-relative policy optimization.",
+      specs: "Generative Models \xB7 IIT Theory",
+      desc: "Brainstorming session on continuous normalizing flows, sample efficiency, and synthetic consciousness representations.",
       aspect: "wide"
     },
     {
@@ -1656,7 +1660,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       category: "Portraits",
       location: "Tehran Campus",
       tag: "Engineering Focus",
-      desc: "Moments from research sprints, compiler labs, and open-source software development.",
+      specs: "Campus Field Notes \xB7 Research",
+      desc: "Moments between research sprints, open-source repository releases, and distributed systems benchmarking.",
       aspect: "standard"
     },
     {
@@ -1666,7 +1671,8 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       category: "Academic & Talks",
       location: "Sharif University & UT",
       tag: "Academic Journey",
-      desc: "Collaborating with fellow researchers, students, and engineers across universities and labs.",
+      specs: "Research Collaboration",
+      desc: "Collaborating with fellow researchers, students, and engineers across top universities and AI research labs.",
       aspect: "standard"
     },
     {
@@ -1676,15 +1682,43 @@ phi_val, ei_val = compute_phi(W_cognition)`,
       category: "Research & Lab",
       location: "AI Research Terminal",
       tag: "Deep Work",
-      desc: "Architecting high-throughput LLM engines, synthetic consciousness models, and linear attention mechanisms.",
+      specs: "Kaleido Engine \xB7 SVD Attention",
+      desc: "Architecting high-throughput LLM engines, synthetic evaluation datasets, and rank-r factorized linear attention algorithms.",
       aspect: "wide"
     }
   ];
   var CATEGORIES = ["All", "Portraits", "Research & Lab", "Academic & Talks"];
   function PhotosSection({ beep }) {
     const [activeCat, setActiveCat] = (0, import_react13.useState)("All");
-    const [selectedPhoto, setSelectedPhoto] = (0, import_react13.useState)(null);
+    const [selectedIndex, setSelectedIndex] = (0, import_react13.useState)(null);
     const filtered = activeCat === "All" ? PHOTOS : PHOTOS.filter((p) => p.category === activeCat);
+    const currentPhoto = selectedIndex !== null ? filtered[selectedIndex] : null;
+    const handleNext = (e) => {
+      e?.stopPropagation();
+      if (selectedIndex !== null) {
+        const next = (selectedIndex + 1) % filtered.length;
+        setSelectedIndex(next);
+        beep?.(880, "sine");
+      }
+    };
+    const handlePrev = (e) => {
+      e?.stopPropagation();
+      if (selectedIndex !== null) {
+        const prev = (selectedIndex - 1 + filtered.length) % filtered.length;
+        setSelectedIndex(prev);
+        beep?.(700, "sine");
+      }
+    };
+    (0, import_react13.useEffect)(() => {
+      const handleKeyDown = (e) => {
+        if (selectedIndex === null) return;
+        if (e.key === "ArrowRight") handleNext();
+        if (e.key === "ArrowLeft") handlePrev();
+        if (e.key === "Escape") setSelectedIndex(null);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [selectedIndex, filtered.length]);
     return /* @__PURE__ */ React.createElement("section", { id: "photos", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
       SectionHead,
       {
@@ -1699,18 +1733,19 @@ phi_val, ei_val = compute_phi(W_cognition)`,
         className: `photo-filter-btn ${activeCat === cat ? "active" : ""}`,
         onClick: () => {
           setActiveCat(cat);
+          setSelectedIndex(null);
           beep?.(750);
         }
       },
       cat === "All" ? "\u26A1 " : "",
       cat
-    ))), /* @__PURE__ */ React.createElement("div", { className: "photo-gallery-grid" }, filtered.map((p) => /* @__PURE__ */ React.createElement(
+    ))), /* @__PURE__ */ React.createElement("div", { className: "photo-gallery-grid" }, filtered.map((p, index) => /* @__PURE__ */ React.createElement(
       "div",
       {
         key: p.id,
         className: `photo-card ${p.aspect}`,
         onClick: () => {
-          setSelectedPhoto(p);
+          setSelectedIndex(index);
           beep?.(840);
         }
       },
@@ -1728,21 +1763,21 @@ phi_val, ei_val = compute_phi(W_cognition)`,
             }
           }
         }
-      ), /* @__PURE__ */ React.createElement("div", { className: "photo-overlay" }, /* @__PURE__ */ React.createElement("span", { className: "photo-tag-badge" }, p.tag), /* @__PURE__ */ React.createElement("h3", { className: "photo-card-title" }, p.title), /* @__PURE__ */ React.createElement("div", { className: "photo-location" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-map-marker-alt" }), " ", p.location), /* @__PURE__ */ React.createElement("div", { className: "photo-zoom-hint" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search-plus" }), " View High-Res")))
-    ))), selectedPhoto && /* @__PURE__ */ React.createElement(Modal, { open: !!selectedPhoto, onClose: () => setSelectedPhoto(null) }, /* @__PURE__ */ React.createElement("div", { className: "photo-lightbox-content" }, /* @__PURE__ */ React.createElement("div", { className: "lightbox-img-wrap" }, /* @__PURE__ */ React.createElement(
+      ), /* @__PURE__ */ React.createElement("div", { className: "photo-overlay" }, /* @__PURE__ */ React.createElement("div", { className: "photo-header-row" }, /* @__PURE__ */ React.createElement("span", { className: "photo-tag-badge" }, p.tag), /* @__PURE__ */ React.createElement("span", { className: "photo-specs-badge" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-camera" }), " ", p.specs)), /* @__PURE__ */ React.createElement("h3", { className: "photo-card-title" }, p.title), /* @__PURE__ */ React.createElement("div", { className: "photo-location" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-map-marker-alt" }), " ", p.location), /* @__PURE__ */ React.createElement("div", { className: "photo-zoom-hint" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search-plus" }), " View High-Res (", index + 1, "/", filtered.length, ")")))
+    ))), currentPhoto && /* @__PURE__ */ React.createElement(Modal, { open: !!currentPhoto, onClose: () => setSelectedIndex(null) }, /* @__PURE__ */ React.createElement("div", { className: "photo-lightbox-content" }, /* @__PURE__ */ React.createElement("div", { className: "lightbox-img-wrap" }, /* @__PURE__ */ React.createElement(
       "img",
       {
-        src: selectedPhoto.src,
-        alt: selectedPhoto.title,
+        src: currentPhoto.src,
+        alt: currentPhoto.title,
         className: "lightbox-img",
         onError: (e) => {
-          if (selectedPhoto.fallback && !e.target.dataset.triedFallback) {
+          if (currentPhoto.fallback && !e.target.dataset.triedFallback) {
             e.target.dataset.triedFallback = "true";
-            e.target.src = selectedPhoto.fallback;
+            e.target.src = currentPhoto.fallback;
           }
         }
       }
-    )), /* @__PURE__ */ React.createElement("div", { className: "lightbox-details" }, /* @__PURE__ */ React.createElement("div", { className: "lightbox-meta" }, /* @__PURE__ */ React.createElement("span", { className: "photo-tag-badge" }, selectedPhoto.tag), /* @__PURE__ */ React.createElement("span", { className: "photo-location" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-map-marker-alt" }), " ", selectedPhoto.location)), /* @__PURE__ */ React.createElement("h2", { className: "lightbox-title" }, selectedPhoto.title), /* @__PURE__ */ React.createElement("p", { className: "lightbox-desc" }, selectedPhoto.desc), /* @__PURE__ */ React.createElement("div", { className: "lightbox-actions" }, /* @__PURE__ */ React.createElement("a", { href: selectedPhoto.src, download: true, className: "btn-secondary", style: { fontSize: ".82rem", padding: ".4rem 1rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-download" }), " Download Original"), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: () => setSelectedPhoto(null), style: { fontSize: ".82rem", padding: ".4rem 1.2rem" } }, "Close"))))));
+    ), filtered.length > 1 && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("button", { className: "lightbox-nav-btn prev", onClick: handlePrev, "aria-label": "Previous Photo" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-left" })), /* @__PURE__ */ React.createElement("button", { className: "lightbox-nav-btn next", onClick: handleNext, "aria-label": "Next Photo" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-chevron-right" })))), /* @__PURE__ */ React.createElement("div", { className: "lightbox-details" }, /* @__PURE__ */ React.createElement("div", { className: "lightbox-meta" }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: ".5rem", alignItems: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("span", { className: "photo-tag-badge" }, currentPhoto.tag), /* @__PURE__ */ React.createElement("span", { className: "photo-specs-badge" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-camera" }), " ", currentPhoto.specs)), /* @__PURE__ */ React.createElement("span", { className: "lightbox-counter" }, "Photo ", selectedIndex + 1, " of ", filtered.length)), /* @__PURE__ */ React.createElement("h2", { className: "lightbox-title" }, currentPhoto.title), /* @__PURE__ */ React.createElement("div", { className: "photo-location", style: { marginBottom: ".4rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-map-marker-alt" }), " ", currentPhoto.location), /* @__PURE__ */ React.createElement("p", { className: "lightbox-desc" }, currentPhoto.desc), /* @__PURE__ */ React.createElement("div", { className: "lightbox-actions" }, /* @__PURE__ */ React.createElement("a", { href: currentPhoto.src, download: true, className: "btn-secondary", style: { fontSize: ".82rem", padding: ".4rem 1.1rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-download" }), " Download Original (High-Res)"), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: () => setSelectedIndex(null), style: { fontSize: ".82rem", padding: ".4rem 1.4rem" } }, "Close"))))));
   }
 
   // src/components/sections/ContactSection.jsx
