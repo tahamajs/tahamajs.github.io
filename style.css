@@ -71,7 +71,8 @@ h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1
 /* ── Navigation ── */
 .glass-nav{position:fixed;top:32px;left:0;right:0;z-index:999;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(3,7,18,0.8);border-bottom:1px solid var(--border);transition:all .3s;}
 .nav-container{max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;gap:1rem;height:60px;}
-.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;margin-right:auto;white-space:nowrap;}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.18rem;color:#fff;margin-right:auto;white-space:nowrap;display:flex;align-items:center;gap:.6rem;}
+.logo-badge{font-size:.68rem;font-family:'JetBrains Mono',monospace;color:var(--accent);background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.25);padding:.15rem .55rem;border-radius:6px;font-weight:600;letter-spacing:.04em;}
 .nav-links{display:flex;align-items:center;gap:.25rem;flex-wrap:wrap;}
 .nav-links a{color:var(--muted);font-size:.82rem;padding:.4rem .7rem;border-radius:8px;transition:all .2s;font-weight:500;white-space:nowrap;}
 .nav-links a:hover{color:var(--accent);background:var(--glass2);}

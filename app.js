@@ -302,7 +302,7 @@
       window.addEventListener("scroll", fn, { passive: true });
       return () => window.removeEventListener("scroll", fn);
     }, [setMobileNav]);
-    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, "/"), " Hoosha AI"), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#telemetry", onClick: () => setMobileNav(false) }, "Telemetry"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#constellation", onClick: () => setMobileNav(false) }, "Graph"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Projects"), /* @__PURE__ */ React.createElement("a", { href: "#photos", onClick: () => setMobileNav(false) }, "Photos"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Papers"), /* @__PURE__ */ React.createElement("a", { href: "#social-feed", onClick: () => setMobileNav(false) }, "X Feed"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Substack"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("a", { href: "#contact", onClick: () => setMobileNav(false) }, "Contact"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
+    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha Majlesi ", /* @__PURE__ */ React.createElement("span", { className: "logo-badge" }, "Hoosha AI")), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#telemetry", onClick: () => setMobileNav(false) }, "Telemetry"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#constellation", onClick: () => setMobileNav(false) }, "Graph"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Projects"), /* @__PURE__ */ React.createElement("a", { href: "#photos", onClick: () => setMobileNav(false) }, "Photos"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Papers"), /* @__PURE__ */ React.createElement("a", { href: "#social-feed", onClick: () => setMobileNav(false) }, "X Feed"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Substack"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("a", { href: "#contact", onClick: () => setMobileNav(false) }, "Contact"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
       setMobileNav(false);
       onHire();
     } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#24292e", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " Follow"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#ea4aaa", color: "#fff" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor")), /* @__PURE__ */ React.createElement("button", { className: "cmd-k-btn", onClick: onCmd }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), " ", /* @__PURE__ */ React.createElement("span", { className: "cmd-k-key" }, "\u2318K")), /* @__PURE__ */ React.createElement("button", { className: "mobile-nav-toggle", onClick: () => setMobileNav(!mobileNav) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${mobileNav ? "fa-times" : "fa-bars"}` }))));
@@ -2265,8 +2265,8 @@ Available commands:
 `;
   function TerminalModal({ open, onClose, beep }) {
     const [history, setHistory] = (0, import_react20.useState)([
-      { type: "sys", text: "Hoosha AI Terminal Shell [v2.4.0-release]" },
-      { type: "sys", text: 'Type "help" to list available commands.' }
+      { type: "sys", text: "Taha Majlesi AI Systems Shell [v2.4.0-release]" },
+      { type: "sys", text: 'Type "help" for available commands (projects, papers, hoosha, hire, clear).' }
     ]);
     const [input, setInput] = (0, import_react20.useState)("");
     const bottomRef = (0, import_react20.useRef)(null);
@@ -2289,38 +2289,29 @@ Available commands:
           newHist.push({ type: "res", text: "Mohammad Taha Majlesi \u2014 AI Systems Engineer & Researcher. Co-Founder @ Hoosha AI \u{1F9E0}. CE @ University of Tehran \xB7 TA @ Sharif University. 17.1k LinkedIn Community." });
           break;
         case "hoosha":
-          newHist.push({ type: "res", text: "Hoosha AI \u{1F9E0}: Frontier AI research startup focusing on Flow Matching generation, GRPO post-training, synthetic consciousness (IIT \u03A6), and custom 4D-parallel CUDA engines." });
+          newHist.push({ type: "res", text: "Hoosha AI \u{1F9E0}: Frontier AI research startup co-founded by Taha Majlesi, focusing on Flow Matching generation, GRPO post-training, synthetic consciousness (IIT \u03A6), and custom 4D-parallel CUDA engines." });
           break;
-        case "skills":
-          newHist.push({ type: "res", text: "Stack: PyTorch 2.x, JAX, CUDA 12.2/C++, cuBLAS, NCCL, Triton, DeepSpeed, Flow Matching, GRPO, xv6 OS Kernel, Verilog." });
+        case "projects":
+          newHist.push({ type: "res", text: "Top Projects: Kaleido Engine (CUDA 12), SVD Linear Attention, Persian LLM Benchmarks (162 HF Assets)." });
           break;
         case "papers":
-          newHist.push({ type: "res", text: "20 Research Papers on Substack: Conditional Flow Matching ODEs, GRPO GSM8K Reasoning (80.7% pass@1), Sub-quadratic Linear SVD Attention, Fused CUDA AllReduce Kernels." });
+          newHist.push({ type: "res", text: "Publications: Conditional Flow Matching for Generative AI, GRPO on Constrained Compute (GSM8K 80.7%), SVD Attention (6\xD7 VRAM Reduction)." });
           break;
-        case "repos":
-          newHist.push({ type: "res", text: "Featured Repos: Kaleido-CUDA-Engine, Flow-Matching-PyTorch, GRPO-Reasoning-4B, SVD-Linear-Attention, Persian-Instruct-200k." });
-          break;
-        case "sponsor":
-          window.open("https://github.com/sponsors/tahamajs", "_blank");
-          newHist.push({ type: "res", text: "Opening https://github.com/sponsors/tahamajs in new tab... Thank you for supporting open-source AI!" });
-          break;
-        case "contact":
-          newHist.push({ type: "res", text: "Email: tahamajlesi@ut.ac.ir | Telegram: @tahamajlesii | LinkedIn: linkedin.com/in/tahamajlesi" });
-          break;
-        case "date":
-          newHist.push({ type: "res", text: (/* @__PURE__ */ new Date()).toLocaleString("en-US", { timeZone: "Asia/Tehran" }) + " (Tehran Time)" });
+        case "hire":
+          newHist.push({ type: "res", text: "Email: tahamajlesi@ut.ac.ir | Telegram: @tahamajlesii | Open to high-impact AI Research & Systems Engineering roles." });
           break;
         case "clear":
           setHistory([]);
           setInput("");
           return;
         default:
-          newHist.push({ type: "err", text: `command not found: ${cmd}. Type "help" for a list of available commands.` });
+          newHist.push({ type: "err", text: `zsh: command not found: ${input}. Type "help" for a list of commands.` });
       }
       setHistory(newHist);
       setInput("");
+      beep?.(600, "square");
     };
-    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cli-modal", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cli-header" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r", onClick: onClose }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("span", { className: "cli-title" }, "taha@hoosha-ai:~ (zsh)"), /* @__PURE__ */ React.createElement("button", { className: "cli-close", onClick: onClose }, "ESC")), /* @__PURE__ */ React.createElement("div", { className: "cli-body" }, history.map((h, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: `cli-line cli-${h.type}` }, /* @__PURE__ */ React.createElement("pre", null, h.text))), /* @__PURE__ */ React.createElement("div", { className: "cli-input-line" }, /* @__PURE__ */ React.createElement("span", { className: "cli-prompt" }, "taha@hoosha-ai:~$"), /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cli-modal", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cli-header" }, /* @__PURE__ */ React.createElement("div", { className: "t-dots" }, /* @__PURE__ */ React.createElement("div", { className: "t-dot r", onClick: onClose }), /* @__PURE__ */ React.createElement("div", { className: "t-dot y" }), /* @__PURE__ */ React.createElement("div", { className: "t-dot g" })), /* @__PURE__ */ React.createElement("span", { className: "cli-title" }, "taha@tahamajs:~ (zsh)"), /* @__PURE__ */ React.createElement("button", { className: "cli-close", onClick: onClose }, "ESC")), /* @__PURE__ */ React.createElement("div", { className: "cli-body" }, history.map((h, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: `cli-line cli-${h.type}` }, /* @__PURE__ */ React.createElement("pre", null, h.text))), /* @__PURE__ */ React.createElement("div", { className: "cli-input-line" }, /* @__PURE__ */ React.createElement("span", { className: "cli-prompt" }, "taha@tahamajs:~$"), /* @__PURE__ */ React.createElement(
       "input",
       {
         autoFocus: true,
