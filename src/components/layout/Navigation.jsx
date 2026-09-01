@@ -11,9 +11,9 @@ export default function Navigation({ mobileNav, setMobileNav, onHire, onCmd }) {
   return (
     <nav className="glass-nav">
       <div className="nav-container">
-        <div className="logo">
+        <a href="#about" className="logo" onClick={() => setMobileNav(false)}>
           Taha Majlesi <span className="logo-badge">Hoosha AI</span>
-        </div>
+        </a>
         
         <div className={`nav-links ${mobileNav ? 'open' : ''}`}>
           <a href="#about" onClick={() => setMobileNav(false)}>About</a>
