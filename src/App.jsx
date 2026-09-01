@@ -20,6 +20,7 @@ import PublicationsSection from './components/sections/PublicationsSection.jsx';
 import SubstackSection from './components/sections/SubstackSection.jsx';
 import ReadmeSection from './components/sections/ReadmeSection.jsx';
 import NewsletterSection from './components/sections/NewsletterSection.jsx';
+import PhotosSection from './components/sections/PhotosSection.jsx';
 import ContactSection from './components/sections/ContactSection.jsx';
 import SocialFeedSection from './components/sections/SocialFeedSection.jsx';
 import GpuTelemetrySection from './components/sections/GpuTelemetrySection.jsx';
@@ -221,6 +222,10 @@ export default function App() {
             <ContributionGraph />
             <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
           </>
+        )}
+
+        {(pageView === 'all' || pageView === 'photos') && (
+          <PhotosSection beep={beep} />
         )}
 
         {(pageView === 'all' || pageView === 'papers') && (

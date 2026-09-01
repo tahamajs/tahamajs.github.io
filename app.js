@@ -48,11 +48,11 @@
   });
 
   // src/index.jsx
-  var import_react28 = __toESM(require_react_shim());
+  var import_react29 = __toESM(require_react_shim());
   var import_client = __toESM(require_react_dom_client_shim());
 
   // src/App.jsx
-  var import_react27 = __toESM(require_react_shim());
+  var import_react28 = __toESM(require_react_shim());
 
   // src/hooks/index.js
   var import_react = __toESM(require_react_shim());
@@ -302,7 +302,7 @@
       window.addEventListener("scroll", fn, { passive: true });
       return () => window.removeEventListener("scroll", fn);
     }, [setMobileNav]);
-    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, "/"), " Hoosha AI"), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#telemetry", onClick: () => setMobileNav(false) }, "Telemetry"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#constellation", onClick: () => setMobileNav(false) }, "Graph"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Projects"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Papers"), /* @__PURE__ */ React.createElement("a", { href: "#social-feed", onClick: () => setMobileNav(false) }, "X Feed"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Substack"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("a", { href: "#contact", onClick: () => setMobileNav(false) }, "Contact"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
+    return /* @__PURE__ */ React.createElement("nav", { className: "glass-nav" }, /* @__PURE__ */ React.createElement("div", { className: "nav-container" }, /* @__PURE__ */ React.createElement("div", { className: "logo" }, "Taha ", /* @__PURE__ */ React.createElement("span", { style: { color: "var(--accent)" } }, "/"), " Hoosha AI"), /* @__PURE__ */ React.createElement("div", { className: `nav-links ${mobileNav ? "open" : ""}` }, /* @__PURE__ */ React.createElement("a", { href: "#about", onClick: () => setMobileNav(false) }, "About"), /* @__PURE__ */ React.createElement("a", { href: "#telemetry", onClick: () => setMobileNav(false) }, "Telemetry"), /* @__PURE__ */ React.createElement("a", { href: "#sandbox", onClick: () => setMobileNav(false) }, "AI Lab"), /* @__PURE__ */ React.createElement("a", { href: "#constellation", onClick: () => setMobileNav(false) }, "Graph"), /* @__PURE__ */ React.createElement("a", { href: "#projects", onClick: () => setMobileNav(false) }, "Projects"), /* @__PURE__ */ React.createElement("a", { href: "#photos", onClick: () => setMobileNav(false) }, "Photos"), /* @__PURE__ */ React.createElement("a", { href: "#publications", onClick: () => setMobileNav(false) }, "Papers"), /* @__PURE__ */ React.createElement("a", { href: "#social-feed", onClick: () => setMobileNav(false) }, "X Feed"), /* @__PURE__ */ React.createElement("a", { href: "#substack", onClick: () => setMobileNav(false) }, "Substack"), /* @__PURE__ */ React.createElement("a", { href: "#experience", onClick: () => setMobileNav(false) }, "Timeline"), /* @__PURE__ */ React.createElement("a", { href: "#contact", onClick: () => setMobileNav(false) }, "Contact"), /* @__PURE__ */ React.createElement("button", { className: "nav-hire-btn", onClick: () => {
       setMobileNav(false);
       onHire();
     } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-briefcase" }), " Recruit / Hire Taha"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#24292e", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" } }, /* @__PURE__ */ React.createElement("i", { className: "fab fa-github" }), " Follow"), /* @__PURE__ */ React.createElement("a", { href: "https://github.com/sponsors/tahamajs", target: "_blank", className: "nav-hire-btn", style: { background: "#ea4aaa", color: "#fff" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-heart" }), " Sponsor")), /* @__PURE__ */ React.createElement("button", { className: "cmd-k-btn", onClick: onCmd }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), " ", /* @__PURE__ */ React.createElement("span", { className: "cmd-k-key" }, "\u2318K")), /* @__PURE__ */ React.createElement("button", { className: "mobile-nav-toggle", onClick: () => setMobileNav(!mobileNav) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${mobileNav ? "fa-times" : "fa-bars"}` }))));
@@ -314,6 +314,7 @@
     { id: "home", label: "\u{1F464} Overview & Bio", icon: "fas fa-user-circle" },
     { id: "lab", label: "\u{1F9EA} Interactive AI Lab", icon: "fas fa-flask" },
     { id: "projects", label: "\u{1F680} Projects & HF Models", icon: "fas fa-cubes" },
+    { id: "photos", label: "\u{1F4F8} Moments & Photos", icon: "fas fa-camera-retro" },
     { id: "papers", label: "\u{1F4C4} Papers & Substack", icon: "fas fa-file-alt" },
     { id: "contact", label: "\u{1F4EC} Contact & Recruit", icon: "fas fa-paper-plane" }
   ];
@@ -1580,8 +1581,172 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     ), /* @__PURE__ */ React.createElement("button", { type: "submit", className: "btn-primary", style: { padding: ".75rem 1.6rem", whiteSpace: "nowrap" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-paper-plane" }), " Subscribe Now")) : /* @__PURE__ */ React.createElement("div", { className: "telegram-success-box", style: { margin: "0 auto" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-envelope-open-text", style: { fontSize: "2rem", color: "var(--emerald)", marginBottom: ".4rem" } }), /* @__PURE__ */ React.createElement("h3", null, "Welcome to Hoosha AI Journal!"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: ".85rem", color: "var(--muted)", marginTop: ".3rem" } }, "Subscription confirmed for ", /* @__PURE__ */ React.createElement("b", null, email), ". You will receive weekly deep-dives directly in your inbox.")), /* @__PURE__ */ React.createElement("div", { className: "newsletter-badges", style: { display: "flex", justifyContent: "center", gap: "1.5rem", marginTop: "1.5rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".8rem", color: "var(--muted)", fontFamily: "monospace" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-shield-alt", style: { color: "var(--emerald)" } }), " No spam"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".8rem", color: "var(--muted)", fontFamily: "monospace" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-code", style: { color: "var(--accent)" } }), " Highly technical"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: ".8rem", color: "var(--muted)", fontFamily: "monospace" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-calendar-alt", style: { color: "var(--cyan)" } }), " Once a week"))));
   }
 
-  // src/components/sections/ContactSection.jsx
+  // src/components/sections/PhotosSection.jsx
+  var import_react13 = __toESM(require_react_shim());
+
+  // src/components/ui/Modal.jsx
   var import_react12 = __toESM(require_react_shim());
+  function Modal({ open, onClose, children, wide = false }) {
+    (0, import_react12.useEffect)(() => {
+      if (open) document.body.style.overflow = "hidden";
+      else document.body.style.overflow = "";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }, [open]);
+    if (!open) return null;
+    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        className: `modal-box${wide ? " modal-wide" : ""}`,
+        onClick: (e) => e.stopPropagation()
+      },
+      /* @__PURE__ */ React.createElement("button", { className: "modal-close", "aria-label": "Close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" })),
+      children
+    ));
+  }
+
+  // src/components/sections/PhotosSection.jsx
+  var PHOTOS = [
+    {
+      id: "portrait",
+      src: "assets/photos/photo_portrait.png",
+      fallback: "1786635321419.png",
+      title: "Mohammad Taha Majlesi",
+      category: "Portraits",
+      location: "Tehran, Iran",
+      tag: "Profile & AI Architect",
+      desc: "Co-Founder & AI Architect at Hoosha AI. Leading research across Flow Matching, GRPO, and CUDA systems.",
+      aspect: "tall"
+    },
+    {
+      id: "photo_7980",
+      src: "assets/photos/photo_7980.jpg",
+      title: "GPU Cluster & Systems Lab",
+      category: "Research & Lab",
+      location: "AI Research Lab",
+      tag: "Hardware & Infrastructure",
+      desc: "Deep work sessions on distributed GPU infrastructure and 4D-parallel CUDA kernels.",
+      aspect: "wide"
+    },
+    {
+      id: "photo_8006",
+      src: "assets/photos/photo_8006.jpg",
+      title: "Academic & Mentorship Sessions",
+      category: "Academic & Talks",
+      location: "University of Tehran & Sharif",
+      tag: "Teaching & Mentoring",
+      desc: "Teaching Assistant sessions for Compiler Construction, M.Sc. Machine Learning, and Operating Systems.",
+      aspect: "standard"
+    },
+    {
+      id: "photo_8008",
+      src: "assets/photos/photo_8008.jpg",
+      title: "Technical Discussions & Research Dispatches",
+      category: "Research & Lab",
+      location: "Hoosha AI Headquarters",
+      tag: "Research & Architecture",
+      desc: "Brainstorming continuous normalizing flows and group-relative policy optimization.",
+      aspect: "wide"
+    },
+    {
+      id: "photo_0080",
+      src: "assets/photos/photo_0080.jpg",
+      title: "Engineering & Exploration",
+      category: "Portraits",
+      location: "Tehran Campus",
+      tag: "Engineering Focus",
+      desc: "Moments from research sprints, compiler labs, and open-source software development.",
+      aspect: "standard"
+    },
+    {
+      id: "photo_0088",
+      src: "assets/photos/photo_0088.jpg",
+      title: "Campus & Scientific Journey",
+      category: "Academic & Talks",
+      location: "Sharif University & UT",
+      tag: "Academic Journey",
+      desc: "Collaborating with fellow researchers, students, and engineers across universities and labs.",
+      aspect: "standard"
+    },
+    {
+      id: "photo_0106",
+      src: "assets/photos/photo_0106.jpg",
+      title: "Deep Focus & Innovation",
+      category: "Research & Lab",
+      location: "AI Research Terminal",
+      tag: "Deep Work",
+      desc: "Architecting high-throughput LLM engines, synthetic consciousness models, and linear attention mechanisms.",
+      aspect: "wide"
+    }
+  ];
+  var CATEGORIES = ["All", "Portraits", "Research & Lab", "Academic & Talks"];
+  function PhotosSection({ beep }) {
+    const [activeCat, setActiveCat] = (0, import_react13.useState)("All");
+    const [selectedPhoto, setSelectedPhoto] = (0, import_react13.useState)(null);
+    const filtered = activeCat === "All" ? PHOTOS : PHOTOS.filter((p) => p.category === activeCat);
+    return /* @__PURE__ */ React.createElement("section", { id: "photos", className: "section fade-up" }, /* @__PURE__ */ React.createElement(
+      SectionHead,
+      {
+        tag: "Moments & Visual Journal",
+        title: "Field Notes & Photo Gallery \u{1F4F8}",
+        sub: "A visual glimpse into AI systems engineering, academic lectures, GPU labs, and research journeys."
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "photo-filters" }, CATEGORIES.map((cat) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: cat,
+        className: `photo-filter-btn ${activeCat === cat ? "active" : ""}`,
+        onClick: () => {
+          setActiveCat(cat);
+          beep?.(750);
+        }
+      },
+      cat === "All" ? "\u26A1 " : "",
+      cat
+    ))), /* @__PURE__ */ React.createElement("div", { className: "photo-gallery-grid" }, filtered.map((p) => /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        key: p.id,
+        className: `photo-card ${p.aspect}`,
+        onClick: () => {
+          setSelectedPhoto(p);
+          beep?.(840);
+        }
+      },
+      /* @__PURE__ */ React.createElement("div", { className: "photo-img-wrap" }, /* @__PURE__ */ React.createElement(
+        "img",
+        {
+          src: p.src,
+          alt: p.title,
+          className: "photo-img",
+          loading: "lazy",
+          onError: (e) => {
+            if (p.fallback && !e.target.dataset.triedFallback) {
+              e.target.dataset.triedFallback = "true";
+              e.target.src = p.fallback;
+            }
+          }
+        }
+      ), /* @__PURE__ */ React.createElement("div", { className: "photo-overlay" }, /* @__PURE__ */ React.createElement("span", { className: "photo-tag-badge" }, p.tag), /* @__PURE__ */ React.createElement("h3", { className: "photo-card-title" }, p.title), /* @__PURE__ */ React.createElement("div", { className: "photo-location" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-map-marker-alt" }), " ", p.location), /* @__PURE__ */ React.createElement("div", { className: "photo-zoom-hint" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search-plus" }), " View High-Res")))
+    ))), selectedPhoto && /* @__PURE__ */ React.createElement(Modal, { open: !!selectedPhoto, onClose: () => setSelectedPhoto(null) }, /* @__PURE__ */ React.createElement("div", { className: "photo-lightbox-content" }, /* @__PURE__ */ React.createElement("div", { className: "lightbox-img-wrap" }, /* @__PURE__ */ React.createElement(
+      "img",
+      {
+        src: selectedPhoto.src,
+        alt: selectedPhoto.title,
+        className: "lightbox-img",
+        onError: (e) => {
+          if (selectedPhoto.fallback && !e.target.dataset.triedFallback) {
+            e.target.dataset.triedFallback = "true";
+            e.target.src = selectedPhoto.fallback;
+          }
+        }
+      }
+    )), /* @__PURE__ */ React.createElement("div", { className: "lightbox-details" }, /* @__PURE__ */ React.createElement("div", { className: "lightbox-meta" }, /* @__PURE__ */ React.createElement("span", { className: "photo-tag-badge" }, selectedPhoto.tag), /* @__PURE__ */ React.createElement("span", { className: "photo-location" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-map-marker-alt" }), " ", selectedPhoto.location)), /* @__PURE__ */ React.createElement("h2", { className: "lightbox-title" }, selectedPhoto.title), /* @__PURE__ */ React.createElement("p", { className: "lightbox-desc" }, selectedPhoto.desc), /* @__PURE__ */ React.createElement("div", { className: "lightbox-actions" }, /* @__PURE__ */ React.createElement("a", { href: selectedPhoto.src, download: true, className: "btn-secondary", style: { fontSize: ".82rem", padding: ".4rem 1rem" } }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-download" }), " Download Original"), /* @__PURE__ */ React.createElement("button", { className: "btn-primary", onClick: () => setSelectedPhoto(null), style: { fontSize: ".82rem", padding: ".4rem 1.2rem" } }, "Close"))))));
+  }
+
+  // src/components/sections/ContactSection.jsx
+  var import_react14 = __toESM(require_react_shim());
   var CONTACTS = [
     { icon: "fab fa-github", href: "https://github.com/tahamajs", label: "GitHub", val: "@tahamajs", color: "#fff" },
     { icon: "fab fa-linkedin-in", href: "https://linkedin.com/in/tahamajlesi", label: "LinkedIn", val: "17.1k Followers", color: "#0a66c2" },
@@ -1593,7 +1758,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     { icon: "fas fa-heart", href: "https://github.com/sponsors/tahamajs", label: "Sponsor", val: "Fund the mission", color: "#ea4aaa" }
   ];
   function ContactSection({ onHire, beep }) {
-    const [copied, setCopied] = (0, import_react12.useState)(false);
+    const [copied, setCopied] = (0, import_react14.useState)(false);
     const copyEmail = () => {
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       setCopied(true);
@@ -1670,14 +1835,14 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/sections/GpuTelemetrySection.jsx
-  var import_react13 = __toESM(require_react_shim());
+  var import_react15 = __toESM(require_react_shim());
   function GpuTelemetrySection() {
-    const [history, setHistory] = (0, import_react13.useState)(() => Array(20).fill(70));
-    const [flopsHist, setFlopsHist] = (0, import_react13.useState)(() => Array(20).fill(312));
-    const [vram, setVram] = (0, import_react13.useState)(68.4);
-    const [temp, setTemp] = (0, import_react13.useState)(62);
-    const [drlReward, setDrlReward] = (0, import_react13.useState)(482);
-    (0, import_react13.useEffect)(() => {
+    const [history, setHistory] = (0, import_react15.useState)(() => Array(20).fill(70));
+    const [flopsHist, setFlopsHist] = (0, import_react15.useState)(() => Array(20).fill(312));
+    const [vram, setVram] = (0, import_react15.useState)(68.4);
+    const [temp, setTemp] = (0, import_react15.useState)(62);
+    const [drlReward, setDrlReward] = (0, import_react15.useState)(482);
+    (0, import_react15.useEffect)(() => {
       const id = setInterval(() => {
         const util = Math.floor(65 + Math.random() * 32);
         const fl = Math.floor(300 + Math.random() * 25);
@@ -1832,31 +1997,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/modals/AIChatModal.jsx
-  var import_react15 = __toESM(require_react_shim());
-
-  // src/components/ui/Modal.jsx
-  var import_react14 = __toESM(require_react_shim());
-  function Modal({ open, onClose, children, wide = false }) {
-    (0, import_react14.useEffect)(() => {
-      if (open) document.body.style.overflow = "hidden";
-      else document.body.style.overflow = "";
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }, [open]);
-    if (!open) return null;
-    return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        className: `modal-box${wide ? " modal-wide" : ""}`,
-        onClick: (e) => e.stopPropagation()
-      },
-      /* @__PURE__ */ React.createElement("button", { className: "modal-close", "aria-label": "Close", onClick: onClose }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-times" })),
-      children
-    ));
-  }
-
-  // src/components/modals/AIChatModal.jsx
+  var import_react16 = __toESM(require_react_shim());
   var RESPONSES = {
     linkedin: "\u{1F4BC} Taha's LinkedIn has <b>17,100+ followers</b> \u2014 one of Iran's largest AI communities. He posts weekly deep-dives on LLM alignment, CUDA engineering, and distributed training.",
     hoosha: "\u{1F9E0} <b>Hoosha AI</b> is Taha's research startup on cognitive AI: Flow Matching generative models, GRPO post-training, and IIT-based synthetic consciousness. <a href='https://hooshaai.substack.com' target='_blank'>hooshaai.substack.com</a>",
@@ -1890,10 +2031,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     "How to hire Taha?"
   ];
   function AIChatModal({ open, onClose, beep, speak }) {
-    const [msgs, setMsgs] = (0, import_react15.useState)([
+    const [msgs, setMsgs] = (0, import_react16.useState)([
       { who: "bot", text: "\u{1F44B} I'm Taha's AI research assistant. Ask me about <b>Flow Matching</b>, <b>GRPO</b>, <b>Hoosha AI</b>, <b>Kaleido Engine</b>, <b>GitHub Sponsors</b>, or how to <b>hire Taha</b>!" }
     ]);
-    const [input, setInput] = (0, import_react15.useState)("");
+    const [input, setInput] = (0, import_react16.useState)("");
     const send = (q) => {
       if (!q?.trim()) return;
       setMsgs((p) => [...p, { who: "user", text: q.trim() }]);
@@ -1926,7 +2067,7 @@ phi_val, ei_val = compute_phi(W_cognition)`,
   }
 
   // src/components/modals/HireModal.jsx
-  var import_react16 = __toESM(require_react_shim());
+  var import_react17 = __toESM(require_react_shim());
   var TEMPLATES = [
     { icon: "fa-building", label: "Senior AI / Systems Engineer Role", subj: "Senior AI Engineering Role" },
     { icon: "fa-graduation-cap", label: "Ph.D. & Academic Research Collaboration", subj: "PhD Research Collaboration" },
@@ -1934,10 +2075,10 @@ phi_val, ei_val = compute_phi(W_cognition)`,
     { icon: "fa-heart", label: "Sponsor Open-Source AI Work", subj: "GitHub Sponsor Inquiry", href: "https://github.com/sponsors/tahamajs" }
   ];
   function HireModal({ open, onClose, showToast, beep }) {
-    const [name, setName] = (0, import_react16.useState)("");
-    const [email, setEmail] = (0, import_react16.useState)("");
-    const [msg, setMsg] = (0, import_react16.useState)("");
-    const [copied, setCopied] = (0, import_react16.useState)(false);
+    const [name, setName] = (0, import_react17.useState)("");
+    const [email, setEmail] = (0, import_react17.useState)("");
+    const [msg, setMsg] = (0, import_react17.useState)("");
+    const [copied, setCopied] = (0, import_react17.useState)(false);
     const handleCopyEmail = () => {
       navigator.clipboard.writeText("tahamajlesi@ut.ac.ir");
       setCopied(true);
@@ -2001,9 +2142,9 @@ ${msg}`)}`;
   }
 
   // src/components/modals/CommandPalette.jsx
-  var import_react17 = __toESM(require_react_shim());
+  var import_react18 = __toESM(require_react_shim());
   function CommandPalette({ open, onClose, onCmd }) {
-    const [q, setQ] = (0, import_react17.useState)("");
+    const [q, setQ] = (0, import_react18.useState)("");
     if (!open) return null;
     const filtered = CMD_ITEMS.filter((i) => i.text.toLowerCase().includes(q.toLowerCase()));
     return /* @__PURE__ */ React.createElement("div", { className: "modal-overlay", onClick: onClose }, /* @__PURE__ */ React.createElement("div", { className: "cmd-box", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ React.createElement("div", { className: "cmd-search" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-search" }), /* @__PURE__ */ React.createElement(
@@ -2034,7 +2175,7 @@ ${msg}`)}`;
   }
 
   // src/components/modals/TerminalModal.jsx
-  var import_react18 = __toESM(require_react_shim());
+  var import_react19 = __toESM(require_react_shim());
   var HELP_TEXT = `
 Available commands:
   help        - Show this help menu
@@ -2049,13 +2190,13 @@ Available commands:
   date        - Output current time in Tehran (UTC+3:30)
 `;
   function TerminalModal({ open, onClose, beep }) {
-    const [history, setHistory] = (0, import_react18.useState)([
+    const [history, setHistory] = (0, import_react19.useState)([
       { type: "sys", text: "Hoosha AI Terminal Shell [v2.4.0-release]" },
       { type: "sys", text: 'Type "help" to list available commands.' }
     ]);
-    const [input, setInput] = (0, import_react18.useState)("");
-    const bottomRef = (0, import_react18.useRef)(null);
-    (0, import_react18.useEffect)(() => {
+    const [input, setInput] = (0, import_react19.useState)("");
+    const bottomRef = (0, import_react19.useRef)(null);
+    (0, import_react19.useEffect)(() => {
       if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [history, open]);
     if (!open) return null;
@@ -2119,13 +2260,13 @@ Available commands:
   }
 
   // src/components/modals/ArticleCreatorModal.jsx
-  var import_react19 = __toESM(require_react_shim());
+  var import_react20 = __toESM(require_react_shim());
   function ArticleCreatorModal({ open, onClose, onAddArticle, beep, showToast }) {
-    const [title, setTitle] = (0, import_react19.useState)("");
-    const [desc, setDesc] = (0, import_react19.useState)("");
-    const [url, setUrl] = (0, import_react19.useState)("https://hooshaai.substack.com/p/");
-    const [date, setDate] = (0, import_react19.useState)((/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
-    const [tag, setTag] = (0, import_react19.useState)("Flow Matching");
+    const [title, setTitle] = (0, import_react20.useState)("");
+    const [desc, setDesc] = (0, import_react20.useState)("");
+    const [url, setUrl] = (0, import_react20.useState)("https://hooshaai.substack.com/p/");
+    const [date, setDate] = (0, import_react20.useState)((/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
+    const [tag, setTag] = (0, import_react20.useState)("Flow Matching");
     if (!open) return null;
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -2186,17 +2327,17 @@ Available commands:
   }
 
   // src/components/modals/NNPlaygroundModal.jsx
-  var import_react20 = __toESM(require_react_shim());
+  var import_react21 = __toESM(require_react_shim());
   function NNPlaygroundModal({ open, onClose, beep, showToast }) {
-    const canvasRef = (0, import_react20.useRef)(null);
-    const [layers, setLayers] = (0, import_react20.useState)([2, 4, 4, 1]);
-    const [activation, setActivation] = (0, import_react20.useState)("SiLU");
-    const [lr, setLr] = (0, import_react20.useState)(0.03);
-    const [dataset, setDataset] = (0, import_react20.useState)("circle");
-    const [training, setTraining] = (0, import_react20.useState)(false);
-    const [epoch, setEpoch] = (0, import_react20.useState)(0);
-    const [loss, setLoss] = (0, import_react20.useState)(0.482);
-    (0, import_react20.useEffect)(() => {
+    const canvasRef = (0, import_react21.useRef)(null);
+    const [layers, setLayers] = (0, import_react21.useState)([2, 4, 4, 1]);
+    const [activation, setActivation] = (0, import_react21.useState)("SiLU");
+    const [lr, setLr] = (0, import_react21.useState)(0.03);
+    const [dataset, setDataset] = (0, import_react21.useState)("circle");
+    const [training, setTraining] = (0, import_react21.useState)(false);
+    const [epoch, setEpoch] = (0, import_react21.useState)(0);
+    const [loss, setLoss] = (0, import_react21.useState)(0.482);
+    (0, import_react21.useEffect)(() => {
       if (!open) return;
       const ctx = canvasRef.current?.getContext("2d");
       if (!ctx) return;
@@ -2228,7 +2369,7 @@ Available commands:
         ctx.fill();
       }
     }, [open, dataset, training, epoch]);
-    (0, import_react20.useEffect)(() => {
+    (0, import_react21.useEffect)(() => {
       if (!training) return;
       const id = setInterval(() => {
         setEpoch((e) => e + 1);
@@ -2251,11 +2392,11 @@ Available commands:
   }
 
   // src/components/modals/PaperReaderModal.jsx
-  var import_react21 = __toESM(require_react_shim());
+  var import_react22 = __toESM(require_react_shim());
   function PaperReaderModal({ paper, onClose, onCopyBib, beep }) {
-    const [tab, setTab] = (0, import_react21.useState)("abstract");
-    const mathRef = (0, import_react21.useRef)(null);
-    (0, import_react21.useEffect)(() => {
+    const [tab, setTab] = (0, import_react22.useState)("abstract");
+    const mathRef = (0, import_react22.useRef)(null);
+    (0, import_react22.useEffect)(() => {
       if (paper && window.renderMathInElement && mathRef.current) {
         window.renderMathInElement(mathRef.current, {
           delimiters: [
@@ -2294,15 +2435,15 @@ Available commands:
   }
 
   // src/components/modals/CyberpunkGameModal.jsx
-  var import_react22 = __toESM(require_react_shim());
+  var import_react23 = __toESM(require_react_shim());
   function CyberpunkGameModal({ open, onClose, showToast, beep }) {
-    const canvasRef = (0, import_react22.useRef)(null);
-    const [score, setScore] = (0, import_react22.useState)(0);
-    const [level, setLevel] = (0, import_react22.useState)(1);
-    const [modelSize, setModelSize] = (0, import_react22.useState)("1B Params");
-    const [gameOver, setGameOver] = (0, import_react22.useState)(false);
-    const [gameStarted, setGameStarted] = (0, import_react22.useState)(false);
-    (0, import_react22.useEffect)(() => {
+    const canvasRef = (0, import_react23.useRef)(null);
+    const [score, setScore] = (0, import_react23.useState)(0);
+    const [level, setLevel] = (0, import_react23.useState)(1);
+    const [modelSize, setModelSize] = (0, import_react23.useState)("1B Params");
+    const [gameOver, setGameOver] = (0, import_react23.useState)(false);
+    const [gameStarted, setGameStarted] = (0, import_react23.useState)(false);
+    (0, import_react23.useEffect)(() => {
       if (!open || !gameStarted || gameOver) return;
       const cvs = canvasRef.current;
       if (!cvs) return;
@@ -2423,7 +2564,7 @@ Available commands:
   }
 
   // src/components/modals/AlgorithmGameModal.jsx
-  var import_react23 = __toESM(require_react_shim());
+  var import_react24 = __toESM(require_react_shim());
   var ALGO_LEVELS = [
     {
       id: "flow",
@@ -2499,13 +2640,13 @@ Available commands:
     }
   ];
   function AlgorithmGameModal({ open, onClose, showToast, beep }) {
-    const [levelIdx, setLevelIdx] = (0, import_react23.useState)(0);
-    const [selectedOpt, setSelectedOpt] = (0, import_react23.useState)(null);
-    const [answered, setAnswered] = (0, import_react23.useState)(false);
-    const [score, setScore] = (0, import_react23.useState)(0);
-    const canvasRef = (0, import_react23.useRef)(null);
+    const [levelIdx, setLevelIdx] = (0, import_react24.useState)(0);
+    const [selectedOpt, setSelectedOpt] = (0, import_react24.useState)(null);
+    const [answered, setAnswered] = (0, import_react24.useState)(false);
+    const [score, setScore] = (0, import_react24.useState)(0);
+    const canvasRef = (0, import_react24.useRef)(null);
     const currentLevel = ALGO_LEVELS[levelIdx];
-    (0, import_react23.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       if (!open || !canvasRef.current) return;
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
@@ -2651,11 +2792,11 @@ Available commands:
   }
 
   // src/components/modals/TelegramBotModal.jsx
-  var import_react24 = __toESM(require_react_shim());
+  var import_react25 = __toESM(require_react_shim());
   function TelegramBotModal({ open, onClose, showToast, beep }) {
-    const [telegramHandle, setTelegramHandle] = (0, import_react24.useState)("");
-    const [subscribed, setSubscribed] = (0, import_react24.useState)(false);
-    const [topic, setTopic] = (0, import_react24.useState)("all");
+    const [telegramHandle, setTelegramHandle] = (0, import_react25.useState)("");
+    const [subscribed, setSubscribed] = (0, import_react25.useState)(false);
+    const [topic, setTopic] = (0, import_react25.useState)("all");
     if (!open) return null;
     const handleSubscribe = (e) => {
       e.preventDefault();
@@ -2690,7 +2831,7 @@ Available commands:
   }
 
   // src/components/modals/BookingModal.jsx
-  var import_react25 = __toESM(require_react_shim());
+  var import_react26 = __toESM(require_react_shim());
   var TIMESLOTS = [
     "09:00 AM IRST (UTC+3:30)",
     "11:30 AM IRST (UTC+3:30)",
@@ -2706,13 +2847,13 @@ Available commands:
     "\u{1F4A1} 1-on-1 Technical Mentorship & Guidance"
   ];
   function BookingModal({ open, onClose, showToast, beep }) {
-    const [selectedDate, setSelectedDate] = (0, import_react25.useState)("");
-    const [selectedTime, setSelectedTime] = (0, import_react25.useState)(TIMESLOTS[0]);
-    const [meetingType, setMeetingType] = (0, import_react25.useState)(TYPES[0]);
-    const [name, setName] = (0, import_react25.useState)("");
-    const [email, setEmail] = (0, import_react25.useState)("");
-    const [notes, setNotes] = (0, import_react25.useState)("");
-    const [confirmed, setConfirmed] = (0, import_react25.useState)(false);
+    const [selectedDate, setSelectedDate] = (0, import_react26.useState)("");
+    const [selectedTime, setSelectedTime] = (0, import_react26.useState)(TIMESLOTS[0]);
+    const [meetingType, setMeetingType] = (0, import_react26.useState)(TYPES[0]);
+    const [name, setName] = (0, import_react26.useState)("");
+    const [email, setEmail] = (0, import_react26.useState)("");
+    const [notes, setNotes] = (0, import_react26.useState)("");
+    const [confirmed, setConfirmed] = (0, import_react26.useState)(false);
     if (!open) return null;
     const handleBook = (e) => {
       e.preventDefault();
@@ -2780,11 +2921,11 @@ ${name}`);
   }
 
   // src/components/modals/AuthModal.jsx
-  var import_react26 = __toESM(require_react_shim());
+  var import_react27 = __toESM(require_react_shim());
   function AuthModal({ open, onClose, onLogin, showToast, beep }) {
-    const [email, setEmail] = (0, import_react26.useState)("");
-    const [name, setName] = (0, import_react26.useState)("");
-    const [role, setRole] = (0, import_react26.useState)("Researcher");
+    const [email, setEmail] = (0, import_react27.useState)("");
+    const [name, setName] = (0, import_react27.useState)("");
+    const [role, setRole] = (0, import_react27.useState)("Researcher");
     if (!open) return null;
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -2902,34 +3043,34 @@ ${name}`);
 
   // src/App.jsx
   function App() {
-    const [data, setData] = (0, import_react27.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
-    const [search, setSearch] = (0, import_react27.useState)("");
-    const [filter, setFilter] = (0, import_react27.useState)("all");
-    const [hfFilter, setHfFilter] = (0, import_react27.useState)("all");
-    const [subSearch, setSubSearch] = (0, import_react27.useState)("");
-    const [userProfile, setUserProfile] = (0, import_react27.useState)(null);
-    const [pageView, setPageView] = (0, import_react27.useState)("all");
-    const [weatherMode, setWeatherMode] = (0, import_react27.useState)("rain");
-    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react27.useState)(false);
-    const [accent, setAccent] = (0, import_react27.useState)("cyan");
-    const [mobileNav, setMobileNav] = (0, import_react27.useState)(false);
-    const [codeTab, setCodeTab] = (0, import_react27.useState)("flow");
-    const [codeOut, setCodeOut] = (0, import_react27.useState)("");
-    const [soundOn, setSoundOn] = (0, import_react27.useState)(false);
-    const [aiOpen, setAiOpen] = (0, import_react27.useState)(false);
-    const [cmdOpen, setCmdOpen] = (0, import_react27.useState)(false);
-    const [hireOpen, setHireOpen] = (0, import_react27.useState)(false);
-    const [cliOpen, setCliOpen] = (0, import_react27.useState)(false);
-    const [nnOpen, setNnOpen] = (0, import_react27.useState)(false);
-    const [gameOpen, setGameOpen] = (0, import_react27.useState)(false);
-    const [shortcutsOpen, setShortcutsOpen] = (0, import_react27.useState)(false);
-    const [algoGameOpen, setAlgoGameOpen] = (0, import_react27.useState)(false);
-    const [telegramOpen, setTelegramOpen] = (0, import_react27.useState)(false);
-    const [bookingOpen, setBookingOpen] = (0, import_react27.useState)(false);
-    const [authOpen, setAuthOpen] = (0, import_react27.useState)(false);
-    const [articleModalOpen, setArticleModalOpen] = (0, import_react27.useState)(false);
-    const [selectedPaper, setSelectedPaper] = (0, import_react27.useState)(null);
-    const [bibtexPub, setBibtexPub] = (0, import_react27.useState)(null);
+    const [data, setData] = (0, import_react28.useState)({ repos: [], articles: [], hf: [], readmeHtml: "" });
+    const [search, setSearch] = (0, import_react28.useState)("");
+    const [filter, setFilter] = (0, import_react28.useState)("all");
+    const [hfFilter, setHfFilter] = (0, import_react28.useState)("all");
+    const [subSearch, setSubSearch] = (0, import_react28.useState)("");
+    const [userProfile, setUserProfile] = (0, import_react28.useState)(null);
+    const [pageView, setPageView] = (0, import_react28.useState)("all");
+    const [weatherMode, setWeatherMode] = (0, import_react28.useState)("rain");
+    const [weatherAudioOn, setWeatherAudioOn] = (0, import_react28.useState)(false);
+    const [accent, setAccent] = (0, import_react28.useState)("cyan");
+    const [mobileNav, setMobileNav] = (0, import_react28.useState)(false);
+    const [codeTab, setCodeTab] = (0, import_react28.useState)("flow");
+    const [codeOut, setCodeOut] = (0, import_react28.useState)("");
+    const [soundOn, setSoundOn] = (0, import_react28.useState)(false);
+    const [aiOpen, setAiOpen] = (0, import_react28.useState)(false);
+    const [cmdOpen, setCmdOpen] = (0, import_react28.useState)(false);
+    const [hireOpen, setHireOpen] = (0, import_react28.useState)(false);
+    const [cliOpen, setCliOpen] = (0, import_react28.useState)(false);
+    const [nnOpen, setNnOpen] = (0, import_react28.useState)(false);
+    const [gameOpen, setGameOpen] = (0, import_react28.useState)(false);
+    const [shortcutsOpen, setShortcutsOpen] = (0, import_react28.useState)(false);
+    const [algoGameOpen, setAlgoGameOpen] = (0, import_react28.useState)(false);
+    const [telegramOpen, setTelegramOpen] = (0, import_react28.useState)(false);
+    const [bookingOpen, setBookingOpen] = (0, import_react28.useState)(false);
+    const [authOpen, setAuthOpen] = (0, import_react28.useState)(false);
+    const [articleModalOpen, setArticleModalOpen] = (0, import_react28.useState)(false);
+    const [selectedPaper, setSelectedPaper] = (0, import_react28.useState)(null);
+    const [bibtexPub, setBibtexPub] = (0, import_react28.useState)(null);
     const [toast, showToast] = useToast();
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
@@ -2941,11 +3082,11 @@ ${name}`);
       showToast(active ? `\u{1F327}\uFE0F ${weatherMode.toUpperCase()} Ambient Sound ON` : "\u{1F507} Weather Audio OFF");
       beep(700);
     };
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       fetch("data.json").then((r) => r.json()).then((d) => setData(d)).catch(() => {
       });
     }, []);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       const fn = (e) => {
         if (["input", "textarea", "select"].includes(document.activeElement?.tagName?.toLowerCase())) return;
         if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -2982,16 +3123,16 @@ ${name}`);
       window.addEventListener("keydown", fn);
       return () => window.removeEventListener("keydown", fn);
     }, [weatherMode]);
-    const repos = (0, import_react27.useMemo)(() => (data.repos || []).filter((r) => {
+    const repos = (0, import_react28.useMemo)(() => (data.repos || []).filter((r) => {
       const ok = filter === "all" || r.cat === filter;
       const q = search.trim().toLowerCase();
       return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
     }), [data.repos, filter, search]);
-    const articles = (0, import_react27.useMemo)(() => {
+    const articles = (0, import_react28.useMemo)(() => {
       const q = subSearch.trim().toLowerCase();
       return (data.articles || []).filter((a) => !q || (a.title + a.desc).toLowerCase().includes(q));
     }, [data.articles, subSearch]);
-    const hfAssets = (0, import_react27.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
+    const hfAssets = (0, import_react28.useMemo)(() => (data.hf || []).filter((h) => hfFilter === "all" || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
     const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
     const setAccentColor = (c) => {
       setAccent(c);
@@ -3061,7 +3202,7 @@ ${name}`);
         articles: [newArticle, ...prev.articles || []]
       }));
     };
-    const counts = (0, import_react27.useMemo)(() => ({
+    const counts = (0, import_react28.useMemo)(() => ({
       all: repos.length,
       course: repos.filter((r) => r.category === "course").length,
       ml: repos.filter((r) => r.category === "ml").length,
@@ -3074,7 +3215,7 @@ ${name}`);
       showToast("\u{1F4CB} Email (tahamajlesi@ut.ac.ir) copied to clipboard!");
     };
     return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Navigation, { mobileNav, setMobileNav, onHire: () => setHireOpen(true), onCmd: () => setCmdOpen(true) }), /* @__PURE__ */ React.createElement(PageRouterBar, { pageView, setPageView, beep }), /* @__PURE__ */ React.createElement(GameHUDHeader, { beep }), /* @__PURE__ */ React.createElement(FloatingContactBar, { onHire: () => setHireOpen(true), onCopyEmail: handleCopyEmail, onTelegramBot: () => setTelegramOpen(true), onBookCall: () => setBookingOpen(true), onAuth: () => setAuthOpen(true), userProfile, beep, showToast }), /* @__PURE__ */ React.createElement("main", { style: { paddingTop: "80px" } }, (pageView === "all" || pageView === "home") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(HeroSection, { time, onHire: () => setHireOpen(true), onAI: () => setAiOpen(true), onSponsor: () => {
-    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, onOpenAlgoGame: () => setAlgoGameOpen(true), beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), onSelectPaper: setSelectedPaper, beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
+    }, setSearch, scrollTo, beep }), /* @__PURE__ */ React.createElement(AchievementsSection, null), /* @__PURE__ */ React.createElement(TimelineSection, null), /* @__PURE__ */ React.createElement(TeachingSection, { beep }), /* @__PURE__ */ React.createElement(SkillsSection, null)), (pageView === "all" || pageView === "lab") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(GpuTelemetrySection, null), /* @__PURE__ */ React.createElement(CodeSandboxSection, { activeTab: codeTab, setActiveTab: setCodeTab, runOutput: codeOut, setRunOutput: setCodeOut, onOpenAlgoGame: () => setAlgoGameOpen(true), beep }), /* @__PURE__ */ React.createElement(BenchmarkSection, null)), (pageView === "all" || pageView === "projects") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ConstellationSection, { beep }), /* @__PURE__ */ React.createElement(ContributionGraph, null), /* @__PURE__ */ React.createElement(ProjectsSection, { repos, search, setSearch, filter, setFilter, hfAssets, hfFilter, setHfFilter, counts, articles, subSearch, setSubSearch, beep })), (pageView === "all" || pageView === "photos") && /* @__PURE__ */ React.createElement(PhotosSection, { beep }), (pageView === "all" || pageView === "papers") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(PublicationsSection, { onCopyBib: setBibtexPub, onSelectPaper: setSelectedPaper, beep }), /* @__PURE__ */ React.createElement(TalksSection, { beep }), /* @__PURE__ */ React.createElement(SocialFeedSection, { beep }), /* @__PURE__ */ React.createElement(SubstackSection, { articles, subSearch, setSubSearch, onOpenArticleModal: () => setArticleModalOpen(true), onSelectPaper: setSelectedPaper, beep })), (pageView === "all" || pageView === "contact") && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NewsletterSection, { beep }), /* @__PURE__ */ React.createElement(ContactSection, { onHire: () => setHireOpen(true), beep })), data.readmeHtml && /* @__PURE__ */ React.createElement(ReadmeSection, { readmeHtml: data.readmeHtml })), /* @__PURE__ */ React.createElement(Footer, { gpuM }), /* @__PURE__ */ React.createElement("div", { className: "theme-switcher" }, /* @__PURE__ */ React.createElement("div", { className: "theme-switcher-panel" }, /* @__PURE__ */ React.createElement("button", { className: `ctrl-btn ${soundOn ? "active" : ""}`, onClick: () => {
       setSoundOn(!soundOn);
       showToast(soundOn ? "Sound Off \u{1F507}" : "UI Beeps On \u{1F50A}");
       beep(600);
@@ -3102,5 +3243,5 @@ ${name}`);
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = (0, import_client.createRoot)(rootElement);
-  root.render(/* @__PURE__ */ import_react28.default.createElement(App, null));
+  root.render(/* @__PURE__ */ import_react29.default.createElement(App, null));
 })();

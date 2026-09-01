@@ -5,6 +5,7 @@ const PAGES = [
   { id: 'home',     label: '👤 Overview & Bio',            icon: 'fas fa-user-circle' },
   { id: 'lab',      label: '🧪 Interactive AI Lab',        icon: 'fas fa-flask' },
   { id: 'projects', label: '🚀 Projects & HF Models',      icon: 'fas fa-cubes' },
+  { id: 'photos',   label: '📸 Moments & Photos',          icon: 'fas fa-camera-retro' },
   { id: 'papers',   label: '📄 Papers & Substack',          icon: 'fas fa-file-alt' },
   { id: 'contact',  label: '📬 Contact & Recruit',         icon: 'fas fa-paper-plane' },
 ];

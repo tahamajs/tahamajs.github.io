@@ -19,6 +19,7 @@ export default function Navigation({ mobileNav, setMobileNav, onHire, onCmd }) {
           <a href="#sandbox" onClick={() => setMobileNav(false)}>AI Lab</a>
           <a href="#constellation" onClick={() => setMobileNav(false)}>Graph</a>
           <a href="#projects" onClick={() => setMobileNav(false)}>Projects</a>
+          <a href="#photos" onClick={() => setMobileNav(false)}>Photos</a>
           <a href="#publications" onClick={() => setMobileNav(false)}>Papers</a>
           <a href="#social-feed" onClick={() => setMobileNav(false)}>X Feed</a>
           <a href="#substack" onClick={() => setMobileNav(false)}>Substack</a>
