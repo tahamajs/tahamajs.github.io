@@ -2,11 +2,10 @@ name: Deploy & Validate Portfolio Website
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths-ignore:
       - '**.md'
-      - '.github/workflows/sync-substack.yml'
+      - '.github/workflows/auto-sync-substack.yml'
   workflow_dispatch:
 
 concurrency:
@@ -38,6 +37,16 @@ jobs:
           "
           test -f index.html
           echo "index.html validation passed!"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install & Build
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
