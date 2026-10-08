@@ -26,6 +26,7 @@ export default function NeuralBackground({ mode = 'rain' }) {
           height: '100%',
           pointerEvents: 'none',
           zIndex: 0,
+          opacity: 0.35,
         }}
       />
     </>

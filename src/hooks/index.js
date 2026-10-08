@@ -119,33 +119,33 @@ export function useNeuralCanvas(canvasRef, spotlightRef, mode = 'rain') {
     const ctx = cvs.getContext('2d', { alpha: true });
     let W = cvs.width = window.innerWidth, H = cvs.height = window.innerHeight;
     
-    // Mesh points
-    const N = W > 700 ? 60 : 25;
+    // Mesh points (reduced from 60/25 to 30/12)
+    const N = W > 700 ? 30 : 12;
     const pts = Array.from({ length: N }, () => ({
       x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - .5) * .6, vy: (Math.random() - .5) * .6,
-      r: Math.random() * 1.8 + .5, a: Math.random(),
-      da: (Math.random() * .02 + .004) * (Math.random() < .5 ? 1 : -1),
+      vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4,
+      r: Math.random() * 1.5 + .5, a: Math.random(),
+      da: (Math.random() * .015 + .003) * (Math.random() < .5 ? 1 : -1),
     }));
 
-    // Rain particles
-    const rain = Array.from({ length: W > 700 ? 50 : 20 }, () => ({
+    // Rain particles (reduced from 50/20 to 25/10)
+    const rain = Array.from({ length: W > 700 ? 25 : 10 }, () => ({
       x: Math.random() * W, y: Math.random() * H,
-      len: Math.random() * 25 + 15, spd: Math.random() * 4 + 2,
-      opacity: Math.random() * 0.4 + 0.1
+      len: Math.random() * 20 + 10, spd: Math.random() * 3 + 2,
+      opacity: Math.random() * 0.25 + 0.05
     }));
     const ripples = [];
 
-    // Snow particles
-    const snow = Array.from({ length: W > 700 ? 65 : 30 }, () => ({
+    // Snow particles (reduced from 65/30 to 30/15)
+    const snow = Array.from({ length: W > 700 ? 30 : 15 }, () => ({
       x: Math.random() * W, y: Math.random() * H,
-      r: Math.random() * 3 + 1, spd: Math.random() * 1 + 0.5,
-      sway: Math.random() * 1 - 0.5, opacity: Math.random() * 0.7 + 0.3
+      r: Math.random() * 2.5 + 1, spd: Math.random() * 0.8 + 0.4,
+      sway: Math.random() * 0.8 - 0.4, opacity: Math.random() * 0.5 + 0.2
     }));
 
     // Matrix characters
     const chars = '01λ∫∇∂θπΣΦΨ';
-    const matrixCols = Array.from({ length: Math.floor(W / 20) }, () => Math.random() * H);
+    const matrixCols = Array.from({ length: Math.floor(W / 24) }, () => Math.random() * H);
 
     let raf, last = 0;
     const draw = ts => {
@@ -153,11 +153,11 @@ export function useNeuralCanvas(canvasRef, spotlightRef, mode = 'rain') {
       last = ts;
       ctx.clearRect(0, 0, W, H);
 
-      // 1. Mesh constellation
+      // 1. Mesh constellation (line brightness 0.05, node dots alpha 0.4)
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
           const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d2 = dx*dx + dy*dy;
-          if (d2 < 14000) { ctx.beginPath(); ctx.strokeStyle = `rgba(0,240,255,${.12*(1-Math.sqrt(d2)/118)})`; ctx.lineWidth = .5; ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); }
+          if (d2 < 14000) { ctx.beginPath(); ctx.strokeStyle = `rgba(0,240,255,${.05*(1-Math.sqrt(d2)/118)})`; ctx.lineWidth = .5; ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke(); }
         }
         const p = pts[i];
         p.x += p.vx; p.y += p.vy;
@@ -165,7 +165,7 @@ export function useNeuralCanvas(canvasRef, spotlightRef, mode = 'rain') {
         if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
         p.a += p.da; if (p.a < .15 || p.a > 1) p.da *= -1;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
-        ctx.fillStyle = `rgba(0,240,255,${p.a * .7})`; ctx.fill();
+        ctx.fillStyle = `rgba(0,240,255,${p.a * .4})`; ctx.fill();
       }
 
       // 2. Weather mode specific drawing

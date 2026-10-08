@@ -147,34 +147,34 @@
       if (!cvs) return;
       const ctx = cvs.getContext("2d", { alpha: true });
       let W = cvs.width = window.innerWidth, H = cvs.height = window.innerHeight;
-      const N = W > 700 ? 60 : 25;
+      const N = W > 700 ? 30 : 12;
       const pts = Array.from({ length: N }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        r: Math.random() * 1.8 + 0.5,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.5 + 0.5,
         a: Math.random(),
-        da: (Math.random() * 0.02 + 4e-3) * (Math.random() < 0.5 ? 1 : -1)
+        da: (Math.random() * 0.015 + 3e-3) * (Math.random() < 0.5 ? 1 : -1)
       }));
-      const rain = Array.from({ length: W > 700 ? 50 : 20 }, () => ({
+      const rain = Array.from({ length: W > 700 ? 25 : 10 }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
-        len: Math.random() * 25 + 15,
-        spd: Math.random() * 4 + 2,
-        opacity: Math.random() * 0.4 + 0.1
+        len: Math.random() * 20 + 10,
+        spd: Math.random() * 3 + 2,
+        opacity: Math.random() * 0.25 + 0.05
       }));
       const ripples = [];
-      const snow = Array.from({ length: W > 700 ? 65 : 30 }, () => ({
+      const snow = Array.from({ length: W > 700 ? 30 : 15 }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
-        r: Math.random() * 3 + 1,
-        spd: Math.random() * 1 + 0.5,
-        sway: Math.random() * 1 - 0.5,
-        opacity: Math.random() * 0.7 + 0.3
+        r: Math.random() * 2.5 + 1,
+        spd: Math.random() * 0.8 + 0.4,
+        sway: Math.random() * 0.8 - 0.4,
+        opacity: Math.random() * 0.5 + 0.2
       }));
       const chars = "01\u03BB\u222B\u2207\u2202\u03B8\u03C0\u03A3\u03A6\u03A8";
-      const matrixCols = Array.from({ length: Math.floor(W / 20) }, () => Math.random() * H);
+      const matrixCols = Array.from({ length: Math.floor(W / 24) }, () => Math.random() * H);
       let raf, last = 0;
       const draw = (ts) => {
         if (ts - last < 16) {
@@ -188,7 +188,7 @@
             const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d2 = dx * dx + dy * dy;
             if (d2 < 14e3) {
               ctx.beginPath();
-              ctx.strokeStyle = `rgba(0,240,255,${0.12 * (1 - Math.sqrt(d2) / 118)})`;
+              ctx.strokeStyle = `rgba(0,240,255,${0.05 * (1 - Math.sqrt(d2) / 118)})`;
               ctx.lineWidth = 0.5;
               ctx.moveTo(pts[i].x, pts[i].y);
               ctx.lineTo(pts[j].x, pts[j].y);
@@ -206,7 +206,7 @@
           if (p.a < 0.15 || p.a > 1) p.da *= -1;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, 6.283);
-          ctx.fillStyle = `rgba(0,240,255,${p.a * 0.7})`;
+          ctx.fillStyle = `rgba(0,240,255,${p.a * 0.4})`;
           ctx.fill();
         }
         if (mode === "rain") {
@@ -352,7 +352,8 @@
           width: "100%",
           height: "100%",
           pointerEvents: "none",
-          zIndex: 0
+          zIndex: 0,
+          opacity: 0.35
         }
       }
     ));
@@ -453,8 +454,7 @@
 
   // src/components/layout/ValueStrip.jsx
   function ValueStrip() {
-    const items = [...HIGHLIGHTS, ...HIGHLIGHTS];
-    return /* @__PURE__ */ react_shim_default.createElement("div", { className: "value-strip", "aria-label": "Taha Majlesi highlights" }, /* @__PURE__ */ react_shim_default.createElement("div", { className: "strip-inner" }, items.map((text, idx) => /* @__PURE__ */ react_shim_default.createElement(react_shim_default.Fragment, { key: idx }, /* @__PURE__ */ react_shim_default.createElement("span", null, text), idx < items.length - 1 && /* @__PURE__ */ react_shim_default.createElement("span", { className: "sep" }, "\u25C6")))));
+    return /* @__PURE__ */ react_shim_default.createElement("div", { className: "value-strip", "aria-label": "Taha Majlesi highlights" }, /* @__PURE__ */ react_shim_default.createElement("div", { className: "strip-inner" }, HIGHLIGHTS.map((text, idx) => /* @__PURE__ */ react_shim_default.createElement(react_shim_default.Fragment, { key: idx }, /* @__PURE__ */ react_shim_default.createElement("span", null, text), idx < HIGHLIGHTS.length - 1 && /* @__PURE__ */ react_shim_default.createElement("span", { className: "sep" }, "\u25C6")))));
   }
 
   // src/components/layout/Navigation.jsx
