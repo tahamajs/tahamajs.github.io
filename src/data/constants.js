@@ -78,3 +78,14 @@ export const CMD_ITEMS = [
   { text:'Email Taha directly',                 icon:'fas fa-envelope',        id:'email' },
   { text:'Download Resume PDF',                 icon:'fas fa-file-pdf',        id:'resume' },
 ];
+
+export const HIGHLIGHTS = [
+  'FRONTIER AI RESEARCH',
+  'FLOW MATCHING & GRPO',
+  '12,787 COMMITS',
+  '17.1K LINKEDIN COMMUNITY',
+  'UT & SHARIF TA',
+  '162 HF ASSETS',
+  '20 RESEARCH PAPERS',
+  'KALEIDO CUDA ENGINE'
+];

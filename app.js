@@ -134,20 +134,19 @@
     }, [soundOn, beep]);
     return beep;
   }
-  function useNeuralCanvas(mode = "rain") {
+  function useNeuralCanvas(canvasRef, spotlightRef, mode = "rain") {
     useEffect(() => {
-      const spot = document.getElementById("cursor-spotlight");
       const onMove = (e) => {
-        if (spot) {
-          spot.style.left = e.clientX + "px";
-          spot.style.top = e.clientY + "px";
+        if (spotlightRef && spotlightRef.current) {
+          spotlightRef.current.style.left = e.clientX + "px";
+          spotlightRef.current.style.top = e.clientY + "px";
         }
       };
       window.addEventListener("mousemove", onMove);
-      const cvs = document.getElementById("neural-canvas");
+      const cvs = canvasRef?.current;
       if (!cvs) return;
       const ctx = cvs.getContext("2d", { alpha: true });
-      let W = cvs.width = innerWidth, H = cvs.height = innerHeight;
+      let W = cvs.width = window.innerWidth, H = cvs.height = window.innerHeight;
       const N = W > 700 ? 60 : 25;
       const pts = Array.from({ length: N }, () => ({
         x: Math.random() * W,
@@ -264,8 +263,10 @@
       };
       raf = requestAnimationFrame(draw);
       const onResize = () => {
-        W = cvs.width = innerWidth;
-        H = cvs.height = innerHeight;
+        if (cvs) {
+          W = cvs.width = window.innerWidth;
+          H = cvs.height = window.innerHeight;
+        }
       };
       window.addEventListener("resize", onResize);
       return () => {
@@ -273,7 +274,187 @@
         window.removeEventListener("resize", onResize);
         cancelAnimationFrame(raf);
       };
-    }, [mode]);
+    }, [canvasRef, spotlightRef, mode]);
+  }
+
+  // src/context/ThemeContext.jsx
+  var ThemeContext = createContext({
+    theme: "dark",
+    accent: "cyan",
+    setTheme: () => {
+    },
+    setAccent: () => {
+    }
+  });
+  function ThemeProvider({ children }) {
+    const [theme, setThemeState] = useState(() => {
+      try {
+        return localStorage.getItem("tahamajs-theme") || "dark";
+      } catch {
+        return "dark";
+      }
+    });
+    const [accent, setAccentState] = useState(() => {
+      try {
+        return localStorage.getItem("tahamajs-accent") || "cyan";
+      } catch {
+        return "cyan";
+      }
+    });
+    const setTheme = (t) => {
+      setThemeState(t);
+      try {
+        localStorage.setItem("tahamajs-theme", t);
+      } catch {
+      }
+    };
+    const setAccent = (a) => {
+      setAccentState(a);
+      try {
+        localStorage.setItem("tahamajs-accent", a);
+      } catch {
+      }
+    };
+    useEffect(() => {
+      document.documentElement.dataset.theme = theme;
+    }, [theme]);
+    useEffect(() => {
+      document.documentElement.dataset.accent = accent;
+      document.body.setAttribute("data-accent", accent);
+    }, [accent]);
+    return /* @__PURE__ */ React.createElement(ThemeContext.Provider, { value: { theme, accent, setTheme, setAccent } }, children);
+  }
+  function useTheme() {
+    return useContext(ThemeContext);
+  }
+
+  // src/components/layout/NeuralBackground.jsx
+  function NeuralBackground({ mode = "rain" }) {
+    const canvasRef = useRef(null);
+    const spotlightRef = useRef(null);
+    useNeuralCanvas(canvasRef, spotlightRef, mode);
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        ref: spotlightRef,
+        className: "cursor-spotlight",
+        id: "cursor-spotlight"
+      }
+    ), /* @__PURE__ */ React.createElement(
+      "canvas",
+      {
+        ref: canvasRef,
+        id: "neural-canvas",
+        style: {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 0
+        }
+      }
+    ));
+  }
+
+  // src/data/constants.js
+  var TAGS = [
+    "Flow Matching ODEs",
+    "GRPO Alignment",
+    "Score-Based Diffusion",
+    "Task Arithmetic",
+    "CUDA GPU Kernels",
+    "Linear Attention",
+    "Integrated Information Theory",
+    "PaliGemma QLoRA",
+    "xv6 OS Kernel",
+    "Persian LLMs",
+    "Kaleido Engine",
+    "SVD Attention"
+  ];
+  var STATS = [
+    { num: "12,787", label: "Commits (Past Year)" },
+    { num: "143", label: "GitHub Repositories" },
+    { num: "92/70", label: "HF Models / Datasets" },
+    { num: "521", label: "GitHub Followers" },
+    { num: "17.1k+", label: "LinkedIn Followers" },
+    { num: "20", label: "Research Papers" }
+  ];
+  var ACHIEVEMENTS = [
+    { icon: "fa-users", val: "17.1k+", title: "LinkedIn Community", desc: "One of Iran's largest AI communities \u2014 weekly deep-dives on LLM alignment, GPU engineering, and distributed systems." },
+    { icon: "fa-code-commit", val: "12,787", title: "Commits (Past Year)", desc: "Top 1% globally for open-source contribution velocity across 143 public repositories and 44 showcased projects." },
+    { icon: "fa-robot", val: "162", title: "Hugging Face Assets", desc: "92 pre-trained model checkpoints + 70 synthetic evaluation datasets published openly on the HF Hub." },
+    { icon: "fa-newspaper", val: "20", title: "Research Papers", desc: "Deep-dive Substack papers on Flow Matching, GRPO, CUDA kernels, IIT consciousness, and sub-quadratic attention." },
+    { icon: "fa-graduation-cap", val: "500+", title: "Students Mentored", desc: "TA across 6 graduate / undergraduate courses at University of Tehran and Sharif University of Technology." },
+    { icon: "fa-microchip", val: "4D", title: "Kaleido CUDA Engine", desc: "First-principles distributed LLM training framework \u2014 data, tensor, sequence & pipeline parallelism on A100 clusters." },
+    { icon: "fa-flask", val: "\u221E", title: "Hoosha AI Co-Founder", desc: "Research startup bridging frontier ML (Flow Matching, GRPO) with IIT-based synthetic cognitive AI research." },
+    { icon: "fa-heart", val: "Open", title: "GitHub Sponsor", desc: "Support Taha's open-source work on CUDA engines, Persian LLMs, and AI research tooling via GitHub Sponsors." }
+  ];
+  var SKILLS = [
+    { cat: "Languages", items: ["Python", "C++ 20", "CUDA/C", "Kotlin", "Java", "JavaScript", "Verilog", "Bash"] },
+    { cat: "ML / AI", items: ["PyTorch 2.x", "JAX/Flax", "HuggingFace", "DeepSpeed", "PEFT / QLoRA", "TRL / GRPO"] },
+    { cat: "GPU Systems", items: ["CUDA 12.2", "cuBLAS", "NCCL", "MPI", "Triton", "Nsight Compute"] },
+    { cat: "Infra & DevOps", items: ["Docker", "GitHub Actions", "FastAPI", "Django REST", "PostgreSQL", "Redis"] },
+    { cat: "Research Topics", items: ["Flow Matching", "Diffusion SDEs", "RLHF/GRPO", "Linear Attention", "VAE Unlearning", "IIT \u03A6"] },
+    { cat: "Systems CS", items: ["xv6 OS Kernel", "Pipelined ARM CPU", "Compilers (Flex/Bison)", "TCP/UDP Sockets", "Verilog RTL"] }
+  ];
+  var TIMELINE = [
+    { year: "2026", icon: "fa-rocket", color: "#00f0ff", title: "Co-Founded Hoosha AI \u{1F9E0}", desc: "Launched AI research startup focused on Flow Matching generation, GRPO post-training, and IIT-based synthetic cognition." },
+    { year: "2026", icon: "fa-newspaper", color: "#8a2be2", title: "20 Substack Research Papers Published", desc: "Deep-dive technical papers on Flow Matching ODEs, GRPO, CUDA kernels, IIT consciousness theory, and SVD linear attention." },
+    { year: "2026", icon: "fa-users", color: "#10b981", title: "17,100+ LinkedIn Community", desc: "Built one of Iran's largest AI communities through consistent research content, open-source tooling, and GPU engineering posts." },
+    { year: "2025", icon: "fa-graduation-cap", color: "#f59e0b", title: "TA @ Sharif \u2014 Compiler Construction", desc: "Teaching Assistant for Compiler Construction at Sharif University of Technology, supervising 200+ students on lexers and parsers." },
+    { year: "2025", icon: "fa-microchip", color: "#00f0ff", title: "Built Kaleido Engine \u26A1 (4D CUDA Parallel)", desc: "From-scratch distributed LLM training framework in CUDA 12.2/C++ \u2014 data, tensor, sequence, and pipeline parallelism on A100 SXM4." },
+    { year: "2025", icon: "fa-brain", color: "#8a2be2", title: "GRPO GSM8K: 80.7% (+18% rel. over SFT)", desc: "Fine-tuned 4B LLM with custom GRPO pipeline: clipped surrogate objective + KL regularisation on 8\xD7A100, achieving 80.7% pass@1." },
+    { year: "2024", icon: "fa-graduation-cap", color: "#10b981", title: "TA @ UT \u2014 M.Sc. ML, AI, OS Lab, C++", desc: "Teaching Assistant for 4 simultaneous graduate/undergraduate courses at University of Tehran \u2014 300+ students mentored." },
+    { year: "2024", icon: "fa-robot", color: "#f59e0b", title: "162 HuggingFace Assets Published", desc: "Reached 162 public HF assets: 92 pre-trained model checkpoints and 70 synthetic evaluation datasets with 1000+ total downloads." },
+    { year: "2023", icon: "fa-graduation-cap", color: "#00f0ff", title: "Started CE at University of Tehran", desc: "Enrolled in Computer Engineering at University of Tehran \u2014 focus on systems architecture, AI research, and distributed computing." },
+    { year: "2022", icon: "fa-school", color: "#e1306c", title: "Public High School Graduate (\u0645\u0646 \u0627\u0632 \u0645\u062F\u0631\u0633\u0647 \u062F\u0648\u0644\u062A\u06CC \u0627\u0648\u0645\u062F\u0645)", desc: "Self-made academic path: graduated from a regular public state high school in Iran. Never attended selective Helli or SAMPAD magnet schools." }
+  ];
+  var CONSTELLATION = [
+    { id: "core", label: "Taha Majlesi", type: "core", x: 50, y: 50, desc: "Co-Founder & AI Architect @ Hoosha AI | CE @ University of Tehran | TA @ Sharif University of Technology" },
+    { id: "hoosha", label: "Hoosha AI \u{1F9E0}", type: "startup", x: 24, y: 28, desc: "Frontier AI research startup: Flow Matching, GRPO post-training, IIT-based synthetic consciousness, distributed GPU systems." },
+    { id: "ut", label: "Univ. of Tehran", type: "academic", x: 75, y: 28, desc: "Primary CE degree. TA for M.Sc. ML, AI, OS Lab, Advanced Programming \u2014 mentoring 500+ students across 6 courses." },
+    { id: "sharif", label: "Sharif Univ.", type: "academic", x: 78, y: 72, desc: "Cross-institutional TA for Compiler Construction at Sharif University of Technology (2025\u2013present)." },
+    { id: "kaleido", label: "Kaleido Engine \u26A1", type: "system", x: 22, y: 72, desc: "From-scratch 4D-parallel distributed LLM training in CUDA 12.2/C++ targeting A100 SXM4 clusters." },
+    { id: "hf", label: "HuggingFace (162)", type: "science", x: 50, y: 16, desc: "92 pre-trained model weights & 70 synthetic datasets. Top: persian-instruct-200k (312 downloads)." },
+    { id: "sub", label: "Substack (20)", type: "research", x: 50, y: 84, desc: "20 technical deep-dives: Flow Matching ODEs, GRPO alignment, CUDA kernels, IIT consciousness, SVD linear attention." },
+    { id: "linkedin", label: "LinkedIn 17.1k", type: "startup", x: 12, y: 50, desc: "17,100+ followers \u2014 Iran's largest AI community. Weekly posts on LLM alignment and GPU engineering." }
+  ];
+  var CMD_ITEMS = [
+    { text: "Open Interactive CLI Shell (\u2318J)", icon: "fas fa-terminal", id: "cli" },
+    { text: "Open 2D Neural Net Playground", icon: "fas fa-brain", id: "nn" },
+    { text: "Open AI Research Assistant", icon: "fas fa-robot", id: "ai" },
+    { text: "Open Recruit / Hire Taha", icon: "fas fa-briefcase", id: "hire" },
+    { text: "Sponsor Taha on GitHub", icon: "fas fa-heart", id: "sponsor" },
+    { text: "View GPU Cluster Telemetry", icon: "fas fa-chart-bar", id: "telemetry" },
+    { text: "Explore AI Lab & Simulations", icon: "fas fa-vial", id: "sandbox" },
+    { text: "View Research Constellation Graph", icon: "fas fa-project-diagram", id: "constellation" },
+    { text: "Browse Projects & HF Assets", icon: "fas fa-cubes", id: "projects" },
+    { text: "Read Publications & Papers", icon: "fas fa-scroll", id: "publications" },
+    { text: "View X Feed (@hooshaaii)", icon: "fab fa-x-twitter", id: "feed" },
+    { text: "Open Instagram (@hooshaaii)", icon: "fab fa-instagram", id: "instagram" },
+    { text: "Read Substack Essays", icon: "fas fa-newspaper", id: "substack" },
+    { text: "Open LinkedIn (17.1k followers)", icon: "fab fa-linkedin", id: "linkedin" },
+    { text: "View HuggingFace (162 assets)", icon: "fas fa-brain", id: "hf" },
+    { text: "Email Taha directly", icon: "fas fa-envelope", id: "email" },
+    { text: "Download Resume PDF", icon: "fas fa-file-pdf", id: "resume" }
+  ];
+  var HIGHLIGHTS = [
+    "FRONTIER AI RESEARCH",
+    "FLOW MATCHING & GRPO",
+    "12,787 COMMITS",
+    "17.1K LINKEDIN COMMUNITY",
+    "UT & SHARIF TA",
+    "162 HF ASSETS",
+    "20 RESEARCH PAPERS",
+    "KALEIDO CUDA ENGINE"
+  ];
+
+  // src/components/layout/ValueStrip.jsx
+  function ValueStrip() {
+    const items = [...HIGHLIGHTS, ...HIGHLIGHTS];
+    return /* @__PURE__ */ react_shim_default.createElement("div", { className: "value-strip", "aria-label": "Taha Majlesi highlights" }, /* @__PURE__ */ react_shim_default.createElement("div", { className: "strip-inner" }, items.map((text, idx) => /* @__PURE__ */ react_shim_default.createElement(react_shim_default.Fragment, { key: idx }, /* @__PURE__ */ react_shim_default.createElement("span", null, text), idx < items.length - 1 && /* @__PURE__ */ react_shim_default.createElement("span", { className: "sep" }, "\u25C6")))));
   }
 
   // src/components/layout/Navigation.jsx
@@ -404,89 +585,6 @@
       beep?.(700);
     } }, /* @__PURE__ */ React.createElement("span", { className: "hud-avatar" }, "\u{1F916}"), /* @__PURE__ */ React.createElement("div", { className: "hud-info" }, /* @__PURE__ */ React.createElement("div", { className: "hud-title" }, "LVL ", level, " TAHA-ARCHITECT"), /* @__PURE__ */ React.createElement("div", { className: "hud-xp-bar" }, /* @__PURE__ */ React.createElement("div", { className: "hud-xp-fill", style: { width: `${Math.min(100, xp / 5e3 * 100)}%` } }))), /* @__PURE__ */ React.createElement("span", { className: "hud-quest-badge" }, "\u{1F4DC} Quests: ", completedCount, "/", quests.length)), questOpen && /* @__PURE__ */ React.createElement("div", { className: "quest-log-dropdown" }, /* @__PURE__ */ React.createElement("div", { className: "quest-log-header" }, /* @__PURE__ */ React.createElement("i", { className: "fas fa-scroll", style: { color: "var(--accent)" } }), " Quest Log & Achievements"), /* @__PURE__ */ React.createElement("div", { className: "quest-list" }, quests.map((q) => /* @__PURE__ */ React.createElement("div", { key: q.id, className: `quest-item ${q.done ? "done" : ""}`, onClick: () => toggleQuest(q.id) }, /* @__PURE__ */ React.createElement("i", { className: `fas ${q.done ? "fa-check-circle" : "fa-circle"}`, style: { color: q.done ? "var(--emerald)" : "var(--muted)" } }), /* @__PURE__ */ React.createElement("span", null, q.text), /* @__PURE__ */ React.createElement("span", { className: "quest-xp" }, "+", q.xp, " XP"))))));
   }
-
-  // src/data/constants.js
-  var TAGS = [
-    "Flow Matching ODEs",
-    "GRPO Alignment",
-    "Score-Based Diffusion",
-    "Task Arithmetic",
-    "CUDA GPU Kernels",
-    "Linear Attention",
-    "Integrated Information Theory",
-    "PaliGemma QLoRA",
-    "xv6 OS Kernel",
-    "Persian LLMs",
-    "Kaleido Engine",
-    "SVD Attention"
-  ];
-  var STATS = [
-    { num: "12,787", label: "Commits (Past Year)" },
-    { num: "143", label: "GitHub Repositories" },
-    { num: "92/70", label: "HF Models / Datasets" },
-    { num: "521", label: "GitHub Followers" },
-    { num: "17.1k+", label: "LinkedIn Followers" },
-    { num: "20", label: "Research Papers" }
-  ];
-  var ACHIEVEMENTS = [
-    { icon: "fa-users", val: "17.1k+", title: "LinkedIn Community", desc: "One of Iran's largest AI communities \u2014 weekly deep-dives on LLM alignment, GPU engineering, and distributed systems." },
-    { icon: "fa-code-commit", val: "12,787", title: "Commits (Past Year)", desc: "Top 1% globally for open-source contribution velocity across 143 public repositories and 44 showcased projects." },
-    { icon: "fa-robot", val: "162", title: "Hugging Face Assets", desc: "92 pre-trained model checkpoints + 70 synthetic evaluation datasets published openly on the HF Hub." },
-    { icon: "fa-newspaper", val: "20", title: "Research Papers", desc: "Deep-dive Substack papers on Flow Matching, GRPO, CUDA kernels, IIT consciousness, and sub-quadratic attention." },
-    { icon: "fa-graduation-cap", val: "500+", title: "Students Mentored", desc: "TA across 6 graduate / undergraduate courses at University of Tehran and Sharif University of Technology." },
-    { icon: "fa-microchip", val: "4D", title: "Kaleido CUDA Engine", desc: "First-principles distributed LLM training framework \u2014 data, tensor, sequence & pipeline parallelism on A100 clusters." },
-    { icon: "fa-flask", val: "\u221E", title: "Hoosha AI Co-Founder", desc: "Research startup bridging frontier ML (Flow Matching, GRPO) with IIT-based synthetic cognitive AI research." },
-    { icon: "fa-heart", val: "Open", title: "GitHub Sponsor", desc: "Support Taha's open-source work on CUDA engines, Persian LLMs, and AI research tooling via GitHub Sponsors." }
-  ];
-  var SKILLS = [
-    { cat: "Languages", items: ["Python", "C++ 20", "CUDA/C", "Kotlin", "Java", "JavaScript", "Verilog", "Bash"] },
-    { cat: "ML / AI", items: ["PyTorch 2.x", "JAX/Flax", "HuggingFace", "DeepSpeed", "PEFT / QLoRA", "TRL / GRPO"] },
-    { cat: "GPU Systems", items: ["CUDA 12.2", "cuBLAS", "NCCL", "MPI", "Triton", "Nsight Compute"] },
-    { cat: "Infra & DevOps", items: ["Docker", "GitHub Actions", "FastAPI", "Django REST", "PostgreSQL", "Redis"] },
-    { cat: "Research Topics", items: ["Flow Matching", "Diffusion SDEs", "RLHF/GRPO", "Linear Attention", "VAE Unlearning", "IIT \u03A6"] },
-    { cat: "Systems CS", items: ["xv6 OS Kernel", "Pipelined ARM CPU", "Compilers (Flex/Bison)", "TCP/UDP Sockets", "Verilog RTL"] }
-  ];
-  var TIMELINE = [
-    { year: "2026", icon: "fa-rocket", color: "#00f0ff", title: "Co-Founded Hoosha AI \u{1F9E0}", desc: "Launched AI research startup focused on Flow Matching generation, GRPO post-training, and IIT-based synthetic cognition." },
-    { year: "2026", icon: "fa-newspaper", color: "#8a2be2", title: "20 Substack Research Papers Published", desc: "Deep-dive technical papers on Flow Matching ODEs, GRPO, CUDA kernels, IIT consciousness theory, and SVD linear attention." },
-    { year: "2026", icon: "fa-users", color: "#10b981", title: "17,100+ LinkedIn Community", desc: "Built one of Iran's largest AI communities through consistent research content, open-source tooling, and GPU engineering posts." },
-    { year: "2025", icon: "fa-graduation-cap", color: "#f59e0b", title: "TA @ Sharif \u2014 Compiler Construction", desc: "Teaching Assistant for Compiler Construction at Sharif University of Technology, supervising 200+ students on lexers and parsers." },
-    { year: "2025", icon: "fa-microchip", color: "#00f0ff", title: "Built Kaleido Engine \u26A1 (4D CUDA Parallel)", desc: "From-scratch distributed LLM training framework in CUDA 12.2/C++ \u2014 data, tensor, sequence, and pipeline parallelism on A100 SXM4." },
-    { year: "2025", icon: "fa-brain", color: "#8a2be2", title: "GRPO GSM8K: 80.7% (+18% rel. over SFT)", desc: "Fine-tuned 4B LLM with custom GRPO pipeline: clipped surrogate objective + KL regularisation on 8\xD7A100, achieving 80.7% pass@1." },
-    { year: "2024", icon: "fa-graduation-cap", color: "#10b981", title: "TA @ UT \u2014 M.Sc. ML, AI, OS Lab, C++", desc: "Teaching Assistant for 4 simultaneous graduate/undergraduate courses at University of Tehran \u2014 300+ students mentored." },
-    { year: "2024", icon: "fa-robot", color: "#f59e0b", title: "162 HuggingFace Assets Published", desc: "Reached 162 public HF assets: 92 pre-trained model checkpoints and 70 synthetic evaluation datasets with 1000+ total downloads." },
-    { year: "2023", icon: "fa-graduation-cap", color: "#00f0ff", title: "Started CE at University of Tehran", desc: "Enrolled in Computer Engineering at University of Tehran \u2014 focus on systems architecture, AI research, and distributed computing." },
-    { year: "2022", icon: "fa-school", color: "#e1306c", title: "Public High School Graduate (\u0645\u0646 \u0627\u0632 \u0645\u062F\u0631\u0633\u0647 \u062F\u0648\u0644\u062A\u06CC \u0627\u0648\u0645\u062F\u0645)", desc: "Self-made academic path: graduated from a regular public state high school in Iran. Never attended selective Helli or SAMPAD magnet schools." }
-  ];
-  var CONSTELLATION = [
-    { id: "core", label: "Taha Majlesi", type: "core", x: 50, y: 50, desc: "Co-Founder & AI Architect @ Hoosha AI | CE @ University of Tehran | TA @ Sharif University of Technology" },
-    { id: "hoosha", label: "Hoosha AI \u{1F9E0}", type: "startup", x: 24, y: 28, desc: "Frontier AI research startup: Flow Matching, GRPO post-training, IIT-based synthetic consciousness, distributed GPU systems." },
-    { id: "ut", label: "Univ. of Tehran", type: "academic", x: 75, y: 28, desc: "Primary CE degree. TA for M.Sc. ML, AI, OS Lab, Advanced Programming \u2014 mentoring 500+ students across 6 courses." },
-    { id: "sharif", label: "Sharif Univ.", type: "academic", x: 78, y: 72, desc: "Cross-institutional TA for Compiler Construction at Sharif University of Technology (2025\u2013present)." },
-    { id: "kaleido", label: "Kaleido Engine \u26A1", type: "system", x: 22, y: 72, desc: "From-scratch 4D-parallel distributed LLM training in CUDA 12.2/C++ targeting A100 SXM4 clusters." },
-    { id: "hf", label: "HuggingFace (162)", type: "science", x: 50, y: 16, desc: "92 pre-trained model weights & 70 synthetic datasets. Top: persian-instruct-200k (312 downloads)." },
-    { id: "sub", label: "Substack (20)", type: "research", x: 50, y: 84, desc: "20 technical deep-dives: Flow Matching ODEs, GRPO alignment, CUDA kernels, IIT consciousness, SVD linear attention." },
-    { id: "linkedin", label: "LinkedIn 17.1k", type: "startup", x: 12, y: 50, desc: "17,100+ followers \u2014 Iran's largest AI community. Weekly posts on LLM alignment and GPU engineering." }
-  ];
-  var CMD_ITEMS = [
-    { text: "Open Interactive CLI Shell (\u2318J)", icon: "fas fa-terminal", id: "cli" },
-    { text: "Open 2D Neural Net Playground", icon: "fas fa-brain", id: "nn" },
-    { text: "Open AI Research Assistant", icon: "fas fa-robot", id: "ai" },
-    { text: "Open Recruit / Hire Taha", icon: "fas fa-briefcase", id: "hire" },
-    { text: "Sponsor Taha on GitHub", icon: "fas fa-heart", id: "sponsor" },
-    { text: "View GPU Cluster Telemetry", icon: "fas fa-chart-bar", id: "telemetry" },
-    { text: "Explore AI Lab & Simulations", icon: "fas fa-vial", id: "sandbox" },
-    { text: "View Research Constellation Graph", icon: "fas fa-project-diagram", id: "constellation" },
-    { text: "Browse Projects & HF Assets", icon: "fas fa-cubes", id: "projects" },
-    { text: "Read Publications & Papers", icon: "fas fa-scroll", id: "publications" },
-    { text: "View X Feed (@hooshaaii)", icon: "fab fa-x-twitter", id: "feed" },
-    { text: "Open Instagram (@hooshaaii)", icon: "fab fa-instagram", id: "instagram" },
-    { text: "Read Substack Essays", icon: "fas fa-newspaper", id: "substack" },
-    { text: "Open LinkedIn (17.1k followers)", icon: "fab fa-linkedin", id: "linkedin" },
-    { text: "View HuggingFace (162 assets)", icon: "fas fa-brain", id: "hf" },
-    { text: "Email Taha directly", icon: "fas fa-envelope", id: "email" },
-    { text: "Download Resume PDF", icon: "fas fa-file-pdf", id: "resume" }
-  ];
 
   // src/components/sections/HeroSection.jsx
   var FOCUS_PILLS = [
@@ -3097,7 +3195,7 @@ ${name}`);
     const [pageView, setPageView] = useState("all");
     const [weatherMode, setWeatherMode] = useState("rain");
     const [weatherAudioOn, setWeatherAudioOn] = useState(false);
-    const [accent, setAccent] = useState("cyan");
+    const { accent, setAccent } = useTheme();
     const [mobileNav, setMobileNav] = useState(false);
     const [codeTab, setCodeTab] = useState("flow");
     const [codeOut, setCodeOut] = useState("");
@@ -3120,7 +3218,6 @@ ${name}`);
     const time = useTehranClock();
     const gpuM = useGpuMetrics();
     const beep = useBeep(soundOn);
-    useNeuralCanvas(weatherMode);
     const handleToggleWeatherAudio = useCallback(() => {
       const active = toggleWeatherAudio(weatherMode, 0.15);
       setWeatherAudioOn(active);
@@ -3219,10 +3316,9 @@ ${name}`);
     }, []);
     const setAccentColor = useCallback((c) => {
       setAccent(c);
-      document.body.setAttribute("data-accent", c);
       beep(800);
       showToast(`Theme: ${c} \u2728`);
-    }, [beep, showToast]);
+    }, [setAccent, beep, showToast]);
     const copyBib = useCallback((bib) => {
       if (!bib) return;
       navigator.clipboard.writeText(bib);
@@ -3300,7 +3396,7 @@ ${name}`);
         });
       });
     }, []);
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(NeuralBackground, { mode: weatherMode }), /* @__PURE__ */ React.createElement(ValueStrip, null), /* @__PURE__ */ React.createElement(
       Navigation,
       {
         mobileNav,
@@ -3496,5 +3592,7 @@ ${name}`);
   // src/index.jsx
   var rootElement = document.getElementById("root");
   var root = createRoot(rootElement);
-  root.render(/* @__PURE__ */ react_shim_default.createElement(App, null));
+  root.render(
+    /* @__PURE__ */ react_shim_default.createElement(ThemeProvider, null, /* @__PURE__ */ react_shim_default.createElement(App, null))
+  );
 })();
