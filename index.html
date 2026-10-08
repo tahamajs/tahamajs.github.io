@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,28 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=126">
+  <script>
+    (function () {
+      try {
+        var a = localStorage.getItem('tahamajs-accent') || 'cyan';
+        var t = localStorage.getItem('tahamajs-theme') || 'dark';
+        document.documentElement.dataset.theme = t;
+        document.documentElement.dataset.accent = a;
+        // Body attribute must be set after DOM is ready
+        if (document.body) {
+          document.body.setAttribute('data-accent', a);
+        } else {
+          document.addEventListener('DOMContentLoaded', function () {
+            document.body.setAttribute('data-accent', a);
+          });
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css?v=128">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 
@@ -25,8 +44,8 @@
   <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
 </head>
-<body data-accent="cyan">
+<body>
   <div id="root"></div>
-  <script defer src="app.js?v=127"></script>
+  <script defer src="app.js?v=128"></script>
 </body>
 </html>
