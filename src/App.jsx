@@ -242,6 +242,15 @@ export default function App() {
     }));
   }, []);
 
+  const handleNavigate = useCallback((sectionId) => {
+    setPageView('all');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }, []);
+
   // ── Render ────────────────────────────────────────────────
   return (
     <>
@@ -250,6 +259,7 @@ export default function App() {
         setMobileNav={setMobileNav}
         onHire={() => setHireOpen(true)}
         onCmd={() => setCmdOpen(true)}
+        onNavigate={handleNavigate}
       />
       <GameHUDHeader beep={beep} />
       <FloatingContactBar

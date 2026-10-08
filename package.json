@@ -1,17 +1,18 @@
 {
   "name": "tahamajs-portfolio",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Mohammad Taha Majlesi — AI Systems Engineer & Researcher Portfolio",
+  "private": true,
   "scripts": {
-    "build": "esbuild src/index.jsx --bundle --outfile=app.js --alias:react=./src/react-shim.js --alias:react-dom=./src/react-dom-shim.js --alias:react-dom/client=./src/react-dom-client-shim.js",
-    "build:prod": "esbuild src/index.jsx --bundle --minify --outfile=app.js --alias:react=./src/react-shim.js --alias:react-dom=./src/react-dom-shim.js --alias:react-dom/client=./src/react-dom-client-shim.js",
+    "build": "esbuild src/index.jsx --bundle --outfile=app.js --loader:.js=jsx --alias:react=./src/react-shim.js --alias:react-dom=./src/react-dom-shim.js --alias:react-dom/client=./src/react-dom-client-shim.js",
+    "build:prod": "esbuild src/index.jsx --bundle --minify --outfile=app.js --loader:.js=jsx --alias:react=./src/react-shim.js --alias:react-dom=./src/react-dom-shim.js --alias:react-dom/client=./src/react-dom-client-shim.js",
     "validate": "python3 -c \"import json, os; data=json.load(open('data.json')); assert len(data.get('repos',[]))>0; assert os.path.exists('index.html'); print('Validation OK')\""
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "esbuild": "^0.24.0"
   },
   "dependencies": {
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
