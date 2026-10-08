@@ -52,7 +52,7 @@ import { toggleWeatherAudio } from './utils/weatherAudio.js';
 const SPONSOR_URL = 'https://github.com/sponsors/tahamajs';
 const EMAIL = 'tahamajlesi@ut.ac.ir';
 
-// دسته‌بندی‌های واقعی داده در data.json: course, ai, systems, web
+// Real data categories in data.json: course, ai, systems, web
 const CATEGORIES = ['course', 'ai', 'systems', 'web'];
 
 export default function App() {
@@ -170,7 +170,7 @@ export default function App() {
     [data.hf, hfFilter]
   );
 
-  // شمارنده‌ها روی کل داده، نه روی لیست فیلترشده
+  // Counters computed on total dataset, not filtered subset
   const counts = useMemo(() => {
     const all = data.repos || [];
     const hf = data.hf || [];

@@ -409,8 +409,7 @@
     { year: "2025", icon: "fa-brain", color: "#8a2be2", title: "GRPO GSM8K: 80.7% (+18% rel. over SFT)", desc: "Fine-tuned 4B LLM with custom GRPO pipeline: clipped surrogate objective + KL regularisation on 8\xD7A100, achieving 80.7% pass@1." },
     { year: "2024", icon: "fa-graduation-cap", color: "#10b981", title: "TA @ UT \u2014 M.Sc. ML, AI, OS Lab, C++", desc: "Teaching Assistant for 4 simultaneous graduate/undergraduate courses at University of Tehran \u2014 300+ students mentored." },
     { year: "2024", icon: "fa-robot", color: "#f59e0b", title: "162 HuggingFace Assets Published", desc: "Reached 162 public HF assets: 92 pre-trained model checkpoints and 70 synthetic evaluation datasets with 1000+ total downloads." },
-    { year: "2023", icon: "fa-graduation-cap", color: "#00f0ff", title: "Started CE at University of Tehran", desc: "Enrolled in Computer Engineering at University of Tehran \u2014 focus on systems architecture, AI research, and distributed computing." },
-    { year: "2022", icon: "fa-school", color: "#e1306c", title: "Public High School Graduate (\u0645\u0646 \u0627\u0632 \u0645\u062F\u0631\u0633\u0647 \u062F\u0648\u0644\u062A\u06CC \u0627\u0648\u0645\u062F\u0645)", desc: "Self-made academic path: graduated from a regular public state high school in Iran. Never attended selective Helli or SAMPAD magnet schools." }
+    { year: "2023", icon: "fa-graduation-cap", color: "#00f0ff", title: "Started CE at University of Tehran", desc: "Enrolled in Computer Engineering at University of Tehran \u2014 focus on systems architecture, AI research, and distributed computing." }
   ];
   var CONSTELLATION = [
     { id: "core", label: "Taha Majlesi", type: "core", x: 50, y: 50, desc: "Co-Founder & AI Architect @ Hoosha AI | CE @ University of Tehran | TA @ Sharif University of Technology" },
