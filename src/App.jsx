@@ -1,7 +1,10 @@
 // src/App.jsx
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useToast, useTehranClock, useGpuMetrics, useBeep, useNeuralCanvas } from './hooks/index.js';
+import { useToast, useTehranClock, useGpuMetrics, useBeep } from './hooks/index.js';
+import { useTheme } from './context/ThemeContext.jsx';
 
+import NeuralBackground from './components/layout/NeuralBackground.jsx';
+import ValueStrip from './components/layout/ValueStrip.jsx';
 import Navigation from './components/layout/Navigation.jsx';
 import PageRouterBar from './components/layout/PageRouterBar.jsx';
 import Footer from './components/layout/Footer.jsx';
@@ -65,7 +68,7 @@ export default function App() {
   const [pageView, setPageView] = useState('all');
   const [weatherMode, setWeatherMode] = useState('rain');
   const [weatherAudioOn, setWeatherAudioOn] = useState(false);
-  const [accent, setAccent] = useState('cyan');
+  const { accent, setAccent } = useTheme();
   const [mobileNav, setMobileNav] = useState(false);
   const [codeTab, setCodeTab] = useState('flow');
   const [codeOut, setCodeOut] = useState('');
@@ -92,7 +95,6 @@ export default function App() {
   const time = useTehranClock();
   const gpuM = useGpuMetrics();
   const beep = useBeep(soundOn);
-  useNeuralCanvas(weatherMode);
 
   // ── Weather Audio Toggle ──────────────────────────────────
   const handleToggleWeatherAudio = useCallback(() => {
@@ -191,10 +193,9 @@ export default function App() {
 
   const setAccentColor = useCallback((c) => {
     setAccent(c);
-    document.body.setAttribute('data-accent', c);
     beep(800);
     showToast(`Theme: ${c} ✨`);
-  }, [beep, showToast]);
+  }, [setAccent, beep, showToast]);
 
   const copyBib = useCallback((bib) => {
     if (!bib) return;
@@ -254,6 +255,8 @@ export default function App() {
   // ── Render ────────────────────────────────────────────────
   return (
     <>
+      <NeuralBackground mode={weatherMode} />
+      <ValueStrip />
       <Navigation
         mobileNav={mobileNav}
         setMobileNav={setMobileNav}

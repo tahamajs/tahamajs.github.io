@@ -104,18 +104,20 @@ export function useBeep(soundOn) {
 }
 
 /* ── Canvas: neural mesh + snow + rain + matrix ── */
-export function useNeuralCanvas(mode = 'rain') {
+export function useNeuralCanvas(canvasRef, spotlightRef, mode = 'rain') {
   useEffect(() => {
-    const spot = document.getElementById('cursor-spotlight');
     const onMove = e => {
-      if (spot) { spot.style.left = e.clientX + 'px'; spot.style.top = e.clientY + 'px'; }
+      if (spotlightRef && spotlightRef.current) {
+        spotlightRef.current.style.left = e.clientX + 'px';
+        spotlightRef.current.style.top = e.clientY + 'px';
+      }
     };
     window.addEventListener('mousemove', onMove);
 
-    const cvs = document.getElementById('neural-canvas');
+    const cvs = canvasRef?.current;
     if (!cvs) return;
     const ctx = cvs.getContext('2d', { alpha: true });
-    let W = cvs.width = innerWidth, H = cvs.height = innerHeight;
+    let W = cvs.width = window.innerWidth, H = cvs.height = window.innerHeight;
     
     // Mesh points
     const N = W > 700 ? 60 : 25;
@@ -206,12 +208,17 @@ export function useNeuralCanvas(mode = 'rain') {
       raf = requestAnimationFrame(draw);
     };
     raf = requestAnimationFrame(draw);
-    const onResize = () => { W = cvs.width = innerWidth; H = cvs.height = innerHeight; };
+    const onResize = () => {
+      if (cvs) {
+        W = cvs.width = window.innerWidth;
+        H = cvs.height = window.innerHeight;
+      }
+    };
     window.addEventListener('resize', onResize);
     return () => {
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(raf);
     };
-  }, [mode]);
+  }, [canvasRef, spotlightRef, mode]);
 }
