@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
-Fetch the Substack RSS feed and write articles to src/data/substack_articles.json.
+Fetch Substack articles via a personal Cloudflare Worker proxy.
+
+Why: Cloudflare blocks direct requests to hooshaai.substack.com from
+Iranian IPs and GitHub Actions runners with a Managed Challenge
+(cf-mitigated: challenge). The Worker runs on Cloudflare's own edge
+network, so it is never blocked.
 
 Behaviour on failure:
-  - Network error  → exit(1) WITHOUT touching the existing file.
-  - Parse error    → exit(1) WITHOUT touching the existing file.
-
-This prevents an offline run from overwriting good data with a truncated
-fallback list.
+  - Network error  -> exit(1) WITHOUT touching the existing file.
+  - Parse error    -> exit(1) WITHOUT touching the existing file.
+  - Empty response -> exit(1) WITHOUT touching the existing file.
 """
 
 import json
@@ -18,19 +21,14 @@ import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
-SUBSTACK_RSS = "https://hooshaai.substack.com/feed"
+# 👇 Replace this with your actual Worker URL after deploying
+WORKER_URL = "https://substack-proxy.YOUR-SUBDOMAIN.workers.dev"
+
 OUTPUT_PATH = Path("src/data/substack_articles.json")
 
 HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/122.0.0.0 Safari/537.36"
-    ),
-    "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.1",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Referer": "https://hooshaai.substack.com/",
-    "Cache-Control": "no-cache",
+    "User-Agent": "Mozilla/5.0 (compatible; PortfolioSync/1.0)",
+    "Accept": "application/xml, text/xml, */*",
 }
 
 
@@ -50,10 +48,10 @@ def to_iso(date_str):
         return (date_str or "")[:10] or "2025"
 
 
-def fetch_rss():
-    print(f"Fetching RSS feed from {SUBSTACK_RSS}...")
-    req = urllib.request.Request(SUBSTACK_RSS, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=30) as response:
+def fetch_via_worker():
+    print(f"Fetching via Cloudflare Worker: {WORKER_URL}")
+    req = urllib.request.Request(WORKER_URL, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=45) as response:
         return response.read()
 
 
@@ -89,21 +87,21 @@ def parse_rss(xml_bytes):
 
 def main():
     try:
-        xml_bytes = fetch_rss()
+        xml_bytes = fetch_via_worker()
     except Exception as e:
-        print(f"ERROR: Could not fetch RSS feed: {e}", file=sys.stderr)
-        print("Refusing to overwrite existing data on network error.", file=sys.stderr)
+        print(f"ERROR: Could not fetch from Worker: {e}", file=sys.stderr)
+        print("Refusing to overwrite existing data.", file=sys.stderr)
         sys.exit(1)
 
     try:
         articles = parse_rss(xml_bytes)
     except Exception as e:
-        print(f"ERROR: Could not parse RSS: {e}", file=sys.stderr)
-        print("Refusing to overwrite existing data on parse error.", file=sys.stderr)
+        print(f"ERROR: Could not parse RSS from Worker: {e}", file=sys.stderr)
+        print("Refusing to overwrite existing data.", file=sys.stderr)
         sys.exit(1)
 
     if not articles:
-        print("ERROR: RSS feed returned zero items.", file=sys.stderr)
+        print("ERROR: Worker returned zero articles.", file=sys.stderr)
         sys.exit(1)
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
