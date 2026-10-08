@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useToast, useTehranClock, useGpuMetrics, useBeep, useNeuralCanvas } from './hooks/index.js';
 
 import Navigation from './components/layout/Navigation.jsx';
@@ -46,26 +46,29 @@ import Toast from './components/ui/Toast.jsx';
 
 import { toggleWeatherAudio, stopWeatherAudio } from './utils/weatherAudio.js';
 
+const SPONSOR_URL = 'https://github.com/sponsors/tahamajs';
+const EMAIL = 'tahamajlesi@ut.ac.ir';
+
 export default function App() {
-  // Global States
+  // ── Global States ─────────────────────────────────────────
   const [data, setData] = useState({ repos: [], articles: [], hf: [], readmeHtml: '' });
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
   const [hfFilter, setHfFilter] = useState('all');
   const [subSearch, setSubSearch] = useState('');
   const [userProfile, setUserProfile] = useState(null);
-  
-  // UI & Weather States
-  const [pageView, setPageView] = useState('all'); // 'all', 'home', 'lab', 'projects', 'papers', 'contact'
-  const [weatherMode, setWeatherMode] = useState('rain'); // 'rain', 'snow', 'matrix', 'stars'
+
+  // ── UI & Weather States ───────────────────────────────────
+  const [pageView, setPageView] = useState('all');
+  const [weatherMode, setWeatherMode] = useState('rain');
   const [weatherAudioOn, setWeatherAudioOn] = useState(false);
   const [accent, setAccent] = useState('cyan');
   const [mobileNav, setMobileNav] = useState(false);
   const [codeTab, setCodeTab] = useState('flow');
   const [codeOut, setCodeOut] = useState('');
   const [soundOn, setSoundOn] = useState(false);
-  
-  // Modal States
+
+  // ── Modal States ──────────────────────────────────────────
   const [aiOpen, setAiOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
   const [hireOpen, setHireOpen] = useState(false);
@@ -81,81 +84,137 @@ export default function App() {
   const [selectedPaper, setSelectedPaper] = useState(null);
   const [bibtexPub, setBibtexPub] = useState(null);
 
-  // Custom Hooks
+  // ── Custom Hooks ──────────────────────────────────────────
   const [toast, showToast] = useToast();
   const time = useTehranClock();
   const gpuM = useGpuMetrics();
   const beep = useBeep(soundOn);
-  useNeuralCanvas(weatherMode); // Atmospheric Weather Background
+  useNeuralCanvas(weatherMode); // Atmospheric weather background
 
-  const handleToggleWeatherAudio = () => {
+  // ── Weather Audio Toggle ──────────────────────────────────
+  const handleToggleWeatherAudio = useCallback(() => {
     const active = toggleWeatherAudio(weatherMode, 0.15);
     setWeatherAudioOn(active);
     showToast(active ? `🌧️ ${weatherMode.toUpperCase()} Ambient Sound ON` : '🔇 Weather Audio OFF');
     beep(700);
-  };
+  }, [weatherMode, showToast, beep]);
 
-  // Data Fetching
+  // ── Data Fetching ─────────────────────────────────────────
   useEffect(() => {
-    fetch('data.json').then(r => r.json()).then(d => setData(d)).catch(() => {});
+    fetch('data.json')
+      .then(r => r.json())
+      .then(d => setData({ repos: [], articles: [], hf: [], readmeHtml: '', ...d }))
+      .catch(() => {});
   }, []);
 
-  // Keyboard Shortcuts (⌘K, ⌘J, ?, 1-5, M, Esc)
+  // ── Keyboard Shortcuts (⌘K, ⌘J, ?, 1-6, M, Esc) ──────────
   useEffect(() => {
-    const fn = e => {
-      if (['input', 'textarea', 'select'].includes(document.activeElement?.tagName?.toLowerCase())) return;
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setCmdOpen(p => !p); }
-      if ((e.metaKey || e.ctrlKey) && e.key === 'j') { e.preventDefault(); setCliOpen(p => !p); }
-      if (e.key === '?' || (e.shiftKey && e.key === '/')) { e.preventDefault(); setShortcutsOpen(p => !p); }
+    const fn = (e) => {
+      const tag = document.activeElement?.tagName?.toLowerCase();
+      if (['input', 'textarea', 'select'].includes(tag)) return;
+
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setCmdOpen(p => !p); return; }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'j') { e.preventDefault(); setCliOpen(p => !p); return; }
+      if (e.key === '?' || (e.shiftKey && e.key === '/')) { e.preventDefault(); setShortcutsOpen(p => !p); return; }
+
       if (e.key === '1') setPageView('home');
       if (e.key === '2') setPageView('lab');
       if (e.key === '3') setPageView('projects');
       if (e.key === '4') setPageView('papers');
       if (e.key === '5') setPageView('contact');
+      if (e.key === '6') setPageView('photos');
       if (e.key === 'm' || e.key === 'M') handleToggleWeatherAudio();
+
       if (e.key === 'Escape') {
         setCmdOpen(false); setAiOpen(false); setHireOpen(false);
         setCliOpen(false); setBibtexPub(null); setMobileNav(false);
         setNnOpen(false); setGameOpen(false); setShortcutsOpen(false);
-        setSelectedPaper(null);
+        setSelectedPaper(null); setAlgoGameOpen(false);
+        setTelegramOpen(false); setBookingOpen(false); setAuthOpen(false);
+        setArticleModalOpen(false);
       }
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
-  }, [weatherMode]);
+  }, [handleToggleWeatherAudio]);
 
-  // Derived Data (Filtering)
+  // ── Derived Data ──────────────────────────────────────────
   const repos = useMemo(() => (data.repos || []).filter(r => {
     const ok = filter === 'all' || r.cat === filter;
+    if (!ok) return false;
     const q = search.trim().toLowerCase();
-    return ok && (!q || (r.name + r.desc + r.lang + r.tag).toLowerCase().includes(q));
+    if (!q) return true;
+    const haystack = [r.name, r.desc, r.lang, r.tag].filter(Boolean).join(' ').toLowerCase();
+    return haystack.includes(q);
   }), [data.repos, filter, search]);
 
   const articles = useMemo(() => {
     const q = subSearch.trim().toLowerCase();
-    return (data.articles || []).filter(a => !q || (a.title + a.desc).toLowerCase().includes(q));
+    if (!q) return data.articles || [];
+    return (data.articles || []).filter(a => {
+      const haystack = [a.title, a.desc].filter(Boolean).join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
   }, [data.articles, subSearch]);
 
-  const hfAssets = useMemo(() => (data.hf || []).filter(h => hfFilter === 'all' || h.type.toLowerCase() === hfFilter.toLowerCase()), [data.hf, hfFilter]);
+  const hfAssets = useMemo(
+    () => (data.hf || []).filter(h =>
+      hfFilter === 'all' || (h.type || '').toLowerCase() === hfFilter.toLowerCase()
+    ),
+    [data.hf, hfFilter]
+  );
 
-  // Actions
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView();
-  const setAccentColor = c => { setAccent(c); document.body.setAttribute('data-accent', c); beep(800); showToast(`Theme: ${c} ✨`); };
-  const copyBib = bib => { navigator.clipboard.writeText(bib); beep(700, 'square'); showToast('📄 BibTeX copied!'); setBibtexPub(null); };
+  // Counts should reflect the *raw* dataset, not the filtered list
+  const counts = useMemo(() => {
+    const all = data.repos || [];
+    return {
+      all: all.length,
+      course:  all.filter(r => r.cat === 'course').length,
+      ml:      all.filter(r => r.cat === 'ml').length,
+      systems: all.filter(r => r.cat === 'systems').length,
+      hfModels:   (data.hf || []).filter(a => a.type === 'model').length,
+      hfDatasets: (data.hf || []).filter(a => a.type === 'dataset').length,
+    };
+  }, [data.repos, data.hf]);
 
-  const handleCmd = id => {
+  // ── Actions ───────────────────────────────────────────────
+  const scrollTo = useCallback((id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  const setAccentColor = useCallback((c) => {
+    setAccent(c);
+    document.body.setAttribute('data-accent', c);
+    beep(800);
+    showToast(`Theme: ${c} ✨`);
+  }, [beep, showToast]);
+
+  const copyBib = useCallback((bib) => {
+    if (!bib) return;
+    navigator.clipboard.writeText(bib);
+    beep(700, 'square');
+    showToast('📄 BibTeX copied!');
+    setBibtexPub(null);
+  }, [beep, showToast]);
+
+  const handleCopyEmail = useCallback(() => {
+    navigator.clipboard.writeText(EMAIL);
+    showToast(`📋 Email (${EMAIL}) copied to clipboard!`);
+  }, [showToast]);
+
+  const handleCmd = useCallback((id) => {
     setCmdOpen(false);
     const map = {
       cli: () => setCliOpen(true),
       nn: () => setNnOpen(true),
       ai: () => setAiOpen(true),
       hire: () => setHireOpen(true),
-      sponsor: () => window.open('https://github.com/sponsors/tahamajs', '_blank'),
+      sponsor: () => window.open(SPONSOR_URL, '_blank'),
       linkedin: () => window.open('https://linkedin.com/in/tahamajlesi', '_blank'),
       instagram: () => window.open('https://instagram.com/hooshaaii', '_blank'),
       hf: () => window.open('https://huggingface.co/tahamajs', '_blank'),
       substack: () => window.open('https://hooshaai.substack.com', '_blank'),
-      email: () => window.location.href = 'mailto:tahamajlesi@ut.ac.ir',
+      email: () => { window.location.href = `mailto:${EMAIL}`; },
       resume: () => window.open('assets/resume.pdf', '_blank'),
       telemetry: () => { setPageView('lab'); scrollTo('telemetry'); },
       sandbox: () => { setPageView('lab'); scrollTo('sandbox'); },
@@ -167,40 +226,50 @@ export default function App() {
       contact: () => { setPageView('contact'); scrollTo('contact'); },
     };
     (map[id] || (() => {}))();
-  };
+  }, [scrollTo]);
 
-  const handleAddArticle = (newArticle) => {
+  const handleAddArticle = useCallback((newArticle) => {
     setData(prev => ({
       ...prev,
-      articles: [newArticle, ...(prev.articles || [])]
+      articles: [newArticle, ...(prev.articles || [])],
     }));
-  };
+  }, []);
 
-  const counts = useMemo(() => ({
-    all: repos.length,
-    course: repos.filter(r => r.category === 'course').length,
-    ml: repos.filter(r => r.category === 'ml').length,
-    systems: repos.filter(r => r.category === 'systems').length,
-    hfModels: hfAssets.filter(a => a.type === 'model').length,
-    hfDatasets: hfAssets.filter(a => a.type === 'dataset').length,
-  }), [repos, hfAssets]);
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('tahamajlesi@ut.ac.ir');
-    showToast('📋 Email (tahamajlesi@ut.ac.ir) copied to clipboard!');
-  };
-
+  // ── Render ────────────────────────────────────────────────
   return (
     <>
-      <Navigation mobileNav={mobileNav} setMobileNav={setMobileNav} onHire={() => setHireOpen(true)} onCmd={() => setCmdOpen(true)} />
+      <Navigation
+        mobileNav={mobileNav}
+        setMobileNav={setMobileNav}
+        onHire={() => setHireOpen(true)}
+        onCmd={() => setCmdOpen(true)}
+      />
       <GameHUDHeader beep={beep} />
-      <FloatingContactBar onHire={() => setHireOpen(true)} onCopyEmail={handleCopyEmail} onTelegramBot={() => setTelegramOpen(true)} onBookCall={() => setBookingOpen(true)} onAuth={() => setAuthOpen(true)} userProfile={userProfile} beep={beep} showToast={showToast} />
-      
+      <FloatingContactBar
+        onHire={() => setHireOpen(true)}
+        onCopyEmail={handleCopyEmail}
+        onTelegramBot={() => setTelegramOpen(true)}
+        onBookCall={() => setBookingOpen(true)}
+        onAuth={() => setAuthOpen(true)}
+        userProfile={userProfile}
+        beep={beep}
+        showToast={showToast}
+      />
+
       <main style={{ paddingTop: '95px' }}>
         <PageRouterBar pageView={pageView} setPageView={setPageView} beep={beep} />
+
         {(pageView === 'all' || pageView === 'home') && (
           <>
-            <HeroSection time={time} onHire={() => setHireOpen(true)} onAI={() => setAiOpen(true)} onSponsor={() => {}} setSearch={setSearch} scrollTo={scrollTo} beep={beep} />
+            <HeroSection
+              time={time}
+              onHire={() => setHireOpen(true)}
+              onAI={() => setAiOpen(true)}
+              onSponsor={() => window.open(SPONSOR_URL, '_blank')}
+              setSearch={setSearch}
+              scrollTo={scrollTo}
+              beep={beep}
+            />
             <AchievementsSection />
             <TimelineSection />
             <TeachingSection beep={beep} />
@@ -211,7 +280,14 @@ export default function App() {
         {(pageView === 'all' || pageView === 'lab') && (
           <>
             <GpuTelemetrySection />
-            <CodeSandboxSection activeTab={codeTab} setActiveTab={setCodeTab} runOutput={codeOut} setRunOutput={setCodeOut} onOpenAlgoGame={() => setAlgoGameOpen(true)} beep={beep} />
+            <CodeSandboxSection
+              activeTab={codeTab}
+              setActiveTab={setCodeTab}
+              runOutput={codeOut}
+              setRunOutput={setCodeOut}
+              onOpenAlgoGame={() => setAlgoGameOpen(true)}
+              beep={beep}
+            />
             <BenchmarkSection />
           </>
         )}
@@ -220,7 +296,21 @@ export default function App() {
           <>
             <ConstellationSection beep={beep} />
             <ContributionGraph />
-            <ProjectsSection repos={repos} search={search} setSearch={setSearch} filter={filter} setFilter={setFilter} hfAssets={hfAssets} hfFilter={hfFilter} setHfFilter={setHfFilter} counts={counts} articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} beep={beep} />
+            <ProjectsSection
+              repos={repos}
+              search={search}
+              setSearch={setSearch}
+              filter={filter}
+              setFilter={setFilter}
+              hfAssets={hfAssets}
+              hfFilter={hfFilter}
+              setHfFilter={setHfFilter}
+              counts={counts}
+              articles={articles}
+              subSearch={subSearch}
+              setSubSearch={setSubSearch}
+              beep={beep}
+            />
           </>
         )}
 
@@ -230,10 +320,21 @@ export default function App() {
 
         {(pageView === 'all' || pageView === 'papers') && (
           <>
-            <PublicationsSection onCopyBib={setBibtexPub} onSelectPaper={setSelectedPaper} beep={beep} />
+            <PublicationsSection
+              onCopyBib={setBibtexPub}
+              onSelectPaper={setSelectedPaper}
+              beep={beep}
+            />
             <TalksSection beep={beep} />
             <SocialFeedSection beep={beep} />
-            <SubstackSection articles={articles} subSearch={subSearch} setSubSearch={setSubSearch} onOpenArticleModal={() => setArticleModalOpen(true)} onSelectPaper={setSelectedPaper} beep={beep} />
+            <SubstackSection
+              articles={articles}
+              subSearch={subSearch}
+              setSubSearch={setSubSearch}
+              onOpenArticleModal={() => setArticleModalOpen(true)}
+              onSelectPaper={setSelectedPaper}
+              beep={beep}
+            />
           </>
         )}
 
@@ -249,37 +350,77 @@ export default function App() {
 
       <Footer gpuM={gpuM} />
 
-      {/* Floating Controls */}
+      {/* ── Floating Controls ───────────────────────────────── */}
       <div className="theme-switcher">
         <div className="theme-switcher-panel">
-          <button className={`ctrl-btn ${soundOn ? 'active' : ''}`} onClick={() => { setSoundOn(!soundOn); showToast(soundOn ? 'Sound Off 🔇' : 'UI Beeps On 🔊'); beep(600); }} title="Toggle UI Sound Beeps">
+          <button
+            className={`ctrl-btn ${soundOn ? 'active' : ''}`}
+            onClick={() => {
+              setSoundOn(!soundOn);
+              showToast(soundOn ? 'Sound Off 🔇' : 'UI Beeps On 🔊');
+              beep(600);
+            }}
+            title="Toggle UI Sound Beeps"
+          >
             <i className={`fas ${soundOn ? 'fa-volume-up' : 'fa-volume-mute'}`} />
           </button>
-          <button className={`ctrl-btn ${weatherAudioOn ? 'active' : ''}`} onClick={handleToggleWeatherAudio} title="Toggle Ambient Weather Rain Soundscape">
-            <i className={`fas ${weatherAudioOn ? 'fa-cloud-showers-heavy' : 'fa-cloud-sun'}`} style={{ color: weatherAudioOn ? 'var(--cyan)' : '' }} />
+
+          <button
+            className={`ctrl-btn ${weatherAudioOn ? 'active' : ''}`}
+            onClick={handleToggleWeatherAudio}
+            title="Toggle Ambient Weather Rain Soundscape"
+          >
+            <i
+              className={`fas ${weatherAudioOn ? 'fa-cloud-showers-heavy' : 'fa-cloud-sun'}`}
+              style={{ color: weatherAudioOn ? 'var(--cyan)' : '' }}
+            />
           </button>
+
           <div className="ctrl-divider" />
+
           {[
             ['rain', 'fa-cloud-rain', 'Cyber Rain'],
             ['snow', 'fa-snowflake', 'Cyber Snow'],
             ['matrix', 'fa-terminal', 'Matrix Rain'],
-            ['stars', 'fa-star', 'Constellation Stars']
+            ['stars', 'fa-star', 'Constellation Stars'],
           ].map(([m, ic, title]) => (
-            <button key={m} className={`ctrl-btn ${weatherMode === m ? 'active' : ''}`} onClick={() => { setWeatherMode(m); showToast(`Weather: ${title} ✨`); beep(700); }} title={title}>
+            <button
+              key={m}
+              className={`ctrl-btn ${weatherMode === m ? 'active' : ''}`}
+              onClick={() => { setWeatherMode(m); showToast(`Weather: ${title} ✨`); beep(700); }}
+              title={title}
+            >
               <i className={`fas ${ic}`} />
             </button>
           ))}
-          <button className={`ctrl-btn ${gameOpen ? 'active' : ''}`} onClick={() => { setGameOpen(true); beep(880); }} title="Play Cyberpunk AI Arcade Game (Neural Defender)">
+
+          <button
+            className={`ctrl-btn ${gameOpen ? 'active' : ''}`}
+            onClick={() => { setGameOpen(true); beep(880); }}
+            title="Play Cyberpunk AI Arcade Game (Neural Defender)"
+          >
             <i className="fas fa-gamepad" style={{ color: 'var(--accent)' }} />
           </button>
+
           <div className="ctrl-divider" />
+
           {['cyan', 'purple', 'emerald', 'rose'].map(c => (
-            <div key={c} className={`accent-dot ${accent === c ? 'active' : ''}`} style={{ background: `var(--${c})` }} onClick={() => setAccentColor(c)} title={c} />
+            <div
+              key={c}
+              className={`accent-dot ${accent === c ? 'active' : ''}`}
+              style={{ background: `var(--${c})` }}
+              onClick={() => setAccentColor(c)}
+              title={c}
+            />
           ))}
         </div>
       </div>
 
-      <button className="back-top-btn" onClick={() => { window.scrollTo(0,0); beep?.(); }} aria-label="Back to top">
+      <button
+        className="back-top-btn"
+        onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); beep?.(); }}
+        aria-label="Back to top"
+      >
         <i className="fas fa-chevron-up" />
       </button>
 
@@ -287,27 +428,48 @@ export default function App() {
         <i className="fas fa-robot" /> <span>Ask AI</span>
       </button>
 
-      {/* Modals & Toasts */}
+      {/* ── Modals & Toasts ─────────────────────────────────── */}
       <Toast msg={toast} />
       <AIChatModal open={aiOpen} onClose={() => setAiOpen(false)} beep={beep} speak={null} />
       <HireModal open={hireOpen} onClose={() => setHireOpen(false)} showToast={showToast} beep={beep} />
       <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} onCmd={handleCmd} />
       <TerminalModal open={cliOpen} onClose={() => setCliOpen(false)} beep={beep} />
-      <ArticleCreatorModal open={articleModalOpen} onClose={() => setArticleModalOpen(false)} onAddArticle={handleAddArticle} beep={beep} showToast={showToast} />
+      <ArticleCreatorModal
+        open={articleModalOpen}
+        onClose={() => setArticleModalOpen(false)}
+        onAddArticle={handleAddArticle}
+        beep={beep}
+        showToast={showToast}
+      />
       <NNPlaygroundModal open={nnOpen} onClose={() => setNnOpen(false)} beep={beep} showToast={showToast} />
-      <PaperReaderModal paper={selectedPaper} onClose={() => setSelectedPaper(null)} onCopyBib={copyBib} beep={beep} />
+      <PaperReaderModal
+        paper={selectedPaper}
+        onClose={() => setSelectedPaper(null)}
+        onCopyBib={copyBib}
+        beep={beep}
+      />
       <CyberpunkGameModal open={gameOpen} onClose={() => setGameOpen(false)} showToast={showToast} beep={beep} />
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       <AlgorithmGameModal open={algoGameOpen} onClose={() => setAlgoGameOpen(false)} showToast={showToast} beep={beep} />
       <TelegramBotModal open={telegramOpen} onClose={() => setTelegramOpen(false)} showToast={showToast} beep={beep} />
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} showToast={showToast} beep={beep} />
-      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} onLogin={setUserProfile} showToast={showToast} beep={beep} />
+      <AuthModal
+        open={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onLogin={setUserProfile}
+        showToast={showToast}
+        beep={beep}
+      />
 
       {/* BibTeX Modal */}
       <Modal open={!!bibtexPub} onClose={() => setBibtexPub(null)}>
         <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Cite Document</h3>
         <div className="bib-box">{bibtexPub}</div>
-        <button className="btn-primary" style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }} onClick={() => copyBib(bibtexPub)}>
+        <button
+          className="btn-primary"
+          style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}
+          onClick={() => copyBib(bibtexPub)}
+        >
           <i className="fas fa-copy" /> Copy to Clipboard
         </button>
       </Modal>
