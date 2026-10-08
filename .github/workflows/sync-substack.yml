@@ -27,6 +27,8 @@ jobs:
           import json
           import re
           import sys
+          from datetime import datetime
+          from email.utils import parsedate_to_datetime
 
           url = 'https://hooshaai.substack.com/feed'
 
@@ -55,6 +57,20 @@ jobs:
           channel = root.find('channel')
           items = channel.findall('item') if channel is not None else []
 
+          def to_iso(date_str: str) -> str:
+              # pubDate: "Mon, 06 Oct 2025 12:34:56 GMT"
+              try:
+                  dt = parsedate_to_datetime(date_str)
+                  return dt.strftime('%Y-%m-%d')
+              except Exception:
+                  # fallback: try common patterns, else return first 10 chars
+                  for fmt in ('%Y-%m-%dT%H:%M:%S', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d'):
+                      try:
+                          return datetime.strptime(date_str[:19], fmt).strftime('%Y-%m-%d')
+                      except Exception:
+                          continue
+                  return (date_str or '')[:10]
+
           articles = []
           for item in items:
               title = (item.findtext('title') or '').strip()
@@ -64,22 +80,22 @@ jobs:
 
               clean_desc = re.sub(r'<[^>]+>', '', desc)
               clean_desc = re.sub(r'\s+', ' ', clean_desc).strip()
-              if len(clean_desc) > 150:
-                  clean_desc = clean_desc[:147] + '...'
+              if len(clean_desc) > 200:
+                  clean_desc = clean_desc[:197] + '...'
 
               articles.append({
                   'title': title,
                   'link': link,
-                  'date': pub_date[:16],
+                  'date': to_iso(pub_date),
                   'desc': clean_desc,
               })
 
-          with open('data.json', 'r') as f:
+          with open('data.json', 'r', encoding='utf-8') as f:
               data = json.load(f)
 
           data['articles'] = articles
 
-          with open('data.json', 'w') as f:
+          with open('data.json', 'w', encoding='utf-8') as f:
               json.dump(data, f, indent=2, ensure_ascii=False)
 
           print(f'Successfully synced {len(articles)} Substack articles into data.json!')
