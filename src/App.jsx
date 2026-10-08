@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useToast, useTehranClock, useGpuMetrics, useBeep, useNeuralCanvas } from './hooks/index.js';
 
 import Navigation from './components/layout/Navigation.jsx';
@@ -44,10 +44,13 @@ import AuthModal from './components/modals/AuthModal.jsx';
 import Modal from './components/ui/Modal.jsx';
 import Toast from './components/ui/Toast.jsx';
 
-import { toggleWeatherAudio, stopWeatherAudio } from './utils/weatherAudio.js';
+import { toggleWeatherAudio } from './utils/weatherAudio.js';
 
 const SPONSOR_URL = 'https://github.com/sponsors/tahamajs';
 const EMAIL = 'tahamajlesi@ut.ac.ir';
+
+// دسته‌بندی‌های واقعی داده در data.json: course, ai, systems, web
+const CATEGORIES = ['course', 'ai', 'systems', 'web'];
 
 export default function App() {
   // ── Global States ─────────────────────────────────────────
@@ -89,7 +92,7 @@ export default function App() {
   const time = useTehranClock();
   const gpuM = useGpuMetrics();
   const beep = useBeep(soundOn);
-  useNeuralCanvas(weatherMode); // Atmospheric weather background
+  useNeuralCanvas(weatherMode);
 
   // ── Weather Audio Toggle ──────────────────────────────────
   const handleToggleWeatherAudio = useCallback(() => {
@@ -107,7 +110,7 @@ export default function App() {
       .catch(() => {});
   }, []);
 
-  // ── Keyboard Shortcuts (⌘K, ⌘J, ?, 1-6, M, Esc) ──────────
+  // ── Keyboard Shortcuts ────────────────────────────────────
   useEffect(() => {
     const fn = (e) => {
       const tag = document.activeElement?.tagName?.toLowerCase();
@@ -144,7 +147,8 @@ export default function App() {
     if (!ok) return false;
     const q = search.trim().toLowerCase();
     if (!q) return true;
-    const haystack = [r.name, r.desc, r.lang, r.tag].filter(Boolean).join(' ').toLowerCase();
+    const haystack = [r.name, r.title, r.desc, r.lang, r.tag, r.uni]
+      .filter(Boolean).join(' ').toLowerCase();
     return haystack.includes(q);
   }), [data.repos, filter, search]);
 
@@ -164,16 +168,19 @@ export default function App() {
     [data.hf, hfFilter]
   );
 
-  // Counts should reflect the *raw* dataset, not the filtered list
+  // شمارنده‌ها روی کل داده، نه روی لیست فیلترشده
   const counts = useMemo(() => {
     const all = data.repos || [];
+    const hf = data.hf || [];
+    const byCat = (c) => all.filter(r => r.cat === c).length;
     return {
       all: all.length,
-      course:  all.filter(r => r.cat === 'course').length,
-      ml:      all.filter(r => r.cat === 'ml').length,
-      systems: all.filter(r => r.cat === 'systems').length,
-      hfModels:   (data.hf || []).filter(a => a.type === 'model').length,
-      hfDatasets: (data.hf || []).filter(a => a.type === 'dataset').length,
+      course:  byCat('course'),
+      ai:      byCat('ai'),
+      systems: byCat('systems'),
+      web:     byCat('web'),
+      hfModels:   hf.filter(a => a.type === 'model').length,
+      hfDatasets: hf.filter(a => a.type === 'dataset').length,
     };
   }, [data.repos, data.hf]);
 
@@ -302,6 +309,7 @@ export default function App() {
               setSearch={setSearch}
               filter={filter}
               setFilter={setFilter}
+              categories={CATEGORIES}
               hfAssets={hfAssets}
               hfFilter={hfFilter}
               setHfFilter={setHfFilter}
