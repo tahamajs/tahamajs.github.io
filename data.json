@@ -588,6 +588,12 @@
   ],
   "articles": [
     {
+      "title": "Helion Explained: The Future of GPU Kernel Programming Is About Searching, Not Handwriting",
+      "link": "https://hooshaai.substack.com/p/helion-explained-the-future-of-gpu",
+      "date": "2026-11-20",
+      "desc": "From handwritten GPU kernels to compiler-driven search: how Helion is changing the way we think about kernel optimization."
+    },
+    {
       "title": "Nature’s Codebase: How Human Evolution Architected the Algorithms of Large Language Models",
       "link": "https://hooshaai.substack.com/p/natures-codebase-how-human-evolution",
       "date": "2026-10-07",
@@ -700,12 +706,6 @@
       "link": "https://hooshaai.substack.com/p/breaking-the-quadratic-barrier",
       "date": "2026-08-10",
       "desc": "The Architectural Evolution of Linear Transformers and Infinite Context Models"
-    },
-    {
-      "title": "Implementing Grounded Causal Verification to Prevent Recursive Epistemic Collapse in Self-Improving AI Systems",
-      "link": "https://hooshaai.substack.com/p/implementing-grounded-causal-verification",
-      "date": "2026-08-07",
-      "desc": "The pursuit of recursive self-improvement in large language models relies on the fundamental premise that an artificial agent can autonomously evaluate, refine, and integrate modifications to its own"
     }
   ],
   "hf": [
