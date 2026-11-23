@@ -588,6 +588,12 @@
   ],
   "articles": [
     {
+      "title": "Downloading a GGUF Is Easy. Understanding Local AI Means Knowing These 10 Things.",
+      "link": "https://hooshaai.substack.com/p/downloading-a-gguf-is-easy-understanding",
+      "date": "2026-11-23",
+      "desc": "From roofline bottlenecks and discrete router collapse to why perplexity lies&#8212;a systems-level field guide to what actually happens when you run modern LLMs on your own silicon."
+    },
+    {
       "title": "Helion Explained: The Future of GPU Kernel Programming Is About Searching, Not Handwriting",
       "link": "https://hooshaai.substack.com/p/helion-explained-the-future-of-gpu",
       "date": "2026-11-20",
@@ -700,12 +706,6 @@
       "link": "https://hooshaai.substack.com/p/re-engineering-the-attention-engine",
       "date": "2026-08-10",
       "desc": "Mathematical Frontiers in Sub-Quadratic Transformers"
-    },
-    {
-      "title": "Breaking the Quadratic Barrier",
-      "link": "https://hooshaai.substack.com/p/breaking-the-quadratic-barrier",
-      "date": "2026-08-10",
-      "desc": "The Architectural Evolution of Linear Transformers and Infinite Context Models"
     }
   ],
   "hf": [
